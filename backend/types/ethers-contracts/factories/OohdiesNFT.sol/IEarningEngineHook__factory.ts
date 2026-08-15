@@ -1,0 +1,38 @@
+import { Contract, Interface, type ContractRunner } from "ethers";
+  import type { IEarningEngineHook, IEarningEngineHookInterface } from "../../OohdiesNFT.sol/IEarningEngineHook.js";
+
+  const _abi = [
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "onNftTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+] as const;
+
+  export class IEarningEngineHook__factory {
+    static readonly abi = _abi;
+    static createInterface(): IEarningEngineHookInterface {
+      return new Interface(_abi) as IEarningEngineHookInterface;
+    }
+    static connect(address: string, runner?: ContractRunner | null): IEarningEngineHook {
+      return new Contract(address, _abi, runner) as unknown as IEarningEngineHook;
+    }
+  }

@@ -1,0 +1,66 @@
+import { Contract, Interface, type ContractRunner } from "ethers";
+  import type { IActivationControllerView, IActivationControllerViewInterface } from "../../EarningEngine.sol/IActivationControllerView.js";
+
+  const _abi = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getActivatedAt",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isActivated",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalActivated",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+] as const;
+
+  export class IActivationControllerView__factory {
+    static readonly abi = _abi;
+    static createInterface(): IActivationControllerViewInterface {
+      return new Interface(_abi) as IActivationControllerViewInterface;
+    }
+    static connect(address: string, runner?: ContractRunner | null): IActivationControllerView {
+      return new Contract(address, _abi, runner) as unknown as IActivationControllerView;
+    }
+  }

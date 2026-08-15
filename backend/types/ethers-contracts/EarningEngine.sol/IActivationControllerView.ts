@@ -1,0 +1,85 @@
+import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, ContractRunner, ContractMethod, Listener } from "ethers"
+import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedListener, TypedContractMethod } from "../common.js"
+
+  export interface IActivationControllerViewInterface extends Interface {
+    getFunction(nameOrSignature: "getActivatedAt" | "isActivated" | "totalActivated"): FunctionFragment;
+
+    encodeFunctionData(functionFragment: 'getActivatedAt', values: [BigNumberish]): string;
+encodeFunctionData(functionFragment: 'isActivated', values: [BigNumberish]): string;
+encodeFunctionData(functionFragment: 'totalActivated', values?: undefined): string;
+
+    decodeFunctionResult(functionFragment: 'getActivatedAt', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'isActivated', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'totalActivated', data: BytesLike): Result;
+  }
+
+  export interface IActivationControllerView extends BaseContract {
+
+    connect(runner?: ContractRunner | null): IActivationControllerView;
+    waitForDeployment(): Promise<this>;
+
+    interface: IActivationControllerViewInterface;
+
+  queryFilter<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    fromBlockOrBlockhash?: string | number | undefined,
+    toBlock?: string | number | undefined,
+  ): Promise<Array<TypedEventLog<TCEvent>>>
+  queryFilter<TCEvent extends TypedContractEvent>(
+    filter: TypedDeferredTopicFilter<TCEvent>,
+    fromBlockOrBlockhash?: string | number | undefined,
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>;
+
+  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>
+  on<TCEvent extends TypedContractEvent>(filter: TypedDeferredTopicFilter<TCEvent>, listener: TypedListener<TCEvent>): Promise<this>
+
+  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>
+  once<TCEvent extends TypedContractEvent>(filter: TypedDeferredTopicFilter<TCEvent>, listener: TypedListener<TCEvent>): Promise<this>
+
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>;
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
+
+    getActivatedAt: TypedContractMethod<
+      [tokenId: BigNumberish, ],
+      [bigint],
+      'view'
+    >
+
+    isActivated: TypedContractMethod<
+      [tokenId: BigNumberish, ],
+      [boolean],
+      'view'
+    >
+
+    totalActivated: TypedContractMethod<
+      [],
+      [bigint],
+      'view'
+    >
+
+    getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+
+    getFunction(nameOrSignature: 'getActivatedAt'): TypedContractMethod<
+      [tokenId: BigNumberish, ],
+      [bigint],
+      'view'
+    >;
+getFunction(nameOrSignature: 'isActivated'): TypedContractMethod<
+      [tokenId: BigNumberish, ],
+      [boolean],
+      'view'
+    >;
+getFunction(nameOrSignature: 'totalActivated'): TypedContractMethod<
+      [],
+      [bigint],
+      'view'
+    >;
+
+    filters: {
+
+    };
+  }
