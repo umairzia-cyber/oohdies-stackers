@@ -54,7 +54,7 @@ export default function RainforestBackground() {
               height="65"
               viewBox="0 0 60 80"
               fill="none"
-              xmlns="http:
+              xmlns="http://www.w3.org/2000/svg"
             >
 
               <path

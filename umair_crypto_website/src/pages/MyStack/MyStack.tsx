@@ -11,6 +11,7 @@ import {
 } from '../../hooks';
 import { SEO, WALLET } from '../../constants/content';
 import { formatWalletAddress } from '../../utils';
+import { shortenAddress } from '../../utils/tokenBoundAccount';
 import {
   SUPPORTED_REWARD_ASSETS,
   ROBINHOOD_TESTNET_CONFIG,
@@ -34,6 +35,7 @@ export default function MyStack() {
     fetchUserActivity,
     fetchRewardPeriodInfo,
     claimRewardAsset,
+    withdrawFromWallet,
   } = useContract();
 
   const [userNFTs, setUserNFTs] = useState<UserNFTItem[]>([]);
@@ -43,6 +45,8 @@ export default function MyStack() {
   const [fetchingNFTs, setFetchingNFTs] = useState(false);
   const [fetchingActivity, setFetchingActivity] = useState(false);
   const [activeClaimingKey, setActiveClaimingKey] = useState<string | null>(null);
+  const [activeWithdrawKey, setActiveWithdrawKey] = useState<string | null>(null);
+  const [copiedWallet, setCopiedWallet] = useState<number | null>(null);
 
   const isMountedRef = useRef(true);
   useEffect(() => {
@@ -69,9 +73,10 @@ export default function MyStack() {
       }
 
       if (isInitial) {
+        const ownedTokenIds = items.map((item) => item.tokenId);
         const [acts, claimed] = await Promise.all([
-          fetchUserActivity(wallet.address),
-          fetchUserTotalClaimed(wallet.address),
+          fetchUserActivity(wallet.address, ownedTokenIds),
+          fetchUserTotalClaimed(wallet.address, ownedTokenIds),
         ]);
         if (isMountedRef.current) {
           setUserActivity(acts);
@@ -109,6 +114,39 @@ export default function MyStack() {
       if (isMountedRef.current) {
         setActiveClaimingKey(null);
       }
+    }
+  };
+
+  const handleWithdraw = async (
+    tokenId: number,
+    assetAddress: string,
+    assetSymbol: string,
+    amountRaw: bigint,
+  ) => {
+    if (!wallet.isCorrectNetwork) return;
+    const key = `${tokenId}:${assetAddress.toLowerCase()}`;
+    setActiveWithdrawKey(key);
+    try {
+      await withdrawFromWallet(tokenId, assetAddress, amountRaw);
+      await loadBlockchainData(true);
+    } catch (err) {
+      console.error(`Withdraw ${assetSymbol} failed for Oohdie #${tokenId}:`, err);
+    } finally {
+      if (isMountedRef.current) {
+        setActiveWithdrawKey(null);
+      }
+    }
+  };
+
+  const handleCopyWallet = async (tokenId: number, address: string) => {
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopiedWallet(tokenId);
+      setTimeout(() => {
+        if (isMountedRef.current) setCopiedWallet(null);
+      }, 1500);
+    } catch {
+      /* clipboard unavailable — the address is on screen anyway */
     }
   };
 
@@ -343,6 +381,18 @@ export default function MyStack() {
                             </span>
                           </div>
 
+                          <div className="nft-card__wallet flex justify-between items-center mb-3 text-xs">
+                            <span className="text-muted">NFT wallet:</span>
+                            <button
+                              type="button"
+                              className="font-mono text-accent"
+                              title={`${item.walletAddress} — click to copy`}
+                              onClick={() => handleCopyWallet(item.tokenId, item.walletAddress)}
+                            >
+                              {copiedWallet === item.tokenId ? 'Copied!' : shortenAddress(item.walletAddress)}
+                            </button>
+                          </div>
+
                           {item.isActivated ? (
                             /* Activated: 3 Chosen Stocks Rewards & Individual Claim Buttons */
                             <div className="nft-card__rewards pt-3 border-t border-color">
@@ -352,31 +402,95 @@ export default function MyStack() {
                                 const claimableNum = parseFloat(claimableVal) || 0;
                                 const claimKey = `${item.tokenId}:${asset.address.toLowerCase()}`;
                                 const isThisClaiming = loading && activeClaimingKey === claimKey;
+                                const isThisWithdrawing = loading && activeWithdrawKey === claimKey;
+
+                                const inWalletRaw = rewardInfo ? rewardInfo.walletBalanceRaw : 0n;
+                                const inWalletNum = parseFloat(rewardInfo ? rewardInfo.walletBalance : '0') || 0;
+                                const fmt = (n: number) =>
+                                  asset.decimals === 6 ? `$${n.toFixed(2)}` : n.toFixed(4);
 
                                 return (
                                   <div key={asset.address} className="mb-3">
                                     <div className="flex justify-between items-center mb-1">
                                       <span className="text-xs text-muted">Claimable {asset.symbol}:</span>
                                       <span className="font-bold text-accent font-mono">
-                                        {asset.decimals === 6 ? `$${claimableNum.toFixed(2)}` : claimableNum.toFixed(4)}
+                                        {fmt(claimableNum)}
                                       </span>
                                     </div>
+                                    <div className="flex justify-between items-center mb-1">
+                                      <span className="text-xs text-muted">In NFT wallet:</span>
+                                      <span className="font-bold font-mono">{fmt(inWalletNum)}</span>
+                                    </div>
                                     <button
-                                      className={`btn ${asset.symbol === 'USDG' ? 'btn--primary' : 'btn--secondary'} btn--xs w-full`}
+                                      className={`btn ${asset.symbol === 'USDG' ? 'btn--primary' : 'btn--secondary'} btn--xs w-full mb-1`}
                                       onClick={() => handleClaim(item.tokenId, asset.address, asset.symbol)}
                                       disabled={loading || claimableNum <= 0 || !wallet.isCorrectNetwork}
+                                      title={`Move accrued ${asset.symbol} from the vault into Oohdie #${item.tokenId}'s wallet`}
                                     >
                                       {isThisClaiming
                                         ? `Claiming ${asset.symbol} from #${item.tokenId}...`
-                                        : `Claim ${asset.symbol}`}
+                                        : `Claim ${asset.symbol} → NFT wallet`}
+                                    </button>
+                                    <button
+                                      className="btn btn--ghost btn--xs w-full"
+                                      onClick={() =>
+                                        handleWithdraw(item.tokenId, asset.address, asset.symbol, inWalletRaw)
+                                      }
+                                      disabled={loading || inWalletRaw <= 0n || !wallet.isCorrectNetwork}
+                                      title={`Move ${asset.symbol} out of Oohdie #${item.tokenId}'s wallet into your own`}
+                                    >
+                                      {isThisWithdrawing
+                                        ? `Withdrawing ${asset.symbol}...`
+                                        : `Withdraw ${asset.symbol} → me`}
                                     </button>
                                   </div>
                                 );
                               })}
                             </div>
                           ) : (
-                            /* Unactivated: Shows only the activation CTA */
+                            /* A freshly bought Oohdie arrives deactivated but may still be loaded. */
                             <div className="nft-card__rewards pt-3 border-t border-color text-center">
+                              {(() => {
+                                const held = SUPPORTED_REWARD_ASSETS
+                                  .map((asset) => ({ asset, info: item.rewards?.[asset.address.toLowerCase()] }))
+                                  .filter(({ info }) => info && info.walletBalanceRaw > 0n);
+
+                                if (held.length === 0) return null;
+
+                                return (
+                                  <div className="mb-3 text-left">
+                                    <p className="text-xs text-muted mb-2">
+                                      This Oohdie's wallet is holding tokens from before it was transferred or deactivated.
+                                    </p>
+                                    {held.map(({ asset, info }) => {
+                                      const key = `${item.tokenId}:${asset.address.toLowerCase()}`;
+                                      const isThisWithdrawing = loading && activeWithdrawKey === key;
+                                      const amount = parseFloat(info!.walletBalance) || 0;
+                                      return (
+                                        <div key={asset.address} className="mb-2">
+                                          <div className="flex justify-between items-center mb-1">
+                                            <span className="text-xs text-muted">In NFT wallet:</span>
+                                            <span className="font-bold font-mono">
+                                              {asset.decimals === 6 ? `$${amount.toFixed(2)}` : amount.toFixed(4)} {asset.symbol}
+                                            </span>
+                                          </div>
+                                          <button
+                                            className="btn btn--ghost btn--xs w-full"
+                                            onClick={() =>
+                                              handleWithdraw(item.tokenId, asset.address, asset.symbol, info!.walletBalanceRaw)
+                                            }
+                                            disabled={loading || !wallet.isCorrectNetwork}
+                                          >
+                                            {isThisWithdrawing
+                                              ? `Withdrawing ${asset.symbol}...`
+                                              : `Withdraw ${asset.symbol} → me`}
+                                          </button>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                );
+                              })()}
                               <p className="text-xs text-muted mb-3">
                                 This Oohdie is not activated. Burn 100 $BANANA and choose your 3 stocks to begin stacking hourly earnings.
                               </p>

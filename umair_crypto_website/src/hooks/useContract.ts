@@ -13,8 +13,11 @@ import {
   ACTIVATION_CONTROLLER_ABI,
   EARNING_ENGINE_ABI,
   REWARD_VAULT_ABI,
+  MOCK_REWARD_TOKEN_ABI,
+  OOHDIES_ACCOUNT_ABI,
 } from '../constants/abis';
-import { getNFTChosenStockIds, getNFTChosenAssets } from '../utils/stockSelection';
+import { getNFTChosenAssets } from '../utils/stockSelection';
+import { predictAccountAddress } from '../utils/tokenBoundAccount';
 
 const publicProvider = new ethers.JsonRpcProvider(ROBINHOOD_TESTNET_CONFIG.rpcUrl);
 
@@ -24,14 +27,20 @@ export interface NFTRewardClaimable {
   symbol: string;
   decimals: number;
   icon?: string;
+  /** Still in the vault, waiting to be claimed. */
   claimable: string;
   claimableRaw: bigint;
+  /** Already inside the NFT's wallet, withdrawable by its owner. */
+  walletBalance: string;
+  walletBalanceRaw: bigint;
 }
 
 export interface UserNFTItem {
   tokenId: number;
   name: string;
   image: string;
+  /** The NFT's own wallet. Rewards are paid here, not to the owner's address. */
+  walletAddress: string;
   isActivated: boolean;
   activatedAt: number;
   chosenStockIds: string[];
@@ -203,47 +212,79 @@ export function useContract() {
               activationContract.getActivatedAt(tokenId).catch(() => 0n),
             ]);
 
-            const chosenStockIds = getNFTChosenStockIds(tokenId);
-            const chosenAssets = getNFTChosenAssets(tokenId);
+            // Picks are recorded on-chain at activation, so for an active NFT the chain wins.
+            // localStorage is only a draft for one that hasn't been activated yet.
+            let chosenAssets: RewardAssetConfig[] = [];
+            if (isAct) {
+              try {
+                const onChain: string[] = await engineContract.getChosenAssets(tokenId);
+                chosenAssets = onChain
+                  .map((a) =>
+                    SUPPORTED_REWARD_ASSETS.find(
+                      (cfg) => cfg.address.toLowerCase() === a.toLowerCase()
+                    )
+                  )
+                  .filter((a): a is RewardAssetConfig => Boolean(a));
+              } catch {
+                chosenAssets = [];
+              }
+            }
+            if (chosenAssets.length === 0) {
+              chosenAssets = getNFTChosenAssets(tokenId);
+            }
+            const chosenStockIds = chosenAssets.map((a) => a.id);
+
+            const walletAddress = predictAccountAddress(tokenId);
 
             const rewards: Record<string, NFTRewardClaimable> = {};
             let usdgClaimableStr = '0.00';
             let aaplClaimableStr = '0.0000';
 
-            if (Boolean(isAct)) {
+            // Read even when deactivated — an Oohdie can still hold rewards claimed earlier.
+            await Promise.all(
+              chosenAssets.map(async (asset: RewardAssetConfig) => {
+                const key = asset.address.toLowerCase();
+                try {
+                  const tokenContract = new ethers.Contract(asset.address, MOCK_REWARD_TOKEN_ABI, publicProvider);
 
-              await Promise.all(
-                chosenAssets.map(async (asset: RewardAssetConfig) => {
-                  try {
-                    const claimableWei = await engineContract.getTotalClaimableReward(tokenId, asset.address).catch(() => 0n);
-                    const formatted = ethers.formatUnits(claimableWei, asset.decimals);
+                  const [claimableWei, walletWei] = await Promise.all([
+                    isAct
+                      ? engineContract.getTotalClaimableReward(tokenId, asset.address).catch(() => 0n)
+                      : Promise.resolve(0n),
+                    tokenContract.balanceOf(walletAddress).catch(() => 0n),
+                  ]);
 
-                    rewards[asset.address.toLowerCase()] = {
-                      assetId: asset.id,
-                      assetAddress: asset.address,
-                      symbol: asset.symbol,
-                      decimals: asset.decimals,
-                      icon: asset.icon,
-                      claimable: formatted,
-                      claimableRaw: claimableWei,
-                    };
+                  const formatted = ethers.formatUnits(claimableWei, asset.decimals);
 
-                    if (asset.symbol === 'USDG') usdgClaimableStr = formatted;
-                    if (asset.symbol === 'AAPLx') aaplClaimableStr = formatted;
-                  } catch {
-                    rewards[asset.address.toLowerCase()] = {
-                      assetId: asset.id,
-                      assetAddress: asset.address,
-                      symbol: asset.symbol,
-                      decimals: asset.decimals,
-                      icon: asset.icon,
-                      claimable: '0.00',
-                      claimableRaw: 0n,
-                    };
-                  }
-                })
-              );
-            }
+                  rewards[key] = {
+                    assetId: asset.id,
+                    assetAddress: asset.address,
+                    symbol: asset.symbol,
+                    decimals: asset.decimals,
+                    icon: asset.icon,
+                    claimable: formatted,
+                    claimableRaw: claimableWei,
+                    walletBalance: ethers.formatUnits(walletWei, asset.decimals),
+                    walletBalanceRaw: walletWei,
+                  };
+
+                  if (asset.symbol === 'USDG') usdgClaimableStr = formatted;
+                  if (asset.symbol === 'AAPLx') aaplClaimableStr = formatted;
+                } catch {
+                  rewards[key] = {
+                    assetId: asset.id,
+                    assetAddress: asset.address,
+                    symbol: asset.symbol,
+                    decimals: asset.decimals,
+                    icon: asset.icon,
+                    claimable: '0.00',
+                    claimableRaw: 0n,
+                    walletBalance: '0.00',
+                    walletBalanceRaw: 0n,
+                  };
+                }
+              })
+            );
 
             for (const asset of SUPPORTED_REWARD_ASSETS) {
               if (!rewards[asset.address.toLowerCase()]) {
@@ -255,6 +296,8 @@ export function useContract() {
                   icon: asset.icon,
                   claimable: asset.decimals === 6 ? '0.00' : '0.0000',
                   claimableRaw: 0n,
+                  walletBalance: asset.decimals === 6 ? '0.00' : '0.0000',
+                  walletBalanceRaw: 0n,
                 };
               }
             }
@@ -265,6 +308,7 @@ export function useContract() {
               tokenId,
               name: `Oohdie #${String(tokenId).padStart(3, '0')}`,
               image: `/assets/collection/user_art_${artIndex}.jpg`,
+              walletAddress,
               isActivated: Boolean(isAct),
               activatedAt: Number(actAt),
               chosenStockIds,
@@ -292,11 +336,26 @@ export function useContract() {
     }
   }, []);
 
-  const fetchUserTotalClaimed = useCallback(async (userAddress: string): Promise<AssetClaimTotal[]> => {
+  const fetchUserTotalClaimed = useCallback(async (userAddress: string, tokenIds: number[] = []): Promise<AssetClaimTotal[]> => {
     if (!userAddress) return [];
     try {
       const vaultContract = new ethers.Contract(CONTRACT_ADDRESSES.REWARD_VAULT, REWARD_VAULT_ABI, publicProvider);
-      const claimFilter = vaultContract.filters.RewardClaimed(null, null, userAddress);
+
+      // Gathered per wallet, not per connected address. Counts everything the user's Oohdies have
+      // claimed, whether or not it was since withdrawn.
+      const walletAddresses = tokenIds.map((id) => predictAccountAddress(id));
+      if (walletAddresses.length === 0) {
+        return SUPPORTED_REWARD_ASSETS.map((asset) => ({
+          assetAddress: asset.address,
+          symbol: asset.symbol,
+          decimals: asset.decimals,
+          icon: asset.icon,
+          totalClaimed: ethers.formatUnits(0n, asset.decimals),
+          totalClaimedRaw: 0n,
+        }));
+      }
+
+      const claimFilter = vaultContract.filters.RewardClaimed(null, null, walletAddresses);
       const claimEvents = await vaultContract.queryFilter(claimFilter, 0, 'latest');
 
       const totalsByAsset: Record<string, bigint> = {};
@@ -325,15 +384,20 @@ export function useContract() {
     }
   }, []);
 
-  const fetchUserActivity = useCallback(async (userAddress: string): Promise<UserActivityItem[]> => {
+  const fetchUserActivity = useCallback(async (userAddress: string, tokenIds: number[] = []): Promise<UserActivityItem[]> => {
     if (!userAddress) return [];
     try {
       const vaultContract = new ethers.Contract(CONTRACT_ADDRESSES.REWARD_VAULT, REWARD_VAULT_ABI, publicProvider);
       const actContract = new ethers.Contract(CONTRACT_ADDRESSES.ACTIVATION_CONTROLLER, ACTIVATION_CONTROLLER_ABI, publicProvider);
       const nftContract = new ethers.Contract(CONTRACT_ADDRESSES.OOHDIES_NFT, OOHDIES_NFT_ABI, publicProvider);
 
+      // recipient is the NFT's wallet, never the owner — filtering on userAddress matches nothing.
+      const walletAddresses = tokenIds.map((id) => predictAccountAddress(id));
+
       const [claimEvents, actEvents, transferEvents] = await Promise.all([
-        vaultContract.queryFilter(vaultContract.filters.RewardClaimed(null, null, userAddress), 0, 'latest').catch(() => []),
+        walletAddresses.length === 0
+          ? Promise.resolve([])
+          : vaultContract.queryFilter(vaultContract.filters.RewardClaimed(null, null, walletAddresses), 0, 'latest').catch(() => []),
         actContract.queryFilter(actContract.filters.NFTActivated(null, userAddress), 0, 'latest').catch(() => []),
         nftContract.queryFilter(nftContract.filters.Transfer(null, userAddress), 0, 'latest').catch(() => []),
       ]);
@@ -470,7 +534,7 @@ export function useContract() {
     }
   }, [signer, isConnected]);
 
-  const activateNFT = useCallback(async (tokenId: number) => {
+  const activateNFT = useCallback(async (tokenId: number, assetAddresses: string[]) => {
     if (!signer || !isConnected) throw new Error('Wallet not connected');
     setLoading(true);
     setTxStatus('awaiting');
@@ -494,8 +558,13 @@ export function useContract() {
         console.log('BANANA approved.');
       }
 
+      const required = Number(await activationContract.requiredPicks());
+      if (assetAddresses.length !== required) {
+        throw new Error(`Choose exactly ${required} stocks (received ${assetAddresses.length}).`);
+      }
+
       setTxStatus('awaiting');
-      const actTx = await activationContract.activate(tokenId);
+      const actTx = await activationContract.activate(tokenId, assetAddresses);
       setTxStatus('pending');
       setTxHash(actTx.hash);
       const receipt = await actTx.wait();
@@ -538,6 +607,60 @@ export function useContract() {
     } catch (err: any) {
       setTxStatus('failed');
       setTxError(err.reason || err.message || 'Claim failed');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [signer, isConnected]);
+
+  /**
+   * Moves tokens from an Oohdie's wallet to the connected owner. Deploys the wallet on first use —
+   * rewards accumulate at the address before the contract exists, which is expected.
+   */
+  const withdrawFromWallet = useCallback(async (
+    tokenId: number,
+    assetAddress: string,
+    amountRaw: bigint,
+  ) => {
+    if (!signer || !isConnected) throw new Error('Wallet not connected');
+    if (amountRaw <= 0n) throw new Error('Nothing to withdraw');
+
+    setLoading(true);
+    setTxStatus('awaiting');
+    setTxHash(null);
+    setTxError(null);
+
+    try {
+      const walletAddress = predictAccountAddress(tokenId);
+      const ownerAddress = await signer.getAddress();
+
+      const code = await publicProvider.getCode(walletAddress);
+      if (code === '0x') {
+        const vaultContract = new ethers.Contract(CONTRACT_ADDRESSES.REWARD_VAULT, REWARD_VAULT_ABI, signer);
+        const createTx = await vaultContract.createAccount(tokenId);
+        setTxStatus('pending');
+        setTxHash(createTx.hash);
+        await createTx.wait();
+        setTxStatus('awaiting');
+      }
+
+      const tokenInterface = new ethers.Interface(MOCK_REWARD_TOKEN_ABI);
+      const transferData = tokenInterface.encodeFunctionData('transfer', [ownerAddress, amountRaw]);
+
+      const account = new ethers.Contract(walletAddress, OOHDIES_ACCOUNT_ABI, signer);
+      const tx = await account.execute(assetAddress, 0, transferData, 0);
+      setTxStatus('pending');
+      setTxHash(tx.hash);
+      const receipt = await tx.wait();
+
+      if (receipt.status === 1) {
+        setTxStatus('confirmed');
+        return true;
+      }
+      throw new Error('Withdrawal transaction failed');
+    } catch (err: any) {
+      setTxStatus('failed');
+      setTxError(err.reason || err.message || 'Withdrawal failed');
       throw err;
     } finally {
       setLoading(false);
@@ -603,6 +726,7 @@ export function useContract() {
     mintNFT,
     activateNFT,
     claimRewardAsset,
+    withdrawFromWallet,
     resetTxState: () => {
       setTxStatus('idle');
       setTxHash(null);

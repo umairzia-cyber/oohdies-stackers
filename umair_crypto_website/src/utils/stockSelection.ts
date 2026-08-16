@@ -1,5 +1,8 @@
 import { SUPPORTED_REWARD_ASSETS, RewardAssetConfig } from '../constants/contracts';
 
+// Draft of an NFT's stock selection, used only before it is activated. Once activated the picks
+// live on-chain and are read back from EarningEngine.getChosenAssets.
+
 const DEFAULT_PRESETS: Record<number, string[]> = {
   1: ['tsla', 'nvda', 'aapl'],
   2: ['msft', 'amzn', 'usdg'],

@@ -13,7 +13,9 @@ interface IBurnableERC20 {
 }
 
 interface IEarningEngineActivation {
-    function onNftActivation(uint256 tokenId) external;
+    function onNftActivation(uint256 tokenId, address[] calldata assets) external;
+    function onNftDeactivation(uint256 tokenId) external;
+    function isRegisteredAsset(address asset) external view returns (bool);
 }
 
 contract ActivationController is Ownable, Pausable, ReentrancyGuard {
@@ -32,6 +34,9 @@ contract ActivationController is Ownable, Pausable, ReentrancyGuard {
 
     uint256 public totalActivated;
 
+    uint256 public requiredPicks = 3;
+
+    event RequiredPicksUpdated(uint256 oldValue, uint256 newValue);
     event NFTActivated(
         uint256 indexed tokenId,
         address indexed owner,
@@ -47,6 +52,11 @@ contract ActivationController is Ownable, Pausable, ReentrancyGuard {
     error ActivationCostNotSet();
     error ZeroAddressNotAllowed();
     error OnlyNFTContractAllowed();
+    error WrongNumberOfPicks(uint256 provided, uint256 required);
+    error AssetNotSelectable(address asset);
+    error DuplicatePick(address asset);
+    error EarningEngineNotSet();
+    error InvalidRequiredPicks();
 
     constructor(
         address _oohdiesNFT,
@@ -82,7 +92,16 @@ contract ActivationController is Ownable, Pausable, ReentrancyGuard {
         _unpause();
     }
 
-    function activate(uint256 tokenId) external nonReentrant whenNotPaused {
+    function setRequiredPicks(uint256 newValue) external onlyOwner {
+        if (newValue == 0) revert InvalidRequiredPicks();
+        uint256 oldValue = requiredPicks;
+        requiredPicks = newValue;
+        emit RequiredPicksUpdated(oldValue, newValue);
+    }
+
+    /// @param assets Exactly `requiredPicks` distinct registered assets. The NFT earns only
+    ///        these, sharing each one's stream with the others that chose it.
+    function activate(uint256 tokenId, address[] calldata assets) external nonReentrant whenNotPaused {
         address nftOwner = oohdiesNFT.ownerOf(tokenId);
         if (nftOwner != msg.sender) revert NotNFTOwner(tokenId, msg.sender);
 
@@ -91,11 +110,21 @@ contract ActivationController is Ownable, Pausable, ReentrancyGuard {
         uint256 cost = activationCost;
         if (cost == 0) revert ActivationCostNotSet();
 
+        if (earningEngine == address(0)) revert EarningEngineNotSet();
+        if (assets.length != requiredPicks) revert WrongNumberOfPicks(assets.length, requiredPicks);
+
+        // Validate before burning so a bad selection only costs gas.
+        IEarningEngineActivation engine = IEarningEngineActivation(earningEngine);
+        for (uint256 i = 0; i < assets.length; i++) {
+            if (!engine.isRegisteredAsset(assets[i])) revert AssetNotSelectable(assets[i]);
+            for (uint256 j = i + 1; j < assets.length; j++) {
+                if (assets[i] == assets[j]) revert DuplicatePick(assets[i]);
+            }
+        }
+
         bananaToken.burnFrom(msg.sender, cost);
 
-        if (earningEngine != address(0)) {
-            IEarningEngineActivation(earningEngine).onNftActivation(tokenId);
-        }
+        engine.onNftActivation(tokenId, assets);
 
         activated[tokenId] = true;
         activatedAt[tokenId] = block.timestamp;
@@ -120,6 +149,11 @@ contract ActivationController is Ownable, Pausable, ReentrancyGuard {
             }
 
             emit NFTDeactivated(tokenId, previousOwner);
+
+            // No engine call here on purpose. This is the last hook OohdiesNFT invokes, so it
+            // gets only 63/64 of the remaining gas and silently starves on a tight limit. Picks
+            // are released in EarningEngine.onNftTransfer instead; if that ever fails to run,
+            // EarningEngine.releaseIfInactive() repairs it.
         }
     }
 

@@ -32,7 +32,8 @@ export const ACTIVATION_CONTROLLER_ABI = [
   "function isActivated(uint256 tokenId) view returns (bool)",
   "function getActivatedAt(uint256 tokenId) view returns (uint256)",
   "function totalActivated() view returns (uint256)",
-  "function activate(uint256 tokenId)",
+  "function activate(uint256 tokenId, address[] assets)",
+  "function requiredPicks() view returns (uint256)",
   "function oohdiesNFT() view returns (address)",
   "function bananaToken() view returns (address)",
   "event NFTActivated(uint256 indexed tokenId, address indexed owner, uint256 bananaBurned, uint256 activatedAtTimestamp)",
@@ -47,6 +48,9 @@ export const EARNING_ENGINE_ABI = [
   "function rewardAssets(address asset) view returns (bool isRegistered, uint8 decimals, uint256 rewardRate, uint256 lastUpdateTime, uint256 globalRewardIndex, uint256 periodFinish, uint256 totalFunded)",
   "function updateReward(uint256 tokenId)",
   "function isUserIndexInitialized(uint256 tokenId, address asset) view returns (bool)",
+  "function getChosenAssets(uint256 tokenId) view returns (address[])",
+  "function hasChosenAsset(uint256 tokenId, address asset) view returns (bool)",
+  "function activeCountForAsset(address asset) view returns (uint256)",
 ] as const;
 
 export const REWARD_VAULT_ABI = [
@@ -55,6 +59,10 @@ export const REWARD_VAULT_ABI = [
   "function getVaultBalance(address asset) view returns (uint256)",
   "function totalDeposited(address asset) view returns (uint256)",
   "function totalClaimed(address asset) view returns (uint256)",
+  "function accountOf(uint256 tokenId) view returns (address)",
+  "function createAccount(uint256 tokenId) returns (address)",
+  "function accountImplementation() view returns (address)",
+  "function accountSalt() view returns (bytes32)",
   "event RewardClaimed(uint256 indexed tokenId, address indexed asset, address indexed recipient, uint256 amount)",
 ] as const;
 
@@ -63,4 +71,13 @@ export const MOCK_REWARD_TOKEN_ABI = [
   "function symbol() view returns (string)",
   "function decimals() view returns (uint8)",
   "function balanceOf(address account) view returns (uint256)",
+  "function transfer(address to, uint256 amount) returns (bool)",
+] as const;
+
+export const OOHDIES_ACCOUNT_ABI = [
+  "function token() view returns (uint256 chainId, address tokenContract, uint256 tokenId)",
+  "function owner() view returns (address)",
+  "function state() view returns (uint256)",
+  "function isValidSigner(address signer, bytes context) view returns (bytes4)",
+  "function execute(address to, uint256 value, bytes data, uint8 operation) payable returns (bytes)",
 ] as const;

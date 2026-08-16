@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { CANONICAL_REGISTRY, ZERO_SALT, installRegistry } from "./helpers/erc6551.js";
 
 describe("Phase 6: Protocol Invariant Verification", function () {
   const DEFAULT_ACTIVATION_COST = 1_000n * 10n ** 18n;
@@ -7,6 +8,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -15,7 +17,13 @@ describe("Phase 6: Protocol Invariant Verification", function () {
   });
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
   }
 
   async function deployInvariantFixture() {
@@ -42,11 +50,18 @@ describe("Phase 6: Protocol Invariant Verification", function () {
       owner.address
     );
 
+    await installRegistry(networkHelpers);
+    const accountImpl = await (await ethers.getContractFactory("OohdiesAccount")).deploy();
+    const accountImplAddr = await accountImpl.getAddress();
+
     const RewardVault = await ethers.getContractFactory("RewardVault");
     const vault = await RewardVault.deploy(
       await nft.getAddress(),
       await engine.getAddress(),
-      owner.address
+      owner.address,
+      CANONICAL_REGISTRY,
+      accountImplAddr,
+      ZERO_SALT
     );
 
     await nft.setEarningEngine(await engine.getAddress());
@@ -72,6 +87,10 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
     await nft.mint(alice.address);
     await nft.mint(bob.address);
+
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await activationController.setRequiredPicks(PICKS.length);
 
     return {
       banana,
@@ -112,7 +131,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await banana.totalSupply()).to.equal(supplyBefore - DEFAULT_ACTIVATION_COST);
     });
@@ -122,7 +141,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await activationController.totalActivated()).to.equal(1n);
 
@@ -153,7 +172,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
       await networkHelpers.mine();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await engine.getPendingReward(1n, usdgAddr)).to.equal(0n);
     });
@@ -164,7 +183,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -181,13 +200,13 @@ describe("Phase 6: Protocol Invariant Verification", function () {
       expect(claimableAfter).to.be.closeTo(claimableBefore, 20n * 10n ** 6n);
     });
 
-    it("INVARIANT 7 & 8: Transfer cannot create/destroy reward value; previous owner cannot claim after transfer", async function () {
+    it("INVARIANT 7 & 8: Transfer cannot create/destroy reward value; rewards can only be spent by the current owner", async function () {
       const { banana, nft, activationController, engine, vault, usdg, usdgAddr, alice, bob, funder, networkHelpers } =
         await loadFixture(deployInvariantFixture);
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -202,18 +221,34 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
 
+      // The seller may still trigger the claim; it pays the NFT, never her.
+      await vault.connect(alice).claimReward(1n, usdgAddr);
+
+      await vault.createAccount(1n);
+      const wallet = await ethers.getContractAt("OohdiesAccount", await vault.accountOf(1n));
+      const claimed = await usdg.balanceOf(await wallet.getAddress());
+
+      expect(claimed).to.be.gt(0n);
+      expect(await usdg.balanceOf(alice.address)).to.equal(0n);
+
+      const steal = usdg.interface.encodeFunctionData("transfer", [alice.address, claimed]);
       await expect(
-        vault.connect(alice).claimReward(1n, usdgAddr)
-      ).to.be.revertedWithCustomError(vault, "NotNFTOwner");
+        wallet.connect(alice).execute(usdgAddr, 0, steal, 0)
+      ).to.be.revertedWithCustomError(wallet, "NotAuthorized");
+
+      await wallet
+        .connect(bob)
+        .execute(usdgAddr, 0, usdg.interface.encodeFunctionData("transfer", [bob.address, claimed]), 0);
+      expect(await usdg.balanceOf(bob.address)).to.equal(claimed);
     });
 
-    it("INVARIANT 9: Current NFT owner can claim their NFT's rewards", async function () {
+    it("INVARIANT 9: An activated NFT's rewards reach its own wallet", async function () {
       const { banana, nft, activationController, engine, vault, usdg, usdgAddr, alice, funder, networkHelpers } =
         await loadFixture(deployInvariantFixture);
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -226,9 +261,10 @@ describe("Phase 6: Protocol Invariant Verification", function () {
       await networkHelpers.time.increase(10);
       await networkHelpers.mine();
 
-      const balBefore = await usdg.balanceOf(alice.address);
+      const walletAddr = await vault.accountOf(1n);
+      const balBefore = await usdg.balanceOf(walletAddr);
       await vault.connect(alice).claimReward(1n, usdgAddr);
-      const balAfter = await usdg.balanceOf(alice.address);
+      const balAfter = await usdg.balanceOf(walletAddr);
 
       expect(balAfter).to.be.greaterThan(balBefore);
     });
@@ -239,7 +275,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -262,7 +298,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -291,7 +327,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -313,7 +349,7 @@ describe("Phase 6: Protocol Invariant Verification", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       const fundAmount = 1_000n * 10n ** 6n;
       await usdg.mint(funder.address, fundAmount);

@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { CANONICAL_REGISTRY, ZERO_SALT, installRegistry } from "./helpers/erc6551.js";
 
 describe("Activation Reset On Transfer & Transfer Freeze Prevention", function () {
   const DEFAULT_ACTIVATION_COST = 1_000n * 10n ** 18n;
@@ -7,6 +8,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -15,7 +17,13 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
   });
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
   }
 
   async function deployResetFixture() {
@@ -42,11 +50,18 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       owner.address
     );
 
+    await installRegistry(networkHelpers);
+    const accountImpl = await (await ethers.getContractFactory("OohdiesAccount")).deploy();
+    const accountImplAddr = await accountImpl.getAddress();
+
     const RewardVault = await ethers.getContractFactory("RewardVault");
     const vault = await RewardVault.deploy(
       await nft.getAddress(),
       await engine.getAddress(),
-      owner.address
+      owner.address,
+      CANONICAL_REGISTRY,
+      accountImplAddr,
+      ZERO_SALT
     );
 
     await nft.setEarningEngine(await engine.getAddress());
@@ -71,6 +86,10 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
     await banana.transfer(charlie.address, 100_000n * 10n ** 18n);
 
     await nft.mint(alice.address);
+
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await activationController.setRequiredPicks(PICKS.length);
 
     return {
       banana,
@@ -98,7 +117,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await activationController.isActivated(1n)).to.be.true;
       expect(await activationController.totalActivated()).to.equal(1n);
@@ -114,12 +133,12 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST * 2n);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
 
       await expect(
-        activationController.connect(alice).activate(1n)
+        activationController.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(activationController, "NotNFTOwner");
     });
 
@@ -128,7 +147,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 5000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 5000n * 10n ** 6n);
@@ -147,7 +166,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 5000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 5000n * 10n ** 6n);
@@ -157,7 +176,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
 
       const initialSupply = await banana.totalSupply();
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
 
       expect(await banana.totalSupply()).to.equal(initialSupply - DEFAULT_ACTIVATION_COST);
       expect(await activationController.isActivated(1n)).to.be.true;
@@ -173,32 +192,32 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob, charlie } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
       expect(await activationController.isActivated(1n)).to.be.true;
 
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
       expect(await activationController.isActivated(1n)).to.be.false;
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
       expect(await activationController.isActivated(1n)).to.be.true;
 
       await nft.connect(bob).transferFrom(bob.address, charlie.address, 1n);
       expect(await activationController.isActivated(1n)).to.be.false;
 
       await banana.connect(charlie).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(charlie).activate(1n);
+      await activationController.connect(charlie).activate(1n, PICKS);
       expect(await activationController.isActivated(1n)).to.be.true;
     });
   });
 
   describe("Reward Preservation & Claim Authorization", function () {
-    it("rewards earned before transfer remain attached to tokenId; previous owner cannot claim; new owner can claim even while inactive", async function () {
+    it("rewards earned before transfer remain attached to tokenId; only the new owner can spend them, even while inactive", async function () {
       const { banana, nft, activationController, engine, vault, usdg, aapl, usdgAddr, aaplAddr, alice, bob, funder, networkHelpers } =
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 5000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 5000n * 10n ** 6n);
@@ -223,18 +242,30 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const xferBlock = await ethers.provider.getBlock(xferTx.blockNumber);
       expect(await activationController.isActivated(1n)).to.be.false;
 
-      await expect(
-        vault.connect(alice).claimReward(1n, usdgAddr)
-      ).to.be.revertedWithCustomError(vault, "NotNFTOwner");
-
-      const bobBalBefore = await usdg.balanceOf(bob.address);
+      const walletAddr = await vault.accountOf(1n);
+      const walletBalBefore = await usdg.balanceOf(walletAddr);
       await vault.connect(bob).claimReward(1n, usdgAddr);
-      const bobBalAfter = await usdg.balanceOf(bob.address);
+      const walletBalAfter = await usdg.balanceOf(walletAddr);
 
       const elapsed = BigInt(xferBlock.timestamp - fundBlockUSDG.timestamp);
       const expected = elapsed * (5000n * 10n ** 6n / 500n);
 
-      expect(bobBalAfter - bobBalBefore).to.equal(expected);
+      expect(walletBalAfter - walletBalBefore).to.equal(expected);
+
+      // Rewards stayed with the tokenId; only its new holder can spend them.
+      expect(await usdg.balanceOf(alice.address)).to.equal(0n);
+      await vault.createAccount(1n);
+      const wallet = await ethers.getContractAt("OohdiesAccount", walletAddr);
+      await expect(
+        wallet
+          .connect(alice)
+          .execute(usdgAddr, 0, usdg.interface.encodeFunctionData("transfer", [alice.address, expected]), 0)
+      ).to.be.revertedWithCustomError(wallet, "NotAuthorized");
+
+      await wallet
+        .connect(bob)
+        .execute(usdgAddr, 0, usdg.interface.encodeFunctionData("transfer", [bob.address, expected]), 0);
+      expect(await usdg.balanceOf(bob.address)).to.equal(expected);
     });
 
     it("new owner can claim pre-transfer rewards and earn new rewards after reactivation", async function () {
@@ -242,7 +273,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 5000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 5000n * 10n ** 6n);
@@ -257,7 +288,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
 
       await networkHelpers.time.increase(30);
       await networkHelpers.mine();
@@ -276,7 +307,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 5000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 5000n * 10n ** 6n);
@@ -296,7 +327,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       await engine.unpause();
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
 
       expect(await activationController.isActivated(1n)).to.be.true;
     });
@@ -318,8 +349,8 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       expect(await activationController.totalActivated()).to.equal(0n);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST * 2n);
-      await activationController.connect(alice).activate(1n);
-      await activationController.connect(alice).activate(2n);
+      await activationController.connect(alice).activate(1n, PICKS);
+      await activationController.connect(alice).activate(2n, PICKS);
 
       expect(await activationController.totalActivated()).to.equal(2n);
 
@@ -335,7 +366,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -360,11 +391,12 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const expected = elapsed * (1000n * 10n ** 6n / 100n);
 
       expect(await engine.getAccruedReward(1n, usdgAddr)).to.equal(expected);
-      await expect(vault.connect(alice).claimReward(1n, usdgAddr)).to.be.revertedWithCustomError(vault, "NotNFTOwner");
 
-      const bobBalBefore = await usdg.balanceOf(bob.address);
+      const walletAddr = await vault.accountOf(1n);
+      const walletBalBefore = await usdg.balanceOf(walletAddr);
       await vault.connect(bob).claimReward(1n, usdgAddr);
-      expect(await usdg.balanceOf(bob.address) - bobBalBefore).to.equal(expected);
+      expect((await usdg.balanceOf(walletAddr)) - walletBalBefore).to.equal(expected);
+      expect(await usdg.balanceOf(alice.address)).to.equal(0n);
     });
 
     it("Scenario 2: EarningEngine is paused during transfer — Transfer succeeds and rewards are safely preserved", async function () {
@@ -372,7 +404,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -398,10 +430,11 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
 
       await engine.unpause();
 
-      const bobBalBefore = await usdg.balanceOf(bob.address);
+      const walletAddr = await vault.accountOf(1n);
+      const walletBalBefore = await usdg.balanceOf(walletAddr);
       await vault.connect(bob).claimReward(1n, usdgAddr);
 
-      const claimedAmount = await usdg.balanceOf(bob.address) - bobBalBefore;
+      const claimedAmount = (await usdg.balanceOf(walletAddr)) - walletBalBefore;
       expect(claimedAmount).to.be.greaterThan(0n);
     });
 
@@ -410,7 +443,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await nft.connect(owner).setEarningEngine(await banana.getAddress());
 
@@ -426,7 +459,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await activationController.isActivated(1n)).to.be.true;
 
@@ -440,7 +473,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob, owner } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await nft.connect(owner).setActivationController(await banana.getAddress());
 
@@ -455,7 +488,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
       const { banana, nft, activationController, alice, bob, owner } = await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await nft.connect(owner).setEarningEngine(await banana.getAddress());
       await nft.connect(owner).setActivationController(await banana.getAddress());
@@ -470,7 +503,7 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
         await loadFixture(deployResetFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -493,9 +526,13 @@ describe("Activation Reset On Transfer & Transfer Freeze Prevention", function (
 
       await nft.connect(owner).setEarningEngine(await engine.getAddress());
 
-      const bobBalBefore = await usdg.balanceOf(bob.address);
+      const walletAddr = await vault.accountOf(1n);
+      const walletBalBefore = await usdg.balanceOf(walletAddr);
       await vault.connect(bob).claimReward(1n, usdgAddr);
-      expect(await usdg.balanceOf(bob.address) - bobBalBefore).to.be.closeTo(260n * 10n ** 6n, 50n * 10n ** 6n);
+      expect((await usdg.balanceOf(walletAddr)) - walletBalBefore).to.be.closeTo(
+        260n * 10n ** 6n,
+        50n * 10n ** 6n
+      );
     });
   });
 });

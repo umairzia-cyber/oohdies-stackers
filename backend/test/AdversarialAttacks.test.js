@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { CANONICAL_REGISTRY, ZERO_SALT, installRegistry } from "./helpers/erc6551.js";
 
 describe("Phase 6: Adversarial & Attack Vector Testing", function () {
   const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -8,6 +9,7 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -16,7 +18,38 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
   });
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
+  }
+
+  /** Activates a token and funds engine and vault, so there is real value at stake. */
+  async function withAccrual(ctx, tokenId, holder) {
+    const { banana, activationController, engine, vault, usdg, usdgAddr, funder } = ctx;
+    const amount = 1_000n * 10n ** 6n;
+
+    await banana
+      .connect(holder)
+      .approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
+    await activationController.connect(holder).activate(tokenId, PICKS);
+
+    await usdg.mint(funder.address, amount * 2n);
+    await usdg.connect(funder).approve(await engine.getAddress(), amount);
+    await engine.connect(funder).fundReward(usdgAddr, amount, 100n);
+    await usdg.connect(funder).approve(await vault.getAddress(), amount);
+    await vault.connect(funder).depositReward(usdgAddr, amount);
+
+    await networkHelpers.time.increase(10);
+    await networkHelpers.mine();
+  }
+
+  async function walletFor(vault, tokenId) {
+    await vault.createAccount(tokenId);
+    return ethers.getContractAt("OohdiesAccount", await vault.accountOf(tokenId));
   }
 
   async function deployAdversarialFixture() {
@@ -43,11 +76,18 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
       owner.address
     );
 
+    await installRegistry(networkHelpers);
+    const accountImpl = await (await ethers.getContractFactory("OohdiesAccount")).deploy();
+    const accountImplAddr = await accountImpl.getAddress();
+
     const RewardVault = await ethers.getContractFactory("RewardVault");
     const vault = await RewardVault.deploy(
       await nft.getAddress(),
       await engine.getAddress(),
-      owner.address
+      owner.address,
+      CANONICAL_REGISTRY,
+      accountImplAddr,
+      ZERO_SALT
     );
 
     await nft.setEarningEngine(await engine.getAddress());
@@ -77,6 +117,10 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
     await nft.mint(alice.address);
     await nft.mint(bob.address);
 
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await activationController.setRequiredPicks(PICKS.length);
+
     return {
       banana,
       nft,
@@ -104,7 +148,7 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
     it("1. Non-owner activation fails", async function () {
       const { activationController, attacker } = await loadFixture(deployAdversarialFixture);
       await expect(
-        activationController.connect(attacker).activate(1n)
+        activationController.connect(attacker).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(activationController, "NotNFTOwner");
     });
 
@@ -113,14 +157,14 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
       await nft.mint(attacker.address);
       await banana.connect(attacker).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
       await expect(
-        activationController.connect(attacker).activate(3n)
+        activationController.connect(attacker).activate(3n, PICKS)
       ).to.be.revertedWithCustomError(banana, "ERC20InsufficientBalance");
     });
 
     it("3. Activation without approval fails", async function () {
       const { banana, activationController, alice } = await loadFixture(deployAdversarialFixture);
       await expect(
-        activationController.connect(alice).activate(1n)
+        activationController.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(
         banana,
         "ERC20InsufficientAllowance"
@@ -130,10 +174,10 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
     it("4. Double activation fails", async function () {
       const { banana, activationController, alice } = await loadFixture(deployAdversarialFixture);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST * 2n);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await expect(
-        activationController.connect(alice).activate(1n)
+        activationController.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(activationController, "AlreadyActivated");
     });
 
@@ -148,11 +192,16 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
       ).to.be.revertedWithCustomError(engine, "OnlyRewardVaultAllowed");
     });
 
-    it("6. Unauthorized RewardVault calls fail", async function () {
-      const { vault, usdgAddr, attacker } = await loadFixture(deployAdversarialFixture);
-      await expect(
-        vault.connect(attacker).claimReward(1n, usdgAddr)
-      ).to.be.revertedWithCustomError(vault, "NotNFTOwner");
+    it("6. An attacker triggering a claim cannot receive the tokens", async function () {
+      const ctx = await loadFixture(deployAdversarialFixture);
+      const { vault, usdg, usdgAddr, alice, attacker } = ctx;
+      await withAccrual(ctx, 1n, alice);
+
+      // Permissionless, so this succeeds — but the attacker cannot influence the destination.
+      await vault.connect(attacker).claimReward(1n, usdgAddr);
+
+      expect(await usdg.balanceOf(attacker.address)).to.equal(0n);
+      expect(await usdg.balanceOf(await vault.accountOf(1n))).to.be.gt(0n);
     });
 
     it("7. Unauthorized reward funding fails", async function () {
@@ -167,28 +216,48 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
       expect(await engine.accruedRewards(99n, usdgAddr)).to.equal(0n);
     });
 
-    it("9. Previous NFT owner attempting to claim after transfer fails", async function () {
-      const { nft, vault, usdgAddr, alice, bob } = await loadFixture(deployAdversarialFixture);
+    it("9. A previous owner cannot extract rewards after transferring", async function () {
+      const ctx = await loadFixture(deployAdversarialFixture);
+      const { nft, vault, usdg, usdgAddr, alice, bob } = ctx;
+      await withAccrual(ctx, 1n, alice);
+
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
+      await vault.connect(alice).claimReward(1n, usdgAddr);
 
+      const wallet = await walletFor(vault, 1n);
+      const claimed = await usdg.balanceOf(await wallet.getAddress());
+      expect(claimed).to.be.gt(0n);
+      expect(await usdg.balanceOf(alice.address)).to.equal(0n);
+
+      const steal = usdg.interface.encodeFunctionData("transfer", [alice.address, claimed]);
       await expect(
-        vault.connect(alice).claimReward(1n, usdgAddr)
-      ).to.be.revertedWithCustomError(vault, "NotNFTOwner");
+        wallet.connect(alice).execute(usdgAddr, 0, steal, 0)
+      ).to.be.revertedWithCustomError(wallet, "NotAuthorized");
     });
 
-    it("10. New NFT owner attempting to claim another NFT fails", async function () {
-      const { vault, usdgAddr, bob } = await loadFixture(deployAdversarialFixture);
+    it("10. Owning one Oohdie grants no access to another Oohdie's wallet", async function () {
+      const ctx = await loadFixture(deployAdversarialFixture);
+      const { vault, usdg, usdgAddr, alice, bob } = ctx;
+      await withAccrual(ctx, 1n, alice);
 
+      await vault.connect(bob).claimReward(1n, usdgAddr);
+
+      const wallet = await walletFor(vault, 1n);
+      const claimed = await usdg.balanceOf(await wallet.getAddress());
+      expect(await usdg.balanceOf(bob.address)).to.equal(0n);
+
+      const steal = usdg.interface.encodeFunctionData("transfer", [bob.address, claimed]);
       await expect(
-        vault.connect(bob).claimReward(1n, usdgAddr)
-      ).to.be.revertedWithCustomError(vault, "NotNFTOwner");
+        wallet.connect(bob).execute(usdgAddr, 0, steal, 0)
+      ).to.be.revertedWithCustomError(wallet, "NotAuthorized");
     });
 
-    it("11. Claiming nonexistent NFT fails", async function () {
-      const { vault, nft, usdgAddr, alice } = await loadFixture(deployAdversarialFixture);
+    it("11. Claiming for a nonexistent NFT yields nothing", async function () {
+      const { vault, usdgAddr, alice } = await loadFixture(deployAdversarialFixture);
+      // The claim path no longer consults ownerOf, and an unminted id has accrued nothing.
       await expect(
         vault.connect(alice).claimReward(9999n, usdgAddr)
-      ).to.be.revertedWithCustomError(nft, "ERC721NonexistentToken");
+      ).to.be.revertedWithCustomError(vault, "NoRewardToClaim");
     });
 
     it("12. Claiming more than accrued fails (reverts NoRewardToClaim)", async function () {
@@ -203,7 +272,7 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
         await loadFixture(deployAdversarialFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, 1000n * 10n ** 6n);
       await usdg.connect(funder).approve(await engine.getAddress(), 1000n * 10n ** 6n);
@@ -232,7 +301,7 @@ describe("Phase 6: Adversarial & Attack Vector Testing", function () {
         await loadFixture(deployAdversarialFixture);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await zeroDec.mint(funder.address, 1000n);
       await zeroDec.connect(funder).approve(await engine.getAddress(), 1000n);

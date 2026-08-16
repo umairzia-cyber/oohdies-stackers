@@ -1,5 +1,6 @@
 import fs from "fs";
 import hre from "hardhat";
+import { CANONICAL_REGISTRY, ZERO_SALT, ensureRegistry } from "../lib/erc6551.js";
 
 async function main() {
   const { ethers } = await hre.network.create();
@@ -24,9 +25,15 @@ async function main() {
 
   const BANANA_ADDR = "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1";
   const NFT_ADDR    = "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A";
-  const USDG_ADDR   = "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f";
-  const AAPL_ADDR   = "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88";
+  // Keep this in step with the copy in MyStack.tsx, which currently tells users 100 $BANANA.
   const ACTIVATION_COST = 1_000n * 10n ** 18n;
+
+  // Every asset a user can pick has to be registered on the NEW engine — registration is engine
+  // storage and does not survive a redeploy. Activation now requires `requiredPicks` distinct
+  // registered assets, so missing any of these makes activation impossible rather than merely
+  // reducing rewards.
+  const REWARD_ASSETS = JSON.parse(fs.readFileSync("all_deployed_stocks.json", "utf8"));
+  if (REWARD_ASSETS.length === 0) throw new Error("all_deployed_stocks.json is empty");
 
   console.log("\n--- STEP 1: DEPLOYING CORRECTED CORE CONTRACTS ---");
 
@@ -51,11 +58,25 @@ async function main() {
   const newEngineAddr = await newEngine.getAddress();
   console.log(`2. New EarningEngine:        ${newEngineAddr} (Tx: ${newEngineReceipt.hash})`);
 
+  // The registry already exists on Robinhood testnet; this is a no-op there.
+  const registryState = await ensureRegistry(provider);
+  console.log(`   ERC6551Registry:         ${CANONICAL_REGISTRY} (${registryState})`);
+
+  const OohdiesAccountFactory = await ethers.getContractFactory("OohdiesAccount");
+  const accountImpl = await OohdiesAccountFactory.deploy();
+  await accountImpl.deploymentTransaction().wait();
+  const accountImplAddr = await accountImpl.getAddress();
+  console.log(`   OohdiesAccount impl:     ${accountImplAddr}`);
+  console.log("   NOTE: this address fixes every wallet address. Redeploying it relocates all 1,111.");
+
   const RewardVaultFactory = await ethers.getContractFactory("RewardVault");
   const newVault = await RewardVaultFactory.deploy(
     NFT_ADDR,
     newEngineAddr,
-    deployer.address
+    deployer.address,
+    CANONICAL_REGISTRY,
+    accountImplAddr,
+    ZERO_SALT
   );
   const newVaultReceipt = await newVault.deploymentTransaction().wait();
   const newVaultAddr = await newVault.getAddress();
@@ -85,42 +106,39 @@ async function main() {
   await tx5.wait();
   console.log("  - EarningEngine.setFunder(deployer) -> OK");
 
-  const tx6 = await newEngine.registerRewardAsset(USDG_ADDR);
-  await tx6.wait();
-  console.log("  - EarningEngine.registerRewardAsset(USDG) -> OK");
+  for (const asset of REWARD_ASSETS) {
+    await (await newEngine.registerRewardAsset(asset.address)).wait();
+    console.log(`  - registerRewardAsset(${asset.symbol}) -> OK`);
+  }
 
-  const tx7 = await newEngine.registerRewardAsset(AAPL_ADDR);
-  await tx7.wait();
-  console.log("  - EarningEngine.registerRewardAsset(AAPLx) -> OK");
+  const registered = await newEngine.getRegisteredRewardAssets();
+  const requiredPicks = await newActivation.requiredPicks();
+  if (registered.length < Number(requiredPicks)) {
+    throw new Error(
+      `Only ${registered.length} assets registered but activation requires ${requiredPicks} picks`
+    );
+  }
+  console.log(`  - ${registered.length} assets registered, requiredPicks = ${requiredPicks}`);
 
   console.log("\n--- STEP 3: MINTING & FUNDING REWARD EMISSIONS ---");
-  const usdg = await ethers.getContractAt("MockRewardToken", USDG_ADDR, deployer);
-  const aapl = await ethers.getContractAt("MockRewardToken", AAPL_ADDR, deployer);
+  const duration = 3600n;
 
-  const usdgAmount = 10_000n * 10n ** 6n;
-  const aaplAmount = 1_000n * 10n ** 18n;
-  const duration   = 3600n;
+  for (const asset of REWARD_ASSETS) {
+    const token = await ethers.getContractAt("MockRewardToken", asset.address, deployer);
+    const base = asset.symbol === "USDG" ? 10_000n : 1_000n;
+    const amount = base * 10n ** BigInt(asset.decimals);
 
-  const mintUsdgTx = await usdg.mint(deployer.address, usdgAmount * 2n);
-  await mintUsdgTx.wait();
-  const mintAaplTx = await aapl.mint(deployer.address, aaplAmount * 2n);
-  await mintAaplTx.wait();
+    // Twice over: the engine's accounting and the vault's actual balance fund independently.
+    await (await token.mint(deployer.address, amount * 2n)).wait();
 
-  await (await usdg.approve(newEngineAddr, usdgAmount)).wait();
-  await (await newEngine.fundReward(USDG_ADDR, usdgAmount, duration)).wait();
-  console.log("  - USDG Engine Funded -> OK");
+    await (await token.approve(newEngineAddr, amount)).wait();
+    await (await newEngine.fundReward(asset.address, amount, duration)).wait();
 
-  await (await aapl.approve(newEngineAddr, aaplAmount)).wait();
-  await (await newEngine.fundReward(AAPL_ADDR, aaplAmount, duration)).wait();
-  console.log("  - AAPLx Engine Funded -> OK");
+    await (await token.approve(newVaultAddr, amount)).wait();
+    await (await newVault.depositReward(asset.address, amount)).wait();
 
-  await (await usdg.approve(newVaultAddr, usdgAmount)).wait();
-  await (await newVault.depositReward(USDG_ADDR, usdgAmount)).wait();
-  console.log("  - USDG Vault Deposited -> OK");
-
-  await (await aapl.approve(newVaultAddr, aaplAmount)).wait();
-  await (await newVault.depositReward(AAPL_ADDR, aaplAmount)).wait();
-  console.log("  - AAPLx Vault Deposited -> OK");
+    console.log(`  - ${asset.symbol.padEnd(7)} funded ${base} over ${duration}s, vault deposited`);
+  }
 
   console.log("\n==================================================");
   console.log("DEPLOYMENT UPGRADE & INITIALIZATION COMPLETE");
@@ -130,8 +148,11 @@ async function main() {
   console.log(`ActivationController: ${newActivationAddr}`);
   console.log(`EarningEngine:        ${newEngineAddr}`);
   console.log(`RewardVault:          ${newVaultAddr}`);
-  console.log(`Mock USDG:            ${USDG_ADDR}`);
-  console.log(`Mock AAPLx:           ${AAPL_ADDR}`);
+  console.log(`ERC6551Registry:      ${CANONICAL_REGISTRY}`);
+  console.log(`OohdiesAccount impl:  ${accountImplAddr}`);
+  for (const asset of REWARD_ASSETS) {
+    console.log(`${(asset.symbol + ":").padEnd(22)}${asset.address}`);
+  }
 
   const balanceAfter = await provider.getBalance(deployer.address);
   console.log(`\nDeployer Final Balance: ${ethers.formatEther(balanceAfter)} ETH`);

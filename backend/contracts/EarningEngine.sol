@@ -46,6 +46,13 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
 
     mapping(uint256 => mapping(address => bool)) public isUserIndexInitialized;
 
+    mapping(uint256 => address[]) private _chosenAssets;
+
+    mapping(uint256 => mapping(address => bool)) public hasChosenAsset;
+
+    /// @notice Pickers per asset. Doubles as the divisor for that asset's stream.
+    mapping(address => uint256) public activeCountForAsset;
+
     address public rewardVault;
 
     event RewardAssetRegistered(address indexed asset, uint8 decimals);
@@ -61,9 +68,13 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
     event RewardUpdated(uint256 indexed tokenId, address indexed asset, uint256 accruedAmount, uint256 userIndex);
     event NFTTransferSettled(uint256 indexed tokenId, address indexed from, address indexed to);
     event RewardVaultUpdated(address indexed oldVault, address indexed newVault);
+    event AssetsChosen(uint256 indexed tokenId, address[] assets);
+    event AssetsReleased(uint256 indexed tokenId, address[] assets);
 
     error AssetNotRegistered(address asset);
     error AssetAlreadyRegistered(address asset);
+    error DuplicateAssetChoice(address asset);
+    error StillActivated(uint256 tokenId);
     error ZeroAddressNotAllowed();
     error ZeroAmountNotAllowed();
     error ZeroDurationNotAllowed();
@@ -142,7 +153,8 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
         RewardAssetInfo storage info = rewardAssets[asset];
         if (!info.isRegistered) return 0;
 
-        uint256 numActive = activationController.totalActivated();
+        // With no pickers the index freezes, so the emission waits rather than being lost.
+        uint256 numActive = activeCountForAsset[asset];
         if (numActive == 0) {
             return info.globalRewardIndex;
         }
@@ -163,7 +175,7 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
         RewardAssetInfo storage info = rewardAssets[asset];
         if (!info.isRegistered) return 0;
 
-        uint256 numActive = activationController.totalActivated();
+        uint256 numActive = activeCountForAsset[asset];
         if (numActive == 0) return info.globalRewardIndex;
 
         uint256 targetTime = timestamp;
@@ -229,9 +241,10 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
     }
 
     function updateReward(uint256 tokenId) public whenNotPaused {
-        uint256 len = registeredRewardAssets.length;
+        address[] storage chosen = _chosenAssets[tokenId];
+        uint256 len = chosen.length;
         for (uint256 i = 0; i < len; i++) {
-            _updateRewardForTokenAsset(tokenId, registeredRewardAssets[i]);
+            _updateRewardForTokenAsset(tokenId, chosen[i]);
         }
     }
 
@@ -242,6 +255,12 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
     function _updateRewardForTokenAsset(uint256 tokenId, address asset) internal {
         RewardAssetInfo storage info = rewardAssets[asset];
         if (!info.isRegistered) return;
+
+        // Not a pick: the index still advances for whoever did choose it, but this NFT gets none.
+        if (!hasChosenAsset[tokenId][asset]) {
+            _updateGlobalIndex(asset);
+            return;
+        }
 
         uint256 userIndex = _getUserIndex(tokenId, asset);
 
@@ -284,33 +303,111 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
         }
     }
 
-    function onNftActivation(uint256 tokenId) external whenNotPaused {
+    /**
+     * @notice Starts an NFT earning its chosen assets. Picks are validated by the controller.
+     * @dev Advance the index before incrementing the count — the other way round re-prices every
+     *      second since the last checkpoint at the new divisor and dilutes existing earners.
+     */
+    function onNftActivation(uint256 tokenId, address[] calldata assets) external whenNotPaused {
         if (msg.sender != address(activationController)) revert OnlyActivationControllerAllowed();
 
-        uint256 len = registeredRewardAssets.length;
+        _releaseChosenAssets(tokenId);
+
+        uint256 len = assets.length;
         for (uint256 i = 0; i < len; i++) {
-            address asset = registeredRewardAssets[i];
+            address asset = assets[i];
             RewardAssetInfo storage info = rewardAssets[asset];
-            if (!info.isRegistered) continue;
+            if (!info.isRegistered) revert AssetNotRegistered(asset);
+            if (hasChosenAsset[tokenId][asset]) revert DuplicateAssetChoice(asset);
 
             _updateGlobalIndex(asset);
+
+            hasChosenAsset[tokenId][asset] = true;
+            _chosenAssets[tokenId].push(asset);
+            activeCountForAsset[asset] += 1;
 
             userRewardIndex[tokenId][asset] = info.globalRewardIndex;
             isUserIndexInitialized[tokenId][asset] = true;
 
             emit RewardUpdated(tokenId, asset, accruedRewards[tokenId][asset], info.globalRewardIndex);
         }
+
+        emit AssetsChosen(tokenId, assets);
     }
 
+    /// @dev Not pause-gated: settling what an NFT already earned must never be blocked.
+    function onNftDeactivation(uint256 tokenId) external {
+        if (msg.sender != address(activationController)) revert OnlyActivationControllerAllowed();
+        _releaseChosenAssets(tokenId);
+    }
+
+    /// @notice Repairs an NFT whose picks were never released because the transfer hook failed.
+    /// @dev Permissionless: it refuses unless the controller already considers the NFT inactive.
+    function releaseIfInactive(uint256 tokenId) external {
+        if (activationController.isActivated(tokenId)) revert StillActivated(tokenId);
+        _releaseChosenAssets(tokenId);
+    }
+
+    function _releaseChosenAssets(uint256 tokenId) internal {
+        address[] storage chosen = _chosenAssets[tokenId];
+        uint256 len = chosen.length;
+        if (len == 0) return;
+
+        address[] memory released = new address[](len);
+
+        for (uint256 i = 0; i < len; i++) {
+            address asset = chosen[i];
+            released[i] = asset;
+
+            // Bank what is owed while the divisor still includes us, then step out of it.
+            _settleChosenAsset(tokenId, asset);
+
+            hasChosenAsset[tokenId][asset] = false;
+            if (activeCountForAsset[asset] > 0) {
+                activeCountForAsset[asset] -= 1;
+            }
+            isUserIndexInitialized[tokenId][asset] = false;
+        }
+
+        delete _chosenAssets[tokenId];
+        emit AssetsReleased(tokenId, released);
+    }
+
+    /**
+     * @dev Settles one pick with no external calls. Runs per-pick inside the NFT transfer path,
+     *      where the hook only gets 63/64 of remaining gas — the cross-contract reads in
+     *      _updateRewardForTokenAsset are enough to exhaust that and have the failure swallowed.
+     */
+    function _settleChosenAsset(uint256 tokenId, address asset) internal {
+        RewardAssetInfo storage info = rewardAssets[asset];
+        if (!info.isRegistered) return;
+
+        _updateGlobalIndex(asset);
+
+        uint256 currentIndex = info.globalRewardIndex;
+        uint256 userIndex = userRewardIndex[tokenId][asset];
+
+        if (currentIndex > userIndex) {
+            uint256 pendingTokens = (currentIndex - userIndex) / PRECISION_FACTOR;
+            if (pendingTokens > 0) {
+                accruedRewards[tokenId][asset] += pendingTokens;
+            }
+        }
+
+        userRewardIndex[tokenId][asset] = currentIndex;
+        emit RewardUpdated(tokenId, asset, accruedRewards[tokenId][asset], currentIndex);
+    }
+
+    /**
+     * @notice Settles and releases an NFT's picks during a transfer.
+     * @dev The release lives here, not in the controller's hook. OohdiesNFT calls this one first;
+     *      the later hook only gets 63/64 of what's left and silently starves on a tight gas
+     *      limit, leaving the NFT activated for an owner who never paid to activate it.
+     */
     function onNftTransfer(address from, address to, uint256 tokenId) external {
         if (msg.sender != address(oohdiesNFT)) revert OnlyNFTContractAllowed();
 
-        updateReward(tokenId);
-
-        uint256 len = registeredRewardAssets.length;
-        for (uint256 i = 0; i < len; i++) {
-            isUserIndexInitialized[tokenId][registeredRewardAssets[i]] = false;
-        }
+        _releaseChosenAssets(tokenId);
 
         emit NFTTransferSettled(tokenId, from, to);
     }
@@ -332,6 +429,15 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
         return registeredRewardAssets;
     }
 
+    function isRegisteredAsset(address asset) external view returns (bool) {
+        return rewardAssets[asset].isRegistered;
+    }
+
+    /// @notice Empty once the NFT is deactivated.
+    function getChosenAssets(uint256 tokenId) external view returns (address[] memory) {
+        return _chosenAssets[tokenId];
+    }
+
     function getAccruedReward(uint256 tokenId, address asset) external view returns (uint256) {
         return accruedRewards[tokenId][asset];
     }
@@ -339,6 +445,7 @@ contract EarningEngine is Ownable, Pausable, ReentrancyGuard {
     function getPendingReward(uint256 tokenId, address asset) public view returns (uint256) {
         RewardAssetInfo storage info = rewardAssets[asset];
         if (!info.isRegistered) return 0;
+        if (!hasChosenAsset[tokenId][asset]) return 0;
         if (!activationController.isActivated(tokenId)) return 0;
 
         uint256 currentGlobalIndex = rewardPerToken(asset);

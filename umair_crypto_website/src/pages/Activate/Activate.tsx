@@ -5,7 +5,7 @@ import { useScrollReveal, useDocumentTitle, useContract, type UserNFTItem, type 
 import { SEO, WALLET } from '../../constants/content';
 import { MOCK_TIERS, MOCK_STOCKS } from '../../services/mock/mockData';
 import { formatNumber, formatWalletAddress } from '../../utils';
-import { ROBINHOOD_TESTNET_CONFIG } from '../../constants/contracts';
+import { ROBINHOOD_TESTNET_CONFIG, SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
 import { getNFTChosenStockIds, setNFTChosenStockIds } from '../../utils/stockSelection';
 import type { TierInfo, StockItem } from '../../types';
 import './Activate.css';
@@ -123,8 +123,18 @@ export default function Activate() {
     if (!isConnected || !wallet.isCorrectNetwork || selectedTokenId === null) return;
     try {
       const chosenStocks = selectedStockIds.length > 0 ? selectedStockIds.slice(0, 3) : ['tsla', 'nvda', 'aapl'];
+
+      // Resolve ids to addresses up front: a missing one would be dropped silently and the
+      // contract would just reject the wrong-sized selection.
+      const chosenAddresses = chosenStocks.map((id) => {
+        const asset = SUPPORTED_REWARD_ASSETS.find((a) => a.id === id);
+        if (!asset) throw new Error(`Unknown stock "${id}" — cannot activate.`);
+        return asset.address;
+      });
+
+      // Local copy only so the picker remembers the draft; the chain is authoritative.
       setNFTChosenStockIds(selectedTokenId, chosenStocks);
-      await activateNFT(selectedTokenId);
+      await activateNFT(selectedTokenId, chosenAddresses);
       await loadUserData();
     } catch (err) {
       console.error('Activation error:', err);

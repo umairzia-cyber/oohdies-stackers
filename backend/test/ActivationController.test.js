@@ -11,6 +11,7 @@ describe("ActivationController", function () {
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -39,6 +40,33 @@ describe("ActivationController", function () {
 
     await nft.setActivationController(await controller.getAddress());
 
+    // Activation now records which reward assets an NFT earns, so it needs a live engine and a
+    // pool of selectable assets. PICKS is every registered asset, which keeps the reward maths
+    // identical to the pre-picks behaviour these tests were written against.
+    const EarningEngine = await ethers.getContractFactory("EarningEngine");
+    const engine = await EarningEngine.deploy(
+      await controller.getAddress(),
+      await nft.getAddress(),
+      owner.address
+    );
+    await controller.setEarningEngine(await engine.getAddress());
+    await nft.setEarningEngine(await engine.getAddress());
+
+    const MockRewardToken = await ethers.getContractFactory("MockRewardToken");
+    for (const [name, symbol, decimals] of [
+      ["Apple Stock", "AAPLx", 18],
+      ["USD Global", "USDG", 6],
+      ["Tesla Stock", "TSLAx", 18],
+    ]) {
+      const token = await MockRewardToken.deploy(name, symbol, decimals, owner.address);
+      await engine.registerRewardAsset(await token.getAddress());
+    }
+
+
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await controller.setRequiredPicks(PICKS.length);
+
     await nft.mint(alice.address);
     await nft.mint(alice.address);
     await nft.mint(bob.address);
@@ -52,6 +80,7 @@ describe("ActivationController", function () {
       banana,
       nft,
       controller,
+      engine,
       owner,
       alice,
       bob,
@@ -65,7 +94,13 @@ describe("ActivationController", function () {
   }
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
   }
 
   describe("Deployment", function () {
@@ -157,7 +192,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       expect(await controller.isActivated(1n)).to.equal(true);
       expect(await controller.activatedAt(1n)).to.be.greaterThan(0n);
@@ -171,7 +206,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       const balanceAfter = await banana.balanceOf(alice.address);
       expect(balanceBefore - balanceAfter).to.equal(DEFAULT_ACTIVATION_COST);
@@ -185,7 +220,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       const supplyAfter = await banana.totalSupply();
       expect(supplyBefore - supplyAfter).to.equal(DEFAULT_ACTIVATION_COST);
@@ -201,7 +236,7 @@ describe("ActivationController", function () {
         .approve(await controller.getAddress(), extraApproval);
 
       const balanceBefore = await banana.balanceOf(alice.address);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
       const balanceAfter = await banana.balanceOf(alice.address);
 
       expect(balanceBefore - balanceAfter).to.equal(DEFAULT_ACTIVATION_COST);
@@ -214,7 +249,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       const controllerBalance = await banana.balanceOf(
         await controller.getAddress()
@@ -230,7 +265,7 @@ describe("ActivationController", function () {
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
 
-      const tx = await controller.connect(alice).activate(1n);
+      const tx = await controller.connect(alice).activate(1n, PICKS);
       const receipt = await tx.wait();
       const block = await ethers.provider.getBlock(receipt.blockNumber);
 
@@ -246,13 +281,13 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
       expect(await controller.totalActivated()).to.equal(1n);
 
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(3n);
+      await controller.connect(bob).activate(3n, PICKS);
       expect(await controller.totalActivated()).to.equal(2n);
     });
   });
@@ -267,7 +302,7 @@ describe("ActivationController", function () {
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
       await expect(
-        controller.connect(bob).activate(1n)
+        controller.connect(bob).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(controller, "NotNFTOwner");
     });
 
@@ -280,7 +315,7 @@ describe("ActivationController", function () {
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
 
       await expect(
-        controller.connect(alice).activate(9999n)
+        controller.connect(alice).activate(9999n, PICKS)
       ).to.be.revertedWithCustomError(nft, "ERC721NonexistentToken");
     });
 
@@ -294,10 +329,10 @@ describe("ActivationController", function () {
           await controller.getAddress(),
           DEFAULT_ACTIVATION_COST * 2n
         );
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       await expect(
-        controller.connect(alice).activate(1n)
+        controller.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(controller, "AlreadyActivated");
     });
 
@@ -313,7 +348,7 @@ describe("ActivationController", function () {
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
 
       await expect(
-        controller.connect(poorUser).activate(5n)
+        controller.connect(poorUser).activate(5n, PICKS)
       ).to.be.revertedWithCustomError(banana, "ERC20InsufficientBalance");
     });
 
@@ -322,7 +357,7 @@ describe("ActivationController", function () {
         await loadFixture(deployFullFixture);
 
       await expect(
-        controller.connect(alice).activate(1n)
+        controller.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(banana, "ERC20InsufficientAllowance");
     });
 
@@ -338,7 +373,7 @@ describe("ActivationController", function () {
         );
 
       await expect(
-        controller.connect(alice).activate(1n)
+        controller.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(banana, "ERC20InsufficientAllowance");
     });
 
@@ -358,7 +393,7 @@ describe("ActivationController", function () {
         .approve(await ctrl.getAddress(), DEFAULT_ACTIVATION_COST);
 
       await expect(
-        ctrl.connect(alice).activate(1n)
+        ctrl.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(ctrl, "ActivationCostNotSet");
     });
   });
@@ -372,7 +407,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       expect(await controller.isActivated(1n)).to.equal(true);
       expect(await controller.activatedAt(1n)).to.be.greaterThan(0n);
@@ -388,7 +423,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       expect(await controller.isActivated(2n)).to.equal(false);
       expect(await controller.activatedAt(2n)).to.equal(0n);
@@ -405,14 +440,14 @@ describe("ActivationController", function () {
           await controller.getAddress(),
           DEFAULT_ACTIVATION_COST * 2n
         );
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(3n);
+      await controller.connect(bob).activate(3n, PICKS);
 
-      await controller.connect(alice).activate(2n);
+      await controller.connect(alice).activate(2n, PICKS);
 
       expect(await controller.isActivated(1n)).to.equal(true);
       expect(await controller.isActivated(2n)).to.equal(true);
@@ -431,7 +466,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       await nft
         .connect(alice)
@@ -448,7 +483,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
       await nft
         .connect(alice)
         .transferFrom(alice.address, bob.address, 1n);
@@ -459,7 +494,7 @@ describe("ActivationController", function () {
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(1n);
+      await controller.connect(bob).activate(1n, PICKS);
       expect(await controller.isActivated(1n)).to.equal(true);
     });
 
@@ -473,13 +508,13 @@ describe("ActivationController", function () {
           await controller.getAddress(),
           DEFAULT_ACTIVATION_COST * 2n
         );
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
       await nft
         .connect(alice)
         .transferFrom(alice.address, bob.address, 1n);
 
       await expect(
-        controller.connect(alice).activate(1n)
+        controller.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(controller, "NotNFTOwner");
     });
 
@@ -490,7 +525,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       await nft
         .connect(alice)
@@ -500,7 +535,7 @@ describe("ActivationController", function () {
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(1n);
+      await controller.connect(bob).activate(1n, PICKS);
       expect(await controller.isActivated(1n)).to.equal(true);
 
       await nft.connect(bob).transferFrom(bob.address, charlie.address, 1n);
@@ -545,7 +580,7 @@ describe("ActivationController", function () {
         .connect(alice)
         .approve(await controller.getAddress(), cost500);
       const aliceBalBefore = await banana.balanceOf(alice.address);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
       const aliceBalAfter = await banana.balanceOf(alice.address);
       expect(aliceBalBefore - aliceBalAfter).to.equal(cost500);
 
@@ -556,7 +591,7 @@ describe("ActivationController", function () {
         .connect(bob)
         .approve(await controller.getAddress(), cost2000);
       const bobBalBefore = await banana.balanceOf(bob.address);
-      await controller.connect(bob).activate(3n);
+      await controller.connect(bob).activate(3n, PICKS);
       const bobBalAfter = await banana.balanceOf(bob.address);
       expect(bobBalBefore - bobBalAfter).to.equal(cost2000);
     });
@@ -574,7 +609,7 @@ describe("ActivationController", function () {
       await controller.pause();
 
       await expect(
-        controller.connect(alice).activate(1n)
+        controller.connect(alice).activate(1n, PICKS)
       ).to.be.revertedWithCustomError(controller, "EnforcedPause");
     });
 
@@ -589,7 +624,7 @@ describe("ActivationController", function () {
       await controller.pause();
       await controller.unpause();
 
-      await expect(controller.connect(alice).activate(1n)).to.not.be.revert(
+      await expect(controller.connect(alice).activate(1n, PICKS)).to.not.be.revert(
         ethers
       );
       expect(await controller.isActivated(1n)).to.equal(true);
@@ -648,7 +683,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       const supplyAfter = await banana.totalSupply();
 
@@ -675,7 +710,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       expect(await controller.isActivated(1n)).to.equal(true);
     });
@@ -692,7 +727,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       const activatedAt = await controller.getActivatedAt(1n);
       expect(activatedAt).to.be.greaterThan(0n);
@@ -712,7 +747,7 @@ describe("ActivationController", function () {
         .connect(charlie)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
 
-      await controller.connect(charlie).activate(5n);
+      await controller.connect(charlie).activate(5n, PICKS);
 
       expect(await controller.isActivated(5n)).to.equal(true);
       expect(await nft.ownerOf(5n)).to.equal(charlie.address);
@@ -726,7 +761,7 @@ describe("ActivationController", function () {
       await banana
         .connect(alice)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(alice).activate(1n);
+      await controller.connect(alice).activate(1n, PICKS);
 
       await nft
         .connect(alice)
@@ -738,7 +773,7 @@ describe("ActivationController", function () {
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(1n);
+      await controller.connect(bob).activate(1n, PICKS);
       expect(await controller.isActivated(1n)).to.equal(true);
     });
 
@@ -754,13 +789,13 @@ describe("ActivationController", function () {
           await controller.getAddress(),
           DEFAULT_ACTIVATION_COST * 2n
         );
-      await controller.connect(alice).activate(1n);
-      await controller.connect(alice).activate(2n);
+      await controller.connect(alice).activate(1n, PICKS);
+      await controller.connect(alice).activate(2n, PICKS);
 
       await banana
         .connect(bob)
         .approve(await controller.getAddress(), DEFAULT_ACTIVATION_COST);
-      await controller.connect(bob).activate(3n);
+      await controller.connect(bob).activate(3n, PICKS);
 
       expect(await controller.isActivated(1n)).to.equal(true);
       expect(await controller.isActivated(2n)).to.equal(true);

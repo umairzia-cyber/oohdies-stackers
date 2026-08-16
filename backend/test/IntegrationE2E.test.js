@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { CANONICAL_REGISTRY, ZERO_SALT, installRegistry } from "./helpers/erc6551.js";
 
 describe("Phase 6: Integration & End-To-End Workflows", function () {
   const DEFAULT_ACTIVATION_COST = 1_000n * 10n ** 18n;
@@ -7,6 +8,7 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -15,7 +17,13 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
   });
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
   }
 
   async function deployFullProtocolFixture() {
@@ -42,11 +50,18 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
       owner.address
     );
 
+    await installRegistry(networkHelpers);
+    const accountImpl = await (await ethers.getContractFactory("OohdiesAccount")).deploy();
+    const accountImplAddr = await accountImpl.getAddress();
+
     const RewardVault = await ethers.getContractFactory("RewardVault");
     const vault = await RewardVault.deploy(
       await nft.getAddress(),
       await engine.getAddress(),
-      owner.address
+      owner.address,
+      CANONICAL_REGISTRY,
+      accountImplAddr,
+      ZERO_SALT
     );
 
     await nft.setEarningEngine(await engine.getAddress());
@@ -84,6 +99,10 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
     await banana.transfer(bob.address, 100_000n * 10n ** 18n);
     await banana.transfer(charlie.address, 100_000n * 10n ** 18n);
 
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await activationController.setRequiredPicks(PICKS.length);
+
     return {
       banana,
       nft,
@@ -115,7 +134,7 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
 
       const initialSupply = await banana.totalSupply();
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       expect(await banana.totalSupply()).to.equal(initialSupply - DEFAULT_ACTIVATION_COST);
       expect(await activationController.isActivated(1n)).to.be.true;
@@ -155,25 +174,32 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
 
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
 
-      await expect(vault.connect(alice).claimReward(1n, usdgAddr)).to.be.revertedWithCustomError(
-        vault,
-        "NotNFTOwner"
-      );
-
-      const bobBalBefore = await usdg.balanceOf(bob.address);
+      const walletAddr = await vault.accountOf(1n);
+      const walletBalBefore = await usdg.balanceOf(walletAddr);
       const vaultBalBefore = await vault.getVaultBalance(usdgAddr);
 
+      // Either party may trigger the claim; it pays the NFT's wallet.
       await vault.connect(bob).claimReward(1n, usdgAddr);
 
-      const bobBalAfter = await usdg.balanceOf(bob.address);
+      const walletBalAfter = await usdg.balanceOf(walletAddr);
       const vaultBalAfter = await vault.getVaultBalance(usdgAddr);
 
-      expect(bobBalAfter).to.be.greaterThan(bobBalBefore);
+      expect(walletBalAfter).to.be.greaterThan(walletBalBefore);
       expect(vaultBalAfter).to.be.lessThan(vaultBalBefore);
       expect(await engine.getTotalClaimableReward(1n, usdgAddr)).to.equal(0n);
 
+      // Alice sold it, so she gets nothing and cannot reach into the wallet.
+      expect(await usdg.balanceOf(alice.address)).to.equal(0n);
+      await vault.createAccount(1n);
+      const wallet = await ethers.getContractAt("OohdiesAccount", walletAddr);
+      await expect(
+        wallet
+          .connect(alice)
+          .execute(usdgAddr, 0, usdg.interface.encodeFunctionData("transfer", [alice.address, 1n]), 0)
+      ).to.be.revertedWithCustomError(wallet, "NotAuthorized");
+
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
 
       await networkHelpers.time.increase(20);
       await networkHelpers.mine();
@@ -206,23 +232,23 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
       await usdg.connect(funder).approve(await vault.getAddress(), amount);
       await vault.connect(funder).depositReward(usdgAddr, amount);
 
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await networkHelpers.time.increase(20);
       await networkHelpers.mine();
-      await activationController.connect(alice).activate(2n);
+      await activationController.connect(alice).activate(2n, PICKS);
 
       await networkHelpers.time.increase(20);
       await networkHelpers.mine();
-      await activationController.connect(alice).activate(3n);
+      await activationController.connect(alice).activate(3n, PICKS);
 
       await networkHelpers.time.increase(20);
       await networkHelpers.mine();
-      await activationController.connect(alice).activate(4n);
+      await activationController.connect(alice).activate(4n, PICKS);
 
       await networkHelpers.time.increase(20);
       await networkHelpers.mine();
-      await activationController.connect(alice).activate(5n);
+      await activationController.connect(alice).activate(5n, PICKS);
 
       await networkHelpers.time.increase(100);
       await networkHelpers.mine();
@@ -259,7 +285,7 @@ describe("Phase 6: Integration & End-To-End Workflows", function () {
 
       await nft.mint(alice.address);
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       const aaplAmount = 1_000n * 10n ** 18n;
       const nvdaAmount = 1_000n * 10n ** 18n;

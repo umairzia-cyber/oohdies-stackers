@@ -8,6 +8,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
   let connection;
   let ethers;
   let networkHelpers;
+  let PICKS = [];
 
   before(async function () {
     connection = await hre.network.create();
@@ -77,6 +78,10 @@ describe("EarningEngine + Mock Reward Tokens", function () {
     await nft.mint(alice.address);
     await nft.mint(bob.address);
 
+    // Copied out of the frozen Result so it can be passed back as calldata.
+    PICKS = Array.from(await engine.getRegisteredRewardAssets());
+    await activationController.setRequiredPicks(PICKS.length);
+
     return {
       banana,
       nft,
@@ -95,7 +100,13 @@ describe("EarningEngine + Mock Reward Tokens", function () {
   }
 
   async function loadFixture(fixture) {
-    return networkHelpers.loadFixture(fixture);
+    const ctx = await networkHelpers.loadFixture(fixture);
+    // Re-sync to whichever fixture was just restored; they share this module-level variable.
+    // A view call, so it adds no block and cannot disturb timing-sensitive assertions.
+    if (ctx && ctx.engine) {
+      PICKS = Array.from(await ctx.engine.getRegisteredRewardAssets());
+    }
+    return ctx;
   }
 
   describe("Part A — Mock Reward Tokens", function () {
@@ -254,7 +265,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const duration = 100n;
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, amount);
       await usdg.connect(funder).approve(await engine.getAddress(), amount);
@@ -289,7 +300,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await networkHelpers.mine();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actTx = await activationController.connect(alice).activate(1n);
+      const actTx = await activationController.connect(alice).activate(1n, PICKS);
       const actBlock = await ethers.provider.getBlock(actTx.blockNumber);
 
       expect(await engine.getPendingReward(1n, usdgAddr)).to.equal(0n);
@@ -315,10 +326,10 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const duration = 100n;
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(3n);
+      await activationController.connect(bob).activate(3n, PICKS);
 
       await aapl.mint(funder.address, amount);
       await aapl.connect(funder).approve(await engine.getAddress(), amount);
@@ -350,7 +361,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const amount = 1_000n * 10n ** 18n;
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await aapl.mint(funder.address, amount);
       await aapl.connect(funder).approve(await engine.getAddress(), amount);
@@ -384,13 +395,13 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const usdgAddr = await usdg.getAddress();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await nft.connect(alice).transferFrom(alice.address, bob.address, 1n);
 
       await banana.transfer(bob.address, DEFAULT_ACTIVATION_COST);
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(1n);
+      await activationController.connect(bob).activate(1n, PICKS);
 
       const amount = 1_000n * 10n ** 6n;
       await usdg.mint(funder.address, amount);
@@ -421,7 +432,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await banana.transfer(charlie.address, DEFAULT_ACTIVATION_COST);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, amount);
       await usdg.connect(funder).approve(await engine.getAddress(), amount);
@@ -435,7 +446,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const aliceEarned = BigInt(b1.timestamp - fundBlock.timestamp) * (amount / 500n);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actBob = await activationController.connect(bob).activate(1n);
+      const actBob = await activationController.connect(bob).activate(1n, PICKS);
       const bBobAct = await ethers.provider.getBlock(actBob.blockNumber);
 
       await networkHelpers.time.increase(10);
@@ -445,7 +456,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const bobEarned = BigInt(b2.timestamp - bBobAct.timestamp) * (amount / 500n);
 
       await banana.connect(charlie).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actCharlie = await activationController.connect(charlie).activate(1n);
+      const actCharlie = await activationController.connect(charlie).activate(1n, PICKS);
       const bCharlieAct = await ethers.provider.getBlock(actCharlie.blockNumber);
 
       await networkHelpers.time.increase(10);
@@ -470,7 +481,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const usdgAddr = await usdg.getAddress();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       const aaplAmount = 1_000n * 10n ** 18n;
       const usdgAmount = 1_000n * 10n ** 6n;
@@ -515,7 +526,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const duration = 100n;
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await usdg.mint(funder.address, amount);
       await usdg.connect(funder).approve(await engine.getAddress(), amount);
@@ -536,7 +547,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       const aaplAddr = await aapl.getAddress();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(1n);
+      await activationController.connect(alice).activate(1n, PICKS);
 
       await aapl.mint(funder.address, 1_000n * 10n ** 18n);
       await aapl.connect(funder).approve(await engine.getAddress(), 1_000n * 10n ** 18n);
@@ -623,11 +634,11 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await engine.connect(funder).fundReward(usdgAddr, amount, duration);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(4n);
+      await activationController.connect(alice).activate(4n, PICKS);
 
       await networkHelpers.time.increase(10);
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actTx5 = await activationController.connect(bob).activate(5n);
+      const actTx5 = await activationController.connect(bob).activate(5n, PICKS);
       const actBlock5 = await ethers.provider.getBlock(actTx5.blockNumber);
       const tAct5 = actBlock5.timestamp;
 
@@ -670,13 +681,13 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await engine.connect(funder).fundReward(usdgAddr, amount, duration);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(4n);
+      await activationController.connect(alice).activate(4n, PICKS);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(bob).activate(5n);
+      await activationController.connect(bob).activate(5n, PICKS);
 
       await banana.connect(charlie).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(charlie).activate(6n);
+      await activationController.connect(charlie).activate(6n, PICKS);
 
       await networkHelpers.time.increase(200);
       await networkHelpers.mine();
@@ -713,10 +724,10 @@ describe("EarningEngine + Mock Reward Tokens", function () {
         await engine.connect(funder).fundReward(usdgAddr, amount, duration);
 
         await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-        await activationController.connect(alice).activate(4n);
+        await activationController.connect(alice).activate(4n, PICKS);
 
         await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-        await activationController.connect(bob).activate(5n);
+        await activationController.connect(bob).activate(5n, PICKS);
 
         await networkHelpers.time.increase(1800);
         await networkHelpers.mine();
@@ -756,7 +767,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await networkHelpers.mine();
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actTx = await activationController.connect(alice).activate(4n);
+      const actTx = await activationController.connect(alice).activate(4n, PICKS);
       const actBlock = await ethers.provider.getBlock(actTx.blockNumber);
       const t1 = actBlock.timestamp;
 
@@ -790,10 +801,10 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await engine.connect(funder).fundReward(usdgAddr, amount, duration);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(4n);
+      await activationController.connect(alice).activate(4n, PICKS);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const actTx5 = await activationController.connect(bob).activate(5n);
+      const actTx5 = await activationController.connect(bob).activate(5n, PICKS);
       const actBlock5 = await ethers.provider.getBlock(actTx5.blockNumber);
       const tAct5 = actBlock5.timestamp;
 
@@ -829,7 +840,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       await engine.connect(funder).fundReward(usdgAddr, amount, duration);
 
       await banana.connect(alice).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      await activationController.connect(alice).activate(4n);
+      await activationController.connect(alice).activate(4n, PICKS);
 
       await networkHelpers.time.increase(200);
       await networkHelpers.mine();
@@ -848,7 +859,7 @@ describe("EarningEngine + Mock Reward Tokens", function () {
       expect(midReward).to.equal(preTransferAccrued);
 
       await banana.connect(bob).approve(await activationController.getAddress(), DEFAULT_ACTIVATION_COST);
-      const reactTx = await activationController.connect(bob).activate(4n);
+      const reactTx = await activationController.connect(bob).activate(4n, PICKS);
       const reactBlock = await ethers.provider.getBlock(reactTx.blockNumber);
       const tReact = reactBlock.timestamp;
 
