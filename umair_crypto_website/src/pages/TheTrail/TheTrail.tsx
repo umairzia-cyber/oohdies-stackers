@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useScrollReveal, useDocumentTitle } from '../../hooks';
-import { TRAIL_PAGE, TRAIL_STOPS, SEO } from '../../constants/content';
+import { TRAIL_PAGE, TRAIL_EXPEDITIONS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import './TheTrail.css';
 
@@ -47,33 +47,40 @@ export default function TheTrail() {
             </figcaption>
           </figure>
 
-          <section className="trail-stops" aria-labelledby="trail-stops-heading">
-            <h2 id="trail-stops-heading" className="heading-md trail-stops__heading">
-              {TRAIL_PAGE.stopsHeading}
+          <section className="trail-expeditions" aria-labelledby="trail-expeditions-heading">
+            <h2
+              id="trail-expeditions-heading"
+              className="heading-md trail-expeditions__heading"
+            >
+              {TRAIL_PAGE.expeditionsHeading}
             </h2>
 
-            <ol className="trail-stops__list">
-              {TRAIL_STOPS.map((stop) => (
+            <ol className="trail-expeditions__list">
+              {TRAIL_EXPEDITIONS.map((expedition) => (
                 <li
-                  key={stop.id}
-                  className={`trail-stop ${stop.charted ? '' : 'trail-stop--uncharted'}`}
+                  key={expedition.id}
+                  className={`trail-expedition ${
+                    expedition.charted ? '' : 'trail-expedition--uncharted'
+                  }`}
                 >
-                  <div className="trail-stop__marker" aria-hidden="true">
-                    <span className="trail-stop__id">{stop.id}</span>
+                  <div className="trail-expedition__marker" aria-hidden="true">
+                    <span className="trail-expedition__id">{expedition.id}</span>
                   </div>
 
-                  <div className="trail-stop__body">
-                    {stop.charted ? (
+                  <div className="trail-expedition__body">
+                    <p className="trail-expedition__ordinal">{expedition.ordinal}</p>
+
+                    {expedition.charted ? (
                       <>
-                        <h3 className="trail-stop__title">{stop.title}</h3>
-                        <p className="trail-stop__text">{stop.body}</p>
+                        <h3 className="trail-expedition__title">{expedition.title}</h3>
+                        <p className="trail-expedition__text">{expedition.body}</p>
                       </>
                     ) : (
                       <>
-                        <h3 className="trail-stop__title trail-stop__title--locked">
+                        <h3 className="trail-expedition__title trail-expedition__title--locked">
                           {TRAIL_PAGE.unchartedLabel}
                         </h3>
-                        <p className="trail-stop__text">{TRAIL_PAGE.unchartedNote}</p>
+                        <p className="trail-expedition__text">{TRAIL_PAGE.unchartedNote}</p>
                       </>
                     )}
                   </div>

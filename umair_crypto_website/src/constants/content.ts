@@ -66,35 +66,34 @@ export const TRAIL_PAGE = {
   cta: 'START STACKING',
   mapAlt:
     'An illustrated map of the Oohdie trail: a jungle clearing where troops of Oohdies gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured Oohdie with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
-  stopsHeading: 'THE STOPS',
+  expeditionsHeading: 'THE EXPEDITIONS',
   unchartedLabel: 'UNCHARTED TERRITORY',
   unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
 } as const;
 
 /*
- * ⚠️ PLACEHOLDER COPY — every `body` below is filler and must be rewritten
- * before this ships. Nothing here is a commitment.
- *
- * To reveal the next stop: change its `charted` to true and write real copy.
- * Uncharted entries intentionally carry no title or body — they render as
- * locked rows, so adding one costs a single line.
+ * To reveal the next expedition: set `charted: true` and write the copy.
+ * Uncharted entries deliberately carry no title or body — they fall back to
+ * TRAIL_PAGE.unchartedLabel / unchartedNote, so adding one costs a single line.
  */
-export const TRAIL_STOPS = [
+export const TRAIL_EXPEDITIONS = [
   {
     id: '01',
-    title: 'Placeholder — First Stop',
-    body: 'Filler text for the opening leg of the trail. Two or three lines is the right length here: enough to say what lands and roughly when, without committing to a date. Replace before launch.',
+    ordinal: 'FIRST EXPEDITION',
+    title: 'Launch',
+    body: 'Everything that works today. Mint an Oohdie from the collection of 1,111, then activate it by burning $BANANA to lock in a tier — tiers run from 1x to 3.5x and set the multiplier on everything it earns. Pick up to three of the twelve tokenized assets to split those earnings between, and your Oohdie accrues them hourly on its own. The rewards land in the NFT’s own on-chain account, so they travel with it if it ever sells. My Stack is where you watch it stack up and claim it.',
     charted: true,
   },
   {
     id: '02',
-    title: 'Placeholder — Second Stop',
-    body: 'More filler text. This stop follows on from the first and hints at what it unlocks. Keep the voice the same as the rest of the site — plain, short sentences, no roadmap jargon. Replace before launch.',
+    ordinal: 'SECOND EXPEDITION',
+    title: 'Second Mint',
+    body: 'A second Oohdie drop, reserved for the troop that showed up first — holders of the genesis collection will be able to mint from it. Supply, timing and how allocation works are still being decided. This one is being built, not scheduled.',
     charted: true,
   },
-  { id: '03', charted: false },
-  { id: '04', charted: false },
-  { id: '05', charted: false },
+  { id: '03', ordinal: 'THIRD EXPEDITION', charted: false },
+  { id: '04', ordinal: 'FOURTH EXPEDITION', charted: false },
+  { id: '05', ordinal: 'FIFTH EXPEDITION', charted: false },
 ] as const;
 
 // TODO: replace with the real Oohdie X profile URL.
