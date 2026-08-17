@@ -1,0 +1,215 @@
+.rainforest-env {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.rainforest-canopy-light {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120vw;
+  height: 60vh;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(34, 74, 52, 0.25) 0%,
+    rgba(16, 45, 30, 0.12) 40%,
+    transparent 80%
+  );
+  filter: blur(50px);
+}
+
+.rainforest-foliage-mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background: linear-gradient(
+    to top,
+    rgba(6, 15, 11, 0.6) 0%,
+    rgba(8, 20, 15, 0.2) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.rainforest-vines-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.vine {
+  position: absolute;
+  top: 0;
+  opacity: 0.6;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.vine--left {
+  left: 1vw;
+  width: 90px;
+  height: 320px;
+  animation: vine-sway-left 8s ease-in-out infinite alternate;
+  transform-origin: top left;
+}
+
+.vine-monkey-group {
+  position: absolute;
+  top: 0;
+  right: 2vw;
+  width: 120px;
+  height: 380px;
+  animation: vine-sway-right 9s ease-in-out infinite alternate;
+  transform-origin: top right;
+}
+
+.vine--right {
+  width: 100%;
+  height: 100%;
+  opacity: 0.65;
+}
+
+.rainforest-monkey {
+  position: absolute;
+  top: 210px;
+  left: 35px;
+  opacity: 0.85;
+  animation: monkey-gently-swing 6s ease-in-out infinite alternate;
+  transform-origin: top center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+.falling-bananas-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.falling-banana {
+  position: absolute;
+  top: -40px;
+  opacity: 0;
+  pointer-events: none;
+  animation: fall-down linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.falling-banana--1 {
+  left: 12%;
+  animation-duration: 18s;
+  animation-delay: 1s;
+  transform: scale(0.7) rotate(15deg);
+}
+
+.falling-banana--2 {
+  left: 35%;
+  animation-duration: 22s;
+  animation-delay: 7s;
+  transform: scale(0.9) rotate(-20deg);
+}
+
+.falling-banana--3 {
+  left: 62%;
+  animation-duration: 16s;
+  animation-delay: 3s;
+  transform: scale(0.65) rotate(45deg);
+}
+
+.falling-banana--4 {
+  left: 80%;
+  animation-duration: 20s;
+  animation-delay: 11s;
+  transform: scale(0.8) rotate(-10deg);
+}
+
+.falling-banana--5 {
+  left: 92%;
+  animation-duration: 24s;
+  animation-delay: 4s;
+  transform: scale(0.75) rotate(30deg);
+}
+
+.falling-banana--6 {
+  left: 24%;
+  animation-duration: 26s;
+  animation-delay: 14s;
+  transform: scale(0.85) rotate(-35deg);
+}
+
+@keyframes vine-sway-left {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(2.5deg); }
+}
+
+@keyframes vine-sway-right {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+@keyframes monkey-gently-swing {
+  0% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-2px); }
+  100% { transform: rotate(-2deg) translateY(0); }
+}
+
+@keyframes fall-down {
+  0% {
+    top: -40px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 105vh;
+    opacity: 0;
+    transform: translateX(35px) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vine--left,
+  .vine-monkey-group,
+  .rainforest-monkey,
+  .falling-banana {
+    animation: none !important;
+  }
+  .falling-bananas-layer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .vine--left {
+    width: 60px;
+    height: 220px;
+  }
+
+  .vine-monkey-group {
+    width: 80px;
+    height: 260px;
+    right: 0;
+  }
+
+  .rainforest-monkey {
+    transform: scale(0.75);
+    top: 150px;
+    left: 15px;
+  }
+
+  .falling-banana--3,
+  .falling-banana--5,
+  .falling-banana--6 {
+    display: none;
+  }
+}
