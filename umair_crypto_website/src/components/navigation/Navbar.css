@@ -123,7 +123,7 @@
   display: none;
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: color-mix(in srgb, #000 60%, transparent);
   z-index: var(--z-overlay);
 }
 

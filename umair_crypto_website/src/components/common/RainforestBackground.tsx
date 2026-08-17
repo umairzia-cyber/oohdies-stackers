@@ -1,5 +1,10 @@
 import './RainforestBackground.css';
 
+/*
+ * Ambient jungle layer. Every fill/stroke is set from CSS rather than as an SVG
+ * presentation attribute, because presentation attributes cannot resolve var()
+ * — keeping the colours in CSS is what lets the art follow the palette.
+ */
 export default function RainforestBackground() {
   return (
     <div className="rainforest-env" aria-hidden="true">
@@ -16,16 +21,15 @@ export default function RainforestBackground() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
+            className="vine__stem"
             d="M20 0 C40 80, -10 160, 30 240 C50 290, 10 350, 25 400"
-            stroke="#1d3d2c"
             strokeWidth="3"
-            fill="none"
           />
 
-          <path d="M20 50 Q40 40, 35 65 Z" fill="#29543d" />
-          <path d="M12 120 Q-10 110, -2 135 Z" fill="#1e422f" />
-          <path d="M28 200 Q50 190, 42 215 Z" fill="#2d5e44" />
-          <path d="M18 310 Q-2 300, 8 325 Z" fill="#1e422f" />
+          <path className="vine__leaf vine__leaf--a" d="M20 50 Q40 40, 35 65 Z" />
+          <path className="vine__leaf vine__leaf--b" d="M12 120 Q-10 110, -2 135 Z" />
+          <path className="vine__leaf vine__leaf--c" d="M28 200 Q50 190, 42 215 Z" />
+          <path className="vine__leaf vine__leaf--b" d="M18 310 Q-2 300, 8 325 Z" />
         </svg>
 
         <div className="vine-monkey-group">
@@ -36,16 +40,15 @@ export default function RainforestBackground() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
+              className="vine__stem"
               d="M100 0 C70 100, 120 200, 80 300 C60 350, 90 410, 75 450"
-              stroke="#1d3d2c"
               strokeWidth="3.5"
-              fill="none"
             />
 
-            <path d="M90 60 Q60 50, 70 75 Z" fill="#2d5e44" />
-            <path d="M105 150 Q130 140, 120 165 Z" fill="#1e422f" />
-            <path d="M82 240 Q55 230, 65 255 Z" fill="#29543d" />
-            <path d="M88 360 Q115 350, 102 375 Z" fill="#1e422f" />
+            <path className="vine__leaf vine__leaf--c" d="M90 60 Q60 50, 70 75 Z" />
+            <path className="vine__leaf vine__leaf--b" d="M105 150 Q130 140, 120 165 Z" />
+            <path className="vine__leaf vine__leaf--a" d="M82 240 Q55 230, 65 255 Z" />
+            <path className="vine__leaf vine__leaf--b" d="M88 360 Q115 350, 102 375 Z" />
           </svg>
 
           <div className="rainforest-monkey">
@@ -58,54 +61,50 @@ export default function RainforestBackground() {
             >
 
               <path
+                className="monkey__tail"
                 d="M30 0 C30 15, 20 20, 25 30"
-                stroke="#6e4d28"
                 strokeWidth="4"
                 strokeLinecap="round"
-                fill="none"
               />
 
-              <ellipse cx="30" cy="45" rx="14" ry="18" fill="#54391c" />
+              <ellipse className="monkey__body" cx="30" cy="45" rx="14" ry="18" />
 
-              <ellipse cx="30" cy="47" rx="9" ry="12" fill="#8c683c" />
+              <ellipse className="monkey__belly" cx="30" cy="47" rx="9" ry="12" />
 
-              <circle cx="30" cy="25" r="12" fill="#54391c" />
+              <circle className="monkey__head" cx="30" cy="25" r="12" />
 
-              <circle cx="17" cy="24" r="4" fill="#6e4d28" />
-              <circle cx="43" cy="24" r="4" fill="#6e4d28" />
-              <circle cx="17" cy="24" r="2" fill="#8c683c" />
-              <circle cx="43" cy="24" r="2" fill="#8c683c" />
+              <circle className="monkey__ear" cx="17" cy="24" r="4" />
+              <circle className="monkey__ear" cx="43" cy="24" r="4" />
+              <circle className="monkey__ear-inner" cx="17" cy="24" r="2" />
+              <circle className="monkey__ear-inner" cx="43" cy="24" r="2" />
 
-              <ellipse cx="30" cy="27" rx="8" ry="7" fill="#cfa570" />
+              <ellipse className="monkey__face" cx="30" cy="27" rx="8" ry="7" />
 
-              <circle cx="26" cy="25" r="1.5" fill="#111" />
-              <circle cx="34" cy="25" r="1.5" fill="#111" />
+              <circle className="monkey__eye" cx="26" cy="25" r="1.5" />
+              <circle className="monkey__eye" cx="34" cy="25" r="1.5" />
 
               <path
+                className="monkey__mouth"
                 d="M27 30 Q30 33, 33 30"
-                stroke="#4a2e12"
                 strokeWidth="1.2"
                 strokeLinecap="round"
-                fill="none"
               />
 
               <path
+                className="monkey__arm"
                 d="M18 40 Q10 20, 25 5"
-                stroke="#54391c"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                fill="none"
               />
               <path
+                className="monkey__arm"
                 d="M42 40 Q50 20, 35 5"
-                stroke="#54391c"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                fill="none"
               />
 
-              <ellipse cx="23" cy="62" rx="4" ry="3" fill="#6e4d28" />
-              <ellipse cx="37" cy="62" rx="4" ry="3" fill="#6e4d28" />
+              <ellipse className="monkey__foot" cx="23" cy="62" rx="4" ry="3" />
+              <ellipse className="monkey__foot" cx="37" cy="62" rx="4" ry="3" />
             </svg>
           </div>
         </div>
@@ -122,20 +121,18 @@ export default function RainforestBackground() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
+                className="banana__body"
                 d="M6 22 C10 28, 22 28, 26 18 C28 13, 27 8, 27 6 C25 6, 20 7, 15 11 C9 15, 5 18, 6 22 Z"
-                fill="#F5A623"
-                opacity="0.85"
               />
               <path
+                className="banana__stem"
                 d="M27 6 C28 4, 26 3, 25 4 C24 5, 25 6, 27 6 Z"
-                fill="#8C6111"
               />
               <path
+                className="banana__shine"
                 d="M8 23 C12 27, 21 26, 25 18"
-                stroke="#FFD700"
                 strokeWidth="1.2"
                 strokeLinecap="round"
-                fill="none"
               />
             </svg>
           </div>

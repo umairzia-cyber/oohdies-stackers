@@ -47,8 +47,36 @@
   position: absolute;
   top: 0;
   opacity: 0.6;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 8px var(--shadow-drop));
 }
+
+/* SVG paint. Lives here rather than on the elements because presentation
+   attributes cannot resolve var(). */
+.vine__stem {
+  stroke: var(--vine-stem);
+  fill: none;
+}
+
+.vine__leaf--a { fill: var(--leaf-a); }
+.vine__leaf--b { fill: var(--leaf-b); }
+.vine__leaf--c { fill: var(--leaf-c); }
+
+.monkey__tail  { stroke: var(--fur-mid);   fill: none; }
+.monkey__arm   { stroke: var(--fur-dark);  fill: none; }
+.monkey__mouth { stroke: var(--fur-mouth); fill: none; }
+
+.monkey__body       { fill: var(--fur-dark); }
+.monkey__head       { fill: var(--fur-dark); }
+.monkey__belly      { fill: var(--fur-light); }
+.monkey__ear        { fill: var(--fur-mid); }
+.monkey__ear-inner  { fill: var(--fur-light); }
+.monkey__face       { fill: var(--fur-face); }
+.monkey__eye        { fill: var(--eye); }
+.monkey__foot       { fill: var(--fur-mid); }
+
+.banana__body  { fill: var(--banana-body); opacity: 0.85; }
+.banana__stem  { fill: var(--banana-stem); }
+.banana__shine { stroke: var(--banana-shine); fill: none; }
 
 .vine--left {
   left: 1vw;
@@ -81,7 +109,7 @@
   opacity: 0.85;
   animation: monkey-gently-swing 6s ease-in-out infinite alternate;
   transform-origin: top center;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 4px 6px color-mix(in srgb, #000 60%, transparent));
 }
 
 .falling-bananas-layer {
@@ -97,7 +125,7 @@
   opacity: 0;
   pointer-events: none;
   animation: fall-down linear infinite;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 4px color-mix(in srgb, #000 40%, transparent));
 }
 
 .falling-banana--1 {

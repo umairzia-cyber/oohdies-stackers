@@ -344,8 +344,8 @@ export default function MyStack() {
           )}
 
           {txError && (
-            <div className="mystack-alert-banner mb-6" style={{ borderColor: '#EF4444' }}>
-              <p style={{ color: '#EF4444' }}>Transaction Error: {txError}</p>
+            <div className="mystack-alert-banner mb-6" style={{ borderColor: 'var(--danger)' }}>
+              <p style={{ color: 'var(--danger)' }}>Transaction Error: {txError}</p>
             </div>
           )}
 

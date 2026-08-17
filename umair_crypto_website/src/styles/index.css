@@ -18,8 +18,60 @@
   --accent: #F5A623;
   --accent-bright: #FFD700;
   --accent-dim: #C88A1A;
-  --accent-glow: rgba(245, 166, 35, 0.14);
-  --accent-glow-strong: rgba(245, 166, 35, 0.28);
+  --accent-deep: #D4A017;
+  --accent-gold: #F5C518;
+  --accent-goldenrod: #DAA520;
+
+  /* Accent alphas are derived from --accent so a palette change propagates.
+     color-mix with transparent at N% yields alpha N%. */
+  --accent-a04: color-mix(in srgb, var(--accent) 4%, transparent);
+  --accent-a05: color-mix(in srgb, var(--accent) 5%, transparent);
+  --accent-a08: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-a10: color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-a12: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-a15: color-mix(in srgb, var(--accent) 15%, transparent);
+  --accent-a20: color-mix(in srgb, var(--accent) 20%, transparent);
+  --accent-a25: color-mix(in srgb, var(--accent) 25%, transparent);
+  --accent-a35: color-mix(in srgb, var(--accent) 35%, transparent);
+  --accent-a50: color-mix(in srgb, var(--accent) 50%, transparent);
+  --accent-glow: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-glow-strong: color-mix(in srgb, var(--accent) 28%, transparent);
+
+  /* Status */
+  --danger: #EF4444;
+  --danger-glow: color-mix(in srgb, var(--danger) 8%, transparent);
+  --danger-glow-strong: color-mix(in srgb, var(--danger) 10%, transparent);
+  --info: #60A5FA;
+  --info-glow: color-mix(in srgb, var(--info) 8%, transparent);
+
+  /* Surfaces beyond the base scale */
+  --bg-sunken: rgba(8, 16, 12, 0.9);
+  --bg-raised: rgba(18, 25, 20, 0.6);
+  --bg-raised-strong: rgba(18, 25, 20, 0.85);
+  --bg-elevated: rgba(24, 35, 26, 0.85);
+  --bg-glass: rgba(10, 20, 16, 0.6);
+  --bg-glass-strong: rgba(18, 32, 25, 0.8);
+  --bg-scrim: rgba(0, 0, 0, 0.75);
+  --sheen: rgba(255, 255, 255, 0.02);
+  --sheen-strong: rgba(255, 255, 255, 0.05);
+  --shadow-drop: rgba(0, 0, 0, 0.5);
+  --on-accent: #000000;
+
+  /* Jungle art — consumed by RainforestBackground's SVGs via CSS, because
+     SVG presentation attributes cannot resolve var(). */
+  --vine-stem: #1d3d2c;
+  --leaf-a: #29543d;
+  --leaf-b: #1e422f;
+  --leaf-c: #2d5e44;
+  --fur-dark: #54391c;
+  --fur-mid: #6e4d28;
+  --fur-light: #8c683c;
+  --fur-face: #cfa570;
+  --fur-mouth: #4a2e12;
+  --eye: #111111;
+  --banana-body: var(--accent);
+  --banana-stem: #8C6111;
+  --banana-shine: var(--accent-bright);
 
   --text-primary: #FFFFFF;
   --text-secondary: #a3b8ac;
@@ -284,7 +336,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn--primary {
   background-color: var(--accent);
-  color: #000000;
+  color: var(--on-accent);
   border: 1px solid var(--accent);
 }
 
@@ -300,7 +352,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--secondary {
-  background-color: rgba(10, 20, 16, 0.6);
+  background-color: var(--bg-glass);
   backdrop-filter: blur(8px);
   color: var(--text-primary);
   border: 1px solid var(--border-secondary);
@@ -309,7 +361,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn--secondary:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background-color: rgba(18, 32, 25, 0.8);
+  background-color: var(--bg-glass-strong);
 }
 
 .btn--ghost {
@@ -344,7 +396,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-4);
-  background-color: rgba(10, 20, 16, 0.7);
+  background-color: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-secondary);
   border-radius: var(--radius-sm);
@@ -360,7 +412,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pill--warning .pill__value {
-  color: #EF4444;
+  color: var(--danger);
 }
 
 .card {
@@ -389,7 +441,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .grid-bordered {
   display: grid;
-  background-color: rgba(10, 20, 16, 0.6);
+  background-color: var(--bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-primary);
@@ -465,7 +517,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 0.1em;
   border-radius: var(--radius-sm);
-  background-color: rgba(5, 12, 9, 0.85);
+  background-color: color-mix(in srgb, var(--bg-primary) 85%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -559,7 +611,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   border: 1px dashed var(--border-secondary);
   border-radius: var(--radius-lg);
-  background-color: rgba(10, 20, 16, 0.4);
+  background-color: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -627,13 +679,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .callout--warning {
-  border-left-color: #EF4444;
-  background-color: rgba(239, 68, 68, 0.08);
+  border-left-color: var(--danger);
+  background-color: var(--danger-glow);
 }
 
 .callout--info {
-  border-left-color: #60A5FA;
-  background-color: rgba(96, 165, 250, 0.08);
+  border-left-color: var(--info);
+  background-color: var(--info-glow);
 }
 
 .callout__title {
@@ -644,8 +696,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
 }
 
-.callout--warning .callout__title { color: #EF4444; }
-.callout--info .callout__title { color: #60A5FA; }
+.callout--warning .callout__title { color: var(--danger); }
+.callout--info .callout__title { color: var(--info); }
 
 .callout__text {
   font-size: var(--text-sm);
