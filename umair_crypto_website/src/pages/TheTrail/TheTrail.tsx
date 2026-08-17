@@ -12,6 +12,7 @@ import './TheTrail.css';
 export default function TheTrail() {
   useDocumentTitle(SEO.theTrail.title);
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const [scoutRef, scoutVisible] = useScrollReveal<HTMLElement>();
 
   return (
     <main className="trail-page">
@@ -55,38 +56,64 @@ export default function TheTrail() {
               {TRAIL_PAGE.expeditionsHeading}
             </h2>
 
-            <ol className="trail-expeditions__list">
-              {TRAIL_EXPEDITIONS.map((expedition) => (
-                <li
-                  key={expedition.id}
-                  className={`trail-expedition ${
-                    expedition.charted ? '' : 'trail-expedition--uncharted'
-                  }`}
-                >
-                  <div className="trail-expedition__marker" aria-hidden="true">
-                    <span className="trail-expedition__id">{expedition.id}</span>
-                  </div>
+            <div className="trail-expeditions__layout">
 
-                  <div className="trail-expedition__body">
-                    <p className="trail-expedition__ordinal">{expedition.ordinal}</p>
+              {/* The scout rides alongside the list: the map up top is the plan,
+                  this is someone already walking it. Cropped to a portrait in
+                  CSS so it holds a column rather than spanning the page. */}
+              <figure className="trail-scout" ref={scoutRef}>
+                <div className={`trail-scout__frame ${scoutVisible ? 'reveal--visible' : 'reveal'}`}>
+                  <img
+                    src="/assets/trail-scout.webp"
+                    alt={TRAIL_PAGE.scoutAlt}
+                    className="trail-scout__image"
+                    width={1600}
+                    height={893}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="trail-scout__fade" aria-hidden="true" />
+                </div>
 
-                    {expedition.charted ? (
-                      <>
-                        <h3 className="trail-expedition__title">{expedition.title}</h3>
-                        <p className="trail-expedition__text">{expedition.body}</p>
-                      </>
-                    ) : (
-                      <>
-                        <h3 className="trail-expedition__title trail-expedition__title--locked">
-                          {TRAIL_PAGE.unchartedLabel}
-                        </h3>
-                        <p className="trail-expedition__text">{TRAIL_PAGE.unchartedNote}</p>
-                      </>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
+                <figcaption className="trail-scout__caption">
+                  {TRAIL_PAGE.scoutCaption}
+                </figcaption>
+              </figure>
+
+              <ol className="trail-expeditions__list">
+                {TRAIL_EXPEDITIONS.map((expedition) => (
+                  <li
+                    key={expedition.id}
+                    className={`trail-expedition ${
+                      expedition.charted ? '' : 'trail-expedition--uncharted'
+                    }`}
+                  >
+                    <div className="trail-expedition__marker" aria-hidden="true">
+                      <span className="trail-expedition__id">{expedition.id}</span>
+                    </div>
+
+                    <div className="trail-expedition__body">
+                      <p className="trail-expedition__ordinal">{expedition.ordinal}</p>
+
+                      {expedition.charted ? (
+                        <>
+                          <h3 className="trail-expedition__title">{expedition.title}</h3>
+                          <p className="trail-expedition__text">{expedition.body}</p>
+                        </>
+                      ) : (
+                        <>
+                          <h3 className="trail-expedition__title trail-expedition__title--locked">
+                            {TRAIL_PAGE.unchartedLabel}
+                          </h3>
+                          <p className="trail-expedition__text">{TRAIL_PAGE.unchartedNote}</p>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+            </div>
           </section>
 
           <div className="trail-outro">

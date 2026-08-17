@@ -69,6 +69,9 @@ export const TRAIL_PAGE = {
   expeditionsHeading: 'THE EXPEDITIONS',
   unchartedLabel: 'UNCHARTED TERRITORY',
   unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
+  scoutCaption: 'The scout is already out there. Catch up.',
+  scoutAlt:
+    'A tiger-striped Oohdie in a leopard-print bucket hat and khaki fieldwear, rifle in hand, walking a sunlit dirt path deep into dense jungle.',
 } as const;
 
 /*
