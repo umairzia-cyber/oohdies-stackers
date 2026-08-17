@@ -66,7 +66,36 @@ export const TRAIL_PAGE = {
   cta: 'START STACKING',
   mapAlt:
     'An illustrated map of the Oohdie trail: a jungle clearing where troops of Oohdies gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured Oohdie with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
+  stopsHeading: 'THE STOPS',
+  unchartedLabel: 'UNCHARTED TERRITORY',
+  unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
 } as const;
+
+/*
+ * ⚠️ PLACEHOLDER COPY — every `body` below is filler and must be rewritten
+ * before this ships. Nothing here is a commitment.
+ *
+ * To reveal the next stop: change its `charted` to true and write real copy.
+ * Uncharted entries intentionally carry no title or body — they render as
+ * locked rows, so adding one costs a single line.
+ */
+export const TRAIL_STOPS = [
+  {
+    id: '01',
+    title: 'Placeholder — First Stop',
+    body: 'Filler text for the opening leg of the trail. Two or three lines is the right length here: enough to say what lands and roughly when, without committing to a date. Replace before launch.',
+    charted: true,
+  },
+  {
+    id: '02',
+    title: 'Placeholder — Second Stop',
+    body: 'More filler text. This stop follows on from the first and hints at what it unlocks. Keep the voice the same as the rest of the site — plain, short sentences, no roadmap jargon. Replace before launch.',
+    charted: true,
+  },
+  { id: '03', charted: false },
+  { id: '04', charted: false },
+  { id: '05', charted: false },
+] as const;
 
 // TODO: replace with the real Oohdie X profile URL.
 export const X_URL = 'https://x.com';
