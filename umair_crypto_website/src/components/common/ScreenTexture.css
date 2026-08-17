@@ -1,0 +1,48 @@
+/* Fixed to the viewport and full-bleed on purpose: the texture should cover the
+   rail too, so the whole surface reads as one screen. Below --z-sticky so the
+   rail and any modal stay crisp above it. */
+.screen-texture {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-sticky) - 1);
+  pointer-events: none;
+}
+
+.screen-texture__scanlines,
+.screen-texture__vignette {
+  position: absolute;
+  inset: 0;
+}
+
+/* 3px pitch keeps the lines readable without moiré against body text. */
+.screen-texture__scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, #000 22%, transparent) 0px,
+    color-mix(in srgb, #000 22%, transparent) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.34;
+  animation: scanline-drift 8s linear infinite;
+}
+
+.screen-texture__vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    color-mix(in srgb, var(--bg-primary) 55%, transparent) 100%
+  );
+}
+
+/* One pitch of travel, so the loop is seamless. */
+@keyframes scanline-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-texture__scanlines {
+    animation: none;
+  }
+}

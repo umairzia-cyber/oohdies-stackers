@@ -1,0 +1,58 @@
+/* Sits at the top of the content column, inside #root's padding, so it starts
+   where the rail ends rather than spanning the viewport. */
+.ticker {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  overflow: hidden;
+  padding: var(--space-2) 0;
+  background-color: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 48s linear infinite;
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-right: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+}
+
+.ticker__label {
+  color: var(--text-muted);
+}
+
+/* Amber: these are values. */
+.ticker__value {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ticker__sep {
+  color: var(--lime-deep);
+  padding-left: var(--space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
+
+/* Below the rail breakpoint the fixed top bar owns this space. */
+@media (max-width: 1024px) {
+  .ticker {
+    display: none;
+  }
+}

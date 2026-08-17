@@ -291,11 +291,22 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid var(--border-primary);
 }
 
+/* Page titles carry a chromatic split on hover — lime and amber pulling apart
+   by a pixel, like a mis-converged CRT. Kept to hover rather than looping so it
+   reads as a flourish instead of noise. */
 .heading-xl {
+  position: relative;
   font-size: var(--text-6xl);
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1;
+  transition: text-shadow var(--duration-normal) var(--ease-out);
+}
+
+.heading-xl:hover {
+  text-shadow:
+    -2px 0 var(--lime-a20),
+     2px 0 var(--accent-a20);
 }
 
 .heading-lg {
@@ -305,10 +316,26 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.05;
 }
 
+/* Section headings carry a short lit rule beneath them — the anchor that gives
+   every section the same visual footing. */
 .heading-md {
+  position: relative;
   font-size: var(--text-3xl);
   font-weight: 800;
   letter-spacing: -0.02em;
+  padding-bottom: var(--space-3);
+}
+
+.heading-md::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--lime);
+  box-shadow: 0 0 10px var(--lime-glow-strong);
 }
 
 .heading-sm {
@@ -968,3 +995,32 @@ h1, h2, h3, h4, h5, h6 {
 .mb-4 { margin-bottom: var(--space-4); }
 .mb-6 { margin-bottom: var(--space-6); }
 .mb-8 { margin-bottom: var(--space-8); }
+
+/* These utility names were already being written in the JSX but had no rule
+   behind them, so they silently did nothing — e.g. font-mono on the token-bound
+   account address, and btn--xs on the MyStack claim buttons. Defining the ones
+   whose intent is unambiguous. Deliberately NOT defining the rest (bordered-box,
+   stat-cell, nft-card__wallet, p-4/p-6, border-t): their intent isn't clear
+   enough to guess, and inventing styling for them would change layout blindly. */
+.font-mono { font-family: var(--font-mono); }
+.font-bold { font-weight: 700; }
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-left { text-align: left; }
+.flex-wrap { flex-wrap: wrap; }
+.inline-block { display: inline-block; }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+
+.btn--xs {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.btn--md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+}

@@ -7,6 +7,8 @@ import Navbar from './components/navigation/Navbar';
 import Footer from './components/common/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
 import RainforestBackground from './components/common/RainforestBackground';
+import ScreenTexture from './components/common/ScreenTexture';
+import Ticker from './components/common/Ticker';
 import './styles/index.css';
 
 const Home = lazy(() => import('./pages/Home/Home'));
@@ -45,6 +47,7 @@ export default function App() {
             because it is the primary nav above 1024px. */}
         <SideNav />
         <Navbar />
+        <Ticker />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path={ROUTES.HOME} element={<Home />} />
@@ -56,6 +59,7 @@ export default function App() {
           </Routes>
         </Suspense>
         <Footer />
+        <ScreenTexture />
       </WalletProvider>
     </BrowserRouter>
   );

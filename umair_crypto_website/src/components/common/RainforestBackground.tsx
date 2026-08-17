@@ -25,6 +25,12 @@ export default function RainforestBackground() {
             d="M20 0 C40 80, -10 160, 30 240 C50 290, 10 350, 25 400"
             strokeWidth="3"
           />
+          {/* Same path again, stroked as a dashed segment that travels. */}
+          <path
+            className="vine__pulse"
+            d="M20 0 C40 80, -10 160, 30 240 C50 290, 10 350, 25 400"
+            strokeWidth="3"
+          />
 
           <path className="vine__leaf vine__leaf--a" d="M20 50 Q40 40, 35 65 Z" />
           <path className="vine__leaf vine__leaf--b" d="M12 120 Q-10 110, -2 135 Z" />
@@ -41,6 +47,11 @@ export default function RainforestBackground() {
           >
             <path
               className="vine__stem"
+              d="M100 0 C70 100, 120 200, 80 300 C60 350, 90 410, 75 450"
+              strokeWidth="3.5"
+            />
+            <path
+              className="vine__pulse"
               d="M100 0 C70 100, 120 200, 80 300 C60 350, 90 410, 75 450"
               strokeWidth="3.5"
             />
@@ -108,6 +119,12 @@ export default function RainforestBackground() {
             </svg>
           </div>
         </div>
+      </div>
+
+      <div className="spore-layer">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <span key={i} className={`spore spore--${i + 1}`} />
+        ))}
       </div>
 
       <div className="falling-bananas-layer">
