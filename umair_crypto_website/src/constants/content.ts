@@ -54,6 +54,20 @@ export const DOCS_PAGE = {
   heading: 'DOCS',
 } as const;
 
+// Temporary pre-launch tease. Set `enabled: false` to reveal the real docs page.
+export const DOCS_TEASE = {
+  enabled: true,
+  badge: 'OOHDIE DOCS',
+  badgeStatus: 'COMING SOON',
+  heading: 'COMING SOON',
+  signal: 'Signal scrambled · the manual is still being written',
+  body: 'The full Oohdie manual — cycles, multipliers, tier burns, stock splits, and wallet safety — is being finished right now. We would rather hand you the whole thing at once than half a page. Check back soon.',
+  primaryCta: 'FOLLOW US ON X',
+  // TODO: replace with the real Oohdie X profile URL.
+  xUrl: 'https://x.com',
+  timerNote: 'No release date has been announced — the counter is decorative.',
+} as const;
+
 export const WALLET = {
   connectButton: 'Connect Wallet',
   disconnectButton: 'Disconnect',
