@@ -12,6 +12,7 @@ import Ticker from './components/common/Ticker';
 import './styles/index.css';
 
 const Home = lazy(() => import('./pages/Home/Home'));
+const Collection = lazy(() => import('./pages/Collection/Collection'));
 const Activate = lazy(() => import('./pages/Activate/Activate'));
 const MyStack = lazy(() => import('./pages/MyStack/MyStack'));
 const TheTrail = lazy(() => import('./pages/TheTrail/TheTrail'));
@@ -52,6 +53,7 @@ export default function App() {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path={ROUTES.HOME} element={<Home />} />
+            <Route path={ROUTES.COLLECTION} element={<Collection />} />
             <Route path={ROUTES.ACTIVATE} element={<Activate />} />
             <Route path={ROUTES.MY_STACK} element={<MyStack />} />
             <Route path={ROUTES.THE_TRAIL} element={<TheTrail />} />

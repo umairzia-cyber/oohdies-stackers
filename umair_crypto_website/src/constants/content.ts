@@ -54,6 +54,23 @@ export const DOCS_PAGE = {
   heading: 'DOCS',
 } as const;
 
+// The gallery. Copy stays thin on purpose — the art is the argument here, so
+// every string below is a label rather than a paragraph.
+export const COLLECTION_PAGE = {
+  subtitle: 'THE COLLECTION',
+  heading: 'MEET THE OOHDIES',
+  description:
+    'Hand-drawn, none repeated. Every Oohdie carries its own traits into the stack — and the rarer the build, the harder it works.',
+  wallLabel: 'LIVE FROM THE VAULT',
+  ladderHeading: 'RARITY LADDER',
+  vaultHeading: 'THE VAULT',
+  filterAllLabel: 'ALL',
+  emptyLabel: 'Nothing at this tier yet.',
+  viewerHint: 'Use ← → to move through the vault, Esc to close.',
+  traitsHeading: 'TRAITS',
+  cta: 'START STACKING',
+} as const;
+
 // Roadmap tease. Deliberately says nothing about the individual stops — the map
 // does the teasing, and the copy only sets the mood.
 export const TRAIL_PAGE = {
@@ -137,6 +154,10 @@ export const SEO = {
   home: {
     title: 'Oohdie — Eat Bananas. Build Your Stack.',
     description: 'A digital collectible ecosystem where eating bananas creates value. Acquire, activate, and stack Oohdies.',
+  },
+  collection: {
+    title: 'The Collection — Oohdie',
+    description: 'All 1,111 Oohdies. Browse the vault, study the traits, and find the build you want in your stack.',
   },
   activate: {
     title: 'Activate — Oohdie',

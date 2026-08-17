@@ -18,6 +18,10 @@ const NAV_ICONS: Record<string, ReactNode> = {
   [ROUTES.HOME]: (
     <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5Z" />
   ),
+  /* Four framed panels — a wall of art. */
+  [ROUTES.COLLECTION]: (
+    <path d="M3.5 3.5h7v7h-7v-7Zm1.5 1.5v4h4V5H5Zm8.5-1.5h7v7h-7v-7Zm1.5 1.5v4h4V5h-4Zm-11.5 8.5h7v7h-7v-7Zm1.5 1.5v4h4v-4H5Zm8.5-1.5h7v7h-7v-7Zm1.5 1.5v4h4v-4h-4Z" />
+  ),
   [ROUTES.ACTIVATE]: (
     <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" />
   ),
