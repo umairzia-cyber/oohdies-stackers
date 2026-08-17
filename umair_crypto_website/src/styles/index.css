@@ -15,6 +15,23 @@
   --border-accent: rgba(55, 100, 75, 0.9);
   --border-hover: rgba(75, 135, 100, 0.9);
 
+  /* Two-colour system, split by meaning — this is the rule that keeps the
+     palette legible instead of decorative:
+       lime  = alive / interactive  (CTAs, focus, active nav, hover, live labels)
+       amber = value                (prices, balances, multipliers, counts)
+     Never use lime for a number or amber for an affordance. */
+  --lime: #C8FF3D;
+  --lime-dim: #9BC42E;
+  --lime-deep: #6F8F1F;
+  --lime-a08: color-mix(in srgb, var(--lime) 8%, transparent);
+  --lime-a12: color-mix(in srgb, var(--lime) 12%, transparent);
+  --lime-a20: color-mix(in srgb, var(--lime) 20%, transparent);
+  --lime-glow: color-mix(in srgb, var(--lime) 14%, transparent);
+  --lime-glow-strong: color-mix(in srgb, var(--lime) 30%, transparent);
+  --on-lime: #0a1408;
+
+  --spore: #4ADE80;
+
   --accent: #F5A623;
   --accent-bright: #FFD700;
   --accent-dim: #C88A1A;
@@ -212,17 +229,17 @@ img {
 }
 
 a {
-  color: var(--accent);
+  color: var(--lime);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
-  color: var(--accent-bright);
+  color: var(--lime-dim);
 }
 
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -237,7 +254,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -323,7 +340,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--lime);
 }
 
 .body-lg {
@@ -351,15 +368,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--primary {
-  background-color: var(--accent);
-  color: var(--on-accent);
-  border: 1px solid var(--accent);
+  background-color: var(--lime);
+  color: var(--on-lime);
+  border: 1px solid var(--lime);
 }
 
 .btn--primary:hover {
-  background-color: var(--accent-bright);
-  border-color: var(--accent-bright);
-  box-shadow: 0 0 20px var(--accent-glow);
+  background-color: var(--lime-dim);
+  border-color: var(--lime-dim);
+  box-shadow: 0 0 24px var(--lime-glow-strong);
   transform: translateY(-1px);
 }
 
@@ -375,8 +392,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--lime);
+  color: var(--lime);
   background-color: var(--bg-glass-strong);
 }
 
@@ -731,6 +748,79 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary);
   overflow-x: auto;
   margin: var(--space-4) 0;
+}
+
+/* ==========================================================================
+   HUD frames
+   Terminal-panel corner brackets. Defined once and applied to every panel
+   recipe in the app — the six hand-rolled card variants across the three
+   page stylesheets plus the shared components — so the frame language stays
+   consistent without touching each rule block.
+   The brackets are eight thin gradients on a single pseudo-element (four
+   corners x two arms), which keeps it to one element and animates cheaply.
+   ========================================================================== */
+.stat-card-item,
+.showcase-card,
+.portfolio-token-card,
+.stock-tile,
+.nft-select-card,
+.mint-dedicated-box,
+.nft-card,
+.tier-card,
+.empty-state,
+.grid-bordered {
+  position: relative;
+  --hud-corner: var(--border-hover);
+  --hud-arm: 10px;
+  --hud-stroke: 1px;
+}
+
+.stat-card-item::after,
+.showcase-card::after,
+.portfolio-token-card::after,
+.stock-tile::after,
+.nft-select-card::after,
+.mint-dedicated-box::after,
+.nft-card::after,
+.tier-card::after,
+.empty-state::after,
+.grid-bordered::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  background:
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-stroke) var(--hud-arm) no-repeat;
+}
+
+/* Hover lights the brackets — the panel reads as "powered on". */
+.stat-card-item:hover,
+.showcase-card:hover,
+.portfolio-token-card:hover,
+.stock-tile:hover,
+.nft-select-card:hover,
+.nft-card:hover,
+.tier-card:hover {
+  --hud-corner: var(--lime);
+  --hud-arm: 16px;
+}
+
+/* Selected states stay lit. */
+.stock-tile--selected,
+.nft-select-card--selected,
+.tier-card--selected {
+  --hud-corner: var(--lime);
+  --hud-arm: 16px;
 }
 
 @keyframes fadeInUp {
