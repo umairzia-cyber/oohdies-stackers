@@ -81,7 +81,7 @@ export const TRAIL_EXPEDITIONS = [
     id: '01',
     ordinal: 'FIRST EXPEDITION',
     title: 'Launch',
-    body: 'Everything that works today. Mint an Oohdie from the collection of 1,111, then activate it by burning $BANANA to lock in a tier — tiers run from 1x to 3.5x and set the multiplier on everything it earns. Pick up to three of the twelve tokenized assets to split those earnings between, and your Oohdie accrues them hourly on its own. The rewards land in the NFT’s own on-chain account, so they travel with it if it ever sells. My Stack is where you watch it stack up and claim it.',
+    body: 'Everything that works today. Mint an Oohdie, activate it by burning $BANANA to lock in a tier, and pick which tokenized assets your earnings split across. From there it accrues on its own — into the NFT’s own on-chain account, so the rewards travel with it if it ever sells.',
     charted: true,
   },
   {
