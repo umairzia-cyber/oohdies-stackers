@@ -386,7 +386,7 @@ export default function Activate() {
                 </div>
 
                 {txError && (
-                  <p className="text-sm mb-4" style={{ color: '#EF4444' }}>
+                  <p className="text-sm mb-4" style={{ color: 'var(--danger)' }}>
                     Error: {txError}
                   </p>
                 )}

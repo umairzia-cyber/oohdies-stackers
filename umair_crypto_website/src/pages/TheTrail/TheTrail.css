@@ -1,0 +1,363 @@
+.trail-page {
+  padding-top: calc(var(--nav-height) + var(--page-top));
+}
+
+/* Header is deliberately narrow and short — the map is the focal point, so the
+   text sets the mood and gets out of the way. */
+.trail-header {
+  max-width: 680px;
+  margin-bottom: var(--space-10);
+}
+
+.trail-header__heading {
+  margin-bottom: var(--space-5);
+}
+
+.trail-header__desc {
+  max-width: 620px;
+}
+
+/* The map breaks wider than the reading measure so it dominates the page. */
+.trail-map {
+  position: relative;
+  width: 100%;
+  margin: 0 0 var(--space-8);
+}
+
+.trail-map__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  box-shadow:
+    0 0 60px color-mix(in srgb, var(--lime) 6%, transparent),
+    0 30px 80px color-mix(in srgb, #000 55%, transparent);
+
+  /* Reuses the HUD bracket language from index.css. */
+  --hud-corner: var(--border-hover);
+  --hud-arm: 22px;
+  --hud-stroke: 1px;
+}
+
+.trail-map__frame:hover {
+  --hud-corner: var(--lime);
+  --hud-arm: 34px;
+}
+
+.trail-map__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-stroke) var(--hud-arm) no-repeat;
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+/* Left on smooth (auto) deliberately. The 2752px source is always displayed
+   smaller than native, and image-rendering: pixelated is nearest-neighbour —
+   great when upscaling pixel art, but at this ~0.3 downscale it would throw
+   away most source pixels and shimmer on the fine dotted trails. Averaging
+   preserves more apparent detail. */
+.trail-map__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* A slow band of light crossing the map. */
+.trail-map__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    color-mix(in srgb, var(--lime) 9%, transparent) 50%,
+    transparent 58%
+  );
+  background-size: 260% 100%;
+  animation: trail-scan 9s ease-in-out infinite;
+}
+
+@keyframes trail-scan {
+  0%, 100% { background-position: 130% 0; }
+  50%      { background-position: -30% 0; }
+}
+
+/* Edges fall off into the page so the map reads as lit ground rather than a
+   pasted rectangle. */
+.trail-map__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 52%,
+    color-mix(in srgb, var(--bg-primary) 72%, transparent) 100%
+  );
+}
+
+.trail-map__caption,
+.trail-scout__caption {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---- The expeditions -------------------------------------------------------- */
+
+.trail-expeditions {
+  max-width: 1140px;
+  margin: var(--space-16) 0 var(--space-12);
+}
+
+.trail-expeditions__heading {
+  margin-bottom: var(--space-10);
+}
+
+/* Scout on the left, list on the right. The list column keeps its own reading
+   measure (the text is capped at 60ch below), so the scout takes a fixed slice
+   rather than a fraction — it must not grow into a second hero on wide screens. */
+.trail-expeditions__layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.trail-expeditions__list {
+  position: relative;
+  list-style: none;
+}
+
+/* The dotted spine running down the markers, echoing the trails drawn on the
+   map above. Stops short at both ends so it reads as a path, not a border. */
+.trail-expeditions__list::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 17px;
+  width: 2px;
+  background-image: linear-gradient(
+    to bottom,
+    var(--border-hover) 0 6px,
+    transparent 6px 12px
+  );
+  background-size: 2px 12px;
+}
+
+.trail-expedition {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: var(--space-5);
+  padding-bottom: var(--space-8);
+}
+
+.trail-expedition:last-child {
+  padding-bottom: 0;
+}
+
+.trail-expedition__marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--lime);
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 12px var(--lime-glow-strong);
+}
+
+.trail-expedition__id {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--lime);
+}
+
+.trail-expedition__body {
+  padding-top: var(--space-1);
+}
+
+.trail-expedition__ordinal {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.trail-expedition--uncharted .trail-expedition__ordinal {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.trail-expedition__title {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.trail-expedition__text {
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+/* Uncharted expeditions recede: unlit marker, dashed edge, muted type. They are
+   deliberately still legible — the point is to show there IS more trail. */
+.trail-expedition--uncharted .trail-expedition__marker {
+  border: 1px dashed var(--border-secondary);
+  box-shadow: none;
+}
+
+.trail-expedition--uncharted .trail-expedition__id {
+  color: var(--text-muted);
+}
+
+.trail-expedition__title--locked {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.trail-expedition--uncharted .trail-expedition__text {
+  color: var(--text-muted);
+  opacity: 0.75;
+}
+
+/* ---- The scout -------------------------------------------------------------- */
+
+/* Top-aligned against the first expedition, not stretched to the list's height —
+   see the crop note below for why the art can't take an arbitrary ratio. */
+.trail-scout {
+  margin: 0;
+}
+
+/* Portrait crop of a 16:9 source. 4:5 is about as tall as this can go: cover
+   scales to whichever axis needs more, and past roughly this ratio it starts
+   scaling on height and eats the jungle either side of the scout. Here the full
+   canopy and the path underfoot both survive. 51% x is where he stands. */
+.trail-scout__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  box-shadow: 0 24px 60px color-mix(in srgb, #000 45%, transparent);
+}
+
+.trail-scout__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 51% 50%;
+}
+
+/* Only the lower edge falls off — the canopy at the top of the art is the light
+   source and stays intact. */
+.trail-scout__fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 58%,
+    color-mix(in srgb, var(--bg-primary) 85%, transparent) 100%
+  );
+}
+
+.trail-outro {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-8);
+}
+
+/* Below this the two columns would squeeze the list's reading measure, so the
+   scout stacks above it as a band and goes back to the native 16:9 — a portrait
+   crop only earns its keep when it has a column to fill. */
+@media (max-width: 900px) {
+  .trail-expeditions__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .trail-scout {
+    max-width: 560px;
+  }
+
+  .trail-scout__frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 600px) {
+  .trail-expedition {
+    grid-template-columns: 28px 1fr;
+    gap: var(--space-4);
+  }
+
+  .trail-expedition__marker {
+    width: 28px;
+    height: 28px;
+  }
+
+  .trail-expeditions__list::before {
+    left: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trail-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .trail-map__caption,
+  .trail-scout__caption {
+    letter-spacing: 0.1em;
+  }
+
+  .trail-outro .btn--lg {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-map__scan {
+    animation: none;
+    opacity: 0.4;
+  }
+}

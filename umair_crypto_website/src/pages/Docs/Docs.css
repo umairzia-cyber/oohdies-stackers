@@ -2,6 +2,22 @@
   padding-top: calc(var(--nav-height));
 }
 
+/* Pre-launch tease: clip the real docs to one screen and blur them out.
+   Remove this block along with DocsTease when the docs go live. */
+.docs-page--teased {
+  position: relative;
+  height: calc(100vh - var(--nav-height));
+  overflow: hidden;
+}
+
+.docs-page--teased .docs-header,
+.docs-page--teased .docs-layout {
+  filter: blur(7px) saturate(0.75);
+  transform: scale(1.02);
+  pointer-events: none;
+  user-select: none;
+}
+
 .docs-header {
   padding: var(--space-16) 0 var(--space-12);
   border-bottom: 1px solid var(--border-primary);

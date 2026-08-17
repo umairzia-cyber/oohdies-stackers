@@ -1,5 +1,5 @@
 .mystack-page {
-  padding-top: calc(var(--nav-height) + var(--space-8));
+  padding-top: calc(var(--nav-height) + var(--page-top));
 }
 
 .mystack-pills {
@@ -16,7 +16,7 @@
 }
 
 .mystack-alert-banner {
-  background-color: rgba(245, 166, 35, 0.05);
+  background-color: var(--accent-a05);
   border: 1px solid var(--accent);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-6);
@@ -59,7 +59,7 @@
 }
 
 .portfolio-tokens-scroll-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--sheen);
   border-radius: 3px;
 }
 
@@ -137,13 +137,13 @@
 
 .timer--active {
   color: var(--accent);
-  background: rgba(245, 166, 35, 0.1);
+  background: var(--accent-a10);
   border: 1px solid var(--accent);
 }
 
 .timer--muted {
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--sheen-strong);
   border: 1px solid var(--border-secondary);
 }
 

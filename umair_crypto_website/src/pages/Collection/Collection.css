@@ -1,0 +1,665 @@
+/* ==========================================================================
+   The Collection
+   Three movements: a wall of art in motion, the rarity ladder, and the vault
+   grid. The page leads with motion and holds text back until the art has
+   already made the argument.
+   ========================================================================== */
+
+.collection-page {
+  position: relative;
+}
+
+/* ── 1. The wall ───────────────────────────────────────────────────────────
+   Rows of art drifting in alternating directions, laid back in perspective so
+   the wall recedes rather than sitting flat against the viewport. The title
+   sits in front of it behind a veil that buys back the contrast the art costs.
+   ========================================================================== */
+.collection-wall {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 560px;
+  height: clamp(560px, 82vh, 780px);
+  padding-top: calc(var(--nav-height) + var(--page-top));
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.collection-wall__stage {
+  position: absolute;
+  inset: -8% -12% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(var(--space-2), 1.2vw, var(--space-4));
+  /* Laid back and scaled up: the perspective shrinks the rows, the scale
+     returns them to full bleed so no background shows at the edges. */
+  transform: perspective(1400px) rotateX(19deg) scale(1.16);
+  transform-origin: 50% 42%;
+  /* The veil below handles legibility; dimming here as well only muddies the
+     art without buying any more contrast. */
+  opacity: 0.95;
+}
+
+.collection-wall__row {
+  overflow: hidden;
+}
+
+.collection-wall__track {
+  display: flex;
+  gap: clamp(var(--space-2), 1.2vw, var(--space-4));
+  width: max-content;
+  /* The row is rendered twice, so a -50% shift lands on an identical frame and
+     the loop has no seam. */
+  animation: wall-drift var(--row-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
+/* Middle row runs against the others — the counter-motion is what stops the
+   wall reading as one sliding sheet. */
+.collection-wall__row:nth-child(2) .collection-wall__track {
+  animation-direction: reverse;
+}
+
+@keyframes wall-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.collection-wall:hover .collection-wall__track {
+  animation-play-state: paused;
+}
+
+.collection-wall__tile {
+  flex: 0 0 auto;
+  width: clamp(112px, 13vw, 184px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+}
+
+.collection-wall__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Darkest at the bottom-left corner the type occupies and clearing fast toward
+   the top right, so the headline keeps its contrast while most of the wall is
+   still legible as art rather than wallpaper. */
+.collection-wall__veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      var(--bg-primary) 0%,
+      rgba(7, 14, 11, 0.9) 18%,
+      rgba(7, 14, 11, 0.24) 44%,
+      transparent 64%
+    ),
+    linear-gradient(
+      to right,
+      rgba(7, 14, 11, 0.8) 0%,
+      rgba(7, 14, 11, 0.2) 24%,
+      transparent 46%
+    );
+}
+
+.collection-wall__intro {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6) var(--space-16);
+}
+
+.collection-wall__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+/* A live dot on the label — the wall behind it is moving, so the page claims
+   it is showing something current. */
+.collection-wall__label::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background-color: var(--lime);
+  box-shadow: 0 0 8px var(--lime-glow-strong);
+  animation: wall-pulse 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes wall-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.collection-wall__heading {
+  margin-bottom: var(--space-5);
+}
+
+.collection-wall__desc {
+  max-width: 560px;
+}
+
+/* ── 2. The rarity ladder ──────────────────────────────────────────────────
+   A distribution bar whose segment widths are the live counts, doubling as the
+   filter. The chart is the control — there is no separate row of chips.
+   ========================================================================== */
+.collection-ladder {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-8);
+}
+
+.collection-ladder__heading {
+  margin-bottom: var(--space-6);
+}
+
+.collection-ladder__bar {
+  display: flex;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.collection-ladder__segment {
+  /* Grow by the tier's count: the bar is the rarity spread, to scale. The
+     floor costs a little accuracy at the thin end, but LEGENDARY is the tier
+     people look for — it cannot be the one that renders as "LE…". */
+  flex: var(--segment-grow, 1) 1 0;
+  min-width: 124px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  min-height: 88px;
+  padding: var(--space-3);
+  border: 1px solid var(--border-primary);
+  border-bottom: 3px solid var(--tier-colour);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.collection-ladder__segment:hover {
+  background-color: var(--bg-card-hover);
+  transform: translateY(-3px);
+}
+
+.collection-ladder__segment--active {
+  border-color: var(--tier-colour);
+  background-color: color-mix(in srgb, var(--tier-colour) 14%, var(--bg-card));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tier-colour) 22%, transparent);
+}
+
+.collection-ladder__tier {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--tier-colour);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.collection-ladder__count {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.collection-ladder__reset {
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.collection-ladder__reset:hover,
+.collection-ladder__reset--active {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+
+/* ── 3. The vault ──────────────────────────────────────────────────────────
+   The browsable grid. At rest it is pure art — the id and tier only surface on
+   hover, so the wall of images stays uninterrupted while scanning.
+   ========================================================================== */
+.collection-vault {
+  padding-top: var(--space-8);
+}
+
+.collection-vault__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.collection-vault__readout {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--accent);
+}
+
+.collection-vault__empty {
+  padding: var(--space-16) 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.collection-vault__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.collection-vault__cell {
+  animation: specimen-in var(--duration-slow) var(--ease-out) both;
+  /* Capped so a large filter result does not queue a visible wait at the end
+     of the grid. */
+  animation-delay: calc(min(var(--cell-index), 24) * 26ms);
+}
+
+@keyframes specimen-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.specimen {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.specimen__frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.specimen:hover .specimen__frame,
+.specimen:focus-visible .specimen__frame {
+  transform: translateY(-6px);
+  border-color: var(--lime);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 22px var(--lime-glow);
+}
+
+.specimen__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.specimen:hover .specimen__img {
+  transform: scale(1.06);
+}
+
+/* Slides up out of the frame on hover rather than sitting under every tile —
+   at rest the grid is nothing but art. */
+.specimen__meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: linear-gradient(to top, rgba(4, 9, 7, 0.94), transparent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.specimen:hover .specimen__meta,
+.specimen:focus-visible .specimen__meta {
+  opacity: 1;
+  transform: none;
+}
+
+.specimen__id {
+  color: var(--text-secondary);
+}
+
+.specimen__rarity {
+  color: var(--tier-colour);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.collection-vault__outro {
+  margin-top: var(--space-16);
+  text-align: center;
+}
+
+/* ── 4. The specimen viewer ────────────────────────────────────────────────
+   Full-screen study of a single piece: art on the left, the trait sheet on the
+   right. Arrow keys walk the current filter, Esc closes.
+   ========================================================================== */
+.specimen-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background-color: var(--bg-overlay);
+  backdrop-filter: blur(10px);
+  animation: viewer-in var(--duration-normal) var(--ease-out);
+}
+
+@keyframes viewer-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.specimen-viewer__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: 100%;
+  max-width: 980px;
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-secondary);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: panel-in var(--duration-normal) var(--ease-out);
+}
+
+.specimen-viewer__panel:focus {
+  outline: none;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.specimen-viewer__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-full);
+  background-color: var(--bg-overlay);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.specimen-viewer__close:hover {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+
+.specimen-viewer__art {
+  background-color: var(--bg-tertiary);
+}
+
+.specimen-viewer__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.specimen-viewer__body {
+  padding: var(--space-8);
+  overflow-y: auto;
+}
+
+.specimen-viewer__counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  margin-bottom: var(--space-3);
+}
+
+.specimen-viewer__name {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: var(--space-3);
+}
+
+.specimen-viewer__rarity {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--tier-colour);
+  border-radius: var(--radius-full);
+  color: var(--tier-colour);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.specimen-viewer__desc {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-8);
+}
+
+.specimen-viewer__traits-heading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.specimen-viewer__traits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0 0 var(--space-8);
+}
+
+.specimen-viewer__trait {
+  padding: var(--space-3);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+}
+
+.specimen-viewer__trait-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.specimen-viewer__trait-value {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.specimen-viewer__nav {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.specimen-viewer__step {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.specimen-viewer__step:hover {
+  color: var(--lime);
+  border-color: var(--lime);
+  background-color: var(--bg-card-hover);
+}
+
+.specimen-viewer__hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .collection-wall {
+    height: clamp(480px, 70vh, 640px);
+    min-height: 480px;
+  }
+
+  /* The tilt costs more than it gives once the wall is short — it starts to
+     crop the rows rather than lay them back. */
+  .collection-wall__stage {
+    transform: none;
+    inset: 0;
+    opacity: 0.42;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-ladder__bar {
+    flex-wrap: wrap;
+  }
+
+  /* Segments stop being a to-scale bar below this width — a legendary tier at
+     5% would be a sliver. They become equal chips instead. */
+  .collection-ladder__segment {
+    flex: 1 1 30%;
+    min-height: 72px;
+  }
+
+  .collection-vault__grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .specimen-viewer {
+    padding: var(--space-3);
+  }
+
+  .specimen-viewer__panel {
+    grid-template-columns: 1fr;
+    max-height: 92vh;
+  }
+
+  .specimen-viewer__art {
+    max-height: 38vh;
+  }
+
+  .specimen-viewer__img {
+    object-fit: contain;
+  }
+
+  .specimen-viewer__body {
+    padding: var(--space-6);
+  }
+
+  .specimen-viewer__traits {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Park the wall on a full frame instead of letting the global 0.01ms
+     override fling it to the end of the drift. */
+  .collection-wall__track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .collection-wall__label::before {
+    animation: none;
+  }
+
+  .collection-vault__cell {
+    animation: none;
+  }
+}

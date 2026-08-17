@@ -54,6 +54,95 @@ export const DOCS_PAGE = {
   heading: 'DOCS',
 } as const;
 
+// The gallery. Copy stays thin on purpose — the art is the argument here, so
+// every string below is a label rather than a paragraph.
+export const COLLECTION_PAGE = {
+  subtitle: 'THE COLLECTION',
+  heading: 'MEET THE OOHDIES',
+  description:
+    'Hand-drawn, none repeated. Every Oohdie carries its own traits into the stack — and the rarer the build, the harder it works.',
+  wallLabel: 'LIVE FROM THE VAULT',
+  ladderHeading: 'RARITY LADDER',
+  vaultHeading: 'THE VAULT',
+  filterAllLabel: 'ALL',
+  emptyLabel: 'Nothing at this tier yet.',
+  viewerHint: 'Use ← → to move through the vault, Esc to close.',
+  traitsHeading: 'TRAITS',
+  cta: 'START STACKING',
+} as const;
+
+// Roadmap tease. Deliberately says nothing about the individual stops — the map
+// does the teasing, and the copy only sets the mood.
+export const TRAIL_PAGE = {
+  subtitle: 'THE ROAD AHEAD · UNCHARTED',
+  heading: 'INTO THE WILD',
+  description:
+    'Join us on the uncharted trail. Every clearing on this map is somewhere the troop is headed — the signposts stay blank until we get there.',
+  mapCaption: 'No dates. No promises. Just the trail.',
+  marker: 'YOU ARE HERE',
+  cta: 'START STACKING',
+  mapAlt:
+    'An illustrated map of the Oohdie trail: a jungle clearing where troops of Oohdies gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured Oohdie with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
+  expeditionsHeading: 'THE EXPEDITIONS',
+  unchartedLabel: 'UNCHARTED TERRITORY',
+  unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
+  scoutCaption: 'The scout is already out there. Catch up.',
+  scoutAlt:
+    'A tiger-striped Oohdie in a leopard-print bucket hat and khaki fieldwear, rifle in hand, walking a sunlit dirt path deep into dense jungle.',
+} as const;
+
+/*
+ * To reveal the next expedition: set `charted: true` and write the copy.
+ * Uncharted entries deliberately carry no title or body — they fall back to
+ * TRAIL_PAGE.unchartedLabel / unchartedNote, so adding one costs a single line.
+ */
+export const TRAIL_EXPEDITIONS = [
+  {
+    id: '01',
+    ordinal: 'FIRST EXPEDITION',
+    title: 'Launch',
+    body: 'Everything that works today. Mint an Oohdie, activate it by burning $BANANA to lock in a tier, and pick which tokenized assets your earnings split across. From there it accrues on its own — into the NFT’s own on-chain account, so the rewards travel with it if it ever sells.',
+    charted: true,
+  },
+  {
+    id: '02',
+    ordinal: 'SECOND EXPEDITION',
+    title: 'Second Mint',
+    body: 'A second Oohdie drop, reserved for the troop that showed up first — holders of the genesis collection will be able to mint from it. Supply, timing and how allocation works are still being decided. This one is being built, not scheduled.',
+    charted: true,
+  },
+  { id: '03', ordinal: 'THIRD EXPEDITION', charted: false },
+  { id: '04', ordinal: 'FOURTH EXPEDITION', charted: false },
+  { id: '05', ordinal: 'FIFTH EXPEDITION', charted: false },
+] as const;
+
+// TODO: replace with the real Oohdie X profile URL.
+export const X_URL = 'https://x.com';
+
+// Rail socials. Only X is listed because it is the only account we have a URL
+// for — add entries here as the real links arrive rather than shipping guesses.
+// `icon` is an SVG path drawn in a 24x24 viewBox.
+export const SOCIALS = [
+  {
+    label: 'X',
+    href: X_URL,
+    icon: 'M18.9 2h3.3l-7.2 8.3L23.5 22h-6.6l-5.2-6.8L5.7 22H2.4l7.7-8.9L1.9 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 3.9H5.4L17.7 20Z',
+  },
+] as const;
+
+// Temporary pre-launch tease. Set `enabled: false` to reveal the real docs page.
+export const DOCS_TEASE = {
+  enabled: true,
+  badge: 'OOHDIE DOCS',
+  badgeStatus: 'COMING SOON',
+  heading: 'COMING SOON',
+  signal: 'Signal scrambled · the manual is still being written',
+  body: 'The full Oohdie manual — cycles, multipliers, tier burns, stock splits, and wallet safety — is being finished right now. We would rather hand you the whole thing at once than half a page. Check back soon.',
+  primaryCta: 'FOLLOW US ON X',
+  xUrl: X_URL,
+  timerNote: 'No release date has been announced — the counter is decorative.',
+} as const;
+
 export const WALLET = {
   connectButton: 'Connect Wallet',
   disconnectButton: 'Disconnect',
@@ -66,6 +155,10 @@ export const SEO = {
     title: 'Oohdie — Eat Bananas. Build Your Stack.',
     description: 'A digital collectible ecosystem where eating bananas creates value. Acquire, activate, and stack Oohdies.',
   },
+  collection: {
+    title: 'The Collection — Oohdie',
+    description: 'All 1,111 Oohdies. Browse the vault, study the traits, and find the build you want in your stack.',
+  },
   activate: {
     title: 'Activate — Oohdie',
     description: 'Activate your Oohdie by choosing a tier and burning tokens. Start accumulating today.',
@@ -73,6 +166,10 @@ export const SEO = {
   myStack: {
     title: 'My Stack — Oohdie',
     description: 'View your Oohdie collection, stack level, and accumulated balance.',
+  },
+  theTrail: {
+    title: 'The Trail — Oohdie',
+    description: 'The road ahead, uncharted. A look at where the Oohdie troop is headed next.',
   },
   docs: {
     title: 'Docs — Oohdie',

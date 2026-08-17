@@ -9,7 +9,7 @@
 .rainforest-canopy-light {
   position: absolute;
   top: -10%;
-  left: 50%;
+  left: calc(50% + var(--sidebar-w) / 2);
   transform: translateX(-50%);
   width: 120vw;
   height: 60vh;
@@ -37,9 +37,13 @@
   pointer-events: none;
 }
 
+/* The env itself stays full-bleed so the rail can sit over it as glass. Only
+   the edge-hugging groups inset, which re-resolves every child's left:1vw /
+   left:12% against the content column for free. */
 .rainforest-vines-wrapper {
   position: absolute;
   inset: 0;
+  left: var(--sidebar-w);
   pointer-events: none;
 }
 
@@ -47,8 +51,64 @@
   position: absolute;
   top: 0;
   opacity: 0.6;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 8px var(--shadow-drop));
 }
+
+/* SVG paint. Lives here rather than on the elements because presentation
+   attributes cannot resolve var(). */
+.vine__stem {
+  stroke: var(--vine-stem);
+  fill: none;
+}
+
+/* A light pulse travelling the stem — the vine reads as conducting rather than
+   just hanging. Drawn as a second stroked copy of the same path with a dash gap
+   long enough that only one lit segment is on screen at a time. */
+.vine__pulse {
+  stroke: var(--lime);
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 26 340;
+  filter: drop-shadow(0 0 4px var(--lime));
+  opacity: 0.75;
+  animation: vine-pulse 7s linear infinite;
+}
+
+.vine--right .vine__pulse {
+  animation-duration: 9s;
+  animation-delay: 2.5s;
+}
+
+@keyframes vine-pulse {
+  from { stroke-dashoffset: 366; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Leaf nodes emit faintly, brightest on the newest growth. */
+.vine__leaf--a { fill: var(--leaf-a); }
+.vine__leaf--b { fill: var(--leaf-b); }
+.vine__leaf--c { fill: var(--leaf-c); }
+
+.vine__leaf {
+  filter: drop-shadow(0 0 3px var(--lime-a20));
+}
+
+.monkey__tail  { stroke: var(--fur-mid);   fill: none; }
+.monkey__arm   { stroke: var(--fur-dark);  fill: none; }
+.monkey__mouth { stroke: var(--fur-mouth); fill: none; }
+
+.monkey__body       { fill: var(--fur-dark); }
+.monkey__head       { fill: var(--fur-dark); }
+.monkey__belly      { fill: var(--fur-light); }
+.monkey__ear        { fill: var(--fur-mid); }
+.monkey__ear-inner  { fill: var(--fur-light); }
+.monkey__face       { fill: var(--fur-face); }
+.monkey__eye        { fill: var(--eye); }
+.monkey__foot       { fill: var(--fur-mid); }
+
+.banana__body  { fill: var(--banana-body); opacity: 0.85; }
+.banana__stem  { fill: var(--banana-stem); }
+.banana__shine { stroke: var(--banana-shine); fill: none; }
 
 .vine--left {
   left: 1vw;
@@ -81,12 +141,13 @@
   opacity: 0.85;
   animation: monkey-gently-swing 6s ease-in-out infinite alternate;
   transform-origin: top center;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 4px 6px color-mix(in srgb, #000 60%, transparent));
 }
 
 .falling-bananas-layer {
   position: absolute;
   inset: 0;
+  left: var(--sidebar-w);
   pointer-events: none;
   overflow: hidden;
 }
@@ -97,7 +158,7 @@
   opacity: 0;
   pointer-events: none;
   animation: fall-down linear infinite;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 4px color-mix(in srgb, #000 40%, transparent));
 }
 
 .falling-banana--1 {
@@ -142,6 +203,51 @@
   transform: scale(0.85) rotate(-35deg);
 }
 
+/* Rim light so the monkey still reads against a darker canopy. */
+.rainforest-monkey svg {
+  filter: drop-shadow(0 0 5px var(--lime-a20));
+}
+
+/* Drifting spores — the ambient "alive" signal. Each is a lit dot that rises
+   and fades; positions and timings are staggered per index. */
+.spore-layer {
+  position: absolute;
+  inset: 0;
+  left: var(--sidebar-w);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.spore {
+  position: absolute;
+  bottom: -12px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--lime);
+  box-shadow: 0 0 6px var(--lime), 0 0 12px var(--lime-glow-strong);
+  opacity: 0;
+  animation: spore-rise linear infinite;
+}
+
+.spore--1  { left:  8%; animation-duration: 19s; animation-delay:  0s;   }
+.spore--2  { left: 17%; animation-duration: 24s; animation-delay:  3.5s; }
+.spore--3  { left: 29%; animation-duration: 21s; animation-delay:  7s;   }
+.spore--4  { left: 41%; animation-duration: 27s; animation-delay:  1.5s; }
+.spore--5  { left: 53%; animation-duration: 18s; animation-delay: 10s;   }
+.spore--6  { left: 64%; animation-duration: 25s; animation-delay:  5s;   }
+.spore--7  { left: 73%; animation-duration: 22s; animation-delay: 13s;   }
+.spore--8  { left: 86%; animation-duration: 20s; animation-delay:  8.5s; }
+.spore--9  { left: 94%; animation-duration: 28s; animation-delay:  2s;   }
+.spore--10 { left: 36%; animation-duration: 23s; animation-delay: 15s;   }
+
+@keyframes spore-rise {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  12%  { opacity: 0.85; }
+  70%  { opacity: 0.7; }
+  100% { transform: translate(28px, -102vh) scale(1.1); opacity: 0; }
+}
+
 @keyframes vine-sway-left {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(2.5deg); }
@@ -181,10 +287,13 @@
   .vine--left,
   .vine-monkey-group,
   .rainforest-monkey,
-  .falling-banana {
+  .falling-banana,
+  .vine__pulse,
+  .spore {
     animation: none !important;
   }
-  .falling-bananas-layer {
+  .falling-bananas-layer,
+  .spore-layer {
     display: none;
   }
 }
@@ -210,6 +319,14 @@
   .falling-banana--3,
   .falling-banana--5,
   .falling-banana--6 {
+    display: none;
+  }
+
+  .spore--3,
+  .spore--5,
+  .spore--7,
+  .spore--9,
+  .spore--10 {
     display: none;
   }
 }

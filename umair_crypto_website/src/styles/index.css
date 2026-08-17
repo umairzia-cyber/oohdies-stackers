@@ -15,11 +15,80 @@
   --border-accent: rgba(55, 100, 75, 0.9);
   --border-hover: rgba(75, 135, 100, 0.9);
 
+  /* Two-colour system, split by meaning — this is the rule that keeps the
+     palette legible instead of decorative:
+       lime  = alive / interactive  (CTAs, focus, active nav, hover, live labels)
+       amber = value                (prices, balances, multipliers, counts)
+     Never use lime for a number or amber for an affordance. */
+  --lime: #C8FF3D;
+  --lime-dim: #9BC42E;
+  --lime-deep: #6F8F1F;
+  --lime-a08: color-mix(in srgb, var(--lime) 8%, transparent);
+  --lime-a12: color-mix(in srgb, var(--lime) 12%, transparent);
+  --lime-a20: color-mix(in srgb, var(--lime) 20%, transparent);
+  --lime-glow: color-mix(in srgb, var(--lime) 14%, transparent);
+  --lime-glow-strong: color-mix(in srgb, var(--lime) 30%, transparent);
+  --on-lime: #0a1408;
+
+  --spore: #4ADE80;
+
   --accent: #F5A623;
   --accent-bright: #FFD700;
   --accent-dim: #C88A1A;
-  --accent-glow: rgba(245, 166, 35, 0.14);
-  --accent-glow-strong: rgba(245, 166, 35, 0.28);
+  --accent-deep: #D4A017;
+  --accent-gold: #F5C518;
+  --accent-goldenrod: #DAA520;
+
+  /* Accent alphas are derived from --accent so a palette change propagates.
+     color-mix with transparent at N% yields alpha N%. */
+  --accent-a04: color-mix(in srgb, var(--accent) 4%, transparent);
+  --accent-a05: color-mix(in srgb, var(--accent) 5%, transparent);
+  --accent-a08: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-a10: color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-a12: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-a15: color-mix(in srgb, var(--accent) 15%, transparent);
+  --accent-a20: color-mix(in srgb, var(--accent) 20%, transparent);
+  --accent-a25: color-mix(in srgb, var(--accent) 25%, transparent);
+  --accent-a35: color-mix(in srgb, var(--accent) 35%, transparent);
+  --accent-a50: color-mix(in srgb, var(--accent) 50%, transparent);
+  --accent-glow: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-glow-strong: color-mix(in srgb, var(--accent) 28%, transparent);
+
+  /* Status */
+  --danger: #EF4444;
+  --danger-glow: color-mix(in srgb, var(--danger) 8%, transparent);
+  --danger-glow-strong: color-mix(in srgb, var(--danger) 10%, transparent);
+  --info: #60A5FA;
+  --info-glow: color-mix(in srgb, var(--info) 8%, transparent);
+
+  /* Surfaces beyond the base scale */
+  --bg-sunken: rgba(8, 16, 12, 0.9);
+  --bg-raised: rgba(18, 25, 20, 0.6);
+  --bg-raised-strong: rgba(18, 25, 20, 0.85);
+  --bg-elevated: rgba(24, 35, 26, 0.85);
+  --bg-glass: rgba(10, 20, 16, 0.6);
+  --bg-glass-strong: rgba(18, 32, 25, 0.8);
+  --bg-scrim: rgba(0, 0, 0, 0.75);
+  --sheen: rgba(255, 255, 255, 0.02);
+  --sheen-strong: rgba(255, 255, 255, 0.05);
+  --shadow-drop: rgba(0, 0, 0, 0.5);
+  --on-accent: #000000;
+
+  /* Jungle art — consumed by RainforestBackground's SVGs via CSS, because
+     SVG presentation attributes cannot resolve var(). */
+  --vine-stem: #1d3d2c;
+  --leaf-a: #29543d;
+  --leaf-b: #1e422f;
+  --leaf-c: #2d5e44;
+  --fur-dark: #54391c;
+  --fur-mid: #6e4d28;
+  --fur-light: #8c683c;
+  --fur-face: #cfa570;
+  --fur-mouth: #4a2e12;
+  --eye: #111111;
+  --banana-body: var(--accent);
+  --banana-stem: #8C6111;
+  --banana-shine: var(--accent-bright);
 
   --text-primary: #FFFFFF;
   --text-secondary: #a3b8ac;
@@ -63,7 +132,14 @@
 
   --container-max: 1320px;
   --content-max: 720px;
-  --nav-height: 64px;
+
+  /* Layout axis. The left rail owns the horizontal inset; --nav-height is the
+     TOP chrome height and collapses to zero while the rail is showing.
+     Both must carry units — a bare 0 makes calc(50% + var(--x)/2) invalid. */
+  --sidebar-w: 240px;
+  --nav-height: 0px;
+  --page-top: var(--space-20);
+
   --section-padding: var(--space-24);
 
   --radius-sm: 4px;
@@ -129,12 +205,21 @@ body {
   position: relative;
 }
 
+/* The left rail's inset lives here, so it applies to every page AND the footer
+   in one declaration. Fixed-position chrome (.rainforest-env, .app-sidebar) is
+   unaffected by this padding and stays viewport-anchored, which is what we want.
+   NEVER add transform / filter / backdrop-filter / will-change / contain to
+   #root or body — any of them would make those fixed children resolve against
+   #root instead of the viewport and shift the whole layout. For the same
+   reason, no page may use width: 100vw; it would overflow by --sidebar-w and be
+   silently clipped by body's overflow-x: hidden. */
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  padding-left: var(--sidebar-w);
 }
 
 img {
@@ -144,17 +229,17 @@ img {
 }
 
 a {
-  color: var(--accent);
+  color: var(--lime);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
-  color: var(--accent-bright);
+  color: var(--lime-dim);
 }
 
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -169,7 +254,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -206,11 +291,22 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid var(--border-primary);
 }
 
+/* Page titles carry a chromatic split on hover — lime and amber pulling apart
+   by a pixel, like a mis-converged CRT. Kept to hover rather than looping so it
+   reads as a flourish instead of noise. */
 .heading-xl {
+  position: relative;
   font-size: var(--text-6xl);
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1;
+  transition: text-shadow var(--duration-normal) var(--ease-out);
+}
+
+.heading-xl:hover {
+  text-shadow:
+    -2px 0 var(--lime-a20),
+     2px 0 var(--accent-a20);
 }
 
 .heading-lg {
@@ -220,10 +316,26 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.05;
 }
 
+/* Section headings carry a short lit rule beneath them — the anchor that gives
+   every section the same visual footing. */
 .heading-md {
+  position: relative;
   font-size: var(--text-3xl);
   font-weight: 800;
   letter-spacing: -0.02em;
+  padding-bottom: var(--space-3);
+}
+
+.heading-md::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--lime);
+  box-shadow: 0 0 10px var(--lime-glow-strong);
 }
 
 .heading-sm {
@@ -255,7 +367,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--lime);
 }
 
 .body-lg {
@@ -283,15 +395,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--primary {
-  background-color: var(--accent);
-  color: #000000;
-  border: 1px solid var(--accent);
+  background-color: var(--lime);
+  color: var(--on-lime);
+  border: 1px solid var(--lime);
 }
 
 .btn--primary:hover {
-  background-color: var(--accent-bright);
-  border-color: var(--accent-bright);
-  box-shadow: 0 0 20px var(--accent-glow);
+  background-color: var(--lime-dim);
+  border-color: var(--lime-dim);
+  box-shadow: 0 0 24px var(--lime-glow-strong);
   transform: translateY(-1px);
 }
 
@@ -300,16 +412,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--secondary {
-  background-color: rgba(10, 20, 16, 0.6);
+  background-color: var(--bg-glass);
   backdrop-filter: blur(8px);
   color: var(--text-primary);
   border: 1px solid var(--border-secondary);
 }
 
 .btn--secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background-color: rgba(18, 32, 25, 0.8);
+  border-color: var(--lime);
+  color: var(--lime);
+  background-color: var(--bg-glass-strong);
 }
 
 .btn--ghost {
@@ -344,7 +456,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-4);
-  background-color: rgba(10, 20, 16, 0.7);
+  background-color: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-secondary);
   border-radius: var(--radius-sm);
@@ -360,7 +472,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pill--warning .pill__value {
-  color: #EF4444;
+  color: var(--danger);
 }
 
 .card {
@@ -389,7 +501,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .grid-bordered {
   display: grid;
-  background-color: rgba(10, 20, 16, 0.6);
+  background-color: var(--bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-primary);
@@ -465,7 +577,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 0.1em;
   border-radius: var(--radius-sm);
-  background-color: rgba(5, 12, 9, 0.85);
+  background-color: color-mix(in srgb, var(--bg-primary) 85%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -559,7 +671,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   border: 1px dashed var(--border-secondary);
   border-radius: var(--radius-lg);
-  background-color: rgba(10, 20, 16, 0.4);
+  background-color: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -627,13 +739,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .callout--warning {
-  border-left-color: #EF4444;
-  background-color: rgba(239, 68, 68, 0.08);
+  border-left-color: var(--danger);
+  background-color: var(--danger-glow);
 }
 
 .callout--info {
-  border-left-color: #60A5FA;
-  background-color: rgba(96, 165, 250, 0.08);
+  border-left-color: var(--info);
+  background-color: var(--info-glow);
 }
 
 .callout__title {
@@ -644,8 +756,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
 }
 
-.callout--warning .callout__title { color: #EF4444; }
-.callout--info .callout__title { color: #60A5FA; }
+.callout--warning .callout__title { color: var(--danger); }
+.callout--info .callout__title { color: var(--info); }
 
 .callout__text {
   font-size: var(--text-sm);
@@ -663,6 +775,79 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary);
   overflow-x: auto;
   margin: var(--space-4) 0;
+}
+
+/* ==========================================================================
+   HUD frames
+   Terminal-panel corner brackets. Defined once and applied to every panel
+   recipe in the app — the six hand-rolled card variants across the three
+   page stylesheets plus the shared components — so the frame language stays
+   consistent without touching each rule block.
+   The brackets are eight thin gradients on a single pseudo-element (four
+   corners x two arms), which keeps it to one element and animates cheaply.
+   ========================================================================== */
+.stat-card-item,
+.showcase-card,
+.portfolio-token-card,
+.stock-tile,
+.nft-select-card,
+.mint-dedicated-box,
+.nft-card,
+.tier-card,
+.empty-state,
+.grid-bordered {
+  position: relative;
+  --hud-corner: var(--border-hover);
+  --hud-arm: 10px;
+  --hud-stroke: 1px;
+}
+
+.stat-card-item::after,
+.showcase-card::after,
+.portfolio-token-card::after,
+.stock-tile::after,
+.nft-select-card::after,
+.mint-dedicated-box::after,
+.nft-card::after,
+.tier-card::after,
+.empty-state::after,
+.grid-bordered::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  background:
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-stroke) var(--hud-arm) no-repeat;
+}
+
+/* Hover lights the brackets — the panel reads as "powered on". */
+.stat-card-item:hover,
+.showcase-card:hover,
+.portfolio-token-card:hover,
+.stock-tile:hover,
+.nft-select-card:hover,
+.nft-card:hover,
+.tier-card:hover {
+  --hud-corner: var(--lime);
+  --hud-arm: 16px;
+}
+
+/* Selected states stay lit. */
+.stock-tile--selected,
+.nft-select-card--selected,
+.tier-card--selected {
+  --hud-corner: var(--lime);
+  --hud-arm: 16px;
 }
 
 @keyframes fadeInUp {
@@ -723,6 +908,12 @@ h1, h2, h3, h4, h5, h6 {
     --text-5xl: 2.5rem;
     --text-7xl: 4rem;
     --section-padding: var(--space-16);
+
+    /* Rail collapses; the top bar takes over. --page-top reverts to space-8 so
+       total head clearance stays at today's 64 + 32 = 96px. */
+    --sidebar-w: 0px;
+    --nav-height: 64px;
+    --page-top: var(--space-8);
   }
 
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -804,3 +995,32 @@ h1, h2, h3, h4, h5, h6 {
 .mb-4 { margin-bottom: var(--space-4); }
 .mb-6 { margin-bottom: var(--space-6); }
 .mb-8 { margin-bottom: var(--space-8); }
+
+/* These utility names were already being written in the JSX but had no rule
+   behind them, so they silently did nothing — e.g. font-mono on the token-bound
+   account address, and btn--xs on the MyStack claim buttons. Defining the ones
+   whose intent is unambiguous. Deliberately NOT defining the rest (bordered-box,
+   stat-cell, nft-card__wallet, p-4/p-6, border-t): their intent isn't clear
+   enough to guess, and inventing styling for them would change layout blindly. */
+.font-mono { font-family: var(--font-mono); }
+.font-bold { font-weight: 700; }
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-left { text-align: left; }
+.flex-wrap { flex-wrap: wrap; }
+.inline-block { display: inline-block; }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+
+.btn--xs {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.btn--md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+}

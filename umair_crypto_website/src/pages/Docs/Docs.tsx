@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, type HTMLAttributes } from 'react';
 import { useScrollReveal, useDocumentTitle, useMediaQuery } from '../../hooks';
-import { DOCS_PAGE, SEO } from '../../constants/content';
+import { DOCS_PAGE, DOCS_TEASE, SEO } from '../../constants/content';
+import DocsTease from './DocsTease';
 import './Docs.css';
 
 interface DocSectionData {
@@ -20,7 +21,9 @@ const DOC_SECTIONS: readonly DocSectionData[] = [
 ];
 
 export default function Docs() {
-  useDocumentTitle(SEO.docs.title);
+  const isTeased = DOCS_TEASE.enabled;
+
+  useDocumentTitle(isTeased ? `${DOCS_TEASE.heading} — Oohdie` : SEO.docs.title);
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [activeSection, setActiveSection] = useState('overview');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -37,17 +40,23 @@ export default function Docs() {
     }
   }, []);
 
-  return (
-    <main className="docs-page">
+  // While teased, the real docs are decorative wallpaper: hidden from assistive
+  // tech and taken out of the tab order so nothing behind the veil is reachable.
+  const veilProps: HTMLAttributes<HTMLDivElement> = isTeased
+    ? { 'aria-hidden': true, inert: true }
+    : {};
 
-      <div className="docs-header" ref={ref}>
+  return (
+    <main className={isTeased ? 'docs-page docs-page--teased' : 'docs-page'}>
+
+      <div className="docs-header" ref={ref} {...veilProps}>
         <div className={`container ${isVisible ? 'animate-fade-in' : ''}`}>
           <p className="subtitle mb-4">{DOCS_PAGE.subtitle}</p>
           <h1 className="heading-xl">{DOCS_PAGE.heading}</h1>
         </div>
       </div>
 
-      <div className="docs-layout container">
+      <div className="docs-layout container" {...veilProps}>
 
         {isMobile && (
           <button
@@ -242,6 +251,8 @@ export default function Docs() {
           </section>
         </div>
       </div>
+
+      {isTeased && <DocsTease />}
     </main>
   );
 }

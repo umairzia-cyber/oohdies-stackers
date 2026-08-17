@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
 import { HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
+import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
 import { MOCK_COLLECTION, MOCK_STATS, MOCK_STEPS, MOCK_STOCKS } from '../../services/mock/mockData';
 import { formatNumber } from '../../utils';
 import { Link } from 'react-router-dom';
-import type { CollectionItem } from '../../types';
 import './Home.css';
 
 function HeroSection() {
@@ -302,57 +302,54 @@ function ShowcaseSection() {
   );
 }
 
-/* ─── Collection Grid ─────────────────────────────────── */
+/* ─── Collection Strip ─────────────────────────────────
+   Was a featured hero plus a full six-card grid, which cost most of a screen
+   to say something the collection's own page now says properly. Compressed to
+   a single row: prove the art exists, then send people to /collection. */
+
+const STRIP_COUNT = 5;
+const STRIP_WORD = 'Five'; // keep in step with STRIP_COUNT
+
 function CollectionSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
+  // Drawn once per visit rather than per render, so the row cannot reshuffle
+  // itself midway through the reveal transition.
+  const [strip] = useState(() => drawRandom(ARCHETYPES, STRIP_COUNT));
 
   return (
-    <section className="section" ref={ref} aria-labelledby="collection-heading">
+    <section className="section section--collection-strip" ref={ref} aria-labelledby="collection-heading">
       <div className="container">
-        <div className={`${isVisible ? 'reveal--visible' : 'reveal'}`}>
-          <p className="subtitle mb-4">THE COLLECTION</p>
-          <h2 id="collection-heading" className="heading-lg mb-8">
-            MEET THE <span className="text-accent">OOHDIES</span>
+        <div className={`collection-strip grid-bordered ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <h2 id="collection-heading" className="heading-md collection-strip__heading">
+            THE COLLECTION
           </h2>
-        </div>
 
-        <div className={`collection__featured ${isVisible ? 'reveal--visible reveal--delay-1' : 'reveal'}`}>
-          <img
-            src="/assets/collection/user_art_5.jpg"
-            alt="Featured Oohdie — Samurai Ronin"
-            className="collection__featured-image"
-            width={800}
-            height={800}
-            loading="lazy"
-          />
-          <div className="collection__featured-info">
-            <h3 className="heading-sm mt-2">Oohdie #005 — Samurai Ronin</h3>
-            <p className="text-secondary mt-2">Honor-bound warrior. Rules the stack with precision optics.</p>
-          </div>
-        </div>
-
-        <div className="collection__grid">
-          {MOCK_COLLECTION.map((item: CollectionItem, i: number) => (
-            <div
-              key={item.id}
-              className={`nft-card ${isVisible ? `reveal--visible reveal--delay-${Math.min(i + 1, 4)}` : 'reveal'}`}
-            >
-              <div className="nft-card__image-wrapper">
+          <ul className="collection-strip__row">
+            {strip.map((piece, i) => (
+              <li
+                key={piece.key}
+                className="collection-strip__tile"
+                style={{ '--tile-index': i } as CSSProperties}
+              >
                 <img
-                  src={item.image}
-                  alt={`${item.name} — ${item.description}`}
-                  className="nft-card__image"
-                  width={400}
-                  height={400}
+                  src={piece.image}
+                  alt={`${piece.name} — ${piece.description}`}
+                  className="collection-strip__img"
+                  width={256}
+                  height={256}
                   loading="lazy"
+                  decoding="async"
                 />
-              </div>
-              <div className="nft-card__info">
-                <p className="nft-card__name">{item.name}</p>
-                <p className="nft-card__desc">{item.description}</p>
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ul>
+
+          <p className="collection-strip__caption">
+            {STRIP_WORD} of the {formatNumber(COLLECTION_SIZE)}, drawn at random.
+            <Link to={ROUTES.COLLECTION} className="collection-strip__link">
+              See the collection →
+            </Link>
+          </p>
         </div>
       </div>
     </section>

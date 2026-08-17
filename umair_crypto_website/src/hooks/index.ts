@@ -66,6 +66,44 @@ export function useCountdown(initialMinutes: number = 43): string {
   return `${mins}:${secs}`;
 }
 
+export interface ScrambledUnit {
+  readonly label: string;
+  readonly value: string;
+}
+
+const SCRAMBLE_UNITS = [
+  { label: 'D', range: 100 },
+  { label: 'H', range: 24 },
+  { label: 'M', range: 60 },
+  { label: 'S', range: 60 },
+] as const;
+
+function rollScramble(): readonly ScrambledUnit[] {
+  return SCRAMBLE_UNITS.map(({ label, range }) => ({
+    label,
+    value: Math.floor(Math.random() * range)
+      .toString()
+      .padStart(2, '0'),
+  }));
+}
+
+/**
+ * A countdown that never counts down — the digits re-roll at random forever.
+ * Purely decorative, so it holds still when reduced motion is requested.
+ */
+export function useScrambledCountdown(intervalMs: number = 110): readonly ScrambledUnit[] {
+  const [units, setUnits] = useState<readonly ScrambledUnit[]>(rollScramble);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const interval = setInterval(() => setUnits(rollScramble()), intervalMs);
+    return () => clearInterval(interval);
+  }, [intervalMs]);
+
+  return units;
+}
+
 export function useDocumentTitle(title: string): void {
   useEffect(() => {
     const previousTitle = document.title;
