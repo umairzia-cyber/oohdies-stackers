@@ -54,6 +54,20 @@ export const DOCS_PAGE = {
   heading: 'DOCS',
 } as const;
 
+// Roadmap tease. Deliberately says nothing about the individual stops — the map
+// does the teasing, and the copy only sets the mood.
+export const TRAIL_PAGE = {
+  subtitle: 'THE ROAD AHEAD · UNCHARTED',
+  heading: 'INTO THE WILD',
+  description:
+    'Join us on the uncharted trail. Every clearing on this map is somewhere the troop is headed — the signposts stay blank until we get there.',
+  mapCaption: 'No dates. No promises. Just the trail.',
+  marker: 'YOU ARE HERE',
+  cta: 'START STACKING',
+  mapAlt:
+    'An illustrated map of the Oohdie trail: a jungle clearing where troops of Oohdies gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured Oohdie with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
+} as const;
+
 // TODO: replace with the real Oohdie X profile URL.
 export const X_URL = 'https://x.com';
 
@@ -100,6 +114,10 @@ export const SEO = {
   myStack: {
     title: 'My Stack — Oohdie',
     description: 'View your Oohdie collection, stack level, and accumulated balance.',
+  },
+  theTrail: {
+    title: 'The Trail — Oohdie',
+    description: 'The road ahead, uncharted. A look at where the Oohdie troop is headed next.',
   },
   docs: {
     title: 'Docs — Oohdie',

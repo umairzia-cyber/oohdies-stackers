@@ -1,0 +1,147 @@
+.trail-page {
+  padding-top: calc(var(--nav-height) + var(--page-top));
+}
+
+/* Header is deliberately narrow and short — the map is the focal point, so the
+   text sets the mood and gets out of the way. */
+.trail-header {
+  max-width: 680px;
+  margin-bottom: var(--space-10);
+}
+
+.trail-header__heading {
+  margin-bottom: var(--space-5);
+}
+
+.trail-header__desc {
+  max-width: 620px;
+}
+
+/* The map breaks wider than the reading measure so it dominates the page. */
+.trail-map {
+  position: relative;
+  width: 100%;
+  margin: 0 0 var(--space-8);
+}
+
+.trail-map__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  box-shadow:
+    0 0 60px color-mix(in srgb, var(--lime) 6%, transparent),
+    0 30px 80px color-mix(in srgb, #000 55%, transparent);
+
+  /* Reuses the HUD bracket language from index.css. */
+  --hud-corner: var(--border-hover);
+  --hud-arm: 22px;
+  --hud-stroke: 1px;
+}
+
+.trail-map__frame:hover {
+  --hud-corner: var(--lime);
+  --hud-arm: 34px;
+}
+
+.trail-map__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 0 / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 0 100% / var(--hud-stroke) var(--hud-arm) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-arm) var(--hud-stroke) no-repeat,
+    linear-gradient(var(--hud-corner), var(--hud-corner)) 100% 100% / var(--hud-stroke) var(--hud-arm) no-repeat;
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+/* Left on smooth (auto) deliberately. The 2752px source is always displayed
+   smaller than native, and image-rendering: pixelated is nearest-neighbour —
+   great when upscaling pixel art, but at this ~0.3 downscale it would throw
+   away most source pixels and shimmer on the fine dotted trails. Averaging
+   preserves more apparent detail. */
+.trail-map__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* A slow band of light crossing the map. */
+.trail-map__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    color-mix(in srgb, var(--lime) 9%, transparent) 50%,
+    transparent 58%
+  );
+  background-size: 260% 100%;
+  animation: trail-scan 9s ease-in-out infinite;
+}
+
+@keyframes trail-scan {
+  0%, 100% { background-position: 130% 0; }
+  50%      { background-position: -30% 0; }
+}
+
+/* Edges fall off into the page so the map reads as lit ground rather than a
+   pasted rectangle. */
+.trail-map__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 52%,
+    color-mix(in srgb, var(--bg-primary) 72%, transparent) 100%
+  );
+}
+
+.trail-map__caption {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.trail-outro {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .trail-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .trail-map__caption {
+    letter-spacing: 0.1em;
+  }
+
+  .trail-outro .btn--lg {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-map__scan {
+    animation: none;
+    opacity: 0.4;
+  }
+}

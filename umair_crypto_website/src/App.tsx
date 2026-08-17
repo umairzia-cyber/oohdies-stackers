@@ -14,6 +14,7 @@ import './styles/index.css';
 const Home = lazy(() => import('./pages/Home/Home'));
 const Activate = lazy(() => import('./pages/Activate/Activate'));
 const MyStack = lazy(() => import('./pages/MyStack/MyStack'));
+const TheTrail = lazy(() => import('./pages/TheTrail/TheTrail'));
 const Docs = lazy(() => import('./pages/Docs/Docs'));
 
 function PageLoader() {
@@ -53,6 +54,7 @@ export default function App() {
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.ACTIVATE} element={<Activate />} />
             <Route path={ROUTES.MY_STACK} element={<MyStack />} />
+            <Route path={ROUTES.THE_TRAIL} element={<TheTrail />} />
             <Route path={ROUTES.DOCS} element={<Docs />} />
 
             <Route path="*" element={<Home />} />
