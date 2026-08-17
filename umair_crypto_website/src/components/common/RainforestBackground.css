@@ -9,7 +9,7 @@
 .rainforest-canopy-light {
   position: absolute;
   top: -10%;
-  left: 50%;
+  left: calc(50% + var(--sidebar-w) / 2);
   transform: translateX(-50%);
   width: 120vw;
   height: 60vh;
@@ -37,9 +37,13 @@
   pointer-events: none;
 }
 
+/* The env itself stays full-bleed so the rail can sit over it as glass. Only
+   the edge-hugging groups inset, which re-resolves every child's left:1vw /
+   left:12% against the content column for free. */
 .rainforest-vines-wrapper {
   position: absolute;
   inset: 0;
+  left: var(--sidebar-w);
   pointer-events: none;
 }
 
@@ -115,6 +119,7 @@
 .falling-bananas-layer {
   position: absolute;
   inset: 0;
+  left: var(--sidebar-w);
   pointer-events: none;
   overflow: hidden;
 }

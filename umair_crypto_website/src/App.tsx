@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { WalletProvider } from './context/WalletContext';
 import { ROUTES } from './constants/routes';
+import SideNav from './components/navigation/SideNav';
 import Navbar from './components/navigation/Navbar';
 import Footer from './components/common/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
@@ -40,6 +41,9 @@ export default function App() {
       <ScrollToTop />
       <WalletProvider>
         <RainforestBackground />
+        {/* Both mount; CSS shows exactly one. SideNav leads the tab order
+            because it is the primary nav above 1024px. */}
+        <SideNav />
         <Navbar />
         <Suspense fallback={<PageLoader />}>
           <Routes>

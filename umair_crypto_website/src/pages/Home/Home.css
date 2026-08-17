@@ -3,7 +3,7 @@
   min-height: calc(100vh - var(--nav-height));
   display: flex;
   align-items: center;
-  padding-top: calc(var(--nav-height) + var(--space-8));
+  padding-top: calc(var(--nav-height) + var(--page-top));
   padding-bottom: var(--space-8);
   overflow: hidden;
 }
@@ -654,7 +654,7 @@
 @media (max-width: 768px) {
   .hero {
     min-height: auto;
-    padding-top: calc(var(--nav-height) + var(--space-8));
+    padding-top: calc(var(--nav-height) + var(--page-top));
   }
 
   .hero__pills {

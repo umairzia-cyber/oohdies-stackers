@@ -1,5 +1,5 @@
 .activate-page {
-  padding-top: calc(var(--nav-height) + var(--space-8));
+  padding-top: calc(var(--nav-height) + var(--page-top));
 }
 
 .activate-header-grid {

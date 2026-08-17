@@ -1,4 +1,8 @@
+/* Below 1024px the left rail collapses and this top bar takes over. Above that
+   it is display:none, which also drops it from the accessibility tree so the
+   two navs never both expose a landmark. */
 .navbar {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -173,6 +177,14 @@
 
 .mobile-menu__link--active {
   color: var(--accent);
+}
+
+/* Must stay ahead of the 768px block below — narrower query wins on source
+   order at equal specificity. */
+@media (max-width: 1024px) {
+  .navbar {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {

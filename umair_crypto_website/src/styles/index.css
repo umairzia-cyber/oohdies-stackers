@@ -115,7 +115,14 @@
 
   --container-max: 1320px;
   --content-max: 720px;
-  --nav-height: 64px;
+
+  /* Layout axis. The left rail owns the horizontal inset; --nav-height is the
+     TOP chrome height and collapses to zero while the rail is showing.
+     Both must carry units — a bare 0 makes calc(50% + var(--x)/2) invalid. */
+  --sidebar-w: 240px;
+  --nav-height: 0px;
+  --page-top: var(--space-20);
+
   --section-padding: var(--space-24);
 
   --radius-sm: 4px;
@@ -181,12 +188,21 @@ body {
   position: relative;
 }
 
+/* The left rail's inset lives here, so it applies to every page AND the footer
+   in one declaration. Fixed-position chrome (.rainforest-env, .app-sidebar) is
+   unaffected by this padding and stays viewport-anchored, which is what we want.
+   NEVER add transform / filter / backdrop-filter / will-change / contain to
+   #root or body — any of them would make those fixed children resolve against
+   #root instead of the viewport and shift the whole layout. For the same
+   reason, no page may use width: 100vw; it would overflow by --sidebar-w and be
+   silently clipped by body's overflow-x: hidden. */
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  padding-left: var(--sidebar-w);
 }
 
 img {
@@ -775,6 +791,12 @@ h1, h2, h3, h4, h5, h6 {
     --text-5xl: 2.5rem;
     --text-7xl: 4rem;
     --section-padding: var(--space-16);
+
+    /* Rail collapses; the top bar takes over. --page-top reverts to space-8 so
+       total head clearance stays at today's 64 + 32 = 96px. */
+    --sidebar-w: 0px;
+    --nav-height: 64px;
+    --page-top: var(--space-8);
   }
 
   .grid-4 { grid-template-columns: repeat(2, 1fr); }

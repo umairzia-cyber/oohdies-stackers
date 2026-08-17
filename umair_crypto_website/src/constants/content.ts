@@ -54,6 +54,20 @@ export const DOCS_PAGE = {
   heading: 'DOCS',
 } as const;
 
+// TODO: replace with the real Oohdie X profile URL.
+export const X_URL = 'https://x.com';
+
+// Rail socials. Only X is listed because it is the only account we have a URL
+// for — add entries here as the real links arrive rather than shipping guesses.
+// `icon` is an SVG path drawn in a 24x24 viewBox.
+export const SOCIALS = [
+  {
+    label: 'X',
+    href: X_URL,
+    icon: 'M18.9 2h3.3l-7.2 8.3L23.5 22h-6.6l-5.2-6.8L5.7 22H2.4l7.7-8.9L1.9 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 3.9H5.4L17.7 20Z',
+  },
+] as const;
+
 // Temporary pre-launch tease. Set `enabled: false` to reveal the real docs page.
 export const DOCS_TEASE = {
   enabled: true,
@@ -63,8 +77,7 @@ export const DOCS_TEASE = {
   signal: 'Signal scrambled · the manual is still being written',
   body: 'The full Oohdie manual — cycles, multipliers, tier burns, stock splits, and wallet safety — is being finished right now. We would rather hand you the whole thing at once than half a page. Check back soon.',
   primaryCta: 'FOLLOW US ON X',
-  // TODO: replace with the real Oohdie X profile URL.
-  xUrl: 'https://x.com',
+  xUrl: X_URL,
   timerNote: 'No release date has been announced — the counter is decorative.',
 } as const;
 
