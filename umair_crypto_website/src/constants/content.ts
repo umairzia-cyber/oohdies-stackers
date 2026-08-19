@@ -84,31 +84,87 @@ export const TRAIL_PAGE = {
   unchartedLabel: 'UNCHARTED TERRITORY',
   unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
   scoutCaption: 'The scout is already out there. Catch up.',
+  /* Sits under the list. Without it a blocked-out line is just as likely to
+     read as a font that failed to load as it is to read as withheld. */
+  redactionNote: 'Blocked-out lines are decided, not announced.',
   scoutAlt:
     'A tiger-striped Oohdie in a leopard-print bucket hat and khaki fieldwear, rifle in hand, walking a sunlit dirt path deep into dense jungle.',
 } as const;
 
+/**
+ * An expedition body is a segment list rather than a string so a withheld
+ * phrase can sit mid-sentence.
+ *
+ * A redaction carries a length, never the words it covers. That is the whole
+ * point: there is no hidden string to lift with devtools, because the words
+ * were never written here. `length` is roughly how many characters the missing
+ * phrase would run to — it only sets the width of the bar.
+ */
+export type ExpeditionSegment =
+  | { readonly kind: 'text'; readonly text: string }
+  | { readonly kind: 'redaction'; readonly length: number };
+
 /*
  * To reveal the next expedition: set `charted: true` and write the copy.
- * Uncharted entries deliberately carry no title or body — they fall back to
+ * Uncharted entries deliberately carry no title or segments — they fall back to
  * TRAIL_PAGE.unchartedLabel / unchartedNote, so adding one costs a single line.
+ *
+ * Charted does not mean finished. Expeditions two and three are announced but
+ * not specified, so their copy runs at two different depths of withholding:
+ * the second gives up its shape and keeps back a couple of nouns, the third
+ * keeps back nearly everything and lets the codename and the last clause carry
+ * it. To reveal more of either, replace a redaction segment with the text it
+ * stood in for — there is nothing else to unlock.
  */
 export const TRAIL_EXPEDITIONS = [
   {
     id: '01',
     ordinal: 'FIRST EXPEDITION',
-    title: 'Launch',
-    body: 'Everything that works today. Mint an Oohdie, activate it by burning $BANANA to lock in a tier, and pick which tokenized assets your earnings split across. From there it accrues on its own — into the NFT’s own on-chain account, so the rewards travel with it if it ever sells.',
+    title: 'GENESIS MINT',
+    segments: [
+      {
+        kind: 'text',
+        text: 'A cracked stone gate swings open and spits 1,111 apes onto an uncharted map. A free mint, and the immutable base layer everything after it grows from. Every genesis ape carries its own sovereign vault — token-bound ERC-6551 — so tokenized stock and crypto yield land straight in the NFT’s pocket while the tickers blink.',
+      },
+    ],
     charted: true,
   },
   {
     id: '02',
     ordinal: 'SECOND EXPEDITION',
-    title: 'Second Mint',
-    body: 'A second Oohdie drop, reserved for the troop that showed up first — holders of the genesis collection will be able to mint from it. Supply, timing and how allocation works are still being decided. This one is being built, not scheduled.',
+    title: 'SECONDARY INCUBATION',
+    segments: [
+      { kind: 'text', text: 'The ecosystem splits open to admit ' },
+      { kind: 'redaction', length: 13 },
+      { kind: 'text', text: '. Burn through your accumulated utility tokens to fuel the furnace, spark ' },
+      { kind: 'redaction', length: 10 },
+      { kind: 'text', text: ', and call a secondary expansion collection into the world.' },
+    ],
     charted: true,
   },
-  { id: '03', ordinal: 'THIRD EXPEDITION', charted: false },
+  {
+    id: '03',
+    ordinal: 'THIRD EXPEDITION',
+    title: 'PHYGITAL MATRIX',
+    segments: [
+      { kind: 'text', text: 'The boundary between screen and reality dissolves. ' },
+      { kind: 'redaction', length: 14 },
+      { kind: 'text', text: ', ' },
+      { kind: 'redaction', length: 17 },
+      { kind: 'text', text: ', ' },
+      { kind: 'redaction', length: 11 },
+      { kind: 'text', text: ' and ' },
+      { kind: 'redaction', length: 15 },
+      { kind: 'text', text: ' ' },
+      { kind: 'redaction', length: 16 },
+      { kind: 'text', text: '. All ' },
+      { kind: 'redaction', length: 13 },
+      { kind: 'text', text: ' routed back to ' },
+      { kind: 'redaction', length: 16 },
+      { kind: 'text', text: ' for holders.' },
+    ],
+    charted: true,
+  },
   { id: '04', ordinal: 'FOURTH EXPEDITION', charted: false },
   { id: '05', ordinal: 'FIFTH EXPEDITION', charted: false },
 ] as const;

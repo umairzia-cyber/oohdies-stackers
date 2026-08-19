@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal, useDocumentTitle } from '../../hooks';
 import { TRAIL_PAGE, TRAIL_EXPEDITIONS, SEO } from '../../constants/content';
@@ -98,7 +99,15 @@ export default function TheTrail() {
                       {expedition.charted ? (
                         <>
                           <h3 className="trail-expedition__title">{expedition.title}</h3>
-                          <p className="trail-expedition__text">{expedition.body}</p>
+                          <p className="trail-expedition__text">
+                            {expedition.segments.map((segment, i) =>
+                              segment.kind === 'redaction' ? (
+                                <Redaction key={i} length={segment.length} />
+                              ) : (
+                                <span key={i}>{segment.text}</span>
+                              )
+                            )}
+                          </p>
                         </>
                       ) : (
                         <>
@@ -113,6 +122,8 @@ export default function TheTrail() {
                 ))}
               </ol>
 
+              <p className="trail-expeditions__note">{TRAIL_PAGE.redactionNote}</p>
+
             </div>
           </section>
 
@@ -125,5 +136,25 @@ export default function TheTrail() {
         </div>
       </section>
     </main>
+  );
+}
+
+/* A withheld phrase. There is nothing under the bar to reveal — the words were
+   never written into TRAIL_EXPEDITIONS, only a length — so it does not lift on
+   hover the way the joke redactions in the Firm brief do. Those are a punchline
+   about a fictional document; these are an actual roadmap not being announced
+   yet.
+
+   Announced to assistive tech as "[redacted]" so the sentence still parses when
+   read aloud: a bare decorative span would run the two halves of the sentence
+   together and change what it says. */
+function Redaction({ length }: { readonly length: number }) {
+  return (
+    <span
+      className="trail-redaction"
+      style={{ '--redaction-length': length } as CSSProperties}
+    >
+      <span className="sr-only">[redacted]</span>
+    </span>
   );
 }
