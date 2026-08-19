@@ -1,6 +1,6 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
-import { CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
+import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
@@ -362,33 +362,77 @@ function ShowcaseSection() {
   );
 }
 
-/* ─── Nile Banner ──────────────────────────────────────
-   Sits directly under the showcase, whose first card claims twelve ways to
-   earn. This is that claim as a picture, so it links to where the split is
-   actually chosen rather than back to this page. */
-function NileBannerSection() {
+/* ─── Alliance Band ────────────────────────────────────
+   Sits directly under the showcase, whose last card is about how much an
+   Oohdie earns. This is the one lever on that number that is not bought with
+   $BANANA, so it belongs immediately after it rather than further down.
+
+   Held to a partnership band, not a banner card: the perks are numbers read
+   off EarningEngine, and numbers need a panel to sit in. The plate bleeds to
+   the card edge on the picture side, so the figures stand on the bottom rail
+   the way the render composed them.
+
+   Copy and every figure in it live in ALLIANCE in constants/content.ts —
+   including the note on what has to be re-checked on chain before any of it
+   is edited. */
+function AllianceSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
 
   return (
-    <section className="section section--nile-banner" ref={ref} aria-label="Tokenized Stock Market Visual Showcase">
+    <section className="section section--alliance" ref={ref} aria-labelledby="alliance-heading">
       <div className="container">
-        <Link
-          to={`${ROUTES.ACTIVATE}#mint`}
-          className={`banner-card banner-card--uncropped block ${isVisible ? 'reveal--visible' : 'reveal'}`}
-          title="Pick your stock split"
-        >
-          <img
-            src="/assets/nile-banner.jpg"
-            alt="A pixel-art Oohdie pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
-            className="banner-card__image"
-            width={1024}
-            height={571}
-            loading="lazy"
-          />
-          <div className="banner-card__badge">
-            <span className="stock-icon-symbol">📈</span> ELEVEN STOCKS &middot; ONE SPLIT
+        <article className={`alliance-card ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="alliance-card__rail">
+            <p className="alliance-card__mark">{ALLIANCE.mark}</p>
+            <p className="alliance-card__ref">{ALLIANCE.ref}</p>
+          </header>
+
+          <div className="alliance-card__body">
+            <div className="alliance-card__copy">
+              <h2 id="alliance-heading" className="alliance-card__heading">
+                <span className="alliance-card__heading-line">{ALLIANCE.headingLine1}</span>
+                <span className="alliance-card__heading-line text-accent">{ALLIANCE.headingLine2}</span>
+              </h2>
+
+              <p className="alliance-card__tagline">{ALLIANCE.tagline}</p>
+              <p className="alliance-card__desc">{ALLIANCE.body}</p>
+
+              <dl className="alliance-card__perks">
+                {ALLIANCE.perks.map((perk) => (
+                  <div key={perk.value} className="alliance-perk">
+                    <dt className="alliance-perk__value">{perk.value}</dt>
+                    <dd className="alliance-perk__label">{perk.label}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="alliance-card__note">{ALLIANCE.note}</p>
+
+              <a
+                href={ALLIANCE.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="alliance-card__cta"
+              >
+                {ALLIANCE.cta} ↗
+              </a>
+            </div>
+
+            <figure className="alliance-card__plate">
+              <img
+                src="/assets/stonkbrokers-alliance.webp"
+                alt={ALLIANCE.imageAlt}
+                className="alliance-card__img"
+                width={1200}
+                height={860}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
           </div>
-        </Link>
+
+          <p className="alliance-card__strip">{ALLIANCE.strip}</p>
+        </article>
       </div>
     </section>
   );
@@ -577,7 +621,7 @@ export default function Home() {
       <StatsSection />
       <ExtractionBandSection />
       <ShowcaseSection />
-      <NileBannerSection />
+      <AllianceSection />
       <CollectionSection />
       <CaveTradingBannerSection />
       <HowItWorksSection />

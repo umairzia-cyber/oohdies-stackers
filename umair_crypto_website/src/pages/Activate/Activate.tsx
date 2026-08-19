@@ -457,6 +457,28 @@ export default function Activate() {
           )}
         </div>
       </section>
+
+      {/* The Nile plate, moved off the home page. It belongs at the end of this
+          page rather than in the middle of that one: the wall is a picture of
+          the split, and this is the only page where the split is actually
+          chosen. A figure, not a link — everything it could point at is
+          already above it. */}
+      <section className="section activate-nile" aria-label="Tokenized stock market visual showcase">
+        <div className="container">
+          <figure className="activate-nile__plate">
+            <img
+              src="/assets/nile-banner.jpg"
+              alt="A pixel-art Oohdie pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
+              className="activate-nile__img"
+              width={1024}
+              height={571}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption className="activate-nile__caption">ELEVEN STOCKS &middot; ONE SPLIT</figcaption>
+          </figure>
+        </div>
+      </section>
     </main>
   );
 }

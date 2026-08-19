@@ -164,6 +164,45 @@ export const CRATE_TEASE = {
     'A dim greyscale photograph of a cluttered workshop. A figure sits on the floor between shelves of small models, an open carton beside them.',
 } as const;
 
+/*
+ * The StonkBrokers alliance band on the home page.
+ *
+ * Every number here is read off the contracts rather than agreed in a call, so
+ * check them against the chain before editing:
+ *   - EarningEngine.getWeight() returns collectionQMultiplierBps for any Oohdie
+ *     whose *current owner* holds a balance of the partner collection, and
+ *     BASE_WEIGHT otherwise. Deployed at 20,000 vs 10,000 bps — hence 2.0x.
+ *   - The weight is added to activeWeightForAsset once per chosen asset, so it
+ *     applies to all of ActivationController.requiredPicks (3), not one.
+ *   - getWeight() only checks balanceOf > 0, so a second broker does nothing.
+ *
+ * The claim is a *share* claim, not an absolute one: a boosted Oohdie takes
+ * twice the slice of a stream that an unboosted one takes. Do not restate it as
+ * "double your rewards" — that is a different and untrue statement.
+ */
+export const ALLIANCE = {
+  mark: 'STONKBROKERS × OOHDIE STACKERS',
+  ref: '4,444 BROKERS · ROBINHOOD CHAIN',
+  headingLine1: 'HOLD ONE BROKER.',
+  headingLine2: 'EVERY OOHDIE COUNTS TWICE.',
+  tagline: 'THE ALLIANCE · READ STRAIGHT OFF YOUR WALLET',
+  body:
+    'Every StonkBroker is a wallet with tokenized stock sealed inside it. So is every Oohdie. Before the engine settles a stream it looks at the holder’s wallet — find a broker there, and that Oohdie is counted at 2.0x weight against every stream it picked: twice the slice of an Oohdie without one.',
+  perks: [
+    { value: '2.0x', label: 'weight on every activated Oohdie in that wallet' },
+    { value: '1', label: 'broker is enough — a tenth one changes nothing' },
+    { value: '3 / 3', label: 'picks carry it, not just the first' },
+    { value: '0', label: 'to stake, lock, or sign up for' },
+  ],
+  note:
+    'Nothing is retroactive. The boost starts the moment the broker lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Oohdie’s own wallet either way.',
+  cta: 'GET A STONKBROKER',
+  href: 'https://www.stonkbrokers.cash/home',
+  strip: 'HOLD ONE BROKER · EVERY ACTIVATED OOHDIE EARNS AT 2.0x · STONKBROKERS.CASH',
+  imageAlt:
+    'A pixel-art ape in a pinstriped suit working a laptop beside a blocky suited broker wearing a headset, standing in front of a rising green and gold candlestick chart with Bitcoin and Ethereum coins tumbling around them.',
+} as const;
+
 export const WALLET = {
   connectButton: 'Connect Wallet',
   disconnectButton: 'Disconnect',
