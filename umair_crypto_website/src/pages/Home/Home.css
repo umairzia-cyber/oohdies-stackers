@@ -909,10 +909,16 @@
   background-color: var(--bg-primary);
 }
 
+/* Same document as Appendix B on /collection — dashed edge, sunken ground,
+   ruled head, struck-out field list, stamp along the bottom. They are two
+   different unannounced things filed by the same firm, so they share the
+   stationery and nothing else. The field rows themselves are the shared
+   .field primitive in index.css. */
 .crate-tease__doc {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-5);
+  /* Spans the container, as the appendix does. It was a 640px column when the
+     plate was all there was to show; the record beside it needs the room. */
+  width: 100%;
+  padding: var(--space-8);
   border: 1px dashed var(--border-secondary);
   border-radius: var(--radius-md);
   background-color: color-mix(in srgb, var(--bg-sunken) 60%, transparent);
@@ -922,7 +928,9 @@
    shared .reveal / .reveal--visible classes, which animate opacity on entry at
    the same specificity — and Home.css loads after index.css, so a resting
    opacity here silently wins and pins the section, killing its scroll reveal.
-   The held-back look comes from the plate's brightness instead, below. */
+   This is the one place the appendix cannot be copied: it sits back at 0.82 and
+   comes up on hover, and doing that here would cost the reveal. The held-back
+   look comes from the plate's brightness instead, below. */
 
 .crate-tease__head {
   display: flex;
@@ -930,23 +938,50 @@
   align-items: baseline;
   gap: var(--space-3);
   padding-bottom: var(--space-3);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   border-bottom: 1px dashed var(--border-primary);
   font-family: var(--font-mono);
 }
 
-.crate-tease__badge {
-  font-size: var(--text-sm);
+.crate-tease__label {
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--text-secondary);
 }
 
 .crate-tease__ref {
-  margin-left: auto;
   font-size: var(--text-xs);
   letter-spacing: 0.12em;
   color: var(--text-muted);
+}
+
+.crate-tease__clearance {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--danger);
+  opacity: 0.85;
+}
+
+/* The plate column is pinned to the width the plate already had as a 640px
+   panel, so widening the document did not quietly resize the picture. */
+.crate-tease__body {
+  display: grid;
+  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+  gap: var(--space-8);
+  /* Stretched rather than start-aligned: the form is a good bit shorter than
+     the plate beside it, and letting the record run the plate's full height
+     puts the closing line on the foot of the sheet instead of leaving a third
+     of the panel empty under it. */
+  align-items: stretch;
+}
+
+.crate-tease__record {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
 }
 
 .crate-tease__plate {
@@ -969,7 +1004,14 @@
      This carried a blur as well, to keep the lettering on the cartons from
      naming an unannounced product. The user asked for grey only, so the blur
      is gone and the render is legible — that is the intended state now, not an
-     oversight. */
+     oversight.
+
+     The appendix lifts its plate instead of holding it back, because its art
+     is a dark cave and the fields beside it do all the withholding. Here the
+     picture would say the quiet part out loud at full exposure, so the fields
+     and the brightness both hold the line. CRATE_TEASE.imageAlt is written to
+     match this exposure — brighten the plate and the alt text has to change
+     with it. */
   filter: brightness(0.7) contrast(0.95);
   transition: filter var(--duration-slow) var(--ease-out);
 }
@@ -995,12 +1037,52 @@
   );
 }
 
+.crate-tease__plate-note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-1) var(--space-2);
+  background-color: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Rows step up from the .field default the same way the appendix steps them,
+   and for the same reason: at --text-sm a six-row form reads as fine print
+   rather than as the thing you are meant to be reading. */
+.crate-tease__fields .field {
+  font-size: var(--text-base);
+  padding: var(--space-3) 0;
+}
+
+/* The one line that is not a form field — what the form is actually about,
+   left under it like something written on the bottom of the sheet. */
 .crate-tease__manifest {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--border-primary);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--text-muted);
+}
+
+.crate-tease__footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1062,6 +1144,17 @@
 
   .alliance-card__perks {
     grid-template-columns: 1fr;
+  }
+
+  /* The plate gives up its pinned width before the record column does — a
+     600px picture beside a squeezed form is the wrong thing to protect. */
+  .crate-tease__body {
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .crate-tease__doc {
+    padding: var(--space-6);
   }
 }
 
@@ -1132,6 +1225,16 @@
   .alliance-card__strip {
     padding-left: var(--space-5);
     padding-right: var(--space-5);
+  }
+
+  /* Plate over record. Below this a two-column split leaves the field rows too
+     narrow for a label, a leader and a value to share a line. */
+  .crate-tease__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .crate-tease__plate {
+    max-width: 420px;
   }
 }
 

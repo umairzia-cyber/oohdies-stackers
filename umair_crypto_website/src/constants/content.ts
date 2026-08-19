@@ -202,22 +202,49 @@ export const DOCS_TEASE = {
  * it: no "physical", no product, no date. The picture is shown; its meaning is
  * not.
  *
- * This is a *separate* unannounced thing from Appendix B on /collection, which
- * teases the second collection. Keep the two stories apart — merging them would
- * imply a link between releases that has not been decided.
+ * Laid out as the same kind of document as APPENDIX_B in constants/firm.ts —
+ * head, plate, redacted field list, stamp — because both are the Firm's own
+ * paperwork and the Firm only has one stationery cupboard. Same form, different
+ * department, and deliberately *not* the same story: Appendix B teases the
+ * second collection, this teases a release with no announced connection to it.
+ * Keep the two apart in copy, or the shared form starts implying a shared
+ * timeline that nobody has decided on.
+ *
+ * Three fields carry news and three are struck out, which is the same three-
+ * for-three split Appendix B runs. The news is all oblique: "Not tokens" says
+ * what this is not, "Fragile" is a fact about handling that only makes sense
+ * for an object, and "Fabrication" is a department that does not make JPEGs.
+ * None of them says the word.
  *
  * The artwork ships as a single-channel greyscale JPEG rather than a colour
  * file dimmed with `filter: grayscale()`. A CSS filter is reversible by anyone
  * with devtools; a file with no colour channel is not.
  */
 export const CRATE_TEASE = {
-  badge: 'RECEIVING BAY',
-  ref: 'MB-LOG-014 · CONTENTS UNDECLARED',
-  manifest: 'A crate left the workshop. It is not going to a wallet.',
-  /* Describes only what the dimmed plate actually shows, so the alt text gives
-     away nothing the picture does not. */
+  label: 'RECEIVING BAY',
+  docRef: 'MB-LOG-014',
+  clearance: 'Clearance: Denied',
+
+  image: '/assets/rd/crate-sealed.jpg',
+  imageNote: 'BAY CAMERA · FRAME PULLED',
+  /* Describes only what the held-back plate actually shows, so the alt text
+     gives away nothing the picture does not. If the plate is ever brightened,
+     this has to be rewritten to match — or it starts describing things a
+     sighted reader cannot make out. */
   imageAlt:
     'A dim greyscale photograph of a cluttered workshop. A figure sits on the floor between shelves of small models, an open carton beside them.',
+
+  fields: [
+    { label: 'Consignment', value: '[REDACTED]' },
+    { label: 'Department', value: 'Fabrication' },
+    { label: 'Contents', value: 'Not tokens' },
+    { label: 'Handling', value: 'Fragile' },
+    { label: 'Quantity', value: '[REDACTED]' },
+    { label: 'Arrival', value: '[REDACTED]' },
+  ],
+
+  manifest: 'A crate left the workshop. It is not going to a wallet.',
+  footer: 'NOT APPROVED FOR DISTRIBUTION · DO NOT LOG THIS ARRIVAL',
 } as const;
 
 /*

@@ -573,9 +573,14 @@ function FinalCTASection() {
    after the CTA on /collection: it is not an offer, and putting it last means
    it never competes with the thing the page is actually asking for.
 
-   Not a link — there is nowhere to send anyone yet. The plate only dims and
-   lifts on hover; there is no colour to restore, because the file ships as
-   single-channel greyscale rather than a colour image dimmed in CSS. */
+   Built as the same document Appendix B is — head, plate, struck-out field
+   list, stamp — because both are the Firm's own paperwork. The two are not the
+   same announcement and must not be written as if they were; see CRATE_TEASE
+   in constants/content.ts.
+
+   Not a link. There is nowhere to send anyone yet, so it is an article and the
+   plate is a figure. The whole panel sits back at rest and comes up when it is
+   leant on, which is the only interaction it has. */
 function CrateTeaseSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
 
@@ -584,26 +589,52 @@ function CrateTeaseSection() {
       <div className="container">
         <article className={`crate-tease__doc ${isVisible ? 'reveal--visible' : 'reveal'}`}>
           <header className="crate-tease__head">
-            <h2 id="crate-tease-heading" className="crate-tease__badge">
-              {CRATE_TEASE.badge}
+            <h2 id="crate-tease-heading" className="crate-tease__label">
+              {CRATE_TEASE.label}
             </h2>
-            <p className="crate-tease__ref">{CRATE_TEASE.ref}</p>
+            <p className="crate-tease__ref">{CRATE_TEASE.docRef}</p>
+            <p className="crate-tease__clearance">{CRATE_TEASE.clearance}</p>
           </header>
 
-          <figure className="crate-tease__plate">
-            <img
-              src="/assets/rd/crate-sealed.jpg"
-              alt={CRATE_TEASE.imageAlt}
-              className="crate-tease__img"
-              width={800}
-              height={800}
-              loading="lazy"
-              decoding="async"
-            />
-            <span className="crate-tease__scan" aria-hidden="true" />
-          </figure>
+          <div className="crate-tease__body">
+            <figure className="crate-tease__plate">
+              <img
+                src={CRATE_TEASE.image}
+                alt={CRATE_TEASE.imageAlt}
+                className="crate-tease__img"
+                width={800}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="crate-tease__scan" aria-hidden="true" />
+              <figcaption className="crate-tease__plate-note">
+                {CRATE_TEASE.imageNote}
+              </figcaption>
+            </figure>
 
-          <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+            <div className="crate-tease__record">
+              <dl className="crate-tease__fields">
+                {CRATE_TEASE.fields.map((entry) => (
+                  <div className="field" key={entry.label}>
+                    <dt className="field__label">{entry.label}</dt>
+                    <span className="field__leader" aria-hidden="true" />
+                    <dd
+                      className={`field__value ${
+                        entry.value === '[REDACTED]' ? 'field__value--struck' : ''
+                      }`}
+                    >
+                      {entry.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+            </div>
+          </div>
+
+          <p className="crate-tease__footer">{CRATE_TEASE.footer}</p>
         </article>
       </div>
     </section>

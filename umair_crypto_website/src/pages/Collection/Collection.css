@@ -647,50 +647,11 @@
   column-gap: var(--space-8);
 }
 
-.field {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  padding: var(--space-2) 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-}
-
-.field + .field {
-  border-top: 1px solid color-mix(in srgb, var(--border-primary) 55%, transparent);
-}
-
 /* The directory runs two columns, so a top border on every row would draw a
    broken line across the middle. Rows there are separated by spacing instead. */
 .directory__fields .field + .field {
   border-top: none;
 }
-
-.field__label {
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-/* A flex spacer rather than generated dots: it can never wrap away from its
-   value, and it collapses gracefully when the row runs out of room. */
-.field__leader {
-  flex: 1 1 auto;
-  min-width: var(--space-4);
-  align-self: center;
-  border-bottom: 1px dotted var(--border-secondary);
-  transform: translateY(-1px);
-}
-
-.field__value {
-  color: var(--text-primary);
-  text-align: right;
-  font-weight: 500;
-}
-
-.field__value--numeric { color: var(--accent); font-weight: 600; }
-.field__value--good    { color: var(--spore); }
-.field__value--bad     { color: var(--danger); }
-.field__value--neutral { color: var(--text-secondary); }
 
 .record__counter {
   padding: var(--space-2) var(--space-4) var(--space-3);
@@ -861,13 +822,6 @@
 .appendix__fields .field {
   font-size: var(--text-base);
   padding: var(--space-3) 0;
-}
-
-/* Redacted values here are printed, not liftable: struck through rather than
-   blacked out, so nobody hunts for a reveal that does not exist. */
-.field__value--struck {
-  color: var(--danger);
-  opacity: 0.7;
 }
 
 .appendix__footer {
