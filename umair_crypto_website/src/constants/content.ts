@@ -1,52 +1,52 @@
 export const BRAND = {
-  name: 'OOHDIE',
-  nameFirst: 'OOHDIE',
-  nameSecond: 'STACKERS',
-  tagline: 'Eat Bananas. Build Your Stack.',
-  description: 'A digital collectible ecosystem where eating bananas creates value. Acquire, activate, and stack Oohdies in an experimental Web3 experience.',
+  name: 'MONKEY BUSINESS',
+  nameFirst: 'MONKEY',
+  nameSecond: 'BUSINESS',
+  tagline: 'Earn Specie. Build Your Stack.',
+  description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire, activate, and stack Associates in an experimental Web3 experience.',
   year: new Date().getFullYear(),
 } as const;
 
 export const HERO = {
-  subtitle: '1111 DIGITAL COLLECTIBLES · READY TO EAT',
-  headingLine1: 'EAT BANANAS.',
+  subtitle: '1111 DIGITAL COLLECTIBLES · READY TO EARN',
+  headingLine1: 'EARN SPECIE.',
   headingLine2: 'BUILD YOUR STACK.',
-  description: 'Acquire an Oohdie, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.',
-  primaryCta: 'Get an Oohdie',
+  description: 'Acquire an Associate, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.',
+  primaryCta: 'Get an Associate',
   secondaryCta: 'Learn More',
 } as const;
 
 export const STATS_LABELS = {
-  totalBananas: 'TOTAL BANANAS',
-  destroyed: 'BANANAS EATEN',
+  totalBananas: 'TOTAL SUPPLY',
+  destroyed: '$SPECIE BURNED',
   activeStacks: 'ACTIVE STACKS',
   collectionSize: 'COLLECTION SIZE',
 } as const;
 
 export const HOW_IT_WORKS = {
   heading: 'FOUR STEPS. THEN ACCUMULATION.',
-  subheading: 'Set it up once. Your Oohdie works while you sleep.',
+  subheading: 'Set it up once. Your Associate works while you sleep.',
 } as const;
 
 export const FINAL_CTA = {
-  heading: 'READY TO EAT?',
-  buttonText: 'ACTIVATE OOHDIE',
+  heading: 'READY TO EARN?',
+  buttonText: 'ACTIVATE ASSOCIATE',
 } as const;
 
 export const ACTIVATE_PAGE = {
-  subtitle: 'WAKE YOUR OOHDIE',
+  subtitle: 'WAKE YOUR ASSOCIATE',
   heading: 'ACTIVATE',
   description: 'Choose your tier, pick your stocks, split your earnings.',
 } as const;
 
 export const MY_STACK_PAGE = {
-  subtitle: 'YOUR OOHDIES · YOUR STACK',
+  subtitle: 'YOUR ASSOCIATES · YOUR STACK',
   heading: 'MY STACK',
   description: 'Everything you own and everything it makes you, on one page.',
-  disconnectedMessage: 'Connect your wallet to view your Oohdie stack.',
-  emptyTitle: 'No Oohdies Yet',
-  emptyMessage: 'Your stack is empty. Activate your first Oohdie to start building.',
-  emptyCta: 'ACTIVATE YOUR FIRST OOHDIE',
+  disconnectedMessage: 'Connect your wallet to view your Associate stack.',
+  emptyTitle: 'No Associates Yet',
+  emptyMessage: 'Your stack is empty. Activate your first Associate to start building.',
+  emptyCta: 'ACTIVATE YOUR FIRST ASSOCIATE',
 } as const;
 
 export const DOCS_PAGE = {
@@ -58,9 +58,9 @@ export const DOCS_PAGE = {
 // every string below is a label rather than a paragraph.
 export const COLLECTION_PAGE = {
   subtitle: 'THE COLLECTION',
-  heading: 'MEET THE OOHDIES',
+  heading: 'MEET THE ASSOCIATES',
   description:
-    'Hand-drawn, none repeated. Every Oohdie carries its own traits into the stack — and the rarer the build, the harder it works.',
+    'Hand-drawn, none repeated. Every Associate carries its own traits into the stack — and the rarer the build, the harder it works.',
   wallLabel: 'STAFF ON PREMISES',
   rosterHeading: 'MEET THE TEAM',
   rosterNote: 'Five of the workforce, on the record.',
@@ -79,7 +79,7 @@ export const TRAIL_PAGE = {
   marker: 'YOU ARE HERE',
   cta: 'START STACKING',
   mapAlt:
-    'An illustrated map of the Oohdie trail: a jungle clearing where troops of Oohdies gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured Oohdie with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
+    'An illustrated map of the Monkey Business trail: a jungle clearing where troops of primates gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured primate with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
   expeditionsHeading: 'THE EXPEDITIONS',
   unchartedLabel: 'UNCHARTED TERRITORY',
   unchartedNote: 'Not plotted yet. The trail reveals itself as we walk it.',
@@ -88,7 +88,7 @@ export const TRAIL_PAGE = {
      read as a font that failed to load as it is to read as withheld. */
   redactionNote: 'Blocked-out lines are decided, not announced.',
   scoutAlt:
-    'A tiger-striped Oohdie in a leopard-print bucket hat and khaki fieldwear, rifle in hand, walking a sunlit dirt path deep into dense jungle.',
+    'A tiger-striped primate in a leopard-print bucket hat and khaki fieldwear, rifle in hand, walking a sunlit dirt path deep into dense jungle.',
 } as const;
 
 /**
@@ -169,7 +169,7 @@ export const TRAIL_EXPEDITIONS = [
   { id: '05', ordinal: 'FIFTH EXPEDITION', charted: false },
 ] as const;
 
-// TODO: replace with the real Oohdie X profile URL.
+// TODO: replace with the real Monkey Business X profile URL.
 export const X_URL = 'https://x.com';
 
 // Rail socials. Only X is listed because it is the only account we have a URL
@@ -186,18 +186,18 @@ export const SOCIALS = [
 // Temporary pre-launch tease. Set `enabled: false` to reveal the real docs page.
 export const DOCS_TEASE = {
   enabled: true,
-  badge: 'OOHDIE DOCS',
+  badge: 'MONKEY BUSINESS DOCS',
   badgeStatus: 'COMING SOON',
   heading: 'COMING SOON',
   signal: 'Signal scrambled · the manual is still being written',
-  body: 'The full Oohdie manual — cycles, multipliers, tier burns, stock splits, and wallet safety — is being finished right now. We would rather hand you the whole thing at once than half a page. Check back soon.',
+  body: 'The full Monkey Business manual — cycles, multipliers, tier burns, stock splits, and wallet safety — is being finished right now. We would rather hand you the whole thing at once than half a page. Check back soon.',
   primaryCta: 'FOLLOW US ON X',
   xUrl: X_URL,
   timerNote: 'No release date has been announced — the counter is decorative.',
 } as const;
 
 /*
- * The homepage stinger, teasing the phygitals release — physical Oohdie
+ * The homepage stinger, teasing the phygitals release — physical Associate
  * collectibles alongside the digital ones. Unannounced, so nothing below names
  * it: no "physical", no product, no date. The picture is shown; its meaning is
  * not.
@@ -252,36 +252,37 @@ export const CRATE_TEASE = {
  *
  * Every number here is read off the contracts rather than agreed in a call, so
  * check them against the chain before editing:
- *   - EarningEngine.getWeight() returns collectionQMultiplierBps for any Oohdie
- *     whose *current owner* holds a balance of the partner collection, and
- *     BASE_WEIGHT otherwise. Deployed at 20,000 vs 10,000 bps — hence 2.0x.
+ *   - EarningEngine.getWeight() returns collectionQMultiplierBps for any
+ *     Associate whose *current owner* holds a balance of the partner
+ *     collection, and BASE_WEIGHT otherwise. Deployed at 20,000 vs 10,000 bps
+ *     — hence 2.0x.
  *   - The weight is added to activeWeightForAsset once per chosen asset, so it
  *     applies to all of ActivationController.requiredPicks (3), not one.
  *   - getWeight() only checks balanceOf > 0, so a second broker does nothing.
  *
- * The claim is a *share* claim, not an absolute one: a boosted Oohdie takes
+ * The claim is a *share* claim, not an absolute one: a boosted Associate takes
  * twice the slice of a stream that an unboosted one takes. Do not restate it as
  * "double your rewards" — that is a different and untrue statement.
  */
 export const ALLIANCE = {
-  mark: 'STONKBROKERS × OOHDIE STACKERS',
+  mark: 'STONKBROKERS × MONKEY BUSINESS',
   ref: '4,444 BROKERS · ROBINHOOD CHAIN',
   headingLine1: 'HOLD ONE BROKER.',
-  headingLine2: 'EVERY OOHDIE COUNTS TWICE.',
+  headingLine2: 'EVERY ASSOCIATE COUNTS TWICE.',
   tagline: 'THE ALLIANCE · READ STRAIGHT OFF YOUR WALLET',
   body:
-    'Every StonkBroker is a wallet with tokenized stock sealed inside it. So is every Oohdie. Before the engine settles a stream it looks at the holder’s wallet — find a broker there, and that Oohdie is counted at 2.0x weight against every stream it picked: twice the slice of an Oohdie without one.',
+    'Every StonkBroker is a wallet with tokenized stock sealed inside it. So is every Associate. Before the engine settles a stream it looks at the holder’s wallet — find a broker there, and that Associate is counted at 2.0x weight against every stream it picked: twice the slice of an Associate without one.',
   perks: [
-    { value: '2.0x', label: 'weight on every activated Oohdie in that wallet' },
+    { value: '2.0x', label: 'weight on every activated Associate in that wallet' },
     { value: '1', label: 'broker is enough — a tenth one changes nothing' },
     { value: '3 / 3', label: 'picks carry it, not just the first' },
     { value: '0', label: 'to stake, lock, or sign up for' },
   ],
   note:
-    'Nothing is retroactive. The boost starts the moment the broker lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Oohdie’s own wallet either way.',
+    'Nothing is retroactive. The boost starts the moment the broker lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Associate’s own wallet either way.',
   cta: 'GET A STONKBROKER',
   href: 'https://www.stonkbrokers.cash/home',
-  strip: 'HOLD ONE BROKER · EVERY ACTIVATED OOHDIE EARNS AT 2.0x · STONKBROKERS.CASH',
+  strip: 'HOLD ONE BROKER · EVERY ACTIVATED ASSOCIATE EARNS AT 2.0x · STONKBROKERS.CASH',
   imageAlt:
     'A pixel-art ape in a pinstriped suit working a laptop beside a blocky suited broker wearing a headset, standing in front of a rising green and gold candlestick chart with Bitcoin and Ethereum coins tumbling around them.',
 } as const;
@@ -295,27 +296,27 @@ export const WALLET = {
 
 export const SEO = {
   home: {
-    title: 'Oohdie — Eat Bananas. Build Your Stack.',
-    description: 'A digital collectible ecosystem where eating bananas creates value. Acquire, activate, and stack Oohdies.',
+    title: 'Monkey Business — Earn Specie. Build Your Stack.',
+    description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire, activate, and stack Associates.',
   },
   collection: {
-    title: 'The Collection — Oohdie',
-    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Employees on the record.',
+    title: 'The Collection — Monkey Business',
+    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Associates on the record.',
   },
   activate: {
-    title: 'Activate — Oohdie',
-    description: 'Activate your Oohdie by choosing a tier and burning tokens. Start accumulating today.',
+    title: 'Activate — Monkey Business',
+    description: 'Activate your Associate by choosing a tier and burning tokens. Start accumulating today.',
   },
   myStack: {
-    title: 'My Stack — Oohdie',
-    description: 'View your Oohdie collection, stack level, and accumulated balance.',
+    title: 'My Stack — Monkey Business',
+    description: 'View your Associate collection, stack level, and accumulated balance.',
   },
   theTrail: {
-    title: 'The Trail — Oohdie',
-    description: 'The road ahead, uncharted. A look at where the Oohdie troop is headed next.',
+    title: 'The Trail — Monkey Business',
+    description: 'The road ahead, uncharted. A look at where the Monkey Business troop is headed next.',
   },
   docs: {
-    title: 'Docs — Oohdie',
-    description: 'Complete documentation for Oohdie — how it works, activation, stacking, wallet safety, and FAQ.',
+    title: 'Docs — Monkey Business',
+    description: 'Complete documentation for Monkey Business — how it works, activation, stacking, wallet safety, and FAQ.',
   },
 } as const;

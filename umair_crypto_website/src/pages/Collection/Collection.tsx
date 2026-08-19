@@ -7,10 +7,10 @@ import { COLLECTION_SIZE, WALL_ART } from '../../constants/collection';
 import {
   APPENDIX_B,
   DIRECTORY,
-  EMPLOYEES,
+  ASSOCIATES,
   FIRM_LORE,
   type Clause,
-  type Employee,
+  type Associate,
 } from '../../constants/firm';
 import { formatNumber } from '../../utils';
 import './Collection.css';
@@ -20,7 +20,7 @@ import './Collection.css';
  *
  *   1. The wall     — art in motion the moment the page opens, no reading required.
  *   2. The dossier  — the lore, staged as a part-redacted internal document.
- *   3. The roster   — five employees, each a portrait beside a personnel record.
+ *   3. The roster   — five associates, each a portrait beside a personnel record.
  *   4. The directory— the firm itself, summarised in the same readout.
  *
  * A browsable vault grid used to sit where the dossier and roster are now. It
@@ -54,7 +54,7 @@ export default function Collection() {
       <CollectionWall />
       <FirmDossier />
       <TeamRoster />
-      <EmployeeDirectory />
+      <AssociateDirectory />
 
       <section className="section collection-outro">
         <div className="container">
@@ -328,12 +328,12 @@ function TeamRoster() {
         </div>
 
         <ul className="roster__list">
-          {EMPLOYEES.map((employee, i) => (
-            <li key={employee.id}>
-              <EmployeeRecord
-                employee={employee}
+          {ASSOCIATES.map((associate, i) => (
+            <li key={associate.id}>
+              <AssociateRecord
+                associate={associate}
                 position={i + 1}
-                total={EMPLOYEES.length}
+                total={ASSOCIATES.length}
               />
             </li>
           ))}
@@ -343,25 +343,25 @@ function TeamRoster() {
   );
 }
 
-interface EmployeeRecordProps {
-  readonly employee: Employee;
+interface AssociateRecordProps {
+  readonly associate: Associate;
   readonly position: number;
   readonly total: number;
 }
 
-function EmployeeRecord({ employee, position, total }: EmployeeRecordProps) {
-  const isAwarded = employee.status === 'EMPLOYEE_OF_THE_MONTH';
-  const isUnpaid = employee.status === 'UNPAID';
+function AssociateRecord({ associate, position, total }: AssociateRecordProps) {
+  const isAwarded = associate.status === 'ASSOCIATE_OF_THE_MONTH';
+  const isUnpaid = associate.status === 'UNPAID';
 
   return (
     <article
       className={`record ${isAwarded ? 'record--awarded' : ''}`}
-      aria-label={`Employee ${employee.id}, ${employee.position}`}
+      aria-label={`Associate ${associate.id}, ${associate.position}`}
     >
       <div className="record__portrait">
         <img
-          src={employee.image}
-          alt={employee.portraitAlt}
+          src={associate.image}
+          alt={associate.portraitAlt}
           className="record__img"
           width={320}
           height={320}
@@ -370,7 +370,7 @@ function EmployeeRecord({ employee, position, total }: EmployeeRecordProps) {
         />
         {isAwarded && (
           <p className="record__rosette" aria-hidden="true">
-            <span className="record__rosette-top">EMPLOYEE</span>
+            <span className="record__rosette-top">ASSOCIATE</span>
             <span className="record__rosette-mid">OF THE</span>
             <span className="record__rosette-bot">MONTH</span>
           </p>
@@ -380,7 +380,7 @@ function EmployeeRecord({ employee, position, total }: EmployeeRecordProps) {
       <div className="record__panel">
         {/* Reverse video, the way a terminal marks the field it is holding. */}
         <h3 className="record__id">
-          EMPLOYEE #{employee.id}
+          ASSOCIATE #{associate.id}
           <span
             className={`record__led ${isUnpaid ? 'record__led--idle' : ''}`}
             aria-hidden="true"
@@ -388,24 +388,24 @@ function EmployeeRecord({ employee, position, total }: EmployeeRecordProps) {
         </h3>
 
         <dl className="record__fields">
-          <Field label="Department" value={employee.department} />
-          <Field label="Position" value={employee.position} />
-          <Field label="Tenure" value={`${formatNumber(employee.tenureDays)} days`} numeric />
+          <Field label="Department" value={associate.department} />
+          <Field label="Position" value={associate.position} />
+          <Field label="Tenure" value={`${formatNumber(associate.tenureDays)} days`} numeric />
           <Field
             label="Performance"
-            value={employee.performance}
-            tone={employee.performanceTone}
+            value={associate.performance}
+            tone={associate.performanceTone}
           />
           <Field
             label="$SPECIE Earned"
-            value={formatNumber(employee.specieEarned)}
+            value={formatNumber(associate.specieEarned)}
             numeric
             /* Zero is the intern's whole joke — muting it would bury it. */
             tone={isUnpaid ? 'bad' : undefined}
           />
           <Field
             label="Status"
-            value={employee.statusLabel}
+            value={associate.statusLabel}
             tone={isAwarded ? 'good' : isUnpaid ? 'bad' : 'neutral'}
           />
         </dl>
@@ -449,7 +449,7 @@ function Field({ label, value, numeric, tone }: FieldProps) {
 
 /* ─── The directory ────────────────────────────────────
    The firm's own record, in the same readout as its staff. */
-function EmployeeDirectory() {
+function AssociateDirectory() {
   return (
     <section className="section directory" aria-labelledby="directory-heading">
       <div className="container">

@@ -48,18 +48,18 @@ function HeroSection() {
     <section className="hero hero--clean" ref={ref} aria-labelledby="hero-heading">
       <div className="container hero__content">
         <div className={`hero__left ${isVisible ? 'animate-fade-in' : ''}`}>
-          <p className="subtitle">1111 DIGITAL COLLECTIBLES · READY TO EAT</p>
+          <p className="subtitle">1111 DIGITAL COLLECTIBLES · READY TO EARN</p>
           <h1 id="hero-heading" className="hero__heading">
             <span className="hero__heading-line1">{HERO.headingLine1}</span>
             <span className="hero__heading-line2 text-accent">{HERO.headingLine2}</span>
           </h1>
           <p className="body-lg hero__desc">
-            Acquire an Oohdie, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.
+            Acquire an Associate, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.
           </p>
 
           <div className="hero__actions">
             <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg">
-              MINT OOHDIE
+              MINT ASSOCIATE
             </Link>
 
             <Link to="/" className="btn btn--secondary btn--lg">
@@ -79,7 +79,7 @@ function HeroSection() {
               <span className="pill__value">{mintsLeftDisplay} / 1,111</span>
             </div>
             <div className="pill">
-              <span>$BANANA eaten</span>
+              <span>$SPECIE burned</span>
               <span className="pill__value">{burnedDisplay}</span>
             </div>
           </div>
@@ -89,7 +89,7 @@ function HeroSection() {
           <div className="hero__artwork animate-float">
             <img
               src="/assets/oohdie-sword.jpg"
-              alt="Oohdie Samurai with Glowing Katana Sword Slicing Candlesticks"
+              alt="Samurai Primate with Glowing Katana Sword Slicing Candlesticks"
               className="hero__artwork-image"
               width={500}
               height={500}
@@ -110,10 +110,10 @@ function SpaceTradingBannerSection() {
   return (
     <section className="section section--space-banner" ref={ref} aria-label="Space Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Space Station">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Monkey Business Space Station">
           <img
             src="/assets/space-hero-bg.jpg"
-            alt="Oohdie Space Trading Monkey Floating in Galaxy with Charts"
+            alt="Space Trading Monkey Floating in Galaxy with Charts"
             className="banner-card__image"
             width={1200}
             height={675}
@@ -130,7 +130,7 @@ function SpaceTradingBannerSection() {
 
 /* ─── Extraction Band ──────────────────────────────────
    A split band rather than another wide banner card. The render is square and
-   reads top-to-bottom — rotor, Oohdie, coin-stamped crate — so cropping it to
+   reads top-to-bottom — rotor, Associate, coin-stamped crate — so cropping it to
    16:9 would throw away both ends of the composition. Running it beside the
    copy at its native ratio keeps the picture intact and breaks up what would
    otherwise be three identical banner cards in a row. */
@@ -144,7 +144,7 @@ function ExtractionBandSection() {
           <figure className="extraction-band__art">
             <img
               src="/assets/extraction-airlift.jpg"
-              alt="An Oohdie in field gear riding the lift lines of a helicopter, standing on a crate stamped with a gold Oohdie coin as it is airlifted out of the jungle at sunset."
+              alt="A primate in field gear riding the lift lines of a helicopter, standing on a crate stamped with a gold Monkey Business coin as it is airlifted out of the jungle at sunset."
               className="extraction-band__img"
               width={1024}
               height={1024}
@@ -161,7 +161,7 @@ function ExtractionBandSection() {
             </h2>
             <p className="body-lg extraction-band__desc">
               Rewards accrue into the NFT&rsquo;s own on-chain account, not yours. Sell the
-              Oohdie and the whole stack goes with it &mdash; tier, split and balance
+              Associate and the whole stack goes with it &mdash; tier, split and balance
               intact. Nothing has to be swept out first.
             </p>
             <Link to={ROUTES.THE_TRAIL} className="extraction-band__link">
@@ -199,7 +199,7 @@ function StatsSection() {
   }, [fetchPlatformStats, fetchGlobalRewardStats]);
 
   const mintsLeftDisplay = stats ? stats.mintsLeft : MOCK_STATS.supplyAlive;
-  const burnedTokensDisplay = stats ? `${formatNumber(parseFloat(stats.burnedTokens))} $BANANA` : MOCK_STATS.supplyBurnedTokens;
+  const burnedTokensDisplay = stats ? `${formatNumber(parseFloat(stats.burnedTokens))} $SPECIE` : MOCK_STATS.supplyBurnedTokens;
 
   // Merge registered assets with live claimed stats
   const allStockStripItems = SUPPORTED_REWARD_ASSETS.map((asset) => {
@@ -217,7 +217,7 @@ function StatsSection() {
   return (
     <section className="section section--bordered stats-section--pushed" ref={ref} aria-label="Platform Statistics Overview">
       <div className="container">
-        <div className={`stats-grid-stackers ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+        <div className={`stats-grid-associates ${isVisible ? 'reveal--visible' : 'reveal'}`}>
 
           <div className="stat-card-main">
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
@@ -271,7 +271,7 @@ function StatsSection() {
                 <span className="stat-card__badge">OF 1,111</span>
               </div>
               <p className="stat-card__desc">
-                Oohdies available to mint in real-time. Total collection is capped at 1,111.
+                Associates available to mint in real-time. Total collection is capped at 1,111.
               </p>
             </div>
 
@@ -279,7 +279,7 @@ function StatsSection() {
               <p className="stat-card__tag">SUPPLY BURNED</p>
               <h3 className="stat-card__val">{burnedTokensDisplay}</h3>
               <p className="stat-card__desc">
-                Eaten forever, out of a billion. Burned by every activation and tier climb.
+                Gone forever, out of a billion. Burned by every activation and tier climb.
               </p>
               <div className="stat-card__progress-track">
                 <div className="stat-card__progress-bar" style={{ width: '14.08%' }} />
@@ -290,10 +290,10 @@ function StatsSection() {
               <p className="stat-card__tag">GET IN</p>
               <h3 className="stat-card__val text-accent">MINT LIVE</h3>
               <p className="stat-card__desc">
-                1,111 total supply. Activate by burning 100 $BANANA tokens to start stacking hourly earnings.
+                1,111 total supply. Activate by burning 100 $SPECIE tokens to start stacking hourly earnings.
               </p>
               <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--sm mt-4">
-                Mint Oohdie
+                Mint Associate
               </Link>
             </div>
           </div>
@@ -345,7 +345,7 @@ function ShowcaseSection() {
           <div className="showcase-card showcase-card--earn">
             <p className="showcase-card__tag">HOW MUCH YOU EARN</p>
             <p className="showcase-card__desc">
-              Your tier decides how much. Burn $BANANA to climb from 1x to 3.5x. The tier stays with the NFT forever, even when sold.
+              Your tier decides how much. Burn $SPECIE to climb from 1x to 3.5x. The tier stays with the NFT forever, even when sold.
             </p>
             <div className="earn-multiplier-display">
               <span className="earn-multiplier__low">1x</span>
@@ -364,8 +364,8 @@ function ShowcaseSection() {
 
 /* ─── Alliance Band ────────────────────────────────────
    Sits directly under the showcase, whose last card is about how much an
-   Oohdie earns. This is the one lever on that number that is not bought with
-   $BANANA, so it belongs immediately after it rather than further down.
+   Associate earns. This is the one lever on that number that is not bought with
+   $SPECIE, so it belongs immediately after it rather than further down.
 
    Held to a partnership band, not a banner card: the perks are numbers read
    off EarningEngine, and numbers need a panel to sit in. The plate bleeds to
@@ -499,10 +499,10 @@ function CaveTradingBannerSection() {
   return (
     <section className="section section--cave-banner" ref={ref} aria-label="Cave Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Trading Desk">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Monkey Business Trading Desk">
           <img
             src="/assets/cave-cta-bg.jpg"
-            alt="Oohdie Cave Trading Desk Station"
+            alt="Cave Trading Desk Station"
             className="banner-card__image"
             width={1200}
             height={675}
@@ -526,7 +526,7 @@ function HowItWorksSection() {
       <div className="container">
         <div className={`${isVisible ? 'reveal--visible' : 'reveal'}`}>
           <h2 id="how-heading" className="heading-lg mb-2">{HOW_IT_WORKS.heading}</h2>
-          <p className="body-lg mb-8">Set it up once. Your Oohdie works while you sleep.</p>
+          <p className="body-lg mb-8">Set it up once. Your Associate works while you sleep.</p>
         </div>
 
         <div className={`grid-bordered grid-4 ${isVisible ? 'reveal--visible reveal--delay-2' : 'reveal'}`}>
@@ -552,16 +552,16 @@ function FinalCTASection() {
       <div className={`container text-center cta-final__content ${isVisible ? 'reveal--visible' : 'reveal'}`}>
         <img
           src="/assets/oohdie-coin.png"
-          alt="The Oohdie coin — a gold medallion stamped with an Oohdie in profile."
+          alt="The Monkey Business coin — a gold medallion stamped with a primate in profile."
           className="coin-mark coin-mark--cta"
           width={96}
           height={96}
           loading="lazy"
           decoding="async"
         />
-        <h2 id="cta-heading" className="heading-xl mb-8">READY TO EAT?</h2>
+        <h2 id="cta-heading" className="heading-xl mb-8">READY TO EARN?</h2>
         <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg animate-pulse-glow">
-          MINT OOHDIE
+          MINT ASSOCIATE
         </Link>
       </div>
     </section>

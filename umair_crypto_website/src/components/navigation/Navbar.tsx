@@ -57,7 +57,7 @@ export default function Navbar() {
       >
         <div className="navbar__inner container">
 
-          <NavLink to="/" className="navbar__brand" aria-label="Banana Destroyer Home">
+          <NavLink to="/" className="navbar__brand" aria-label="Monkey Business Home">
             <span className="navbar__brand-first">{BRAND.nameFirst}</span>
             <span className="navbar__brand-second">{BRAND.nameSecond}</span>
           </NavLink>

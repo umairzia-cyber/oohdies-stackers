@@ -26,17 +26,17 @@ export const MOCK_STOCKS: readonly StockItem[] = [
 
 export const MOCK_COLLECTION: readonly CollectionItem[] = [
   {
-    id: 'oohdie-001',
-    name: 'Oohdie #001 — Camo Tiger',
-    description: 'Tiger-striped Oohdie in a leopard camo bucket hat. Keeps a low profile while stacking.',
+    id: 'associate-001',
+    name: 'Associate #001 — Camo Tiger',
+    description: 'Tiger-striped Associate in a leopard camo bucket hat. Keeps a low profile while stacking.',
     rarity: 'UNCOMMON',
     image: '/assets/collection/user_art_1.jpg',
     tier: 1,
     isActivated: true,
   },
   {
-    id: 'oohdie-002',
-    name: 'Oohdie #002 — Cyber Cowboy',
+    id: 'associate-002',
+    name: 'Associate #002 — Cyber Cowboy',
     description: 'Bionic red-eye sight under a classic leather cowboy hat. Never misses a target.',
     rarity: 'RARE',
     image: '/assets/collection/user_art_2.jpg',
@@ -44,8 +44,8 @@ export const MOCK_COLLECTION: readonly CollectionItem[] = [
     isActivated: true,
   },
   {
-    id: 'oohdie-003',
-    name: 'Oohdie #003 — Brain Dome',
+    id: 'associate-003',
+    name: 'Associate #003 — Brain Dome',
     description: 'Exposed hyper-brain preserved in a glass dome. Pure tactical calculation.',
     rarity: 'EPIC',
     image: '/assets/collection/user_art_3.jpg',
@@ -53,8 +53,8 @@ export const MOCK_COLLECTION: readonly CollectionItem[] = [
     isActivated: true,
   },
   {
-    id: 'oohdie-004',
-    name: 'Oohdie #004 — Dragon Skull',
+    id: 'associate-004',
+    name: 'Associate #004 — Dragon Skull',
     description: 'Crowned with an ancient dragon skull helmet over cracked stone skin.',
     rarity: 'LEGENDARY',
     image: '/assets/collection/user_art_4.jpg',
@@ -62,8 +62,8 @@ export const MOCK_COLLECTION: readonly CollectionItem[] = [
     isActivated: true,
   },
   {
-    id: 'oohdie-005',
-    name: 'Oohdie #005 — Samurai Ronin',
+    id: 'associate-005',
+    name: 'Associate #005 — Samurai Ronin',
     description: 'Honor-bound armored warrior equipped with a targeted scouter eyepiece.',
     rarity: 'EPIC',
     image: '/assets/collection/user_art_5.jpg',
@@ -71,9 +71,9 @@ export const MOCK_COLLECTION: readonly CollectionItem[] = [
     isActivated: false,
   },
   {
-    id: 'oohdie-006',
-    name: 'Oohdie #006 — Camo Special',
-    description: 'Battle-tested tiger unit outfitted for high-yield banana stacking.',
+    id: 'associate-006',
+    name: 'Associate #006 — Camo Special',
+    description: 'Battle-tested tiger unit outfitted for high-yield specie stacking.',
     rarity: 'UNCOMMON',
     image: '/assets/collection/user_art_1.jpg',
     tier: 1,
@@ -91,7 +91,7 @@ export const MOCK_STATS: PlatformStats = {
   nftsBurnedCount: 0,
   nftsBurnedPercent: '0%',
   supplyBurnedPercent: '14.08%',
-  supplyBurnedTokens: '140,800,000 $BANANA',
+  supplyBurnedTokens: '140,800,000 $SPECIE',
 };
 
 export const MOCK_STACK: StackInfo = {
@@ -101,8 +101,8 @@ export const MOCK_STACK: StackInfo = {
   stackLevel: 4,
   items: [
     {
-      id: 'oohdie-004',
-      name: 'Oohdie #004 — Dragon Skull',
+      id: 'associate-004',
+      name: 'Associate #004 — Dragon Skull',
       description: 'Crowned with an ancient dragon skull helmet over cracked stone skin.',
       rarity: 'LEGENDARY',
       image: '/assets/collection/user_art_4.jpg',
@@ -110,8 +110,8 @@ export const MOCK_STACK: StackInfo = {
       isActivated: true,
     },
     {
-      id: 'oohdie-002',
-      name: 'Oohdie #002 — Cyber Cowboy',
+      id: 'associate-002',
+      name: 'Associate #002 — Cyber Cowboy',
       description: 'Bionic red-eye sight under a classic leather cowboy hat.',
       rarity: 'RARE',
       image: '/assets/collection/user_art_2.jpg',
@@ -119,9 +119,9 @@ export const MOCK_STACK: StackInfo = {
       isActivated: true,
     },
     {
-      id: 'oohdie-001',
-      name: 'Oohdie #001 — Camo Tiger',
-      description: 'Tiger-striped Oohdie in a leopard camo bucket hat.',
+      id: 'associate-001',
+      name: 'Associate #001 — Camo Tiger',
+      description: 'Tiger-striped Associate in a leopard camo bucket hat.',
       rarity: 'UNCOMMON',
       image: '/assets/collection/user_art_1.jpg',
       tier: 1,
@@ -134,9 +134,9 @@ export const MOCK_ACTIVITY: readonly ActivityRecord[] = [
   {
     id: 'act-001',
     type: 'upgrade',
-    description: 'Oohdie #004 upgraded to Tier 5 (3.5x)',
+    description: 'Associate #004 upgraded to Tier 5 (3.5x)',
     timestamp: '12 minutes ago',
-    amount: '850,000 $BANANA eaten',
+    amount: '850,000 $SPECIE burned',
   },
   {
     id: 'act-002',
@@ -148,14 +148,14 @@ export const MOCK_ACTIVITY: readonly ActivityRecord[] = [
   {
     id: 'act-003',
     type: 'activation',
-    description: 'Oohdie #002 activated at Tier 3 (1.9x)',
+    description: 'Associate #002 activated at Tier 3 (1.9x)',
     timestamp: '3 hours ago',
-    amount: '150,000 $BANANA eaten',
+    amount: '150,000 $SPECIE burned',
   },
   {
     id: 'act-004',
     type: 'transfer',
-    description: 'Acquired Oohdie #001 from primary mint',
+    description: 'Acquired Associate #001 from primary mint',
     timestamp: '1 day ago',
   },
 ];
@@ -172,17 +172,17 @@ export const MOCK_STEPS: readonly StepInfo[] = [
   {
     number: '01',
     title: 'ACQUIRE',
-    description: 'Get an Oohdie digital collectible. Each has unique attributes and base accumulation stats.',
+    description: 'Get an Associate digital collectible. Each has unique attributes and base accumulation stats.',
   },
   {
     number: '02',
     title: 'ACTIVATE',
-    description: 'Burn $BANANA tokens to activate your Oohdie. Select your tier to set your multiplier.',
+    description: 'Burn $SPECIE tokens to activate your Associate. Select your tier to set your multiplier.',
   },
   {
     number: '03',
     title: 'STACK',
-    description: 'Your Oohdie accumulates automatically every cycle. The asset lives inside the NFT.',
+    description: 'Your Associate accumulates automatically every cycle. The asset lives inside the NFT.',
   },
   {
     number: '04',
@@ -193,25 +193,25 @@ export const MOCK_STEPS: readonly StepInfo[] = [
 
 export const MOCK_FEATURES: readonly FeatureInfo[] = [
   {
-    title: 'EATING CREATES VALUE',
+    title: 'BURNING CREATES VALUE',
     description:
-      'Every activation burns $BANANA tokens permanently, reducing total supply while increasing your Oohdie’s accumulation rate. Eating and accumulation in perfect harmony.',
+      'Every activation burns $SPECIE tokens permanently, reducing total supply while increasing your Associate’s accumulation rate. Burning and accumulation in perfect harmony.',
     stat: '43%',
-    statLabel: 'OF TOTAL SUPPLY EATEN',
+    statLabel: 'OF TOTAL SUPPLY BURNED',
     image: '/assets/collection/user_art_2.jpg',
   },
   {
     title: 'ON-CHAIN ACCUMULATION',
     description:
-      'The accumulated value is bound directly to your Oohdie NFT. If you trade or transfer the NFT, the stacked balance moves with it.',
+      'The accumulated value is bound directly to your Associate NFT. If you trade or transfer the NFT, the stacked balance moves with it.',
     stat: '683',
-    statLabel: 'ACTIVE STACKERS',
+    statLabel: 'ACTIVE ASSOCIATES',
     image: '/assets/collection/user_art_3.jpg',
   },
   {
     title: 'TIERED MULTIPLIERS',
     description:
-      'Choose from 5 activation tiers. Upgrade at any time by burning additional tokens. Top-tier Oohdies enjoy a massive 3.5x cycle multiplier.',
+      'Choose from 5 activation tiers. Upgrade at any time by burning additional tokens. Top-tier Associates enjoy a massive 3.5x cycle multiplier.',
     stat: '3.5x',
     statLabel: 'MAXIMUM MULTIPLIER',
     image: '/assets/collection/user_art_4.jpg',
