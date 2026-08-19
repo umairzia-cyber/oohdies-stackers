@@ -1,0 +1,65 @@
+{
+  "protocol": "OOHDIES STACKERS",
+  "auditStage": "STAGE 7 — PRODUCTION ARCHITECTURE & AUDIT READINESS",
+  "baselineTimestamp": "2026-08-19T13:10:48.593Z",
+  "gitCommitHash": "cf31049563cb96e0a7d99f0d92377736ca8b38d1",
+  "solidity": {
+    "compilerVersion": "0.8.24",
+    "evmVersion": "cancun",
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    }
+  },
+  "dependencies": {
+    "openzeppelinContracts": "^5.6.1",
+    "hardhat": "^3.13.0",
+    "hardhatToolboxMochaEthers": "^3.0.7",
+    "packageLockSha256": "b8fa693674c61d22bd408dcd0cface02c5658ec7804f5aaf4186fb5a16a1bd59"
+  },
+  "testSummary": {
+    "totalTestCount": 532,
+    "passingCount": 532,
+    "failingCount": 0,
+    "fuzzSequencesExecuted": 1250,
+    "adversarialAttacksVerified": 97
+  },
+  "deployedRobinhoodTestnet": {
+    "chainId": 46630,
+    "rawHexChainId": "0xb626",
+    "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+    "contracts": {
+      "BananaToken": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
+      "OohdiesNFT": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+      "ActivationController": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+      "EarningEngine": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+      "RewardVault": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+      "ERC6551Registry": "0x000000006551c19487814612e58FE06813775758",
+      "OohdiesAccountImpl": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+      "MockCollectionQ": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7"
+    },
+    "testnetOnlySimulators": {
+      "MockRevenueToken": "0xd20A8A27534F5ebdf0B36ACe3e2f370d68B8AFCA",
+      "TestnetRevenueSimulator": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+      "TestnetPhysicalLiquidityPool": "0x1e20451f6F5a2884a66416682928eFb478527539"
+    }
+  },
+  "economicParameters": {
+    "activationCostBanana": "100",
+    "requiredStockPicks": 3,
+    "rewardAssetCount": 12,
+    "collectionQMultiplierBps": 20000,
+    "precisionFactor": "1e36"
+  },
+  "artifactLocations": {
+    "stage1": "backend/testnet-results/stage1/",
+    "stage2": "backend/testnet-results/stage2/",
+    "stage3": "backend/testnet-results/stage3/",
+    "stage4": "backend/testnet-results/stage4/",
+    "stage5a": "backend/testnet-results/stage5a/",
+    "stage5b": "backend/testnet-results/stage5b/",
+    "stage5c": "backend/testnet-results/stage5c/",
+    "stage6": "backend/testnet-results/stage6/",
+    "stage7": "backend/audit-readiness/stage7/"
+  }
+}

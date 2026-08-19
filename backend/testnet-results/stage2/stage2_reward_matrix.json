@@ -1,0 +1,110 @@
+[
+  {
+    "symbol": "USDG",
+    "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "AAPLx",
+    "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+    "selected": "YES",
+    "pending": "0.002388300999412109",
+    "accrued": "0.0",
+    "totalClaimable": "0.002572016460905349",
+    "hasAccrual": true
+  },
+  {
+    "symbol": "TSLAx",
+    "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+    "selected": "YES",
+    "pending": "0.005787037037037035",
+    "accrued": "0.0",
+    "totalClaimable": "0.006200396825396823",
+    "hasAccrual": true
+  },
+  {
+    "symbol": "NVDAx",
+    "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+    "selected": "YES",
+    "pending": "0.008267195767195765",
+    "accrued": "0.0",
+    "totalClaimable": "0.008267195767195765",
+    "hasAccrual": true
+  },
+  {
+    "symbol": "MSFTx",
+    "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "AMZNx",
+    "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "GOOGLx",
+    "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "METAx",
+    "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "PLTRx",
+    "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "AMDx",
+    "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "GMEx",
+    "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  },
+  {
+    "symbol": "SPCXx",
+    "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+    "selected": "NO",
+    "pending": "0.0",
+    "accrued": "0.0",
+    "totalClaimable": "0.0",
+    "hasAccrual": false
+  }
+]

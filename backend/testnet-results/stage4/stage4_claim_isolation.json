@@ -1,0 +1,20 @@
+{
+  "tokenId": "72",
+  "claimedAsset": "USDG",
+  "claimedAmount": "0.892867",
+  "payoutDestination": "0xDc85F17966ad8Ad2B14b8395Be24b08A5a06bD4A",
+  "unclaimedSelectedAssets": {
+    "AAPLx": {
+      "before": "16354677248272415",
+      "after": "16822272471774848",
+      "preserved": true
+    },
+    "TSLAx": {
+      "before": "13509304481526700",
+      "after": "13890867363089581",
+      "preserved": true
+    }
+  },
+  "unselectedAssetsZeroAccrual": true,
+  "verdict": "PASS"
+}

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-08-19T12:53:30.691Z",
+  "network": "Robinhood Chain Testnet (46630)",
+  "invariants": [
+    {
+      "name": "INV-01: Vault Solvency",
+      "description": "totalClaimed <= totalDeposited",
+      "status": "HOLDS"
+    },
+    {
+      "name": "INV-02: Revenue Conservation",
+      "description": "totalConverted <= totalCollected",
+      "status": "HOLDS"
+    },
+    {
+      "name": "INV-03: Pool Balance Parity",
+      "description": "revenueReserves == settled REV",
+      "status": "HOLDS"
+    },
+    {
+      "name": "INV-04: TBA Dynamic Ownership",
+      "description": "TBA owner == NFT current owner",
+      "status": "HOLDS"
+    },
+    {
+      "name": "INV-05: Protected Token #4",
+      "description": "Token #4 untouched across all attack sequences",
+      "status": "HOLDS"
+    }
+  ]
+}

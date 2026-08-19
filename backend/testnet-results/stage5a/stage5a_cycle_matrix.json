@@ -1,0 +1,102 @@
+[
+  {
+    "cycle": "Cycle 1",
+    "feeGeneratedEth": "10.0",
+    "feeGeneratedWei": "10000000000000000000",
+    "conversions": [
+      {
+        "asset": "AAPLx",
+        "revSpentEth": "4.0",
+        "acquiredAmount": "2.0 (18 dec)"
+      },
+      {
+        "asset": "USDG",
+        "revSpentEth": "4.0",
+        "acquiredAmount": "4.0 (6 dec)"
+      }
+    ],
+    "totalConvertedEth": "8.0",
+    "unconvertedBufferAddedEth": "2.0",
+    "nftsParticipating": [
+      "Token #80",
+      "Token #81"
+    ],
+    "keyMechanismsVerified": "Disjoint picks, 6-dec & 18-dec acquisitions, initial emission startup"
+  },
+  {
+    "cycle": "Cycle 2",
+    "feeGeneratedEth": "100.0",
+    "feeGeneratedWei": "100000000000000000000",
+    "conversions": [
+      {
+        "asset": "AAPLx",
+        "revSpentEth": "50.0",
+        "acquiredAmount": "25.0 (18 dec)"
+      },
+      {
+        "asset": "USDG",
+        "revSpentEth": "40.0",
+        "acquiredAmount": "40.0 (6 dec)"
+      }
+    ],
+    "totalConvertedEth": "90.0",
+    "unconvertedBufferAddedEth": "10.0",
+    "nftsParticipating": [
+      "Token #80",
+      "Token #81",
+      "Token #82"
+    ],
+    "keyMechanismsVerified": "Mid-period rate recalculation + leftover rollover, overlapping picker join (#82), TBA deployment, Alice partial withdrawal to EOA"
+  },
+  {
+    "cycle": "Cycle 3",
+    "feeGeneratedEth": "500.0 (Alice 250 + Bob 250)",
+    "feeGeneratedWei": "500000000000000000000",
+    "conversions": [
+      {
+        "asset": "GMEx",
+        "revSpentEth": "100.0",
+        "acquiredAmount": "50.0 (18 dec)"
+      }
+    ],
+    "totalConvertedEth": "100.0",
+    "unconvertedBufferAddedEth": "400.0",
+    "nftsParticipating": [
+      "Token #83 (Late Entrant)"
+    ],
+    "keyMechanismsVerified": "Multi-contributor fee aggregation, zero-picker emission preservation, late entrant activation without retroactive leakage"
+  },
+  {
+    "cycle": "Cycle 4",
+    "feeGeneratedEth": "50.0",
+    "feeGeneratedWei": "50000000000000000000",
+    "conversions": [
+      {
+        "asset": "TSLAx",
+        "revSpentEth": "40.0",
+        "acquiredAmount": "20.0 (18 dec)"
+      }
+    ],
+    "totalConvertedEth": "40.0",
+    "unconvertedBufferAddedEth": "10.0",
+    "nftsParticipating": [
+      "Token #80 (Transferred Alice -> Bob)"
+    ],
+    "keyMechanismsVerified": "Active cycle NFT transfer, automatic deactivation, seller lockout, buyer reactivation with new picks [TSLAx, GMEx, SPCXx]"
+  },
+  {
+    "cycle": "Cycle 5",
+    "feeGeneratedEth": "80.0",
+    "feeGeneratedWei": "80000000000000000000",
+    "conversions": [],
+    "totalConvertedEth": "0.0",
+    "unconvertedBufferAddedEth": "80.0",
+    "nftsParticipating": [
+      "Token #80",
+      "Token #81",
+      "Token #82",
+      "Token #83"
+    ],
+    "keyMechanismsVerified": "Intentional unconverted revenue buffer accumulation, TBAs verification, Bob claim of preserved accrued rewards, final solvency audit"
+  }
+]

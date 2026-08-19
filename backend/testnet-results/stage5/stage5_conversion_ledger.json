@@ -1,0 +1,38 @@
+[
+  {
+    "cycle": 1,
+    "asset": "AAPLx",
+    "revenueSpent": "4000000000000000000",
+    "acquired": "2000000000000000000"
+  },
+  {
+    "cycle": 1,
+    "asset": "USDG",
+    "revenueSpent": "4000000000000000000",
+    "acquired": "4000000"
+  },
+  {
+    "cycle": 2,
+    "asset": "AAPLx",
+    "revenueSpent": "50000000000000000000",
+    "acquired": "25000000000000000000"
+  },
+  {
+    "cycle": 2,
+    "asset": "USDG",
+    "revenueSpent": "40000000000000000000",
+    "acquired": "40000000"
+  },
+  {
+    "cycle": 3,
+    "asset": "GMEx",
+    "revenueSpent": "100000000000000000000",
+    "acquired": "50000000000000000000"
+  },
+  {
+    "cycle": 4,
+    "asset": "TSLAx",
+    "revenueSpent": "40000000000000000000",
+    "acquired": "20000000000000000000"
+  }
+]

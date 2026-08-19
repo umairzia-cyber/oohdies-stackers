@@ -1,0 +1,7 @@
+{
+  "tokenAliceTba": "0x2eB080aa93d81f7803496C2196D9BC8a2770993D",
+  "tokenBobTba": "0x17Af6B827B6ce60241Dd044306a0Ee85e3515025",
+  "claimDestination": "TBA_ONLY",
+  "partialWithdrawalSupported": true,
+  "status": "VERIFIED"
+}

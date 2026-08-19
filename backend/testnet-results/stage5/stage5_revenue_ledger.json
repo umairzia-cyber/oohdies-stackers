@@ -1,0 +1,38 @@
+[
+  {
+    "cycle": 1,
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "feeAmount": "10000000000000000000",
+    "activity": "Trading Activity C1"
+  },
+  {
+    "cycle": 2,
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "feeAmount": "100000000000000000000",
+    "activity": "Staking Activity C2"
+  },
+  {
+    "cycle": 3,
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "feeAmount": "250000000000000000000",
+    "activity": "LP Activity C3"
+  },
+  {
+    "cycle": 3,
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "feeAmount": "250000000000000000000",
+    "activity": "LP Activity C3"
+  },
+  {
+    "cycle": 4,
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "feeAmount": "50000000000000000000",
+    "activity": "Bridge Fee C4"
+  },
+  {
+    "cycle": 5,
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "feeAmount": "80000000000000000000",
+    "activity": "Arbitrage Fee C5"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "status": "EXACT_CONSERVED",
+  "AAPLx": {
+    "poolReserve": "300.0",
+    "vaultDeposited": "10.0",
+    "engineFunded": "10.0"
+  },
+  "USDG": {
+    "poolReserve": "600.0",
+    "settled": "30.0"
+  },
+  "GMEx": {
+    "poolReserve": "300.0",
+    "settled": "10.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "poolAddress": "0x1e20451f6F5a2884a66416682928eFb478527539",
+  "simulatorAddress": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+  "rewardVaultAddress": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+  "assetsTested": [
+    "USDG",
+    "AAPLx"
+  ],
+  "status": "VERIFIED"
+}

@@ -1,0 +1,54 @@
+{
+  "suite": "Reentrancy & Malicious ERC-20 Defenses",
+  "contractsAudited": [
+    "EarningEngine",
+    "RewardVault",
+    "ActivationController",
+    "TestnetPhysicalLiquidityPool",
+    "TestnetRevenueSimulator"
+  ],
+  "vectors": [
+    {
+      "id": "REENT-01",
+      "target": "EarningEngine.fundReward",
+      "defense": "ReentrancyGuard",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "REENT-02",
+      "target": "RewardVault.depositReward",
+      "defense": "ReentrancyGuard",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "REENT-03",
+      "target": "RewardVault.claimReward",
+      "defense": "ReentrancyGuard + CEI pattern",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "REENT-04",
+      "target": "ActivationController.activate",
+      "defense": "ReentrancyGuard",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "FEE-01",
+      "target": "FeeOnTransferERC20",
+      "defense": "Balance before/after delta calculation",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "SAFE-01",
+      "target": "FalseReturnERC20",
+      "defense": "OpenZeppelin SafeERC20 wrapper",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "REVERT-01",
+      "target": "RevertingERC20",
+      "defense": "Clean bubbling of revert reasons",
+      "status": "VERIFIED"
+    }
+  ]
+}

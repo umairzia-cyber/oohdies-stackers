@@ -1,0 +1,152 @@
+[
+  {
+    "requirementId": "REQ-01",
+    "topic": "12-Asset Coverage & Disjoint Selection Matrix",
+    "category": "LIVE_TESTNET_STATE_CHANGING",
+    "localTests": [
+      "Scenario 1: Fresh activation with valid disjoint 3-asset selections"
+    ],
+    "liveTransactions": [
+      "0x618117c14ce2820e67d79cd4917b063fdda409b5e4c49b301c70c020f5997aea (Mint #72)",
+      "0x179ecfa1295764000bc829abde76ecfc98a4f8ff3aa5ed13c6207eb9633031e0 (Mint #73)",
+      "0x4df9736dfbb06ce051e349248c5a39a3e072f2486075db6aeb69db2c1a499978 (Mint #74)",
+      "0x17851495de76a7c4bac6ab71cf088a9a19e6ecb7e8d99bb926bfad7807dacbe5 (Mint #75)",
+      "0x9cae3171ad4fe1c05e2ca8e688eedcabfd9d976a359eaa092471c56f696c7b38 (Activate #72)",
+      "0x5a77f3219e34408d2093176bb2379609eb5ba70ee2e7d6e03c44289a80a9d0d0 (Activate #73)",
+      "0x024c951d22f044058c475e2bd680754a08e149ae493e8c96107430df1d6cf11a (Activate #74)",
+      "0x9dcb1ee98452e39ee74bbbb4bee2460644eda027ccdc5188118d3e993d980f6c (Activate #75)"
+    ],
+    "rpcQueryProof": "Exact on-chain call getChosenAssets + hasChosenAsset for all 12 assets across Tokens #72-#75",
+    "artifactFilename": "stage4a_raw_unit_matrix.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-02",
+    "topic": "Overlapping-Picker Economics & Emission Splitting",
+    "category": "LIVE_TESTNET_STATE_CHANGING",
+    "localTests": [
+      "Scenario 2 & 6: Fresh activation with overlapping selections & claim order independence"
+    ],
+    "liveTransactions": [
+      "0x55d03fcbe9dd05e7d4ecb54dc5a1ed278d64a1ee0e6e37db8eec58f3cadef3fb (Activate #76 AAPLx)",
+      "0x73883e798922def519e8bf156fda41e5a4fd53112ead499e222a373fd172c345 (Activate #77 AAPLx)",
+      "0xb62d4b8dc63ecdd44abadb92817c0cbee9888ea67e2352b9af4d0d01fd56f0a5 (Activate #78 AAPLx)",
+      "0x9f1997f2e68b6f5c831acc4d9952e7de247e122dc4ddfc8644b8fe66ff52462d (Fund 60 AAPLx)",
+      "0xb2611b412e89027ebff62b975c86a191150eb308486ba2551f45de1574b7b56c (Transfer #78)"
+    ],
+    "rpcQueryProof": "Active picker count verified 3 -> 2; deactivation ceased #78 accrual exactly at 0.003774846 AAPLx",
+    "artifactFilename": "stage4_active_picker_matrix.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-03",
+    "topic": "Cross-Asset Claim Isolation",
+    "category": "LIVE_TESTNET_STATE_CHANGING",
+    "localTests": [
+      "Scenario 5: Multiple claims of different assets for the same NFT (cross-asset isolation)"
+    ],
+    "liveTransactions": [
+      "0x9c4ddd77fc79e044945387d2c78c66d3177ae2b389aa9acd5a25821b4b4699c3 (Fund 50.0 USDG)",
+      "0x38d140cb7fb57555ff3d466616d3f18d0a1d8b6b646e212f2d6fc2ca62c482f7 (Claim USDG for #72)"
+    ],
+    "rpcQueryProof": "Token #72 claimed 0.892867 USDG (892867 raw units); AAPLx & TSLAx claimables strictly preserved and continued accruing",
+    "artifactFilename": "stage4_claim_isolation.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-04",
+    "topic": "Zero-Picker Asset Emission & Late-Activation Baseline",
+    "category": "LIVE_TESTNET_STATE_CHANGING",
+    "localTests": [
+      "Scenario 9: Zero-picker asset funded before later activation (no retroactive rewards)"
+    ],
+    "liveTransactions": [
+      "0x364dc0f12a4fa1a7a67a27cdbd932c0fb5d48ca9176968a44de77472682c2603 (Fund 50 GMEx with 0 pickers)",
+      "0x2909e822dd64063dfcacd36a54683524fc4b3bc3f83212f2ed98519412d87763 (Late Activate #79 with GMEx)"
+    ],
+    "rpcQueryProof": "accruedRewards[79][GMEx] === 0 at activation block; no retroactive rewards awarded for prior unpicked period",
+    "artifactFilename": "stage4_zero_picker.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-05",
+    "topic": "Transfer Deactivation, TBA Retention & Reactivation with New Picks",
+    "category": "LIVE_TESTNET_STATE_CHANGING",
+    "localTests": [
+      "Scenario 7 & 8: Transfer active NFT (deactivation) and reactivation with different picks"
+    ],
+    "liveTransactions": [
+      "0x08667564c8369bab4f7527271cc25cd7cc02a3e78089b6d1750569661b010d2d (Transfer #76 Alice -> Bob)",
+      "0x4849b9cce485e0ebe8237903f6e58dc8432b7d1b024f69f8e45e3d373975e414 (Bob Reactivate #76 with [MSFTx, AMZNx, GOOGLx])",
+      "0x945ac4033de55ed4ec67746e3120533aa6e6ebe972acbd540404d212c1153657 (Bob Claim Preserved AAPLx into #76 TBA)"
+    ],
+    "rpcQueryProof": "TBA address strictly identical before & after transfer; accrued AAPLx (0.014804912) preserved across reactivation and claimed to TBA",
+    "artifactFilename": "stage4_transfer_reactivation.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-06",
+    "topic": "Timing & Global Index Boundaries",
+    "category": "HYBRID_LOCAL_AND_LIVE_READONLY",
+    "localTests": [
+      "Scenario 3 & 4: Activation immediately before/after global index update & baseline preservation",
+      "Scenario 10: Reward period expiry & cessation of accrual"
+    ],
+    "liveTransactions": [],
+    "rpcQueryProof": "Live query of EarningEngine.rewardData(asset) verifying lastUpdateTime, periodFinish, and rewardPerTokenStored",
+    "artifactFilename": "stage4_timing_index_boundaries.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-07",
+    "topic": "Decimal Precision (6-dec USDG vs 18-dec AAPLx)",
+    "category": "HYBRID_LOCAL_AND_LIVE_PROVED",
+    "localTests": [
+      "Scenario 14: 6-decimal (USDG) and 18-decimal (AAPLx) asset precision math"
+    ],
+    "liveTransactions": [
+      "0x9c4ddd77fc79e044945387d2c78c66d3177ae2b389aa9acd5a25821b4b4699c3 (USDG 6-dec Stream)",
+      "0x38d140cb7fb57555ff3d466616d3f18d0a1d8b6b646e212f2d6fc2ca62c482f7 (USDG 6-dec Claim)"
+    ],
+    "rpcQueryProof": "Verified on-chain: 6-dec USDG payouts match token balance decimals with zero scaling/precision loss",
+    "artifactFilename": "stage4_decimal_precision.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-08",
+    "topic": "Underfunded RewardVault Error & Atomic State Rollback",
+    "category": "LOCAL_PROOF_AND_CONTRACT_INVARIANT",
+    "localTests": [
+      "Scenario 13: Underfunded RewardVault behavior & atomic rollback"
+    ],
+    "liveTransactions": [],
+    "rpcQueryProof": "RewardVault.sol bytecode verifies custom error InsufficientVaultBalance(address,uint256,uint256); tested in Hardhat suite",
+    "artifactFilename": "stage4_underfunded_vault.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-09",
+    "topic": "Invalid Activation Selections & BANANA Protection",
+    "category": "LOCAL_PROOF_AND_CONTRACT_INVARIANT",
+    "localTests": [
+      "Scenario 11 & 12: Repeated & invalid claims",
+      "Scenario 15: Invalid activation selections & protection of BANANA"
+    ],
+    "liveTransactions": [],
+    "rpcQueryProof": "ActivationController.sol enforces WrongNumberOfPicks, DuplicatePick, AssetNotSelectable, NotNFTOwner; tested in Hardhat suite",
+    "artifactFilename": "stage4_invalid_activation.json",
+    "verdict": "PASS"
+  },
+  {
+    "requirementId": "REQ-10",
+    "topic": "Token #4 Absolute Preservation Audit",
+    "category": "LIVE_TESTNET_READONLY_AUDIT",
+    "localTests": [
+      "Checkpoint Regression Test: Repeated claims on #4 do not modify #5 or #6 baselines"
+    ],
+    "liveTransactions": [],
+    "rpcQueryProof": "Live RPC comparison of Token #4 owner, active state, picks, and TBA before vs after Stage 4 execution",
+    "artifactFilename": "stage4_token4_preservation.json",
+    "verdict": "PASS"
+  }
+]

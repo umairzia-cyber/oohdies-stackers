@@ -1,0 +1,54 @@
+[
+  {
+    "tokenId": "72",
+    "name": "Token A",
+    "picksCount": 3,
+    "selectedAssets": [
+      "USDG",
+      "AAPLx",
+      "TSLAx"
+    ],
+    "unselectedCount": 9,
+    "unselectedAllZero": true,
+    "verdict": "PASS"
+  },
+  {
+    "tokenId": "73",
+    "name": "Token B",
+    "picksCount": 3,
+    "selectedAssets": [
+      "NVDAx",
+      "MSFTx",
+      "AMZNx"
+    ],
+    "unselectedCount": 9,
+    "unselectedAllZero": true,
+    "verdict": "PASS"
+  },
+  {
+    "tokenId": "74",
+    "name": "Token C",
+    "picksCount": 3,
+    "selectedAssets": [
+      "GOOGLx",
+      "METAx",
+      "PLTRx"
+    ],
+    "unselectedCount": 9,
+    "unselectedAllZero": true,
+    "verdict": "PASS"
+  },
+  {
+    "tokenId": "75",
+    "name": "Token D",
+    "picksCount": 3,
+    "selectedAssets": [
+      "AMDx",
+      "GMEx",
+      "SPCXx"
+    ],
+    "unselectedCount": 9,
+    "unselectedAllZero": true,
+    "verdict": "PASS"
+  }
+]

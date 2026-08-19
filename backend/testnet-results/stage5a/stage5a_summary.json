@@ -1,0 +1,36 @@
+{
+  "auditTimestamp": "2026-08-19T01:09:47.318Z",
+  "network": "Robinhood Chain Testnet",
+  "chainId": "46630",
+  "verdict": "PASS",
+  "revenueReconciliation": {
+    "stage5FeesGeneratedEth": "740.0",
+    "stage5FeesGeneratedWei": "740000000000000000000",
+    "stage5RevenueConvertedEth": "238.0",
+    "stage5RevenueConvertedWei": "238000000000000000000",
+    "stage5UnconvertedBufferEth": "502.0",
+    "stage5UnconvertedBufferWei": "502000000000000000000",
+    "lifetimeCollectedWei": "1765000000000000000000",
+    "lifetimeConvertedWei": "724000000000000000000",
+    "lifetimeUnconvertedWei": "1041000000000000000000",
+    "isConservedExactly": true
+  },
+  "nftTbaAudit": {
+    "tokensAudited": [
+      80,
+      81,
+      82,
+      83
+    ],
+    "allMintsProven": true,
+    "allActivationsProven": true,
+    "allTbaDeploymentsProven": true,
+    "token80TransferProven": true,
+    "token4Untouched": true
+  },
+  "localStressAudit": {
+    "deterministicPassing": 100,
+    "fuzzPassing": 500,
+    "fullRegressionPassing": 427
+  }
+}

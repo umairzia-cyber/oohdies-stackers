@@ -1,0 +1,8 @@
+{
+  "revConservation": "feePayerDecrease == poolReservesIncrease",
+  "rewardConservation": "poolReserveDecrease == vaultFunding == claimsToTba + vaultReserves",
+  "tbaConservation": "tbaDecrease == eoaIncrease",
+  "bananaConservation": "activations * 100 == totalBurned",
+  "solvencyInvariant": "totalClaimed <= totalDeposited",
+  "status": "VERIFIED"
+}

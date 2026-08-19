@@ -1,0 +1,756 @@
+{
+  "disjointTokens": {
+    "72": {
+      "tokenId": 72,
+      "owner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+      "selectedPicks": [
+        "USDG",
+        "AAPLx",
+        "TSLAx"
+      ],
+      "assets": {
+        "USDG": {
+          "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+          "decimals": 6,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "5556515",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "5556515",
+          "formattedClaimable": "5.556515",
+          "isStrictlyZero": true
+        },
+        "AAPLx": {
+          "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "124188095334899771",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "124268320005598718",
+          "formattedClaimable": "0.124188095334899771",
+          "isStrictlyZero": true
+        },
+        "TSLAx": {
+          "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "99123064863805578",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "99186658677399391",
+          "formattedClaimable": "0.099123064863805578",
+          "isStrictlyZero": true
+        },
+        "NVDAx": {
+          "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "MSFTx": {
+          "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMZNx": {
+          "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GOOGLx": {
+          "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "METAx": {
+          "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "PLTRx": {
+          "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMDx": {
+          "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GMEx": {
+          "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "SPCXx": {
+          "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        }
+      },
+      "unselectedAssetsAllStrictlyZeroWei": true
+    },
+    "73": {
+      "tokenId": 73,
+      "owner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+      "selectedPicks": [
+        "NVDAx",
+        "MSFTx",
+        "AMZNx"
+      ],
+      "assets": {
+        "USDG": {
+          "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+          "decimals": 6,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AAPLx": {
+          "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "TSLAx": {
+          "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "NVDAx": {
+          "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "108050451460777519",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "108050451460777519",
+          "formattedClaimable": "0.108050451460777519",
+          "isStrictlyZero": true
+        },
+        "MSFTx": {
+          "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "154608006652955786",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "154705481046970119",
+          "formattedClaimable": "0.154608006652955786",
+          "isStrictlyZero": true
+        },
+        "AMZNx": {
+          "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "200296080665515096",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "200296080665515096",
+          "formattedClaimable": "0.200296080665515096",
+          "isStrictlyZero": true
+        },
+        "GOOGLx": {
+          "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "METAx": {
+          "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "PLTRx": {
+          "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMDx": {
+          "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GMEx": {
+          "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "SPCXx": {
+          "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        }
+      },
+      "unselectedAssetsAllStrictlyZeroWei": true
+    },
+    "74": {
+      "tokenId": 74,
+      "owner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+      "selectedPicks": [
+        "GOOGLx",
+        "METAx",
+        "PLTRx"
+      ],
+      "assets": {
+        "USDG": {
+          "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+          "decimals": 6,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AAPLx": {
+          "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "TSLAx": {
+          "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "NVDAx": {
+          "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "MSFTx": {
+          "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMZNx": {
+          "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GOOGLx": {
+          "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "281645668224504510",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "281821124098666658",
+          "formattedClaimable": "0.28164566822450451",
+          "isStrictlyZero": true
+        },
+        "METAx": {
+          "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "434303350970017521",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "434854497354497239",
+          "formattedClaimable": "0.434303350970017521",
+          "isStrictlyZero": true
+        },
+        "PLTRx": {
+          "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "434854497354497239",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "435130070546737097",
+          "formattedClaimable": "0.434854497354497239",
+          "isStrictlyZero": true
+        },
+        "AMDx": {
+          "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GMEx": {
+          "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "SPCXx": {
+          "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        }
+      },
+      "unselectedAssetsAllStrictlyZeroWei": true
+    },
+    "75": {
+      "tokenId": 75,
+      "owner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+      "selectedPicks": [
+        "AMDx",
+        "GMEx",
+        "SPCXx"
+      ],
+      "assets": {
+        "USDG": {
+          "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+          "decimals": 6,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AAPLx": {
+          "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "TSLAx": {
+          "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "NVDAx": {
+          "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "MSFTx": {
+          "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMZNx": {
+          "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "GOOGLx": {
+          "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "METAx": {
+          "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "PLTRx": {
+          "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+          "decimals": 18,
+          "isSelected": false,
+          "hasChosen": false,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        },
+        "AMDx": {
+          "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "186602418745275838",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "186720521541950063",
+          "formattedClaimable": "0.186602418745275838",
+          "isStrictlyZero": true
+        },
+        "GMEx": {
+          "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "296917786458651433",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "296917786458651433",
+          "formattedClaimable": "0.296917786458651433",
+          "isStrictlyZero": true
+        },
+        "SPCXx": {
+          "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+          "decimals": 18,
+          "isSelected": true,
+          "hasChosen": true,
+          "rawClaimableWei": "0",
+          "rawAccruedWei": "0",
+          "rawPendingWei": "0",
+          "formattedClaimable": "0.0",
+          "isStrictlyZero": true
+        }
+      },
+      "unselectedAssetsAllStrictlyZeroWei": true
+    }
+  },
+  "activePickerCounts": {
+    "USDG": {
+      "activeCount": "4",
+      "activeWeight": "40000"
+    },
+    "AAPLx": {
+      "activeCount": "33",
+      "activeWeight": "340000"
+    },
+    "TSLAx": {
+      "activeCount": "26",
+      "activeWeight": "260000"
+    },
+    "NVDAx": {
+      "activeCount": "24",
+      "activeWeight": "240000"
+    },
+    "MSFTx": {
+      "activeCount": "18",
+      "activeWeight": "180000"
+    },
+    "AMZNx": {
+      "activeCount": "14",
+      "activeWeight": "140000"
+    },
+    "GOOGLx": {
+      "activeCount": "10",
+      "activeWeight": "100000"
+    },
+    "METAx": {
+      "activeCount": "5",
+      "activeWeight": "60000"
+    },
+    "PLTRx": {
+      "activeCount": "5",
+      "activeWeight": "60000"
+    },
+    "AMDx": {
+      "activeCount": "14",
+      "activeWeight": "140000"
+    },
+    "GMEx": {
+      "activeCount": "10",
+      "activeWeight": "100000"
+    },
+    "SPCXx": {
+      "activeCount": "8",
+      "activeWeight": "80000"
+    }
+  },
+  "rewardVaultBalances": {
+    "USDG": {
+      "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "decimals": 6,
+      "rawBalance": "20294125972",
+      "formattedBalance": "20294.125972"
+    },
+    "AAPLx": {
+      "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "decimals": 18,
+      "rawBalance": "2679845808295627489409",
+      "formattedBalance": "2679.845808295627489409"
+    },
+    "TSLAx": {
+      "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+      "decimals": 18,
+      "rawBalance": "1999942818562610229293",
+      "formattedBalance": "1999.942818562610229293"
+    },
+    "NVDAx": {
+      "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+      "decimals": 18,
+      "rawBalance": "1999889770723104056468",
+      "formattedBalance": "1999.889770723104056468"
+    },
+    "MSFTx": {
+      "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+      "decimals": 18,
+      "rawBalance": "2079915433534105086615",
+      "formattedBalance": "2079.915433534105086615"
+    },
+    "AMZNx": {
+      "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+      "decimals": 18,
+      "rawBalance": "2080000000000000000000",
+      "formattedBalance": "2080.0"
+    },
+    "GOOGLx": {
+      "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+      "decimals": 18,
+      "rawBalance": "2080000000000000000000",
+      "formattedBalance": "2080.0"
+    },
+    "METAx": {
+      "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+      "decimals": 18,
+      "rawBalance": "2000000000000000000000",
+      "formattedBalance": "2000.0"
+    },
+    "PLTRx": {
+      "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+      "decimals": 18,
+      "rawBalance": "2000000000000000000000",
+      "formattedBalance": "2000.0"
+    },
+    "AMDx": {
+      "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+      "decimals": 18,
+      "rawBalance": "2000000000000000000000",
+      "formattedBalance": "2000.0"
+    },
+    "GMEx": {
+      "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "decimals": 18,
+      "rawBalance": "2150000000000000000000",
+      "formattedBalance": "2150.0"
+    },
+    "SPCXx": {
+      "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+      "decimals": 18,
+      "rawBalance": "333305317947491496615",
+      "formattedBalance": "333.305317947491496615"
+    }
+  },
+  "tbaBalances": {
+    "72": {
+      "tokenId": 72,
+      "tbaAddress": "0xDc85F17966ad8Ad2B14b8395Be24b08A5a06bD4A",
+      "balances": {
+        "USDG": {
+          "rawBalance": "892867",
+          "formattedBalance": "0.892867"
+        }
+      }
+    },
+    "73": {
+      "tokenId": 73,
+      "tbaAddress": "0x5722E3484f9D8Cf9bF907C8Fe98E7f61CE31148C",
+      "balances": {}
+    },
+    "74": {
+      "tokenId": 74,
+      "tbaAddress": "0xfc5c258Fad4F2791D6Bf48Af91eBd2271A06547d",
+      "balances": {}
+    },
+    "75": {
+      "tokenId": 75,
+      "tbaAddress": "0x476b6549e37c08e7e07C6EB09a0e9CEB61993D93",
+      "balances": {}
+    },
+    "76": {
+      "tokenId": 76,
+      "tbaAddress": "0x8249E773f18A0C9bD355985BF25aF02ED2a5cB0b",
+      "balances": {
+        "AAPLx": {
+          "rawBalance": "14804912604811031",
+          "formattedBalance": "0.014804912604811031"
+        }
+      }
+    },
+    "77": {
+      "tokenId": 77,
+      "tbaAddress": "0x5e34D4D02131CE5Fd9596d778D47515420a29b42",
+      "balances": {}
+    },
+    "78": {
+      "tokenId": 78,
+      "tbaAddress": "0xBa1f7890D22b99F770E93d880bF8e909913d02A4",
+      "balances": {}
+    },
+    "79": {
+      "tokenId": 79,
+      "tbaAddress": "0xc20B6137bda93f44b4de29d224d0845ad43b4b66",
+      "balances": {}
+    }
+  }
+}

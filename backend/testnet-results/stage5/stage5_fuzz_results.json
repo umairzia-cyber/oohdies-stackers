@@ -1,0 +1,6 @@
+{
+  "fuzzSequences": 500,
+  "zeroLeakageVerified": true,
+  "conservationVerified": true,
+  "status": "PASS"
+}

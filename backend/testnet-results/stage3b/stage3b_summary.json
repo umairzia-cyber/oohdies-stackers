@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-08-18T22:58:17.122Z",
+  "network": "Robinhood Chain Testnet",
+  "chainIdDecimal": 46630,
+  "chainIdHex": "0xb626",
+  "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+  "parts": {
+    "part1ChainProvenance": {
+      "status": "PASS",
+      "preAudit": {
+        "observedAt": "2026-08-18T22:56:25.221Z",
+        "rawEthChainId": "0xb626",
+        "parsedDecimalChainId": 46630,
+        "pass": true
+      },
+      "postAudit": {
+        "observedAt": "2026-08-18T22:56:53.145Z",
+        "rawEthChainId": "0xb626",
+        "parsedDecimalChainId": 46630,
+        "pass": true
+      }
+    },
+    "part2HistoricalReceiptReAudit": {
+      "status": "PASS",
+      "totalAudited": 40,
+      "allVerified": true
+    },
+    "part3ReversedClaimOrderTest": {
+      "status": "PASS",
+      "tokenFirst": "47",
+      "tokenSecond": "48",
+      "bobClaimFirstPassed": true,
+      "aliceEntitlementPreserved": true,
+      "vaultConservationHold": true
+    },
+    "part4DocumentationCorrection": {
+      "status": "PASS",
+      "correctedHex": "0xb626",
+      "invalidHexRemoved": "0xb646"
+    }
+  },
+  "overallVerdict": "PASS"
+}

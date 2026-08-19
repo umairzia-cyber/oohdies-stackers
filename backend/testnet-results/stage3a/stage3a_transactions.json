@@ -1,0 +1,211 @@
+[
+  {
+    "gap": "Setup",
+    "action": "Authorize Simulator as Funder",
+    "transactionHash": "0xac6caa2909f52964a20eb09569287e602c372cce8bc76aceacd877fc951a399a",
+    "blockNumber": 103507553,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "gasUsed": "54668",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:28:08.058Z"
+  },
+  {
+    "gap": "Setup",
+    "action": "Set AAPLx Conversion Rate (1:0.5)",
+    "transactionHash": "0xcf17cac83dccd527c1c057f6818586defe5bb07a971c49b65ba1c2602902e0c8",
+    "blockNumber": 103507579,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "102941",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:28:11.029Z"
+  },
+  {
+    "gap": "Setup",
+    "action": "Set USDG Conversion Rate (1:1.0)",
+    "transactionHash": "0x9defa3453507586b5f568c1b2b0a439af2b9d312648a73935e16f09d1db5d403",
+    "blockNumber": 103507600,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "102941",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:28:14.068Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Fee Payment (10.0 REV)",
+    "transactionHash": "0x9c777a9bebc9e78e11233dd4d850e0073a4aabc425a6ad01ea477e03bb6343ce",
+    "blockNumber": 103507805,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "115324",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:28:48.153Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Acquire AAPLx from 10.0 REV",
+    "transactionHash": "0x6e379a11a5994238f282c33a05a816ca6ee73245c6dd91c58743227dd43ec2ff",
+    "blockNumber": 103507814,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "131480",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:28:52.031Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Fee Payment (100.0 REV)",
+    "transactionHash": "0x70320638bc4111fb191988063e51737ab0d8fb9e6d8d70b626336cbe9a828cf7",
+    "blockNumber": 103507886,
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "81217",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:29:03.197Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Acquire AAPLx from 100.0 REV",
+    "transactionHash": "0x08a5f3a9d5edc0cc95a0132323e536947dd22eafa25ce6cbcace62252791fdce",
+    "blockNumber": 103507913,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "80192",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:29:07.082Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Fee Payment (1000.0 REV)",
+    "transactionHash": "0x9a8a65a9ca9519b78536dcae36b52380ddbe51b59bde4153f6198c3607495850",
+    "blockNumber": 103507956,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "81449",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:29:22.813Z"
+  },
+  {
+    "gap": "Gap 2",
+    "action": "Acquire AAPLx from 1000.0 REV",
+    "transactionHash": "0x0e1016450f0833f125239a0cb72f93d303ad043ae8dcf08538e90cca29fe04d5",
+    "blockNumber": 103508017,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xD36ce47adb831dbb9736E61016e36AaC720C4314",
+    "gasUsed": "80192",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:29:26.705Z"
+  },
+  {
+    "gap": "Gap 4",
+    "action": "Alice Activate Token #40",
+    "transactionHash": "0x3a0f5ec80006b91e1344e3d10b1671679befb75c1f047b26d0498d658e5442bf",
+    "blockNumber": 103508154,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "gasUsed": "573228",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:29:57.027Z"
+  },
+  {
+    "gap": "Gap 4",
+    "action": "Bob Activate Token #41",
+    "transactionHash": "0xd78a59a704cce335e8a87c5e6927a6de1a9424d7258b1d3d494f3254f7c4d54d",
+    "blockNumber": 103508222,
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "gasUsed": "572851",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:30:07.998Z"
+  },
+  {
+    "gap": "Gap 4",
+    "action": "Attacker Activate Token #42",
+    "transactionHash": "0x27b36f719b255066a215a98c763a41395c928d946d5cf188899bc5662b054bfc",
+    "blockNumber": 103508264,
+    "from": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "gasUsed": "572782",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:30:18.994Z"
+  },
+  {
+    "gap": "Gap 4",
+    "action": "Fund EarningEngine AAPLx (60 tokens, 7 days)",
+    "transactionHash": "0x64e9f08ab43b3bec3738448ab57105c765fd8b0ad13e1df6a889716a755f1400",
+    "blockNumber": 103508440,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "gasUsed": "91485",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:30:58.253Z"
+  },
+  {
+    "gap": "Gap 4",
+    "action": "Transfer Token #42 (Deactivates Picks)",
+    "transactionHash": "0x4cc68cd3779b68cfa1f7530e4ac649a1b018b25ffbe1c3920634a9b7671a60e0",
+    "blockNumber": 103508502,
+    "from": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "to": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "gasUsed": "272906",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:31:14.773Z"
+  },
+  {
+    "gap": "Gap 5",
+    "action": "Alice Claim Token #40 (Order 1)",
+    "transactionHash": "0xf4b23b6c43cbe70ae1480d450135cd5f4252d49e25b318d64270148477c8f083",
+    "blockNumber": 103508655,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "gasUsed": "155245",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:31:39.074Z"
+  },
+  {
+    "gap": "Gap 5",
+    "action": "Bob Claim Token #41 (Order 2)",
+    "transactionHash": "0x2d0986cd07ee3f4b305339a242a0a93444c7d741e085ef702c79f193f8c9e5ac",
+    "blockNumber": 103508678,
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "gasUsed": "155245",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:31:43.007Z"
+  },
+  {
+    "gap": "Gap 6",
+    "action": "Alice Activate Token #43 with [AAPLx, TSLAx, NVDAx]",
+    "transactionHash": "0xde81dac4b5364d554be5a31d4edb1d4825d27e33567d53021affc9cdeb24c912",
+    "blockNumber": 103508703,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "gasUsed": "573091",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:31:51.148Z"
+  },
+  {
+    "gap": "Gap 6",
+    "action": "Alice Transfer Token #43 -> Bob",
+    "transactionHash": "0x5d3ff3e2532e139051aa8f27072d830fd7e9b760c100be2c7bfdc058b031a393",
+    "blockNumber": 103508773,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "gasUsed": "274103",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:32:00.452Z"
+  },
+  {
+    "gap": "Gap 6",
+    "action": "Bob Reactivate Token #43 with [MSFTx, AMZNx, GOOGLx]",
+    "transactionHash": "0xed7bec533fcdda6a4c637c75412bfb571aa8af145836872a936a8296d3d09bcd",
+    "blockNumber": 103508811,
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "gasUsed": "572942",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T22:32:05.982Z"
+  }
+]

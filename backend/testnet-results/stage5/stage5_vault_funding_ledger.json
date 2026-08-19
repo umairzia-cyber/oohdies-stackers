@@ -1,0 +1,34 @@
+[
+  {
+    "cycle": 1,
+    "asset": "AAPLx",
+    "amount": "2000000000000000000",
+    "duration": 60
+  },
+  {
+    "cycle": 1,
+    "asset": "USDG",
+    "amount": "4000000",
+    "duration": 60
+  },
+  {
+    "cycle": 2,
+    "asset": "AAPLx",
+    "amount": "25000000000000000000",
+    "duration": 60,
+    "type": "MID_PERIOD_EXTENSION"
+  },
+  {
+    "cycle": 3,
+    "asset": "GMEx",
+    "amount": "50000000000000000000",
+    "duration": 60,
+    "pickers": 0
+  },
+  {
+    "cycle": 4,
+    "asset": "TSLAx",
+    "amount": "20000000000000000000",
+    "duration": 60
+  }
+]

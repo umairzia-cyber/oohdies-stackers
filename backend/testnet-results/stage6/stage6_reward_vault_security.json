@@ -1,0 +1,58 @@
+[
+  {
+    "id": "RV-01",
+    "category": "ACCESS_CONTROL",
+    "targetContract": "RewardVault",
+    "targetFunction": "pause",
+    "attackerRole": "UNAUTHORIZED_EOA",
+    "description": "Attacker attempts to pause RewardVault",
+    "expectedRevert": "OwnableUnauthorizedAccount",
+    "status": "PASSED",
+    "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+    "transactionHash": null,
+    "blockNumber": null,
+    "timestamp": "2026-08-19T12:53:20.070Z"
+  },
+  {
+    "id": "RV-02",
+    "category": "ACCESS_CONTROL",
+    "targetContract": "RewardVault",
+    "targetFunction": "unpause",
+    "attackerRole": "UNAUTHORIZED_EOA",
+    "description": "Attacker attempts to unpause RewardVault",
+    "expectedRevert": "OwnableUnauthorizedAccount",
+    "status": "PASSED",
+    "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+    "transactionHash": null,
+    "blockNumber": null,
+    "timestamp": "2026-08-19T12:53:20.380Z"
+  },
+  {
+    "id": "RV-03",
+    "category": "INPUT_VALIDATION",
+    "targetContract": "RewardVault",
+    "targetFunction": "depositReward",
+    "attackerRole": "UNAUTHORIZED_EOA",
+    "description": "Zero address deposit rejected",
+    "expectedRevert": "ZeroAddressNotAllowed",
+    "status": "PASSED",
+    "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+    "transactionHash": null,
+    "blockNumber": null,
+    "timestamp": "2026-08-19T12:53:20.692Z"
+  },
+  {
+    "id": "RV-04",
+    "category": "INPUT_VALIDATION",
+    "targetContract": "RewardVault",
+    "targetFunction": "depositReward",
+    "attackerRole": "UNAUTHORIZED_EOA",
+    "description": "Zero amount deposit rejected",
+    "expectedRevert": "ZeroAmountNotAllowed",
+    "status": "PASSED",
+    "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+    "transactionHash": null,
+    "blockNumber": null,
+    "timestamp": "2026-08-19T12:53:21.197Z"
+  }
+]

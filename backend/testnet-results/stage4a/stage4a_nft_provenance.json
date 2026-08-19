@@ -1,0 +1,90 @@
+{
+  "72": {
+    "tokenId": 72,
+    "mintTxHash": "0x618117c14ce2820e67d79cd4917b063fdda409b5e4c49b301c70c020f5997aea",
+    "mintBlockNumber": 103532181,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "tbaAddress": "0xDc85F17966ad8Ad2B14b8395Be24b08A5a06bD4A",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "73": {
+    "tokenId": 73,
+    "mintTxHash": "0x179ecfa1295764000bc829abde76ecfc98a4f8ff3aa5ed13c6207eb9633031e0",
+    "mintBlockNumber": 103532233,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "tbaAddress": "0x5722E3484f9D8Cf9bF907C8Fe98E7f61CE31148C",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "74": {
+    "tokenId": 74,
+    "mintTxHash": "0x4df9736dfbb06ce051e349248c5a39a3e072f2486075db6aeb69db2c1a499978",
+    "mintBlockNumber": 103532259,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "tbaAddress": "0xfc5c258Fad4F2791D6Bf48Af91eBd2271A06547d",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "75": {
+    "tokenId": 75,
+    "mintTxHash": "0x17851495de76a7c4bac6ab71cf088a9a19e6ecb7e8d99bb926bfad7807dacbe5",
+    "mintBlockNumber": 103532318,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "tbaAddress": "0x476b6549e37c08e7e07C6EB09a0e9CEB61993D93",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "76": {
+    "tokenId": 76,
+    "mintTxHash": "0x8bc76f7f23ca8a74be2a4a9b05630c5b07159df1e823ad4117c38a0e854b94eb",
+    "mintBlockNumber": 103532700,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "tbaAddress": "0x8249E773f18A0C9bD355985BF25aF02ED2a5cB0b",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "77": {
+    "tokenId": 77,
+    "mintTxHash": "0x13603158c9cb17e38ce86cb4c3d3389fec8ca0a6c694d06aa91719a279822122",
+    "mintBlockNumber": 103532725,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "tbaAddress": "0x5e34D4D02131CE5Fd9596d778D47515420a29b42",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "78": {
+    "tokenId": 78,
+    "mintTxHash": "0x12c7f0bf9aa13f8f24b13d323c97c420d2eb654ac49ea4c55d5c30bbf32bfe6b",
+    "mintBlockNumber": 103532777,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "tbaAddress": "0xBa1f7890D22b99F770E93d880bF8e909913d02A4",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  },
+  "79": {
+    "tokenId": 79,
+    "mintTxHash": "0x99391bd83b60b77f2168722cb317016258b1107551744e18c0cc72cfa70dcf91",
+    "mintBlockNumber": 103533778,
+    "minter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "mintRecipient": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "tbaAddress": "0xc20B6137bda93f44b4de29d224d0845ad43b4b66",
+    "provenanceType": "Fresh Controlled Test NFT minted specifically for Stage 4 execution",
+    "verified": true
+  }
+}

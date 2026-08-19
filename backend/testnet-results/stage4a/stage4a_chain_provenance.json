@@ -1,0 +1,14 @@
+{
+  "rpcEndpoint": "https://rpc.testnet.chain.robinhood.com",
+  "preAudit": {
+    "rawHex": "0xb626",
+    "decimal": 46630,
+    "verified": true
+  },
+  "postAudit": {
+    "rawHex": "0xb626",
+    "decimal": 46630,
+    "verified": true
+  },
+  "verdict": "PASS"
+}

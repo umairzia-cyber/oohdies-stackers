@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "tokenA": "40",
+  "tokenB": "41",
+  "tokenC": "42",
+  "threeWayDivisionVerified": true,
+  "deactivationOnTransferVerified": true,
+  "twoWaySubsequentDivisionVerified": true
+}

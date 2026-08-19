@@ -1,0 +1,20 @@
+{
+  "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+  "expectedRawEthChainId": "0xb626",
+  "expectedDecimalChainId": 46630,
+  "checks": {
+    "preAudit": {
+      "observedAt": "2026-08-18T22:56:25.221Z",
+      "rawEthChainId": "0xb626",
+      "parsedDecimalChainId": 46630,
+      "pass": true
+    },
+    "postAudit": {
+      "observedAt": "2026-08-18T22:56:53.145Z",
+      "rawEthChainId": "0xb626",
+      "parsedDecimalChainId": 46630,
+      "pass": true
+    }
+  },
+  "overallVerdict": "PASS"
+}

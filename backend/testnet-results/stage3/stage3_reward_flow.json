@@ -1,0 +1,31 @@
+{
+  "rewardVaultDeposits": {
+    "AAPLx": "50.0 AAPLx",
+    "USDG": "50.0 USDG"
+  },
+  "earningEngineStreams": {
+    "AAPLx": "50.0 AAPLx (7 days)",
+    "USDG": "50.0 USDG (7 days)"
+  },
+  "accrualDistributions": {
+    "tokenAlice": {
+      "tokenId": "20",
+      "picks": [
+        "AAPLx",
+        "TSLAx",
+        "NVDAx"
+      ],
+      "aaplReceived": "Claimed to TBA"
+    },
+    "tokenBob": {
+      "tokenId": "21",
+      "picks": [
+        "AAPLx",
+        "MSFTx",
+        "AMDx"
+      ],
+      "aaplReceived": "Accrued"
+    }
+  },
+  "tbaPayoutFlow": "EarningEngine -> RewardVault -> Token Bound Account -> EOA"
+}

@@ -1,0 +1,9 @@
+{
+  "predictedAliceTba": "0xF9A2cc8191ede3eee860944B44482f3f6be95CA6",
+  "tokenIdAlice": "15",
+  "tokenIdBob": "16",
+  "transferStability": "STABLE",
+  "dynamicOwnership": "VERIFIED",
+  "sellerLockout": "VERIFIED",
+  "buyerWithdrawal": "VERIFIED"
+}

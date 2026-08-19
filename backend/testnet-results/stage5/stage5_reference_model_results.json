@@ -1,0 +1,6 @@
+{
+  "sequencesExecuted": 100,
+  "modelAgreement": "100%",
+  "tolerance": "< 1000 wei integer truncation",
+  "status": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "transferSemantics": "ASSETS_FOLLOW_NFT",
+  "sellerLockoutVerified": true,
+  "buyerControlVerified": true,
+  "reactivationSupported": true,
+  "status": "VERIFIED"
+}

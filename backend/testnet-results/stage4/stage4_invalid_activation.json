@@ -1,0 +1,41 @@
+{
+  "testedScenarios": [
+    {
+      "scenario": "0 Assets",
+      "expectedError": "WrongNumberOfPicks",
+      "verified": true
+    },
+    {
+      "scenario": "1 Asset",
+      "expectedError": "WrongNumberOfPicks",
+      "verified": true
+    },
+    {
+      "scenario": "2 Assets",
+      "expectedError": "WrongNumberOfPicks",
+      "verified": true
+    },
+    {
+      "scenario": "4 Assets",
+      "expectedError": "WrongNumberOfPicks",
+      "verified": true
+    },
+    {
+      "scenario": "Duplicate Asset",
+      "expectedError": "DuplicatePick",
+      "verified": true
+    },
+    {
+      "scenario": "Unregistered Asset",
+      "expectedError": "AssetNotSelectable",
+      "verified": true
+    },
+    {
+      "scenario": "Non-Owner Activation",
+      "expectedError": "NotNFTOwner",
+      "verified": true
+    }
+  ],
+  "bananaBurnPrevented": true,
+  "verdict": "PASS"
+}

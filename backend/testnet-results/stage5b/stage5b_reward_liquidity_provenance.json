@@ -1,0 +1,33 @@
+{
+  "rewardSourceAddress": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+  "sourceDescription": "Deployer / Dedicated Mock Liquidity Provider on Testnet",
+  "custodyMechanism": "Reward tokens are pre-minted to deployer liquidity provider and pulled via SafeERC20.safeTransferFrom",
+  "noSilentMintingProof": "Reward tokens are not minted inside acquireRewardAsset; safeTransferFrom explicitly pulls tokens from rewardSource into the simulator",
+  "vaultFundingMechanism": "Simulator forceApprove() + fundReward() transfers acquired reward tokens into EarningEngine and depositReward() transfers backing into RewardVault",
+  "assetsSampled": [
+    {
+      "symbol": "AAPLx",
+      "decimals": 18,
+      "rate": "1 REV : 0.5 AAPLx",
+      "scalingMethod": "1:1 standard 18-decimal math"
+    },
+    {
+      "symbol": "USDG",
+      "decimals": 6,
+      "rate": "1 REV : 1.0 USDG",
+      "scalingMethod": "Scaled down by 10^12 from 18 to 6 decimals"
+    },
+    {
+      "symbol": "GMEx",
+      "decimals": 18,
+      "rate": "1 REV : 0.5 GMEx",
+      "scalingMethod": "1:1 standard 18-decimal math"
+    },
+    {
+      "symbol": "TSLAx",
+      "decimals": 18,
+      "rate": "1 REV : 0.5 TSLAx",
+      "scalingMethod": "1:1 standard 18-decimal math"
+    }
+  ]
+}

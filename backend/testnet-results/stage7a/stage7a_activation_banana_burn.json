@@ -1,0 +1,18 @@
+{
+  "tokenAlice": 85,
+  "tokenBob": 86,
+  "selectedAssets": [
+    "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+    "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+    "0xD774e7426625B7b2022eC114608EA9730e83a9ad"
+  ],
+  "selectedSymbols": [
+    "USDG",
+    "AAPLx",
+    "TSLAx"
+  ],
+  "activationCostBanana": "100",
+  "bananaSupplyBefore": "999989100000000000000000000",
+  "activationTxHash": "0xfd8a7f00ec442331795f83153369218036960fb7ccb75c0a8b145dc486a35c18",
+  "status": "VERIFIED"
+}

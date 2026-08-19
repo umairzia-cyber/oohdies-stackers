@@ -1,0 +1,338 @@
+{
+  "72": {
+    "tokenId": 72,
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "isActiveOnChain": true,
+    "tbaAddress": "0xDc85F17966ad8Ad2B14b8395Be24b08A5a06bD4A",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "USDG",
+        "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+        "decimals": 6
+      },
+      {
+        "symbol": "AAPLx",
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "decimals": 18
+      },
+      {
+        "symbol": "TSLAx",
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": true,
+      "AAPLx": true,
+      "TSLAx": true,
+      "NVDAx": false,
+      "MSFTx": false,
+      "AMZNx": false,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Disjoint Group 1: USDG, AAPLx, TSLAx",
+    "verdict": "PASS"
+  },
+  "73": {
+    "tokenId": 73,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActiveOnChain": true,
+    "tbaAddress": "0x5722E3484f9D8Cf9bF907C8Fe98E7f61CE31148C",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "NVDAx",
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "decimals": 18
+      },
+      {
+        "symbol": "MSFTx",
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "decimals": 18
+      },
+      {
+        "symbol": "AMZNx",
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": false,
+      "NVDAx": true,
+      "MSFTx": true,
+      "AMZNx": true,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Disjoint Group 2: NVDAx, MSFTx, AMZNx",
+    "verdict": "PASS"
+  },
+  "74": {
+    "tokenId": 74,
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "isActiveOnChain": true,
+    "tbaAddress": "0xfc5c258Fad4F2791D6Bf48Af91eBd2271A06547d",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "GOOGLx",
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "decimals": 18
+      },
+      {
+        "symbol": "METAx",
+        "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+        "decimals": 18
+      },
+      {
+        "symbol": "PLTRx",
+        "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": false,
+      "NVDAx": false,
+      "MSFTx": false,
+      "AMZNx": false,
+      "GOOGLx": true,
+      "METAx": true,
+      "PLTRx": true,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Disjoint Group 3: GOOGLx, METAx, PLTRx",
+    "verdict": "PASS"
+  },
+  "75": {
+    "tokenId": 75,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActiveOnChain": true,
+    "tbaAddress": "0x476b6549e37c08e7e07C6EB09a0e9CEB61993D93",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "AMDx",
+        "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+        "decimals": 18
+      },
+      {
+        "symbol": "GMEx",
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "decimals": 18
+      },
+      {
+        "symbol": "SPCXx",
+        "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": false,
+      "NVDAx": false,
+      "MSFTx": false,
+      "AMZNx": false,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": true,
+      "GMEx": true,
+      "SPCXx": true
+    },
+    "specialRuleNote": "Disjoint Group 4: AMDx, GMEx, SPCXx",
+    "verdict": "PASS"
+  },
+  "76": {
+    "tokenId": 76,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActiveOnChain": true,
+    "tbaAddress": "0x8249E773f18A0C9bD355985BF25aF02ED2a5cB0b",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "MSFTx",
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "decimals": 18
+      },
+      {
+        "symbol": "AMZNx",
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "decimals": 18
+      },
+      {
+        "symbol": "GOOGLx",
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": false,
+      "NVDAx": false,
+      "MSFTx": true,
+      "AMZNx": true,
+      "GOOGLx": true,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Reactivated with [MSFTx, AMZNx, GOOGLx] in Phase 6 (prior AAPLx preserved & claimed)",
+    "verdict": "PASS"
+  },
+  "77": {
+    "tokenId": 77,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActiveOnChain": true,
+    "tbaAddress": "0x5e34D4D02131CE5Fd9596d778D47515420a29b42",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "AAPLx",
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "decimals": 18
+      },
+      {
+        "symbol": "MSFTx",
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "decimals": 18
+      },
+      {
+        "symbol": "AMZNx",
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": true,
+      "TSLAx": false,
+      "NVDAx": false,
+      "MSFTx": true,
+      "AMZNx": true,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Overlapping AAPLx Picker [USDG, AAPLx, TSLAx]",
+    "verdict": "PASS"
+  },
+  "78": {
+    "tokenId": 78,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActiveOnChain": false,
+    "tbaAddress": "0xBa1f7890D22b99F770E93d880bF8e909913d02A4",
+    "pickCount": 0,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": false,
+      "NVDAx": false,
+      "MSFTx": false,
+      "AMZNx": false,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": false,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Transferred in Phase 3 -> Deactivated on transfer -> Picks released (expected empty [] array on-chain)",
+    "verdict": "PASS"
+  },
+  "79": {
+    "tokenId": 79,
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "isActiveOnChain": true,
+    "tbaAddress": "0xc20B6137bda93f44b4de29d224d0845ad43b4b66",
+    "pickCount": 3,
+    "hasExactThreePicks": true,
+    "noDuplicates": true,
+    "allPicksRegistered": true,
+    "noHiddenFourthAsset": true,
+    "chosenAssets": [
+      {
+        "symbol": "GMEx",
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "decimals": 18
+      },
+      {
+        "symbol": "TSLAx",
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "decimals": 18
+      },
+      {
+        "symbol": "NVDAx",
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "decimals": 18
+      }
+    ],
+    "booleanMap": {
+      "USDG": false,
+      "AAPLx": false,
+      "TSLAx": true,
+      "NVDAx": true,
+      "MSFTx": false,
+      "AMZNx": false,
+      "GOOGLx": false,
+      "METAx": false,
+      "PLTRx": false,
+      "AMDx": false,
+      "GMEx": true,
+      "SPCXx": false
+    },
+    "specialRuleNote": "Late GMEx Picker [GMEx, TSLAx, NVDAx]",
+    "verdict": "PASS"
+  }
+}

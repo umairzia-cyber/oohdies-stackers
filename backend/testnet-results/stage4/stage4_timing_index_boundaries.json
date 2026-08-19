@@ -1,0 +1,5 @@
+{
+  "globalIndexUpdateIsolation": "Verified: Claim and activation operations advance global index without shifting active baselines incorrectly.",
+  "periodFinishBoundary": "Verified: Assets with expired periods cease emission accrual at periodFinish.",
+  "verdict": "PASS"
+}

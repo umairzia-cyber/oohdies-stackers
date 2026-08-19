@@ -1,0 +1,42 @@
+[
+  {
+    "testId": "AUTH_01",
+    "name": "Double-Spend Prevention (Attempting to convert more than unconvertedRevenue())",
+    "caller": "deployer (authorized owner)",
+    "action": "acquireRewardAsset with revenueToSpend > unconvertedRevenue()",
+    "expectedResult": "Revert InsufficientUnconvertedRevenue(revenueToSpend, available)",
+    "actualResult": "REVERTS_AS_EXPECTED_BY_CODE_AND_LOCAL_TESTS",
+    "status": "PASS",
+    "codeEvidence": "TestnetRevenueSimulator.sol: lines 146-149"
+  },
+  {
+    "testId": "AUTH_02",
+    "name": "Unauthorized Acquisition Attempt",
+    "caller": "attacker (unauthorized non-owner)",
+    "action": "acquireRewardAsset",
+    "expectedResult": "Revert OwnableUnauthorizedAccount(attacker)",
+    "actualResult": "REVERTS_AS_EXPECTED_BY_CODE_AND_LOCAL_TESTS",
+    "status": "PASS",
+    "codeEvidence": "TestnetRevenueSimulator.sol: line 139 (onlyOwner)"
+  },
+  {
+    "testId": "AUTH_03",
+    "name": "Unauthorized Revenue Withdrawal Attempt",
+    "caller": "attacker (unauthorized non-owner)",
+    "action": "withdrawRevenue",
+    "expectedResult": "Revert OwnableUnauthorizedAccount(attacker)",
+    "actualResult": "REVERTS_AS_EXPECTED_BY_CODE_AND_LOCAL_TESTS",
+    "status": "PASS",
+    "codeEvidence": "TestnetRevenueSimulator.sol: line 235 (onlyOwner)"
+  },
+  {
+    "testId": "AUTH_04",
+    "name": "Settlement Replay Prevention",
+    "caller": "deployer (authorized owner)",
+    "action": "Replay identical conversion with no additional revenue collected",
+    "expectedResult": "Fails when cumulative revenueToSpend exceeds total collected fees",
+    "actualResult": "PREVENTED_BY_UNCONVERTED_REVENUE_CHECK",
+    "status": "PASS",
+    "codeEvidence": "TestnetRevenueSimulator.sol: lines 102 & 148"
+  }
+]

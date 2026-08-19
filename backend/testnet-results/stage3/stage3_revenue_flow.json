@@ -1,0 +1,24 @@
+{
+  "collected": {
+    "aliceFee": "50.0 REV",
+    "bobFee": "100.0 REV",
+    "attackerFee": "25.0 REV",
+    "totalCollected": "175.0 REV"
+  },
+  "conversions": [
+    {
+      "revenueSpent": "100.0 REV",
+      "asset": "AAPLx",
+      "amountAcquired": "50.0 AAPLx",
+      "rate": "1 REV = 0.5 AAPLx (18 decimals)"
+    },
+    {
+      "revenueSpent": "50.0 REV",
+      "asset": "USDG",
+      "amountAcquired": "50.0 USDG",
+      "rate": "1 REV = 1.0 USDG (6 decimals)"
+    }
+  ],
+  "remainingUnconverted": "25.0 REV",
+  "accountingStatus": "100% CONSERVED"
+}

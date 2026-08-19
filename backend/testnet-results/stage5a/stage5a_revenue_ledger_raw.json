@@ -1,0 +1,189 @@
+[
+  {
+    "blockNumber": 103459500,
+    "transactionHash": "0x15a54611633e8d6d82e8c73b7fcbc4d80faa7dd188aa3b7e6e0c3ea3d6fd8e11",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "DEX Trading Activity",
+    "rawFeeAmountWei": "50000000000000000000",
+    "feeAmountEth": "50.0",
+    "cumulativeCollectedWei": "50000000000000000000",
+    "cumulativeCollectedEth": "50.0",
+    "gasUsed": "116545"
+  },
+  {
+    "blockNumber": 103459553,
+    "transactionHash": "0xe73074c2ca3b8c4eb005c05d2aef64409c63b39b3dce0918999240909be1bec0",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "NFT Staking Activity",
+    "rawFeeAmountWei": "100000000000000000000",
+    "feeAmountEth": "100.0",
+    "cumulativeCollectedWei": "150000000000000000000",
+    "cumulativeCollectedEth": "150.0",
+    "gasUsed": "82345"
+  },
+  {
+    "blockNumber": 103459608,
+    "transactionHash": "0x8581e7d5d50f0528361d6524941487fd942c5d7fb40aa79961a3044e62fef48c",
+    "user": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "activity": "Arbitrage Activity",
+    "rawFeeAmountWei": "25000000000000000000",
+    "feeAmountEth": "25.0",
+    "cumulativeCollectedWei": "175000000000000000000",
+    "cumulativeCollectedEth": "175.0",
+    "gasUsed": "82321"
+  },
+  {
+    "blockNumber": 103551234,
+    "transactionHash": "0x3e810fd6d062db622936aa86ffde0450e54c7e6bd087eed893bda13aea3e62e4",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "Trading Activity C1",
+    "rawFeeAmountWei": "10000000000000000000",
+    "feeAmountEth": "10.0",
+    "cumulativeCollectedWei": "185000000000000000000",
+    "cumulativeCollectedEth": "185.0",
+    "gasUsed": "71498"
+  },
+  {
+    "blockNumber": 103551433,
+    "transactionHash": "0x8c3b31d681ebcbed82623b7ba6b367263b53c9972ca7a985672534c06f62669a",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "Staking Activity C2",
+    "rawFeeAmountWei": "100000000000000000000",
+    "feeAmountEth": "100.0",
+    "cumulativeCollectedWei": "285000000000000000000",
+    "cumulativeCollectedEth": "285.0",
+    "gasUsed": "71453"
+  },
+  {
+    "blockNumber": 103552677,
+    "transactionHash": "0x8b9b12ff60de34b9e379f700b575f662faade502cebe5ba2eb872765d86895ca",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "Trading Activity C1",
+    "rawFeeAmountWei": "10000000000000000000",
+    "feeAmountEth": "10.0",
+    "cumulativeCollectedWei": "295000000000000000000",
+    "cumulativeCollectedEth": "295.0",
+    "gasUsed": "69494"
+  },
+  {
+    "blockNumber": 103552997,
+    "transactionHash": "0x74ee3080af4a49d9b3dd3e5613cbcb416145a56ffb1c831cfcc1a0a8315f6be0",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "Staking Activity C2",
+    "rawFeeAmountWei": "100000000000000000000",
+    "feeAmountEth": "100.0",
+    "cumulativeCollectedWei": "395000000000000000000",
+    "cumulativeCollectedEth": "395.0",
+    "gasUsed": "69457"
+  },
+  {
+    "blockNumber": 103553303,
+    "transactionHash": "0x7f8e5220176b3c51ce3eeb34265e3ab4507599657b70f503a7dc6c97954f7dda",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "LP Activity C3",
+    "rawFeeAmountWei": "250000000000000000000",
+    "feeAmountEth": "250.0",
+    "cumulativeCollectedWei": "645000000000000000000",
+    "cumulativeCollectedEth": "645.0",
+    "gasUsed": "69446"
+  },
+  {
+    "blockNumber": 103553323,
+    "transactionHash": "0x3c0adf69e32a3bb421445e4bd0320f9b8bc28d8f3f295bc742cb1c066e7c078d",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "LP Activity C3",
+    "rawFeeAmountWei": "250000000000000000000",
+    "feeAmountEth": "250.0",
+    "cumulativeCollectedWei": "895000000000000000000",
+    "cumulativeCollectedEth": "895.0",
+    "gasUsed": "69397"
+  },
+  {
+    "blockNumber": 103553531,
+    "transactionHash": "0x62e2f346e8d883ae5032d8977aa3b256298427148d5e7193bd6a744cc67631d0",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "Bridge Fee C4",
+    "rawFeeAmountWei": "50000000000000000000",
+    "feeAmountEth": "50.0",
+    "cumulativeCollectedWei": "945000000000000000000",
+    "cumulativeCollectedEth": "945.0",
+    "gasUsed": "69434"
+  },
+  {
+    "blockNumber": 103553685,
+    "transactionHash": "0xf6ff6241b615746f04e03933ecb53dbec135306a7c77070798b411b9cb4e9102",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "Arbitrage Fee C5",
+    "rawFeeAmountWei": "80000000000000000000",
+    "feeAmountEth": "80.0",
+    "cumulativeCollectedWei": "1025000000000000000000",
+    "cumulativeCollectedEth": "1025.0",
+    "gasUsed": "69421"
+  },
+  {
+    "blockNumber": 103555009,
+    "transactionHash": "0xf76205eb7927426d0b30f1b8d74e1ae86e5072d47736295a28fa038b4378b8b1",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "Trading Activity C1",
+    "rawFeeAmountWei": "10000000000000000000",
+    "feeAmountEth": "10.0",
+    "cumulativeCollectedWei": "1035000000000000000000",
+    "cumulativeCollectedEth": "1035.0",
+    "gasUsed": "70742"
+  },
+  {
+    "blockNumber": 103555367,
+    "transactionHash": "0x620b5437233aabf18fa25fb8a8854881cf012828de079de7225a33b3b0d0d3a7",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "Staking Activity C2",
+    "rawFeeAmountWei": "100000000000000000000",
+    "feeAmountEth": "100.0",
+    "cumulativeCollectedWei": "1135000000000000000000",
+    "cumulativeCollectedEth": "1135.0",
+    "gasUsed": "70646"
+  },
+  {
+    "blockNumber": 103555606,
+    "transactionHash": "0xb6cc84f973877ffccc3078d2bbbeb5f13bca0ab94f1631f3f227902eaeb7baf7",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "LP Activity C3",
+    "rawFeeAmountWei": "250000000000000000000",
+    "feeAmountEth": "250.0",
+    "cumulativeCollectedWei": "1385000000000000000000",
+    "cumulativeCollectedEth": "1385.0",
+    "gasUsed": "70640"
+  },
+  {
+    "blockNumber": 103555648,
+    "transactionHash": "0xe4cf81be6b55c40dcd455775fa6cc0fe9298e135b997a060af7e94eb2452e7bc",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "LP Activity C3",
+    "rawFeeAmountWei": "250000000000000000000",
+    "feeAmountEth": "250.0",
+    "cumulativeCollectedWei": "1635000000000000000000",
+    "cumulativeCollectedEth": "1635.0",
+    "gasUsed": "70533"
+  },
+  {
+    "blockNumber": 103555787,
+    "transactionHash": "0x896bc9ea8ee20f3b02b62b835109cf834df48d5eb8b8adc71fe0642a3e00fcc5",
+    "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "activity": "Bridge Fee C4",
+    "rawFeeAmountWei": "50000000000000000000",
+    "feeAmountEth": "50.0",
+    "cumulativeCollectedWei": "1685000000000000000000",
+    "cumulativeCollectedEth": "1685.0",
+    "gasUsed": "70628"
+  },
+  {
+    "blockNumber": 103555908,
+    "transactionHash": "0x9a54d3e0b03f48c1e55b505d6f12a1235a716bf1f5dd98080660678917fadefe",
+    "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "activity": "Arbitrage Fee C5",
+    "rawFeeAmountWei": "80000000000000000000",
+    "feeAmountEth": "80.0",
+    "cumulativeCollectedWei": "1765000000000000000000",
+    "cumulativeCollectedEth": "1765.0",
+    "gasUsed": "70610"
+  }
+]

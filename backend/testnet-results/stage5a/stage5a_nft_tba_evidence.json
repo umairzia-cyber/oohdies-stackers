@@ -1,0 +1,237 @@
+{
+  "token_80": {
+    "tokenId": 80,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActivated": true,
+    "chosenAssets": [
+      "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+      "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00"
+    ],
+    "chosenSymbols": [
+      "TSLAx",
+      "GMEx",
+      "SPCXx"
+    ],
+    "tbaAddress": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+    "isTbaDeployed": true,
+    "mintTransaction": {
+      "blockNumber": 103548472,
+      "transactionHash": "0xb3ed09cb99b4eee42aea0d3a4aa3cd6fecb19f4cecd87bfaa4a51eeab3a0b7e1",
+      "to": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399"
+    },
+    "activationEvents": [
+      {
+        "blockNumber": 103551387,
+        "transactionHash": "0xd27a9c99d02f4ba053782850e8f6e265b0f67f34f02e26c9650b50058d611b33",
+        "owner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+        "bananaBurned": "100000000000000000000",
+        "timestamp": "1787099474"
+      },
+      {
+        "blockNumber": 103553663,
+        "transactionHash": "0x7eb5e45abc23cf67618ac54af24a1e85202a0bf7e4e8d96c1cac710c82f43d92",
+        "owner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+        "bananaBurned": "100000000000000000000",
+        "timestamp": "1787099836"
+      }
+    ],
+    "transferEvents": [
+      {
+        "blockNumber": 103548472,
+        "transactionHash": "0xb3ed09cb99b4eee42aea0d3a4aa3cd6fecb19f4cecd87bfaa4a51eeab3a0b7e1",
+        "from": "0x0000000000000000000000000000000000000000",
+        "to": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399"
+      },
+      {
+        "blockNumber": 103553637,
+        "transactionHash": "0x06f58b17547efc9024e5cbf89b2aaf03332dd1897c049bd54a101905fa0d394f",
+        "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+        "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011"
+      }
+    ],
+    "tbaCreationEvents": [
+      {
+        "blockNumber": 103551552,
+        "transactionHash": "0x5b2b9021d6550c295819d279ffd6416c8e09d934b56de7977822954801e3156d",
+        "account": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+        "implementation": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+        "salt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "chainId": "46630"
+      }
+    ],
+    "claimEvents": [
+      {
+        "blockNumber": 103551575,
+        "transactionHash": "0x36b98f901d59c4d44eb0a0163c712fdcabea5d31f0bae83139fdad0f0161be69",
+        "asset": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "recipient": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+        "amount": "17325166202294050094"
+      },
+      {
+        "blockNumber": 103553234,
+        "transactionHash": "0x8862f9555c02395425a0d09fdcad67140fc86bbf57da6ee60e124a1ad28e021c",
+        "asset": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "recipient": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+        "amount": "22763493485920673561"
+      },
+      {
+        "blockNumber": 103553818,
+        "transactionHash": "0x4f8719fcc39fb31f17770b7ad1aaeea03cfdaadd668c569746e1cac4014018c5",
+        "asset": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "recipient": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+        "amount": "563703703703703702"
+      }
+    ]
+  },
+  "token_81": {
+    "tokenId": 81,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActivated": true,
+    "chosenAssets": [
+      "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+      "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+      "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057"
+    ],
+    "chosenSymbols": [
+      "NVDAx",
+      "MSFTx",
+      "AMZNx"
+    ],
+    "tbaAddress": "0xbB0a0787E2C8F5d680c54aFEc2a29d07890A0068",
+    "isTbaDeployed": true,
+    "mintTransaction": {
+      "blockNumber": 103548488,
+      "transactionHash": "0xc76b5d9c33764182d685d3e604d4bb6095ab7fd250997aa8009358f67e4eafe7",
+      "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011"
+    },
+    "activationEvents": [
+      {
+        "blockNumber": 103551413,
+        "transactionHash": "0x8faa9811523134cbcd5e62e3eb2794d3e540da88d7cd123dbfda5dc0a2c09813",
+        "owner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+        "bananaBurned": "100000000000000000000",
+        "timestamp": "1787099477"
+      }
+    ],
+    "transferEvents": [
+      {
+        "blockNumber": 103548488,
+        "transactionHash": "0xc76b5d9c33764182d685d3e604d4bb6095ab7fd250997aa8009358f67e4eafe7",
+        "from": "0x0000000000000000000000000000000000000000",
+        "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011"
+      }
+    ],
+    "tbaCreationEvents": [
+      {
+        "blockNumber": 103553705,
+        "transactionHash": "0x5edaad5fc2ae1436cb8b8c705c3fad510646b397ae8e61aaf0dc25a5c0626120",
+        "account": "0xbB0a0787E2C8F5d680c54aFEc2a29d07890A0068",
+        "implementation": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+        "salt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "chainId": "46630"
+      }
+    ],
+    "claimEvents": []
+  },
+  "token_82": {
+    "tokenId": 82,
+    "currentOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "isActivated": true,
+    "chosenAssets": [
+      "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+      "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2"
+    ],
+    "chosenSymbols": [
+      "AAPLx",
+      "GOOGLx",
+      "METAx"
+    ],
+    "tbaAddress": "0x2FbBFF0675eb31cBDFC3DEDB0d452c07C836b09c",
+    "isTbaDeployed": true,
+    "mintTransaction": {
+      "blockNumber": 103548509,
+      "transactionHash": "0xa875569799f493793b9981ee537d22c593d47112470f0ee2c5fecd545677b6c3",
+      "to": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399"
+    },
+    "activationEvents": [
+      {
+        "blockNumber": 103551525,
+        "transactionHash": "0x067c74a9e87654538ed8f0bf75a770d2b5814260fc2d0fb0dda56dcb9c0be850",
+        "owner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+        "bananaBurned": "100000000000000000000",
+        "timestamp": "1787099494"
+      }
+    ],
+    "transferEvents": [
+      {
+        "blockNumber": 103548509,
+        "transactionHash": "0xa875569799f493793b9981ee537d22c593d47112470f0ee2c5fecd545677b6c3",
+        "from": "0x0000000000000000000000000000000000000000",
+        "to": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399"
+      }
+    ],
+    "tbaCreationEvents": [
+      {
+        "blockNumber": 103553761,
+        "transactionHash": "0xc0d2cccc96486f398e761f0ca9e8e2c119e051a4a9e7200113cee31bf4f160c5",
+        "account": "0x2FbBFF0675eb31cBDFC3DEDB0d452c07C836b09c",
+        "implementation": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+        "salt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "chainId": "46630"
+      }
+    ],
+    "claimEvents": []
+  },
+  "token_83": {
+    "tokenId": 83,
+    "currentOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "isActivated": true,
+    "chosenAssets": [
+      "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "0x54338e6EE49F58e7E6814437600E921F60243058",
+      "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850"
+    ],
+    "chosenSymbols": [
+      "GMEx",
+      "AMDx",
+      "PLTRx"
+    ],
+    "tbaAddress": "0x3366Dc44aEE62C632933568cd702706061Cfc618",
+    "isTbaDeployed": true,
+    "mintTransaction": {
+      "blockNumber": 103548566,
+      "transactionHash": "0x71f32fffc21a8d53ee9281aacd1a12da82c99b680e3377774c393d768008e3d2",
+      "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011"
+    },
+    "activationEvents": [
+      {
+        "blockNumber": 103553504,
+        "transactionHash": "0xe03312af0d0c26e451f3be1a93dfac99c5c31c8ec9227c0281ecf7cb1ad75c72",
+        "owner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+        "bananaBurned": "100000000000000000000",
+        "timestamp": "1787099813"
+      }
+    ],
+    "transferEvents": [
+      {
+        "blockNumber": 103548566,
+        "transactionHash": "0x71f32fffc21a8d53ee9281aacd1a12da82c99b680e3377774c393d768008e3d2",
+        "from": "0x0000000000000000000000000000000000000000",
+        "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011"
+      }
+    ],
+    "tbaCreationEvents": [
+      {
+        "blockNumber": 103553771,
+        "transactionHash": "0x31d72866db575da7cbfc0af2c2c278cc49b85c7ba9a7be8aeaa02086d0762f72",
+        "account": "0x3366Dc44aEE62C632933568cd702706061Cfc618",
+        "implementation": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+        "salt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "chainId": "46630"
+      }
+    ],
+    "claimEvents": []
+  }
+}

@@ -1,0 +1,225 @@
+[
+  {
+    "name": "Authorize Simulator as Funder",
+    "hash": "0x6a66259044125fed7e9e960826688f0febc5f8bce01895b224c2a8811916627b",
+    "blockNumber": 103459264,
+    "gasUsed": "55340",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:16:05.123Z"
+  },
+  {
+    "name": "Alice Generate Fee (50 REV)",
+    "hash": "0x15a54611633e8d6d82e8c73b7fcbc4d80faa7dd188aa3b7e6e0c3ea3d6fd8e11",
+    "blockNumber": 103459500,
+    "gasUsed": "116545",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:16:42.702Z"
+  },
+  {
+    "name": "Bob Generate Fee (100 REV)",
+    "hash": "0xe73074c2ca3b8c4eb005c05d2aef64409c63b39b3dce0918999240909be1bec0",
+    "blockNumber": 103459553,
+    "gasUsed": "82345",
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:16:47.823Z"
+  },
+  {
+    "name": "Attacker Generate Fee (25 REV)",
+    "hash": "0x8581e7d5d50f0528361d6524941487fd942c5d7fb40aa79961a3044e62fef48c",
+    "blockNumber": 103459608,
+    "gasUsed": "82321",
+    "from": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:16:54.481Z"
+  },
+  {
+    "name": "Set AAPLx Conversion Rate (1:0.5)",
+    "hash": "0x26899b808aa5ea4b11b78ff3f22bc38c146cb02315cecaf48870097b6b2e1998",
+    "blockNumber": 103459651,
+    "gasUsed": "103808",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:16:59.035Z"
+  },
+  {
+    "name": "Set USDG Conversion Rate (1:1.0)",
+    "hash": "0x695ace8a1d5184ba8e3efc6346d487dae1b8b8e94bff78865c461841d6a12a63",
+    "blockNumber": 103459672,
+    "gasUsed": "103732",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:02.895Z"
+  },
+  {
+    "name": "Acquire 50.0 AAPLx via Revenue Conversion",
+    "hash": "0x31486aee97288c0eae2a327921e958014ce08da94f884c59b7986e7d651085de",
+    "blockNumber": 103459820,
+    "gasUsed": "132286",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:21.035Z"
+  },
+  {
+    "name": "Acquire 50.0 USDG via Revenue Conversion",
+    "hash": "0x433659b715ccd0ab424e3d51e0442eee040d59c03c138db856472ea16030cde3",
+    "blockNumber": 103459842,
+    "gasUsed": "116018",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:24.382Z"
+  },
+  {
+    "name": "Deposit Acquired AAPLx to RewardVault",
+    "hash": "0xbb26bd164a52a0b7218a3eba9c833ddf0a03fbd4ba38ffd266aad81fc15a9f40",
+    "blockNumber": 103459865,
+    "gasUsed": "86324",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:27.986Z"
+  },
+  {
+    "name": "Deposit Acquired USDG to RewardVault",
+    "hash": "0x97530cd5b29603d40f43d503c446a0dcae62781a42d96aa5f50ad88ab1daf35d",
+    "blockNumber": 103459885,
+    "gasUsed": "86296",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:35.543Z"
+  },
+  {
+    "name": "Fund EarningEngine AAPLx (7 days)",
+    "hash": "0xd43956c3ccea5f8e9694b20331ebb6621be23b6f61340e7725f0461097fe3676",
+    "blockNumber": 103460041,
+    "gasUsed": "89418",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:17:48.445Z"
+  },
+  {
+    "name": "Fund EarningEngine USDG (7 days)",
+    "hash": "0x59894951f25c9d9f747d3e14d99933d93370b3ce2e7b6ffdc9bb493f7cb8e86a",
+    "blockNumber": 103460133,
+    "gasUsed": "84988",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:05.854Z"
+  },
+  {
+    "name": "Mint Fresh NFT for Alice",
+    "hash": "0xa27de25525ab8c4e2c3b4158c3aca118f444271f8f70e4bca108415bf631847a",
+    "blockNumber": 103460200,
+    "gasUsed": "71493",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:09.540Z",
+    "tokenId": "20"
+  },
+  {
+    "name": "Mint Fresh NFT for Bob",
+    "hash": "0x5ec8ece8919ffcb432943373568c5686327878c937a69304cdc9eb0f09dc98b6",
+    "blockNumber": 103460222,
+    "gasUsed": "71493",
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:18.829Z",
+    "tokenId": "21"
+  },
+  {
+    "name": "Alice Activate Token #20",
+    "hash": "0xb78b9720f72335d75b67782843b723946940c61029134f986966f2999ecbb72e",
+    "blockNumber": 103460314,
+    "gasUsed": "570001",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:25.707Z",
+    "picks": [
+      "AAPLx",
+      "TSLAx",
+      "NVDAx"
+    ]
+  },
+  {
+    "name": "Bob Activate Token #21",
+    "hash": "0x73c756b1d4c393ef4f5c0b5d4a089cec0029af24bece6cb4a848c91f022b6c3e",
+    "blockNumber": 103460358,
+    "gasUsed": "570063",
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:35.759Z",
+    "picks": [
+      "AAPLx",
+      "MSFTx",
+      "AMDx"
+    ]
+  },
+  {
+    "name": "Create TBA for Token #20",
+    "hash": "0x7091fc9ef4336a4ecffd01330cf89366d3eea37e4360fb857a800e08b1459cee",
+    "blockNumber": 103460463,
+    "gasUsed": "101942",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:46.511Z"
+  },
+  {
+    "name": "Alice Claim AAPLx for Token #20",
+    "hash": "0x3c3625b46afd79a4cb2e17d432fdd721298b1a3355852f6e15fe21851a5dd74e",
+    "blockNumber": 103460489,
+    "gasUsed": "170605",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:54.682Z"
+  },
+  {
+    "name": "Alice Withdraw AAPLx from TBA to EOA",
+    "hash": "0x565f005f67a168bf061bc455fd6181e04e504c482c4bccf6c835c5ccf0ccd4ae",
+    "blockNumber": 103460556,
+    "gasUsed": "75372",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x97cA096547b2594a50d36C38E4B310D9273b7fA1",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:18:58.264Z"
+  },
+  {
+    "name": "Transfer Token #20 Alice -> Bob",
+    "hash": "0xbce045b21b977b4130cd673bdcbc1fed644b3a39be2570c1fefe57fe652737d1",
+    "blockNumber": 103460593,
+    "gasUsed": "272056",
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:19:04.579Z",
+    "tokenId": "20"
+  },
+  {
+    "name": "Buyer (Bob) Withdraw Loaded USDG from TBA",
+    "hash": "0x1644765e7ac3731b3f5ac0654fce9d50d587ff06831927eddd853403cb7c39bc",
+    "blockNumber": 103460632,
+    "gasUsed": "75275",
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x97cA096547b2594a50d36C38E4B310D9273b7fA1",
+    "status": "SUCCESS",
+    "timestamp": "2026-08-18T20:19:13.267Z"
+  }
+]

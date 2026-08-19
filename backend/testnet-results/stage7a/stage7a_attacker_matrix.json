@@ -1,0 +1,50 @@
+[
+  {
+    "id": "RC-ATT-01",
+    "description": "Attacker activates unauthorized NFT",
+    "expected": "NotAuthorized",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-02",
+    "description": "Attacker calls execute on victim TBA",
+    "expected": "NotAuthorized",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-03",
+    "description": "Attacker alters Collection Q multiplier",
+    "expected": "OwnableUnauthorizedAccount",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-04",
+    "description": "Attacker redirects claim to attacker EOA",
+    "expected": "TBA_Hardcoded_No_Redirect",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-05",
+    "description": "Attacker executes DELEGATECALL from TBA",
+    "expected": "InvalidOperation",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-06",
+    "description": "Attacker transfers NFT into its own TBA",
+    "expected": "OwnershipCycle",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-07",
+    "description": "Attacker drains RewardVault without claim",
+    "expected": "No_Withdraw_Function",
+    "status": "PASSED"
+  },
+  {
+    "id": "RC-ATT-08",
+    "description": "Attacker calls fundReward without funder role",
+    "expected": "OnlyFundersAllowed",
+    "status": "PASSED"
+  }
+]

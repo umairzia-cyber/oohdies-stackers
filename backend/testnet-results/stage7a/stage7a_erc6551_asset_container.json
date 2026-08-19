@@ -1,0 +1,13 @@
+{
+  "erc20Supported": true,
+  "nativeEthSupported": true,
+  "erc721ReceiverSupported": true,
+  "erc1155ReceiverSupported": true,
+  "ownershipCycleGuard": "ACTIVE_REVERT",
+  "dangerousOperationsBlocked": [
+    "DELEGATECALL",
+    "CREATE",
+    "CREATE2"
+  ],
+  "status": "VERIFIED"
+}

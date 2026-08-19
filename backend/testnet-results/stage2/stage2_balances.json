@@ -1,0 +1,44 @@
+[
+  {
+    "action": "Activate Own NFT",
+    "role": "Alice/Bob",
+    "expected": "PASS",
+    "result": "PASS"
+  },
+  {
+    "action": "Activate Other's NFT",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Withdraw TBA as NFT Owner",
+    "role": "Owner",
+    "expected": "PASS",
+    "result": "PASS"
+  },
+  {
+    "action": "Withdraw TBA as Previous Owner (Seller)",
+    "role": "Seller",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Withdraw TBA as Unrelated Attacker",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Permissionless Claim Trigger",
+    "role": "Attacker",
+    "expected": "PASS (Credits TBA)",
+    "result": "PASS (Credits TBA)"
+  },
+  {
+    "action": "Redirect Claim to Attacker",
+    "role": "Attacker",
+    "expected": "IMPOSSIBLE (Routes to TBA)",
+    "result": "IMPOSSIBLE (Routes to TBA)"
+  }
+]

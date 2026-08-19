@@ -1,0 +1,146 @@
+{
+  "totalFeeTransactions": 17,
+  "totalConversionTransactions": 18,
+  "stage5FeeEvents": [
+    {
+      "blockNumber": 103555009,
+      "transactionHash": "0xf76205eb7927426d0b30f1b8d74e1ae86e5072d47736295a28fa038b4378b8b1",
+      "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+      "activity": "Trading Activity C1",
+      "rawFeeAmountWei": "10000000000000000000",
+      "feeAmountEth": "10.0",
+      "cumulativeCollectedWei": "1035000000000000000000",
+      "cumulativeCollectedEth": "1035.0",
+      "gasUsed": "70742"
+    },
+    {
+      "blockNumber": 103555367,
+      "transactionHash": "0x620b5437233aabf18fa25fb8a8854881cf012828de079de7225a33b3b0d0d3a7",
+      "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+      "activity": "Staking Activity C2",
+      "rawFeeAmountWei": "100000000000000000000",
+      "feeAmountEth": "100.0",
+      "cumulativeCollectedWei": "1135000000000000000000",
+      "cumulativeCollectedEth": "1135.0",
+      "gasUsed": "70646"
+    },
+    {
+      "blockNumber": 103555606,
+      "transactionHash": "0xb6cc84f973877ffccc3078d2bbbeb5f13bca0ab94f1631f3f227902eaeb7baf7",
+      "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+      "activity": "LP Activity C3",
+      "rawFeeAmountWei": "250000000000000000000",
+      "feeAmountEth": "250.0",
+      "cumulativeCollectedWei": "1385000000000000000000",
+      "cumulativeCollectedEth": "1385.0",
+      "gasUsed": "70640"
+    },
+    {
+      "blockNumber": 103555648,
+      "transactionHash": "0xe4cf81be6b55c40dcd455775fa6cc0fe9298e135b997a060af7e94eb2452e7bc",
+      "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+      "activity": "LP Activity C3",
+      "rawFeeAmountWei": "250000000000000000000",
+      "feeAmountEth": "250.0",
+      "cumulativeCollectedWei": "1635000000000000000000",
+      "cumulativeCollectedEth": "1635.0",
+      "gasUsed": "70533"
+    },
+    {
+      "blockNumber": 103555787,
+      "transactionHash": "0x896bc9ea8ee20f3b02b62b835109cf834df48d5eb8b8adc71fe0642a3e00fcc5",
+      "user": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+      "activity": "Bridge Fee C4",
+      "rawFeeAmountWei": "50000000000000000000",
+      "feeAmountEth": "50.0",
+      "cumulativeCollectedWei": "1685000000000000000000",
+      "cumulativeCollectedEth": "1685.0",
+      "gasUsed": "70628"
+    },
+    {
+      "blockNumber": 103555908,
+      "transactionHash": "0x9a54d3e0b03f48c1e55b505d6f12a1235a716bf1f5dd98080660678917fadefe",
+      "user": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+      "activity": "Arbitrage Fee C5",
+      "rawFeeAmountWei": "80000000000000000000",
+      "feeAmountEth": "80.0",
+      "cumulativeCollectedWei": "1765000000000000000000",
+      "cumulativeCollectedEth": "1765.0",
+      "gasUsed": "70610"
+    }
+  ],
+  "stage5ConversionEvents": [
+    {
+      "blockNumber": 103555050,
+      "transactionHash": "0x30691bbc96969479c1eb90b256ddc67e3e3c9409c5b0738dbc6c592d27b17aab",
+      "rewardAssetAddress": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "rewardAssetSymbol": "AAPLx",
+      "rawRevenueSpentWei": "4000000000000000000",
+      "revenueSpentEth": "4.0",
+      "rawAssetAcquired": "2000000000000000000",
+      "cumulativeConvertedWei": "490000000000000000000",
+      "cumulativeConvertedEth": "490.0",
+      "gasUsed": "98214"
+    },
+    {
+      "blockNumber": 103555117,
+      "transactionHash": "0x2b43d643b2964c0461a16d5488eef56222a5d82199c6ff2b43567cdfa6893ecc",
+      "rewardAssetAddress": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "rewardAssetSymbol": "USDG",
+      "rawRevenueSpentWei": "4000000000000000000",
+      "revenueSpentEth": "4.0",
+      "rawAssetAcquired": "4000000",
+      "cumulativeConvertedWei": "494000000000000000000",
+      "cumulativeConvertedEth": "494.0",
+      "gasUsed": "81946"
+    },
+    {
+      "blockNumber": 103555391,
+      "transactionHash": "0x52b18b2246da49053c37ae11adc66d510c46f54a6e97067b1c316e10b03bc5f8",
+      "rewardAssetAddress": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "rewardAssetSymbol": "AAPLx",
+      "rawRevenueSpentWei": "50000000000000000000",
+      "revenueSpentEth": "50.0",
+      "rawAssetAcquired": "25000000000000000000",
+      "cumulativeConvertedWei": "544000000000000000000",
+      "cumulativeConvertedEth": "544.0",
+      "gasUsed": "98226"
+    },
+    {
+      "blockNumber": 103555411,
+      "transactionHash": "0xa12fb885ef17f9596274683206cbed1e1eb1c726778170adebd76a65a5713272",
+      "rewardAssetAddress": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "rewardAssetSymbol": "USDG",
+      "rawRevenueSpentWei": "40000000000000000000",
+      "revenueSpentEth": "40.0",
+      "rawAssetAcquired": "40000000",
+      "cumulativeConvertedWei": "584000000000000000000",
+      "cumulativeConvertedEth": "584.0",
+      "gasUsed": "81958"
+    },
+    {
+      "blockNumber": 103555680,
+      "transactionHash": "0xe7e59e35d910036c33f92771cc0f6785fb2b08ea340848b2540647f2e9db7f68",
+      "rewardAssetAddress": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "rewardAssetSymbol": "GMEx",
+      "rawRevenueSpentWei": "100000000000000000000",
+      "revenueSpentEth": "100.0",
+      "rawAssetAcquired": "50000000000000000000",
+      "cumulativeConvertedWei": "684000000000000000000",
+      "cumulativeConvertedEth": "684.0",
+      "gasUsed": "98226"
+    },
+    {
+      "blockNumber": 103555810,
+      "transactionHash": "0xa1011e152dd2f505502c8ad55141c0f3914f12342641db386ac9956c92c420ca",
+      "rewardAssetAddress": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+      "rewardAssetSymbol": "TSLAx",
+      "rawRevenueSpentWei": "40000000000000000000",
+      "revenueSpentEth": "40.0",
+      "rawAssetAcquired": "20000000000000000000",
+      "cumulativeConvertedWei": "724000000000000000000",
+      "cumulativeConvertedEth": "724.0",
+      "gasUsed": "98226"
+    }
+  ]
+}

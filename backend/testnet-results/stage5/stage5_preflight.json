@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-08-19T00:40:36.678Z",
+  "startBlock": 103554939,
+  "controlledTokens": [
+    80,
+    81,
+    82,
+    83
+  ],
+  "simulatorCollected": "1025000000000000000000",
+  "simulatorConverted": "486000000000000000000",
+  "simulatorUnconverted": "539000000000000000000"
+}

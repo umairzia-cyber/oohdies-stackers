@@ -1,0 +1,10 @@
+{
+  "poolAddress": "0x1e20451f6F5a2884a66416682928eFb478527539",
+  "reserves": {
+    "AAPLx": "300.0",
+    "USDG": "600.0",
+    "GMEx": "300.0",
+    "totalRevenueSettled": "0.0",
+    "revenueReserves": "0.0"
+  }
+}

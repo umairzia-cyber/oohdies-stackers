@@ -1,0 +1,47 @@
+{
+  "suite": "Transfer / Activation / Multi-Picker Race Condition Verification",
+  "scenariosTested": [
+    {
+      "id": "RACE-01",
+      "flow": "activate -> claim -> transfer -> re-activate",
+      "outcome": "Picks cleanly released on transfer; new owner sets picks independently",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-02",
+      "flow": "funding before activation -> late activation",
+      "outcome": "Zero historical rewards leak; accrual starts strictly at activation",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-03",
+      "flow": "repeated claims in rapid succession",
+      "outcome": "No double-claims; subsequent claim with 0 delta reverts NoRewardToClaim",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-04",
+      "flow": "claim -> transfer -> TBA withdrawal",
+      "outcome": "Accrued reward in TBA belongs to new NFT owner immediately",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-05",
+      "flow": "dynamic picker additions/removals across index ticks",
+      "outcome": "Stream division scales with exact mathematical precision",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-06",
+      "flow": "releaseIfInactive permissionless recovery",
+      "outcome": "Repairs orphan picks if transfer hook ever failed",
+      "status": "PASSED"
+    },
+    {
+      "id": "RACE-07",
+      "flow": "releaseIfInactive on active token",
+      "outcome": "Strictly reverts with StillActivated",
+      "status": "PASSED"
+    }
+  ]
+}

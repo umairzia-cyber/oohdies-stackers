@@ -1,0 +1,9 @@
+{
+  "aliceAddress": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+  "bobAddress": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+  "aliceCollectionQBalance": "1",
+  "bobCollectionQBalance": "0",
+  "baseWeight": "10000",
+  "multiplier2x": "20000",
+  "status": "VERIFIED"
+}

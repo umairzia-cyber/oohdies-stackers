@@ -1,0 +1,10 @@
+{
+  "totalFuzzSequences": 750,
+  "seeds": [
+    10101,
+    88888,
+    55555
+  ],
+  "invariantViolations": 0,
+  "status": "PASSED"
+}

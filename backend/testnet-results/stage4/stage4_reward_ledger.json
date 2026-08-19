@@ -1,0 +1,65 @@
+[
+  {
+    "phase": "Phase 3",
+    "action": "Fund EarningEngine with 60 AAPLx over 7 days",
+    "transactionHash": "0x9f1997f2e68b6f5c831acc4d9952e7de247e122dc4ddfc8644b8fe66ff52462d",
+    "blockNumber": 103533157,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "gasUsed": "99490",
+    "receiptStatus": "SUCCESS",
+    "timestamp": "2026-08-18T23:40:03.927Z",
+    "verdict": "PASS"
+  },
+  {
+    "phase": "Phase 4",
+    "action": "Fund USDG (50.0 USDG over 7 days)",
+    "transactionHash": "0x9c4ddd77fc79e044945387d2c78c66d3177ae2b389aa9acd5a25821b4b4699c3",
+    "blockNumber": 103533485,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "gasUsed": "99454",
+    "receiptStatus": "SUCCESS",
+    "timestamp": "2026-08-18T23:41:03.505Z",
+    "verdict": "PASS"
+  },
+  {
+    "phase": "Phase 4",
+    "action": "Alice Claim USDG for Token #72",
+    "transactionHash": "0x38d140cb7fb57555ff3d466616d3f18d0a1d8b6b646e212f2d6fc2ca62c482f7",
+    "blockNumber": 103533588,
+    "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "gasUsed": "162055",
+    "receiptStatus": "SUCCESS",
+    "timestamp": "2026-08-18T23:41:18.710Z",
+    "tokenId": "72",
+    "asset": "USDG",
+    "verdict": "PASS"
+  },
+  {
+    "phase": "Phase 5",
+    "action": "Fund GMEx (50 GMEx over 7 days)",
+    "transactionHash": "0x364dc0f12a4fa1a7a67a27cdbd932c0fb5d48ca9176968a44de77472682c2603",
+    "blockNumber": 103533691,
+    "from": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "to": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "gasUsed": "94690",
+    "receiptStatus": "SUCCESS",
+    "timestamp": "2026-08-18T23:41:35.244Z",
+    "verdict": "PASS"
+  },
+  {
+    "phase": "Phase 6",
+    "action": "Bob Claim Preserved AAPLx for Token #76",
+    "transactionHash": "0x945ac4033de55ed4ec67746e3120533aa6e6ebe972acbd540404d212c1153657",
+    "blockNumber": 103534106,
+    "from": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+    "to": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "gasUsed": "142876",
+    "receiptStatus": "SUCCESS",
+    "timestamp": "2026-08-18T23:42:44.152Z",
+    "tokenId": "76",
+    "verdict": "PASS"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "tokenId": 80,
+  "originalOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+  "newOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+  "tbaAddress": "0x3788D5D944f41c6C214c0ed840192D713FacB166",
+  "deactivationVerified": true,
+  "priorAccruedPreserved": true,
+  "reactivationWithNewPicks": [
+    "TSLAx",
+    "GMEx",
+    "SPCXx"
+  ]
+}

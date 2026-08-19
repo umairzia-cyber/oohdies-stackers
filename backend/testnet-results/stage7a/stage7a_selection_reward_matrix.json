@@ -1,0 +1,7 @@
+{
+  "requiredPicks": 3,
+  "rewardAssetCount": 12,
+  "pickCombinatorics": "C(12,3) = 220 unique valid portfolios",
+  "unselectedAssetAccrual": "0",
+  "status": "PASSED"
+}

@@ -1,0 +1,40 @@
+{
+  "testScenario": "Reversed Claim-Order Independence (Bob Claimed First, Alice Claimed Second)",
+  "tokenFirst": "47",
+  "tokenSecond": "48",
+  "asset": "AAPLx",
+  "assetAddress": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+  "commonStatePoint": {
+    "blockNumber": 103517718,
+    "aliceClaimable": "0.005241058709250992",
+    "bobClaimable": "0.004306069342337772",
+    "rewardVaultBalance": "2439.871890614360971795",
+    "aliceTbaBalance": "0.0",
+    "bobTbaBalance": "0.0"
+  },
+  "step1BobClaimFirst": {
+    "txHash": "0xbada71c681a5378690100cce64da4a3e7f09b93e051bfc3b50b6e94bb9a69cde",
+    "blockNumber": 103517743,
+    "gasUsed": "161052",
+    "bobClaimedAmount": "0.00471319359576897",
+    "aliceClaimableAfterBobClaim": "0.006258869342828987",
+    "entitlementPreserved": true
+  },
+  "step2AliceClaimSecond": {
+    "txHash": "0xfd35834c620e30aba9c6773eb0ab78e68f81357623b79823dc2a81f88869b758",
+    "blockNumber": 103517780,
+    "gasUsed": "161052",
+    "aliceClaimedAmount": "0.006564212532902385",
+    "aliceClaimableAfterClaim": "0.000101781063357799",
+    "bobClaimableAfterClaim": "0.000916029570220195"
+  },
+  "balanceConservation": {
+    "vaultBalanceBefore": "2439.871890614360971795",
+    "vaultBalanceAfter": "2439.86061320823230044",
+    "vaultTotalDeduction": "0.011277406128671355",
+    "sumOfClaims": "0.011277406128671355",
+    "conserved": true
+  },
+  "precisionRationale": "Alice's claimable increased from 0.003968 AAPLx at Common State Block to 0.004497 AAPLx after Bob's claim strictly due to block progression (+1 block timestamp delta). No truncation error occurred, and vault conservation holds to exact wei precision (10^-18).",
+  "verdict": "PASS"
+}

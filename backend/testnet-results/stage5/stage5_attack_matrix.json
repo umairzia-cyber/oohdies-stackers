@@ -1,0 +1,27 @@
+[
+  {
+    "attack": "Zero Fee Collection",
+    "expected": "Revert ZeroAmountNotAllowed",
+    "status": "PASS"
+  },
+  {
+    "attack": "Over-spend Unconverted Revenue",
+    "expected": "Revert InsufficientUnconvertedRevenue",
+    "status": "PASS"
+  },
+  {
+    "attack": "Attacker Reward Acquisition",
+    "expected": "Revert OwnableUnauthorizedAccount",
+    "status": "PASS"
+  },
+  {
+    "attack": "Seller TBA Withdrawal Post-Transfer",
+    "expected": "Revert NotAuthorized",
+    "status": "PASS"
+  },
+  {
+    "attack": "Underfunded Vault Claim",
+    "expected": "Revert InsufficientVaultBalance",
+    "status": "PASS"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "tokenId": 4,
+  "ownerBefore": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+  "ownerAfter": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+  "ownerPreserved": true,
+  "activeBefore": true,
+  "activeAfter": true,
+  "activePreserved": true,
+  "picksBefore": [
+    "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+    "0x54338e6EE49F58e7E6814437600E921F60243058",
+    "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88"
+  ],
+  "picksAfter": [
+    "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+    "0x54338e6EE49F58e7E6814437600E921F60243058",
+    "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88"
+  ],
+  "picksPreserved": true,
+  "tbaBefore": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+  "tbaAfter": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+  "tbaPreserved": true,
+  "claimablesBefore": {
+    "USDG": "0",
+    "AAPLx": "288251799893394488986",
+    "TSLAx": "764537586997254267063",
+    "NVDAx": "0",
+    "MSFTx": "0",
+    "AMZNx": "0",
+    "GOOGLx": "0",
+    "METAx": "0",
+    "PLTRx": "0",
+    "AMDx": "781013382001229217434",
+    "GMEx": "0",
+    "SPCXx": "0"
+  },
+  "claimablesAfter": {
+    "USDG": "0",
+    "AAPLx": "288280069345860037251",
+    "TSLAx": "764560821444562788439",
+    "NVDAx": "0",
+    "MSFTx": "0",
+    "AMZNx": "0",
+    "GOOGLx": "0",
+    "METAx": "0",
+    "PLTRx": "0",
+    "AMDx": "781056707557947631284",
+    "GMEx": "0",
+    "SPCXx": "0"
+  },
+  "claimablesPreserved": true,
+  "verdict": "PASS (100% UNTOUCHED)"
+}

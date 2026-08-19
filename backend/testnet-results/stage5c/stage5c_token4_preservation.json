@@ -1,0 +1,12 @@
+{
+  "tokenId": 4,
+  "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+  "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+  "isActivated": true,
+  "chosenAssets": [
+    "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+    "0x54338e6EE49F58e7E6814437600E921F60243058",
+    "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88"
+  ],
+  "isPreserved": true
+}

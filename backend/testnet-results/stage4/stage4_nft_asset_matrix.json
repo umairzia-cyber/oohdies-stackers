@@ -1,0 +1,406 @@
+{
+  "Token_72": {
+    "tokenId": "72",
+    "name": "Token A",
+    "selectedPicks": [
+      "USDG",
+      "AAPLx",
+      "TSLAx"
+    ],
+    "selectedPicksAddresses": [
+      "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "0xD774e7426625B7b2022eC114608EA9730e83a9ad"
+    ],
+    "assets": {
+      "USDG": {
+        "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+        "isSelected": true,
+        "claimableRaw": "148752",
+        "claimableFormatted": "0.148752",
+        "unselectedZeroVerified": true
+      },
+      "AAPLx": {
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "isSelected": true,
+        "claimableRaw": "2869321256994685",
+        "claimableFormatted": "0.002869321256994685",
+        "unselectedZeroVerified": true
+      },
+      "TSLAx": {
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "isSelected": true,
+        "claimableRaw": "2447089947089946",
+        "claimableFormatted": "0.002447089947089946",
+        "unselectedZeroVerified": true
+      },
+      "NVDAx": {
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "MSFTx": {
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMZNx": {
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GOOGLx": {
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "METAx": {
+        "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "PLTRx": {
+        "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMDx": {
+        "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GMEx": {
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "SPCXx": {
+        "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      }
+    },
+    "allUnselectedZero": true
+  },
+  "Token_73": {
+    "tokenId": "73",
+    "name": "Token B",
+    "selectedPicks": [
+      "NVDAx",
+      "MSFTx",
+      "AMZNx"
+    ],
+    "selectedPicksAddresses": [
+      "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+      "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+      "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057"
+    ],
+    "assets": {
+      "USDG": {
+        "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AAPLx": {
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "TSLAx": {
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "NVDAx": {
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "isSelected": true,
+        "claimableRaw": "2300437083045778",
+        "claimableFormatted": "0.002300437083045778",
+        "unselectedZeroVerified": true
+      },
+      "MSFTx": {
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "isSelected": true,
+        "claimableRaw": "3509078184516012",
+        "claimableFormatted": "0.003509078184516012",
+        "unselectedZeroVerified": true
+      },
+      "AMZNx": {
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "isSelected": true,
+        "claimableRaw": "4678786363802472",
+        "claimableFormatted": "0.004678786363802472",
+        "unselectedZeroVerified": true
+      },
+      "GOOGLx": {
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "METAx": {
+        "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "PLTRx": {
+        "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMDx": {
+        "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GMEx": {
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "SPCXx": {
+        "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      }
+    },
+    "allUnselectedZero": true
+  },
+  "Token_74": {
+    "tokenId": "74",
+    "name": "Token C",
+    "selectedPicks": [
+      "GOOGLx",
+      "METAx",
+      "PLTRx"
+    ],
+    "selectedPicksAddresses": [
+      "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+      "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+      "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850"
+    ],
+    "assets": {
+      "USDG": {
+        "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AAPLx": {
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "TSLAx": {
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "NVDAx": {
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "MSFTx": {
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMZNx": {
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GOOGLx": {
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "isSelected": true,
+        "claimableRaw": "5068725253573141",
+        "claimableFormatted": "0.005068725253573141",
+        "unselectedZeroVerified": true
+      },
+      "METAx": {
+        "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+        "isSelected": true,
+        "claimableRaw": "7440476190476188",
+        "claimableFormatted": "0.007440476190476188",
+        "unselectedZeroVerified": true
+      },
+      "PLTRx": {
+        "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+        "isSelected": true,
+        "claimableRaw": "7440476190476188",
+        "claimableFormatted": "0.007440476190476188",
+        "unselectedZeroVerified": true
+      },
+      "AMDx": {
+        "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GMEx": {
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "SPCXx": {
+        "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      }
+    },
+    "allUnselectedZero": true
+  },
+  "Token_75": {
+    "tokenId": "75",
+    "name": "Token D",
+    "selectedPicks": [
+      "AMDx",
+      "GMEx",
+      "SPCXx"
+    ],
+    "selectedPicksAddresses": [
+      "0x54338e6EE49F58e7E6814437600E921F60243058",
+      "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00"
+    ],
+    "assets": {
+      "USDG": {
+        "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AAPLx": {
+        "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "TSLAx": {
+        "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "NVDAx": {
+        "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "MSFTx": {
+        "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMZNx": {
+        "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "GOOGLx": {
+        "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "METAx": {
+        "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "PLTRx": {
+        "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+        "isSelected": false,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      },
+      "AMDx": {
+        "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+        "isSelected": true,
+        "claimableRaw": "1889644746787603",
+        "claimableFormatted": "0.001889644746787603",
+        "unselectedZeroVerified": true
+      },
+      "GMEx": {
+        "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+        "isSelected": true,
+        "claimableRaw": "3358225774686285",
+        "claimableFormatted": "0.003358225774686285",
+        "unselectedZeroVerified": true
+      },
+      "SPCXx": {
+        "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+        "isSelected": true,
+        "claimableRaw": "0",
+        "claimableFormatted": "0.0",
+        "unselectedZeroVerified": true
+      }
+    },
+    "allUnselectedZero": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "assets": {
+    "USDG": {
+      "decimals": 6,
+      "rawPrecisionFactor": "10^6",
+      "verified": true
+    },
+    "AAPLx": {
+      "decimals": 18,
+      "rawPrecisionFactor": "10^18",
+      "verified": true
+    }
+  },
+  "noScalingError": true,
+  "verdict": "PASS"
+}

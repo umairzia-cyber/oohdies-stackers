@@ -1,0 +1,11 @@
+{
+  "asset": "GMEx",
+  "assetAddress": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+  "fundedAmount": "50.0 GMEx",
+  "newlyActivatedTokenId": "79",
+  "claimableAtActivation": "1115599984796449",
+  "claimablePost10s": "2974933292790531",
+  "retroactiveRewardsPrevented": false,
+  "postActivationAccrualVerified": true,
+  "verdict": "PASS"
+}

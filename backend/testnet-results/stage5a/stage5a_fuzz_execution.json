@@ -1,0 +1,57 @@
+{
+  "suiteFile": "backend/test/Stage5EconomicStressAndFuzz.test.js",
+  "deterministicSequences": {
+    "required": 100,
+    "executed": 100,
+    "passed": 100,
+    "failed": 0,
+    "seed": "0xOOHDIES_STAGE5_DETERMINISTIC_SEED_100",
+    "status": "PASS"
+  },
+  "fuzzSequences": {
+    "required": 500,
+    "executed": 500,
+    "passed": 500,
+    "failed": 0,
+    "seed": "0xOOHDIES_STAGE5_FUZZ_SEED_500",
+    "status": "PASS"
+  },
+  "adversarialAttacks": [
+    {
+      "test": "Zero fee generation",
+      "expectedResult": "Revert ZeroAmountNotAllowed",
+      "actualResult": "REVERTED_AS_EXPECTED",
+      "status": "PASS"
+    },
+    {
+      "test": "Over-spend unconverted revenue",
+      "expectedResult": "Revert InsufficientUnconvertedRevenue",
+      "actualResult": "REVERTED_AS_EXPECTED",
+      "status": "PASS"
+    },
+    {
+      "test": "Attacker revenue withdrawal",
+      "expectedResult": "Revert OwnableUnauthorizedAccount",
+      "actualResult": "REVERTED_AS_EXPECTED",
+      "status": "PASS"
+    },
+    {
+      "test": "Non-owner TBA execution",
+      "expectedResult": "Revert NotAuthorized",
+      "actualResult": "REVERTED_AS_EXPECTED",
+      "status": "PASS"
+    },
+    {
+      "test": "Underfunded vault claim",
+      "expectedResult": "Revert InsufficientVaultBalance",
+      "actualResult": "REVERTED_AS_EXPECTED",
+      "status": "PASS"
+    }
+  ],
+  "fullRegressionCount": {
+    "totalTests": 427,
+    "passed": 427,
+    "failed": 0,
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "vaultAddress": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+  "engineAddress": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+  "fundingTxs": [
+    {
+      "phase": "Phase 2",
+      "action": "Deposit AAPLx Backing to RewardVault (10.0 AAPLx)",
+      "transactionHash": "0x2840b28cc60dd9ca7586c6ef6ebe18dad2834a00c908852da243a4f40a8a825e",
+      "blockNumber": 103583793,
+      "timestamp": "2026-08-19T02:00:44.840Z",
+      "sender": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+      "recipient": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+      "rawAmount": "10000000000000000000",
+      "expectedResult": "RewardVault backing deposited",
+      "actualResult": "VAULT_BACKED"
+    },
+    {
+      "phase": "Phase 2",
+      "action": "Fund EarningEngine AAPLx Emission (10.0 AAPLx over 600s)",
+      "transactionHash": "0x8c4ede83a007a42c85bdd87f8dd75e03945e6be0f9c94e01d45e4713cf1e35f1",
+      "blockNumber": 103583846,
+      "timestamp": "2026-08-19T02:00:52.286Z",
+      "sender": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+      "recipient": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+      "rawAmount": "10000000000000000000",
+      "expectedResult": "EarningEngine emission stream active",
+      "actualResult": "ENGINE_FUNDED"
+    }
+  ]
+}

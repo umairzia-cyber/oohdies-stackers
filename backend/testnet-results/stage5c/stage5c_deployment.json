@@ -1,0 +1,13 @@
+{
+  "contractName": "TestnetPhysicalLiquidityPool",
+  "category": "TESTNET ONLY MOCK SETTLEMENT POOL",
+  "contractAddress": "0x1e20451f6F5a2884a66416682928eFb478527539",
+  "deployerAddress": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+  "transactionHash": "0xa59ae22e16303a96818d91e1cc0f47a21fa0bc764b749ffb5cb9f6373f454be3",
+  "blockNumber": 103575250,
+  "chainProvenance": {
+    "rawEthChainId": "0xb626",
+    "decimalChainId": "46630",
+    "verified": true
+  }
+}

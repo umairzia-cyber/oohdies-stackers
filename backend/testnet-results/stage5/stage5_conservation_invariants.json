@@ -1,0 +1,7 @@
+{
+  "revenueConservation": true,
+  "conversionConservation": true,
+  "vaultSolvency": true,
+  "tbaCustodyIntegrity": true,
+  "token4BaselinePreserved": true
+}

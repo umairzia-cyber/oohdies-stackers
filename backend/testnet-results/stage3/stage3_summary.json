@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-08-18T20:15:50.682Z",
+  "network": "Robinhood Chain Testnet",
+  "chainId": "46630",
+  "contracts": {
+    "BANANA_TOKEN": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
+    "OOHDIES_NFT": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "ACTIVATION_CONTROLLER": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "EARNING_ENGINE": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "REWARD_VAULT": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "ERC6551_REGISTRY": "0x000000006551c19487814612e58FE06813775758",
+    "OOHDIES_ACCOUNT_IMPL": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+    "COLLECTION_Q": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7"
+  },
+  "simulationContracts": {
+    "MOCK_REVENUE_TOKEN": "0xd20A8A27534F5ebdf0B36ACe3e2f370d68B8AFCA",
+    "TESTNET_REVENUE_SIMULATOR": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D"
+  },
+  "phases": {
+    "Phase 1 — Deploy Simulation Layer": "PASS",
+    "Phase 2 — Fee Generation & Collection": "PASS",
+    "Phase 3 — Collector Adversarial Security": "PASS",
+    "Phase 4 — Deterministic Reward Acquisition": "PASS",
+    "Phase 5 — RewardVault & Engine Funding": "PASS",
+    "Phase 6 — Fresh NFT Minting & Activation": "PASS",
+    "Phase 7 — Multi-Picker Accrual & Zero-Picker Invariant": "PASS",
+    "Phase 8 — Claim to TBA & EOA Withdrawal": "PASS",
+    "Phase 9 — Loaded NFT Sale & TBA Transfer": "PASS",
+    "Phase 10 — Underfunded Vault Behavior": "PASS",
+    "Phase 11 — Accounting Invariants & Matrix": "PASS"
+  },
+  "verdict": "PASS"
+}

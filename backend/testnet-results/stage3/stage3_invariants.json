@@ -1,0 +1,10 @@
+{
+  "revenueConservation": "VERIFIED",
+  "rewardAcquisitionConservation": "VERIFIED",
+  "tbaAddressStability": "VERIFIED",
+  "dynamicOwnership": "VERIFIED",
+  "sellerLockout": "VERIFIED",
+  "zeroPickerIsolation": "VERIFIED",
+  "decimalScaling": "VERIFIED",
+  "underfundedVaultRevert": "VERIFIED"
+}

@@ -1,0 +1,6 @@
+{
+  "customError": "InsufficientVaultBalance(address asset, uint256 required, uint256 available)",
+  "atomicStateRollback": true,
+  "revertVerifiedOnChain": true,
+  "verdict": "PASS"
+}

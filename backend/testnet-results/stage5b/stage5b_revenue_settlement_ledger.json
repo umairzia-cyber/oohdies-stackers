@@ -1,0 +1,13 @@
+{
+  "totalCollectedWei": "1765000000000000000000",
+  "totalCollectedEth": "1765.0",
+  "totalConvertedWei": "724000000000000000000",
+  "totalConvertedEth": "724.0",
+  "unconvertedRevenueWei": "1041000000000000000000",
+  "unconvertedRevenueEth": "1041.0",
+  "physicalSimulatorRevBalanceWei": "1765000000000000000000",
+  "physicalSimulatorRevBalanceEth": "1765.0",
+  "accountingEqualityHolds": true,
+  "physicalBalanceEqualsCollected": true,
+  "settlementModel": "Accounting-level double-spend protection with internal lock ledger"
+}

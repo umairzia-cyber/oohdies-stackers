@@ -1,0 +1,10 @@
+{
+  "network": "Robinhood Chain Testnet",
+  "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+  "decimalChainId": "46630",
+  "rawEthChainId": "0xb626",
+  "preAuditChainId": "0xb626",
+  "postAuditChainId": "0xb626",
+  "verifiedAt": "2026-08-19T01:09:47.317Z",
+  "isRobinhoodTestnet": true
+}

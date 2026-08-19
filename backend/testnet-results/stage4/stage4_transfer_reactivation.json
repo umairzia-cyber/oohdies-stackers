@@ -1,0 +1,17 @@
+{
+  "tokenId": "76",
+  "initialOwner": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+  "newOwner": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+  "tbaAddress": "0x8249E773f18A0C9bD355985BF25aF02ED2a5cB0b",
+  "tbaAddressUnchanged": true,
+  "deactivatedOnTransfer": true,
+  "reactivatedSuccess": true,
+  "reactivatedPicks": [
+    "MSFTx",
+    "AMZNx",
+    "GOOGLx"
+  ],
+  "oldAccrualPreserved": true,
+  "oldAccrualClaimedToTba": true,
+  "verdict": "PASS"
+}

@@ -1,0 +1,49 @@
+{
+  "suite": "Stage 6 State-Machine Fuzz Testing",
+  "engine": "Hardhat + Mulberry32 Seeded PRNG",
+  "totalSequences": 1250,
+  "batches": [
+    {
+      "id": "FUZZ-01",
+      "seed": 42,
+      "iterations": 250,
+      "focus": "Asset A randomized lifecycle",
+      "status": "PASSED"
+    },
+    {
+      "id": "FUZZ-02",
+      "seed": 123,
+      "iterations": 250,
+      "focus": "Asset B randomized lifecycle",
+      "status": "PASSED"
+    },
+    {
+      "id": "FUZZ-03",
+      "seed": 7777,
+      "iterations": 250,
+      "focus": "Asset C randomized lifecycle",
+      "status": "PASSED"
+    },
+    {
+      "id": "FUZZ-04",
+      "seed": 31337,
+      "iterations": 250,
+      "focus": "Multi-token state transitions",
+      "status": "PASSED"
+    },
+    {
+      "id": "FUZZ-05",
+      "seed": 99,
+      "iterations": 250,
+      "focus": "ERC-6551 TBA execute permission fuzz",
+      "status": "PASSED"
+    }
+  ],
+  "invariantsAsserted": [
+    "accruedReward >= 0 (no negative balances)",
+    "vault totalClaimed <= totalDeposited",
+    "simulator totalConverted <= totalCollected",
+    "TBA execution permitted only when caller == currentOwner"
+  ],
+  "violationsDetected": 0
+}

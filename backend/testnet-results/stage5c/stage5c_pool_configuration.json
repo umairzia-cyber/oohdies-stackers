@@ -1,0 +1,27 @@
+{
+  "poolAddress": "0x1e20451f6F5a2884a66416682928eFb478527539",
+  "revenueTokenAddress": "0xd20A8A27534F5ebdf0B36ACe3e2f370d68B8AFCA",
+  "approvedAssets": [
+    {
+      "symbol": "AAPLx",
+      "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "rate": "1 REV : 0.5 AAPLx",
+      "decimals": 18,
+      "isApproved": true
+    },
+    {
+      "symbol": "USDG",
+      "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "rate": "1 REV : 1.0 USDG",
+      "decimals": 6,
+      "isApproved": true
+    },
+    {
+      "symbol": "GMEx",
+      "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "rate": "1 REV : 0.5 GMEx",
+      "decimals": 18,
+      "isApproved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "cycle": 1,
+    "description": "Small Fee & Disjoint Initial Picks",
+    "status": "PASS"
+  },
+  {
+    "cycle": 2,
+    "description": "Medium Fee, Mid-Period Re-Funding & TBA EOA Withdrawal",
+    "status": "PASS"
+  },
+  {
+    "cycle": 3,
+    "description": "Large Multi-Contributor Fee & Zero-Picker Emission Stream",
+    "status": "PASS"
+  },
+  {
+    "cycle": 4,
+    "description": "Active Cycle Transfer, TBA Custody Retention & Reactivation",
+    "status": "PASS"
+  },
+  {
+    "cycle": 5,
+    "description": "Period Expiry & Final TBA Conservation Settlement",
+    "status": "PASS"
+  }
+]

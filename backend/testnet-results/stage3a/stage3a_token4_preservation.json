@@ -1,0 +1,19 @@
+{
+  "before": {
+    "tokenId": 4,
+    "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "isActive": true,
+    "picksCount": 3,
+    "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+    "tbaAaplBalance": "0.0"
+  },
+  "after": {
+    "tokenId": 4,
+    "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "isActive": true,
+    "picksCount": 3,
+    "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+    "tbaAaplBalance": "0.0",
+    "preserved": true
+  }
+}

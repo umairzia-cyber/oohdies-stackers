@@ -1,0 +1,6 @@
+{
+  "collectionQAddress": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7",
+  "syncFunction": "syncCollectionQ(uint256)",
+  "accrualPreservation": "PRESERVED",
+  "status": "VERIFIED"
+}

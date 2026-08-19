@@ -1,0 +1,65 @@
+[
+  {
+    "action": "1. Withdraw revenue from Simulator",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "2. Unauthorized reward acquisition",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "3. Unauthorized conversion rate alteration",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "4. Fund invalid vault address",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "5. Withdraw from Alice's TBA as Attacker",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "6. Activate Alice's NFT as Attacker",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "7. Unauthorized transfer of Alice's NFT",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  },
+  {
+    "action": "8. Redirect claim payout to Attacker EOA",
+    "role": "Attacker",
+    "expected": "0 GAIN (TBA ONLY)",
+    "result": "0 GAIN",
+    "status": "PASS"
+  },
+  {
+    "action": "9. Replay conversion of already-converted revenue",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT",
+    "status": "PASS"
+  }
+]

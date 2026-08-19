@@ -1,0 +1,98 @@
+{
+  "suite": "Physical Settlement & Liquidity Pool Security",
+  "poolAddress": "0x1e20451f6F5a2884a66416682928eFb478527539",
+  "simulatorAddress": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+  "revenueToken": "0xd20A8A27534F5ebdf0B36ACe3e2f370d68B8AFCA",
+  "vectors": [
+    {
+      "id": "POOL-01",
+      "category": "ACCESS_CONTROL",
+      "targetContract": "TestnetPhysicalLiquidityPool",
+      "targetFunction": "withdrawRevenue",
+      "attackerRole": "UNAUTHORIZED_EOA",
+      "description": "Attacker attempts to drain pool revenue reserves",
+      "expectedRevert": "OwnableUnauthorizedAccount",
+      "status": "PASSED",
+      "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:23.113Z"
+    },
+    {
+      "id": "POOL-02",
+      "category": "ACCESS_CONTROL",
+      "targetContract": "TestnetPhysicalLiquidityPool",
+      "targetFunction": "withdrawRewardLiquidity",
+      "attackerRole": "UNAUTHORIZED_EOA",
+      "description": "Attacker attempts to drain pool reward token liquidity",
+      "expectedRevert": "OwnableUnauthorizedAccount",
+      "status": "PASSED",
+      "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:23.430Z"
+    },
+    {
+      "id": "POOL-03",
+      "category": "ACCESS_CONTROL",
+      "targetContract": "TestnetPhysicalLiquidityPool",
+      "targetFunction": "setAssetRate",
+      "attackerRole": "UNAUTHORIZED_EOA",
+      "description": "Attacker attempts to manipulate pool swap exchange rates",
+      "expectedRevert": "OwnableUnauthorizedAccount",
+      "status": "PASSED",
+      "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:23.757Z"
+    },
+    {
+      "id": "SIM-01",
+      "category": "ACCESS_CONTROL",
+      "targetContract": "TestnetRevenueSimulator",
+      "targetFunction": "withdrawRevenue",
+      "attackerRole": "UNAUTHORIZED_EOA",
+      "description": "Attacker attempts to withdraw revenue from simulator",
+      "expectedRevert": "OwnableUnauthorizedAccount",
+      "status": "PASSED",
+      "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:24.167Z"
+    },
+    {
+      "id": "SIM-02",
+      "category": "ACCESS_CONTROL",
+      "targetContract": "TestnetRevenueSimulator",
+      "targetFunction": "setConversionRate",
+      "attackerRole": "UNAUTHORIZED_EOA",
+      "description": "Attacker attempts to alter simulator conversion rate",
+      "expectedRevert": "OwnableUnauthorizedAccount",
+      "status": "PASSED",
+      "proof": "Call reverted as expected: execution reverted (unknown custom error)",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:24.484Z"
+    },
+    {
+      "id": "INV-SIM",
+      "category": "ECONOMIC_INVARIANT",
+      "targetContract": "TestnetRevenueSimulator",
+      "targetFunction": "totalRevenueConverted",
+      "attackerRole": "ALL",
+      "description": "Simulator totalConverted <= totalCollected invariant holds on live chain",
+      "expectedRevert": "N/A",
+      "status": "PASSED",
+      "proof": "1264.0 <= 2365.0 REV",
+      "transactionHash": null,
+      "blockNumber": null,
+      "timestamp": "2026-08-19T12:53:30.359Z"
+    }
+  ],
+  "invariants": {
+    "totalCollected": "2365000000000000000000",
+    "totalConverted": "1264000000000000000000",
+    "poolRevenueReserves": "0",
+    "isConserved": true
+  }
+}

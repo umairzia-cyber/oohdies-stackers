@@ -1,0 +1,38 @@
+[
+  {
+    "attackId": "ATK_01",
+    "name": "Overspending Unconverted Revenue",
+    "caller": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "target": "0xc5D48E1667c0BdE0FA02B75A6d245FD1D8e49A2D",
+    "expectedRevert": "InsufficientUnconvertedRevenue",
+    "actualOutcome": "REVERTED_ATOMICALLY",
+    "status": "PASS"
+  },
+  {
+    "attackId": "ATK_02",
+    "name": "Attacker Pool Revenue Withdrawal",
+    "caller": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "target": "0x1e20451f6F5a2884a66416682928eFb478527539",
+    "expectedRevert": "OwnableUnauthorizedAccount",
+    "actualOutcome": "REVERTED_ATOMICALLY",
+    "status": "PASS"
+  },
+  {
+    "attackId": "ATK_03",
+    "name": "Attacker Pool Rate Manipulation",
+    "caller": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "target": "0x1e20451f6F5a2884a66416682928eFb478527539",
+    "expectedRevert": "OwnableUnauthorizedAccount",
+    "actualOutcome": "REVERTED_ATOMICALLY",
+    "status": "PASS"
+  },
+  {
+    "attackId": "ATK_04",
+    "name": "Attacker TBA Hijacking",
+    "caller": "0x3c614613E6cA22cdf11c1705F89E0Fd36215B27A",
+    "target": "0xC5fCcfc9c8c5498D127B98082Abcd237EA6d6521",
+    "expectedRevert": "NotAuthorized",
+    "actualOutcome": "REVERTED_ATOMICALLY",
+    "status": "PASS"
+  }
+]

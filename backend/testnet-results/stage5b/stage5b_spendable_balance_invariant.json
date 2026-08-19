@@ -1,0 +1,7 @@
+{
+  "formula": "spendableUnconvertedREV = physicalCollectorREV - accountedConvertedREV",
+  "physicalCollectorREV": "1765000000000000000000",
+  "accountedConvertedREV": "724000000000000000000",
+  "spendableUnconvertedREV": "1041000000000000000000",
+  "isExact": true
+}

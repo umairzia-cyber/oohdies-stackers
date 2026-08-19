@@ -1,0 +1,148 @@
+{
+  "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+  "rawEthChainId": "0xb626",
+  "decimalChainId": 46630,
+  "verifiedAt": "2026-08-18T23:36:37.110Z",
+  "contracts": {
+    "BANANA_TOKEN": {
+      "address": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
+      "hasBytecode": true,
+      "byteLength": 5082
+    },
+    "OOHDIES_NFT": {
+      "address": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+      "hasBytecode": true,
+      "byteLength": 14083
+    },
+    "ACTIVATION_CONTROLLER": {
+      "address": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+      "hasBytecode": true,
+      "byteLength": 6549
+    },
+    "EARNING_ENGINE": {
+      "address": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+      "hasBytecode": true,
+      "byteLength": 19048
+    },
+    "REWARD_VAULT": {
+      "address": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+      "hasBytecode": true,
+      "byteLength": 7346
+    },
+    "ERC6551_REGISTRY": {
+      "address": "0x000000006551c19487814612e58FE06813775758",
+      "hasBytecode": true,
+      "byteLength": 571
+    },
+    "OOHDIES_ACCOUNT_IMPL": {
+      "address": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+      "hasBytecode": true,
+      "byteLength": 5781
+    },
+    "COLLECTION_Q": {
+      "address": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7",
+      "hasBytecode": true,
+      "byteLength": 8779
+    }
+  },
+  "rewardAssets": [
+    {
+      "symbol": "USDG",
+      "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+      "decimals": 6,
+      "isRegistered": true
+    },
+    {
+      "symbol": "AAPLx",
+      "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "TSLAx",
+      "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "NVDAx",
+      "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "MSFTx",
+      "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "AMZNx",
+      "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "GOOGLx",
+      "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "METAx",
+      "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "PLTRx",
+      "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "AMDx",
+      "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "GMEx",
+      "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+      "decimals": 18,
+      "isRegistered": true
+    },
+    {
+      "symbol": "SPCXx",
+      "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+      "decimals": 18,
+      "isRegistered": true
+    }
+  ],
+  "token4Baseline": {
+    "tokenId": 4,
+    "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+    "isActive": true,
+    "picks": [
+      "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+      "0x54338e6EE49F58e7E6814437600E921F60243058",
+      "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88"
+    ],
+    "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+    "claimables": {
+      "USDG": "0",
+      "AAPLx": "288251799893394488986",
+      "TSLAx": "764537586997254267063",
+      "NVDAx": "0",
+      "MSFTx": "0",
+      "AMZNx": "0",
+      "GOOGLx": "0",
+      "METAx": "0",
+      "PLTRx": "0",
+      "AMDx": "781013382001229217434",
+      "GMEx": "0",
+      "SPCXx": "0"
+    }
+  },
+  "wallets": {}
+}

@@ -1,0 +1,104 @@
+{
+  "contracts/ActivationController.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "0c2226b162ef350c5a91c777bedfde633f3220da59fb28623774f2d1718c4545",
+    "sizeBytes": 6309,
+    "lines": 168
+  },
+  "contracts/BananaToken.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "c6efb1244a34e7176d4ae2ed32a139f93cbd85343a7a5800bc5f7cf60a00a474",
+    "sizeBytes": 909,
+    "lines": 35
+  },
+  "contracts/EarningEngine.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "c23647f831dc04e24901e2a0e844c30dcb2eb6868c0389724adbbebe50e17f13",
+    "sizeBytes": 21197,
+    "lines": 546
+  },
+  "contracts/erc6551/ERC6551Registry.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "99b1f0eaee07b264e198692bc46c913a77a920f194fa49158baf1374548d3469",
+    "sizeBytes": 4928,
+    "lines": 125
+  },
+  "contracts/erc6551/IERC6551Account.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "e803566bcafa7037ec37ae30bc521e4b6e8bb06a54df1e78eb7002182f0699a2",
+    "sizeBytes": 598,
+    "lines": 17
+  },
+  "contracts/erc6551/IERC6551Executable.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "96e372484085dbcd73a1602aba64db39272f8f7f97a366a264c0f670b8526c49",
+    "sizeBytes": 435,
+    "lines": 13
+  },
+  "contracts/erc6551/IERC6551Registry.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "bbe146aa6b9de11c762db9f3cff7ba3de3ecbbf7871b8e1adc9dcf8084aa7642",
+    "sizeBytes": 879,
+    "lines": 33
+  },
+  "contracts/mocks/MaliciousTokens.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "3b9c182938572d56df4937df0b4ff84aa36815da1967f1f84e9baab825e0896a",
+    "sizeBytes": 8377,
+    "lines": 255
+  },
+  "contracts/mocks/MockCollectionQ.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "8aeec22d396306e8846c3e379eeb5d13ef49b4799f74e2495bd5db47df474582",
+    "sizeBytes": 882,
+    "lines": 30
+  },
+  "contracts/mocks/MockERC1155.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "0548e9dad7ee227d72f37bece6831dddf7475942344696463cfca8d9dcd84f3b",
+    "sizeBytes": 490,
+    "lines": 18
+  },
+  "contracts/mocks/MockRevenueToken.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "b4289e16dd1b46da5100173783bb2926625860718f7c1d605a86e6f29c1c73b2",
+    "sizeBytes": 651,
+    "lines": 21
+  },
+  "contracts/mocks/MockRewardToken.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "8e01aa98db153eb0dbb21e2a49056bb70e5c97860a0e58a803e63f15028d6e50",
+    "sizeBytes": 665,
+    "lines": 26
+  },
+  "contracts/mocks/TestnetPhysicalLiquidityPool.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "8c45622be91cec040769fc58751c6a7bfe02fc3af60c8ef203a8b4dd61b02a4d",
+    "sizeBytes": 8168,
+    "lines": 202
+  },
+  "contracts/mocks/TestnetRevenueSimulator.sol": {
+    "category": "TESTNET_ONLY_HARNESS",
+    "sha256": "2a58cff1fb716e022d61bc7b6541532bb523685254aa3c9975677440520be0ac",
+    "sizeBytes": 10725,
+    "lines": 287
+  },
+  "contracts/OohdiesAccount.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "5709e4b4e4857a3a0cc5b7b7cbc206e9adcd89bf94ba7ca404b6426c2fc07754",
+    "sizeBytes": 5020,
+    "lines": 129
+  },
+  "contracts/OohdiesNFT.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "1d33be51c9aea0e52c8a55a39fc892b7b635cc4c8412b5b63d545b19053e5b72",
+    "sizeBytes": 4697,
+    "lines": 140
+  },
+  "contracts/RewardVault.sol": {
+    "category": "AUTHORITATIVE_PROTOCOL",
+    "sha256": "108ddd6d5512b6166ef640f01f28c4ae75fe440c6bd757d5c936528b16593e24",
+    "sizeBytes": 6517,
+    "lines": 162
+  }
+}

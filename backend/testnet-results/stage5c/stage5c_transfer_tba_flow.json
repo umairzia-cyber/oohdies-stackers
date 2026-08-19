@@ -1,0 +1,8 @@
+{
+  "tokenId": "84",
+  "from": "0xb34BBf2ddbb35ce17567f2F06FBA10A223a1f399",
+  "to": "0x4255fE13d12c95586948eA6d9A7c4f9e8bea1011",
+  "transferTx": "0x855f025d5e15b7c929352fd609fed2bcc0b37c7c47c9ba5218109ba8bce7740b",
+  "sellerLockoutVerified": true,
+  "buyerWithdrawTx": "0x33643f73636769df269ca1aed1be5d4d77023d0dc7d31f9c05212cba99bb5703"
+}

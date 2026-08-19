@@ -1,0 +1,23 @@
+[
+  {
+    "inputName": "Small Fee",
+    "revInput": "10.0",
+    "expectedAapl": "5.0",
+    "actualAaplAcquired": "5.0",
+    "balanceConserved": true
+  },
+  {
+    "inputName": "Medium Fee",
+    "revInput": "100.0",
+    "expectedAapl": "50.0",
+    "actualAaplAcquired": "50.0",
+    "balanceConserved": true
+  },
+  {
+    "inputName": "Large Spike Fee",
+    "revInput": "1000.0",
+    "expectedAapl": "500.0",
+    "actualAaplAcquired": "500.0",
+    "balanceConserved": true
+  }
+]

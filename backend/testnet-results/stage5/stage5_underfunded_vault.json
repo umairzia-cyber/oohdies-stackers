@@ -1,0 +1,6 @@
+{
+  "testedAsset": "SPCXx",
+  "revertError": "InsufficientVaultBalance",
+  "atomicRollbackVerified": true,
+  "claimableIntactAfterRevert": true
+}

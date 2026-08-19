@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-08-19T00:43:58.015Z",
+  "runId": "stage5_run_1787099894920",
+  "network": "Robinhood Chain Testnet",
+  "chainId": "46630",
+  "rawEthChainId": "0xb626",
+  "verdict": "PASS",
+  "cyclesCompleted": 5,
+  "totalTransactions": 49,
+  "tokensControlled": [
+    80,
+    81,
+    82,
+    83
+  ],
+  "revenueConservation": {
+    "totalCollected": "1765000000000000000000",
+    "totalConverted": "724000000000000000000",
+    "unconvertedRemaining": "1041000000000000000000",
+    "isConserved": true
+  },
+  "token4Preserved": true
+}

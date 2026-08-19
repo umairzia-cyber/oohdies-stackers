@@ -1,0 +1,62 @@
+{
+  "USDG": {
+    "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
+    "activeCount": "4",
+    "activeWeight": "40000"
+  },
+  "AAPLx": {
+    "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
+    "activeCount": "33",
+    "activeWeight": "340000"
+  },
+  "TSLAx": {
+    "address": "0xD774e7426625B7b2022eC114608EA9730e83a9ad",
+    "activeCount": "26",
+    "activeWeight": "260000"
+  },
+  "NVDAx": {
+    "address": "0xAd23D6260be7f28Fb7E5EEb4Df0Ed7192B5F0A95",
+    "activeCount": "24",
+    "activeWeight": "240000"
+  },
+  "MSFTx": {
+    "address": "0xc2560228A2FA28BF004EC20E57EfD9fb1Ec60F9f",
+    "activeCount": "18",
+    "activeWeight": "180000"
+  },
+  "AMZNx": {
+    "address": "0x6944d8f62a41924A9d43eDdcFFDc3E3081D58057",
+    "activeCount": "14",
+    "activeWeight": "140000"
+  },
+  "GOOGLx": {
+    "address": "0x27B8f21ec684807899dBecCeC531bcD48F26C565",
+    "activeCount": "10",
+    "activeWeight": "100000"
+  },
+  "METAx": {
+    "address": "0x0B6cAe5cD868F0Ea5D36f911F18Ba49AD9bE52A2",
+    "activeCount": "5",
+    "activeWeight": "60000"
+  },
+  "PLTRx": {
+    "address": "0x6648AdFd30fe39D3722Cc7D8211517a7f0d00850",
+    "activeCount": "5",
+    "activeWeight": "60000"
+  },
+  "AMDx": {
+    "address": "0x54338e6EE49F58e7E6814437600E921F60243058",
+    "activeCount": "14",
+    "activeWeight": "140000"
+  },
+  "GMEx": {
+    "address": "0x2AD89Af86FD287421F4C6091Cee6021c333b21c8",
+    "activeCount": "10",
+    "activeWeight": "100000"
+  },
+  "SPCXx": {
+    "address": "0xd213294D9981734675d6719Dc97Fb6C484a5Ce00",
+    "activeCount": "8",
+    "activeWeight": "80000"
+  }
+}

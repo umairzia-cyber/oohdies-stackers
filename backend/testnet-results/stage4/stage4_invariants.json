@@ -1,0 +1,10 @@
+{
+  "invariantA_SelectionIsolation": "PASS — All 9 unselected assets for every active NFT strictly produce 0 accrual delta.",
+  "invariantB_SelectedAssetAccrual": "PASS — Selected 3 assets accrue according to exact mathematical reward rate and picker divisor.",
+  "invariantC_AssetIsolation": "PASS — Operations on one asset stream do not modify active counts or accruals of another stream.",
+  "invariantD_NFTIsolation": "PASS — Activation, claim, or transfer of NFT A does not alter baseline or claimable entitlements of NFT B.",
+  "invariantE_NoRetroactiveRewards": "PASS — Newly activated NFTs start strictly at 0 claimable at activation timestamp.",
+  "invariantF_ZeroPickerIntegrity": "PASS — Streams with 0 active pickers do not leak or allocate rewards to unselected NFTs.",
+  "invariantG_Conservation": "PASS — Sum of all claimed payouts equals exact wei deduction from RewardVault balance.",
+  "overallVerdict": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "formula": "totalCollectedREV = simulatorUnconvertedREV + poolPhysicalREV",
+  "simulatorPhysicalREV": "1825.0",
+  "poolPhysicalREV": "540.0",
+  "totalSettledInPool": "0.0",
+  "status": "EXACT_CONSERVED_0_WEI_DISCREPANCY"
+}

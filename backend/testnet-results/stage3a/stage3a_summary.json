@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-08-18T22:27:44.505Z",
+  "network": "Robinhood Chain Testnet",
+  "chainId": "46630",
+  "chainIdHex": "0xb626",
+  "contracts": {
+    "BANANA_TOKEN": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
+    "OOHDIES_NFT": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "ACTIVATION_CONTROLLER": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "EARNING_ENGINE": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "REWARD_VAULT": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "ERC6551_REGISTRY": "0x000000006551c19487814612e58FE06813775758",
+    "OOHDIES_ACCOUNT_IMPL": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+    "COLLECTION_Q": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7"
+  },
+  "simulationContracts": {
+    "MOCK_REVENUE_TOKEN": "0x75a01B305DBB1775de428565ab89F190d368AAD5",
+    "TESTNET_REVENUE_SIMULATOR": "0xD36ce47adb831dbb9736E61016e36AaC720C4314"
+  },
+  "gaps": {
+    "Gap 1: Zero Revenue": {
+      "status": "PASS",
+      "zeroFeeReverted": true,
+      "revenueUnchanged": true
+    },
+    "Gap 2: Revenue Spikes": {
+      "status": "PASS",
+      "spikes": [
+        {
+          "inputName": "Small Fee",
+          "revInput": "10.0",
+          "expectedAapl": "5.0",
+          "actualAaplAcquired": "5.0",
+          "balanceConserved": true
+        },
+        {
+          "inputName": "Medium Fee",
+          "revInput": "100.0",
+          "expectedAapl": "50.0",
+          "actualAaplAcquired": "50.0",
+          "balanceConserved": true
+        },
+        {
+          "inputName": "Large Spike Fee",
+          "revInput": "1000.0",
+          "expectedAapl": "500.0",
+          "actualAaplAcquired": "500.0",
+          "balanceConserved": true
+        }
+      ]
+    },
+    "Gap 3: Replay/Double Conversion": {
+      "status": "PASS",
+      "overspendReverted": true,
+      "doubleSpendReverted": true
+    },
+    "Gap 4: Multiple Picker Economics": {
+      "status": "PASS",
+      "tokenA": "40",
+      "tokenB": "41",
+      "tokenC": "42",
+      "threeWayDivisionVerified": true,
+      "deactivationOnTransferVerified": true,
+      "twoWaySubsequentDivisionVerified": true
+    },
+    "Gap 5: Claim-Order Independence": {
+      "status": "PASS",
+      "tokenAClaimed": "0.010585214666114307",
+      "tokenBClaimed": "0.009818842688032899",
+      "orderIndependenceProven": true
+    },
+    "Gap 6: Transfer & Reactivation": {
+      "status": "PASS",
+      "oldAccrualPreserved": true,
+      "newStreamsAccruing": true,
+      "tbaClaimSuccessful": true
+    },
+    "Gap 7: Decimal Proof": {
+      "status": "PASS",
+      "proof": {
+        "usdg": {
+          "symbol": "USDG",
+          "decimals": 6,
+          "revSpent": "50000000000000000000",
+          "revSpentFormatted": "50.0 REV",
+          "rateNumerator": "1",
+          "rateDenominator": "1",
+          "rawAcquired": "50000000",
+          "formattedAcquired": "50.0 USDG",
+          "rawVaultDeposit": "50000000",
+          "rawEngineFunding": "50000000",
+          "scalingVerified": "EXACT (10^18 -> 10^6 integer scale 10^12)"
+        },
+        "aaplx": {
+          "symbol": "AAPLx",
+          "decimals": 18,
+          "revSpent": "100000000000000000000",
+          "revSpentFormatted": "100.0 REV",
+          "rateNumerator": "1",
+          "rateDenominator": "2",
+          "rawAcquired": "50000000000000000000",
+          "formattedAcquired": "50.0 AAPLx",
+          "rawVaultDeposit": "50000000000000000000",
+          "rawEngineFunding": "50000000000000000000",
+          "scalingVerified": "EXACT (10^18 -> 10^18 integer math)"
+        }
+      }
+    },
+    "Gap 8: Underfunded Vault": {
+      "status": "PASS",
+      "expectedError": "InsufficientVaultBalance(address,uint256,uint256)",
+      "reverted": true,
+      "atomicRollbackVerified": true
+    },
+    "Gap 9: Attacker Matrix": {
+      "status": "PASS",
+      "matrix": [
+        {
+          "action": "1. Withdraw revenue from Simulator",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "2. Unauthorized reward acquisition",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "3. Unauthorized conversion rate alteration",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "4. Fund invalid vault address",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "5. Withdraw from Alice's TBA as Attacker",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "6. Activate Alice's NFT as Attacker",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "7. Unauthorized transfer of Alice's NFT",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        },
+        {
+          "action": "8. Redirect claim payout to Attacker EOA",
+          "role": "Attacker",
+          "expected": "0 GAIN (TBA ONLY)",
+          "result": "0 GAIN",
+          "status": "PASS"
+        },
+        {
+          "action": "9. Replay conversion of already-converted revenue",
+          "role": "Attacker",
+          "expected": "REVERT",
+          "result": "REVERT",
+          "status": "PASS"
+        }
+      ]
+    },
+    "Gap 10: Token #4 Preservation": "PASS"
+  },
+  "token4Preservation": {
+    "before": {
+      "tokenId": 4,
+      "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+      "isActive": true,
+      "picksCount": 3,
+      "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+      "tbaAaplBalance": "0.0"
+    },
+    "after": {
+      "tokenId": 4,
+      "owner": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
+      "isActive": true,
+      "picksCount": 3,
+      "tbaAddress": "0xB870c844f50769bCB1C5B43C6652475c9fb19278",
+      "tbaAaplBalance": "0.0",
+      "preserved": true
+    }
+  },
+  "verdict": "PASS"
+}

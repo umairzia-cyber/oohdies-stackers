@@ -1,0 +1,44 @@
+[
+  {
+    "action": "Pay Protocol Fee",
+    "role": "User",
+    "expected": "PASS",
+    "result": "PASS"
+  },
+  {
+    "action": "Steal Revenue from Collector",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Unauthorized Reward Acquisition",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Double-Conversion / Overspend",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Withdraw TBA as NFT Owner",
+    "role": "Owner",
+    "expected": "PASS",
+    "result": "PASS"
+  },
+  {
+    "action": "Withdraw TBA as Previous Owner (Seller)",
+    "role": "Seller",
+    "expected": "REVERT",
+    "result": "REVERT"
+  },
+  {
+    "action": "Withdraw TBA as Attacker",
+    "role": "Attacker",
+    "expected": "REVERT",
+    "result": "REVERT"
+  }
+]

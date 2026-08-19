@@ -2,51 +2,37 @@
   "network": "robinhoodTestnet",
   "chainId": "46630",
   "deployer": "0xe77E25f891C21de29E6d6674941e30F19DdA86C7",
-  "timestamp": "2026-08-14T18:47:00.593Z",
+  "timestamp": "2026-08-18T00:54:00.000Z",
   "contracts": {
     "BananaToken": {
-      "address": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
-      "transactionHash": "0xfa37bf4b99704263cc46c8fe893363ab6a751f9683a106c3b2ec467671afd4a8",
-      "blockNumber": 421689,
-      "gasUsed": "1474390"
+      "address": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1"
     },
     "OohdiesNFT": {
-      "address": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
-      "transactionHash": "0xb81d0c09167f7c37993ea4c497c4cf220aca06433850cef478f69e90c4e47662",
-      "blockNumber": 421690,
-      "gasUsed": "3541295"
+      "address": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A"
     },
     "ActivationController": {
-      "address": "0x9d3A2350d8679B8828003b96D35c125037F29F49",
-      "transactionHash": "0xdacc0650d0dab8320ff8327a48c6be7f9db3fb2613357cd3c888df458675515a",
-      "blockNumber": 421691,
-      "gasUsed": "1229329"
+      "address": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7"
     },
     "EarningEngine": {
-      "address": "0xB17eD4e01FbBA8F123412156a3545dB53585c179",
-      "transactionHash": "0x3bea63053df32a040bd847044ec17b3fd197ff5c44c0abb0d8a2fa28dcc10b97",
-      "blockNumber": 421692,
-      "gasUsed": "3055281"
+      "address": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1"
     },
     "RewardVault": {
-      "address": "0xC7DD1b6110dBdDf15636240f85341de2b8B21EfD",
-      "transactionHash": "0xb1e54ca5609c049718b0fa1cf22a146b7d50d8887b7315fbad395273bed5df35",
-      "blockNumber": 421693,
-      "gasUsed": "1745818"
+      "address": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C"
     },
-    "MockUSDG": {
-      "address": "0xF25905f4ba33706ab2C064da2e786bc33d21cf0f",
-      "transactionHash": "0x9c3a49129eff812e23dd0fbfbea8164aa2458ecafd3552a29d9feec98b81de2d",
-      "blockNumber": 101213717,
-      "gasUsed": "1265667"
+    "ERC6551Registry": {
+      "address": "0x000000006551c19487814612e58FE06813775758"
     },
-    "MockAAPLx": {
-      "address": "0xd38EAB6b104950b0443d3c6FB432e89631BDbC88",
-      "transactionHash": "0x291ac026d02fd5e4c02ffe46e65adf2023e2040cca4377127dd88d603878c59a",
-      "blockNumber": 101213736,
-      "gasUsed": "1266313"
+    "OohdiesAccount": {
+      "address": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8"
+    },
+    "MockCollectionQ": {
+      "address": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7"
     }
   },
-  "configurations": {},
-  "gasUsedTotal": "13578093"
+  "configurations": {
+    "activationCostBanana": "100",
+    "requiredStockPicks": 3,
+    "rewardAssetCount": 12,
+    "collectionQMultiplierBps": 20000
+  }
 }

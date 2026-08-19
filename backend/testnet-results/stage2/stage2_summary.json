@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-08-18T19:31:44.156Z",
+  "network": "Robinhood Chain Testnet",
+  "chainId": "46630",
+  "contracts": {
+    "BANANA_TOKEN": "0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1",
+    "OOHDIES_NFT": "0xf5AB3DC05cCa7FB47b4129DfA7713a89dc85476A",
+    "ACTIVATION_CONTROLLER": "0x739536FD3fCa15f0ef19c32FCA03fE6510650eD7",
+    "EARNING_ENGINE": "0x623283c4b68d91ffCea057E6dd6084824E269Fa1",
+    "REWARD_VAULT": "0x2FB7E3F8e0DB58eBa1B38B79Dcfd54DA99cf3A8C",
+    "ERC6551_REGISTRY": "0x000000006551c19487814612e58FE06813775758",
+    "OOHDIES_ACCOUNT_IMPL": "0xFEd0429452592011C4e4c6C92560Bc2DB558CbE8",
+    "COLLECTION_Q": "0x65eAf7036fa72E8e4094Dd9f06Dcb6A43c530AD7"
+  },
+  "phases": {
+    "Phase 1 — Pre-Flight": "PASS",
+    "Phase 2 — Wallet Funding": "PASS",
+    "Phase 3 — NFT Ownership & Mint": "PASS",
+    "Phase 4 — TBA Derivation": "PASS",
+    "Phase 5 & 6 — TBA Creation & Ownership": "PASS",
+    "Phase 7 — Direct ERC20 & TBA Withdrawal": "PASS",
+    "Phase 8 — Unauthorized TBA Withdrawal Security": "PASS",
+    "Phase 9 & 10 — Activation & On-Chain Picks": "PASS",
+    "Phase 11 — Unselected Asset Isolation": "PASS",
+    "Phase 12 & 13 — Multi-Picker Division": "PASS",
+    "Phase 14 & 15 — Claim to TBA & Owner Withdrawal": "PASS",
+    "Phase 16 — Permissionless Claim Security": "PASS",
+    "Phase 17–21 — NFT Transfer, TBA Stability & Security": "PASS",
+    "Phase 22 & 23 — Deactivation & Reactivation": "PASS",
+    "Phase 24 & 25 — Claim Independence & Zero-Picker Invariant": "PASS",
+    "Phase 26 — Negative Activation Tests": "PASS",
+    "Phase 27 — BANANA Accounting": "PASS",
+    "Phase 28 — Reward Vault Accounting": "PASS",
+    "Phase 29 — Full Balance Conservation": "PASS",
+    "Phase 30 — Attacker Authorization Matrix": "PASS"
+  },
+  "totalTransactions": 17,
+  "verdict": "PASS"
+}
