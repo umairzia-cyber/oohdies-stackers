@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
 
@@ -103,6 +103,9 @@
 
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  /* Ballpoint. Only ever used for things a person wrote on a printed page by
+     hand — margin notes and signatures — never for interface text. */
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;

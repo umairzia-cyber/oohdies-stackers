@@ -61,13 +61,10 @@ export const COLLECTION_PAGE = {
   heading: 'MEET THE OOHDIES',
   description:
     'Hand-drawn, none repeated. Every Oohdie carries its own traits into the stack — and the rarer the build, the harder it works.',
-  wallLabel: 'LIVE FROM THE VAULT',
-  ladderHeading: 'RARITY LADDER',
-  vaultHeading: 'THE VAULT',
-  filterAllLabel: 'ALL',
-  emptyLabel: 'Nothing at this tier yet.',
-  viewerHint: 'Use ← → to move through the vault, Esc to close.',
-  traitsHeading: 'TRAITS',
+  wallLabel: 'STAFF ON PREMISES',
+  rosterHeading: 'MEET THE TEAM',
+  rosterNote: 'Five of the workforce, on the record.',
+  recordLabel: 'RECORD',
   cta: 'START STACKING',
 } as const;
 
@@ -157,7 +154,7 @@ export const SEO = {
   },
   collection: {
     title: 'The Collection — Oohdie',
-    description: 'All 1,111 Oohdies. Browse the vault, study the traits, and find the build you want in your stack.',
+    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Employees on the record.',
   },
   activate: {
     title: 'Activate — Oohdie',
