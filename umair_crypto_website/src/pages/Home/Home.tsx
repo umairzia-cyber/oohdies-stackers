@@ -1,6 +1,6 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
-import { HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
+import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
@@ -110,19 +110,65 @@ function SpaceTradingBannerSection() {
   return (
     <section className="section section--space-banner" ref={ref} aria-label="Space Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`space-banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Space Station">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Space Station">
           <img
             src="/assets/space-hero-bg.jpg"
             alt="Oohdie Space Trading Monkey Floating in Galaxy with Charts"
-            className="space-banner-card__image"
+            className="banner-card__image"
             width={1200}
             height={675}
             loading="lazy"
           />
-          <div className="space-banner-card__badge">
+          <div className="banner-card__badge">
             <span className="stock-icon-symbol">🌌</span> GALAXY ACCUMULATION STATION
           </div>
         </Link>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Extraction Band ──────────────────────────────────
+   A split band rather than another wide banner card. The render is square and
+   reads top-to-bottom — rotor, Oohdie, coin-stamped crate — so cropping it to
+   16:9 would throw away both ends of the composition. Running it beside the
+   copy at its native ratio keeps the picture intact and breaks up what would
+   otherwise be three identical banner cards in a row. */
+function ExtractionBandSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section section--extraction" ref={ref} aria-labelledby="extraction-heading">
+      <div className="container">
+        <div className={`extraction-band ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <figure className="extraction-band__art">
+            <img
+              src="/assets/extraction-airlift.jpg"
+              alt="An Oohdie in field gear riding the lift lines of a helicopter, standing on a crate stamped with a gold Oohdie coin as it is airlifted out of the jungle at sunset."
+              className="extraction-band__img"
+              width={1024}
+              height={1024}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="extraction-band__glow" aria-hidden="true" />
+          </figure>
+
+          <div className="extraction-band__copy">
+            <p className="extraction-band__tag">THE STACK TRAVELS WITH IT</p>
+            <h2 id="extraction-heading" className="heading-md">
+              EVERYTHING IT EARNS STAYS IN THE CRATE
+            </h2>
+            <p className="body-lg extraction-band__desc">
+              Rewards accrue into the NFT&rsquo;s own on-chain account, not yours. Sell the
+              Oohdie and the whole stack goes with it &mdash; tier, split and balance
+              intact. Nothing has to be swept out first.
+            </p>
+            <Link to={ROUTES.THE_TRAIL} className="extraction-band__link">
+              See where the troop is headed &rarr;
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -175,7 +221,21 @@ function StatsSection() {
 
           <div className="stat-card-main">
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
-              <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
+              <div className="flex items-center gap-2">
+                {/* The same medallion stamped on the airlifted crate below. A
+                    repeat of a mark already introduced, so it is decorative. */}
+                <img
+                  src="/assets/oohdie-coin.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="coin-mark coin-mark--stat"
+                  width={28}
+                  height={28}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
+              </div>
               <span className="text-xs text-accent font-mono">12 Supported Stocks & USDG</span>
             </div>
 
@@ -302,6 +362,82 @@ function ShowcaseSection() {
   );
 }
 
+/* ─── Alliance Band ────────────────────────────────────
+   Sits directly under the showcase, whose last card is about how much an
+   Oohdie earns. This is the one lever on that number that is not bought with
+   $BANANA, so it belongs immediately after it rather than further down.
+
+   Held to a partnership band, not a banner card: the perks are numbers read
+   off EarningEngine, and numbers need a panel to sit in. The plate bleeds to
+   the card edge on the picture side, so the figures stand on the bottom rail
+   the way the render composed them.
+
+   Copy and every figure in it live in ALLIANCE in constants/content.ts —
+   including the note on what has to be re-checked on chain before any of it
+   is edited. */
+function AllianceSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section section--alliance" ref={ref} aria-labelledby="alliance-heading">
+      <div className="container">
+        <article className={`alliance-card ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="alliance-card__rail">
+            <p className="alliance-card__mark">{ALLIANCE.mark}</p>
+            <p className="alliance-card__ref">{ALLIANCE.ref}</p>
+          </header>
+
+          <div className="alliance-card__body">
+            <div className="alliance-card__copy">
+              <h2 id="alliance-heading" className="alliance-card__heading">
+                <span className="alliance-card__heading-line">{ALLIANCE.headingLine1}</span>
+                <span className="alliance-card__heading-line text-accent">{ALLIANCE.headingLine2}</span>
+              </h2>
+
+              <p className="alliance-card__tagline">{ALLIANCE.tagline}</p>
+              <p className="alliance-card__desc">{ALLIANCE.body}</p>
+
+              <dl className="alliance-card__perks">
+                {ALLIANCE.perks.map((perk) => (
+                  <div key={perk.value} className="alliance-perk">
+                    <dt className="alliance-perk__value">{perk.value}</dt>
+                    <dd className="alliance-perk__label">{perk.label}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="alliance-card__note">{ALLIANCE.note}</p>
+
+              <a
+                href={ALLIANCE.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="alliance-card__cta"
+              >
+                {ALLIANCE.cta} ↗
+              </a>
+            </div>
+
+            <figure className="alliance-card__plate">
+              <img
+                src="/assets/stonkbrokers-alliance.webp"
+                alt={ALLIANCE.imageAlt}
+                className="alliance-card__img"
+                width={1200}
+                height={860}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </div>
+
+          <p className="alliance-card__strip">{ALLIANCE.strip}</p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Collection Strip ─────────────────────────────────
    Was a featured hero plus a full six-card grid, which cost most of a screen
    to say something the collection's own page now says properly. Compressed to
@@ -363,16 +499,16 @@ function CaveTradingBannerSection() {
   return (
     <section className="section section--cave-banner" ref={ref} aria-label="Cave Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`cave-banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Trading Desk">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Trading Desk">
           <img
             src="/assets/cave-cta-bg.jpg"
             alt="Oohdie Cave Trading Desk Station"
-            className="cave-banner-card__image"
+            className="banner-card__image"
             width={1200}
             height={675}
             loading="lazy"
           />
-          <div className="cave-banner-card__badge">
+          <div className="banner-card__badge">
             <span className="stock-icon-symbol">🖥️</span> LIVE 24/7 MARKET ENGINE
           </div>
         </Link>
@@ -414,10 +550,92 @@ function FinalCTASection() {
   return (
     <section className="section cta-final cta-final--clean" ref={ref} aria-labelledby="cta-heading">
       <div className={`container text-center cta-final__content ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+        <img
+          src="/assets/oohdie-coin.png"
+          alt="The Oohdie coin — a gold medallion stamped with an Oohdie in profile."
+          className="coin-mark coin-mark--cta"
+          width={96}
+          height={96}
+          loading="lazy"
+          decoding="async"
+        />
         <h2 id="cta-heading" className="heading-xl mb-8">READY TO EAT?</h2>
         <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg animate-pulse-glow">
           MINT OOHDIE
         </Link>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Crate Tease ──────────────────────────────────────
+   The stinger. Placed after the CTA on purpose, the same way Appendix B sits
+   after the CTA on /collection: it is not an offer, and putting it last means
+   it never competes with the thing the page is actually asking for.
+
+   Built as the same document Appendix B is — head, plate, struck-out field
+   list, stamp — because both are the Firm's own paperwork. The two are not the
+   same announcement and must not be written as if they were; see CRATE_TEASE
+   in constants/content.ts.
+
+   Not a link. There is nowhere to send anyone yet, so it is an article and the
+   plate is a figure. The whole panel sits back at rest and comes up when it is
+   leant on, which is the only interaction it has. */
+function CrateTeaseSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section crate-tease" ref={ref} aria-labelledby="crate-tease-heading">
+      <div className="container">
+        <article className={`crate-tease__doc ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="crate-tease__head">
+            <h2 id="crate-tease-heading" className="crate-tease__label">
+              {CRATE_TEASE.label}
+            </h2>
+            <p className="crate-tease__ref">{CRATE_TEASE.docRef}</p>
+            <p className="crate-tease__clearance">{CRATE_TEASE.clearance}</p>
+          </header>
+
+          <div className="crate-tease__body">
+            <figure className="crate-tease__plate">
+              <img
+                src={CRATE_TEASE.image}
+                alt={CRATE_TEASE.imageAlt}
+                className="crate-tease__img"
+                width={800}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="crate-tease__scan" aria-hidden="true" />
+              <figcaption className="crate-tease__plate-note">
+                {CRATE_TEASE.imageNote}
+              </figcaption>
+            </figure>
+
+            <div className="crate-tease__record">
+              <dl className="crate-tease__fields">
+                {CRATE_TEASE.fields.map((entry) => (
+                  <div className="field" key={entry.label}>
+                    <dt className="field__label">{entry.label}</dt>
+                    <span className="field__leader" aria-hidden="true" />
+                    <dd
+                      className={`field__value ${
+                        entry.value === '[REDACTED]' ? 'field__value--struck' : ''
+                      }`}
+                    >
+                      {entry.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+            </div>
+          </div>
+
+          <p className="crate-tease__footer">{CRATE_TEASE.footer}</p>
+        </article>
       </div>
     </section>
   );
@@ -432,11 +650,14 @@ export default function Home() {
       <HeroSection />
       <SpaceTradingBannerSection />
       <StatsSection />
+      <ExtractionBandSection />
       <ShowcaseSection />
+      <AllianceSection />
       <CollectionSection />
       <CaveTradingBannerSection />
       <HowItWorksSection />
       <FinalCTASection />
+      <CrateTeaseSection />
     </main>
   );
 }

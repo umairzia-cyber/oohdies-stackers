@@ -1,17 +1,15 @@
 import type { Rarity } from '../types';
 
 /**
- * Collection data for the home-page strip and the /collection gallery.
+ * Collection data for the home-page strip and the /collection header wall.
  *
- * ADDING ART — the whole thing is driven by ARCHETYPES below. Drop the render
- * into /public/assets/collection, add one entry here, and both the strip and
- * the gallery pick it up. Nothing else needs touching.
+ * ADDING ART — the home-page strip is driven by ARCHETYPES below. Drop the
+ * render into /public/assets/collection and add one entry here. The header wall
+ * on /collection runs off WALL_ART instead — see the note there for why it is a
+ * separate, plainer list.
  *
- * Until the full 1,111 are rendered the gallery is built by repeating these
- * archetypes at weights that mimic a real rarity curve, so the wall has enough
- * bodies to read as a collection. Traits and rarity live on the archetype
- * rather than the individual piece, which keeps it honest: the same render
- * always reports the same traits.
+ * Traits and rarity live on the archetype rather than on individual pieces,
+ * which keeps it honest: the same render always reports the same traits.
  */
 
 /** Final mint size. The gallery only ever shows a sample of it. */
@@ -29,8 +27,6 @@ export interface Archetype {
   readonly rarity: Rarity;
   readonly description: string;
   readonly traits: readonly Trait[];
-  /** Share of the generated gallery this archetype fills. Should sum to ~1. */
-  readonly weight: number;
 }
 
 export const ARCHETYPES: readonly Archetype[] = [
@@ -47,7 +43,6 @@ export const ARCHETYPES: readonly Archetype[] = [
       { label: 'Mouth', value: 'Lit Cigarette' },
       { label: 'Attire', value: 'Field Shirt' },
     ],
-    weight: 0.38,
   },
   {
     key: 'cyber-cowboy',
@@ -62,7 +57,6 @@ export const ARCHETYPES: readonly Archetype[] = [
       { label: 'Eyes', value: 'Chrome Optic — Red' },
       { label: 'Attire', value: 'Spiked Fur Coat' },
     ],
-    weight: 0.27,
   },
   {
     key: 'brain-dome',
@@ -77,7 +71,6 @@ export const ARCHETYPES: readonly Archetype[] = [
       { label: 'Face', value: 'Black Respirator' },
       { label: 'Attire', value: 'Trench Coat & Tie' },
     ],
-    weight: 0.19,
   },
   {
     key: 'samurai-ronin',
@@ -92,7 +85,6 @@ export const ARCHETYPES: readonly Archetype[] = [
       { label: 'Attire', value: 'Lacquered Ō-Yoroi' },
       { label: 'Aura', value: 'Honour-Bound' },
     ],
-    weight: 0.11,
   },
   {
     key: 'dragon-skull',
@@ -107,89 +99,64 @@ export const ARCHETYPES: readonly Archetype[] = [
       { label: 'Eyes', value: 'Wide Fury' },
       { label: 'Aura', value: 'Ancient' },
     ],
-    weight: 0.05,
   },
 ];
 
-export interface GalleryPiece {
-  readonly key: string;
-  readonly tokenId: number;
-  readonly name: string;
-  readonly image: string;
-  readonly rarity: Rarity;
-  readonly description: string;
-  readonly traits: readonly Trait[];
-}
-
-export const RARITY_ORDER: readonly Rarity[] = [
-  'COMMON',
-  'UNCOMMON',
-  'RARE',
-  'EPIC',
-  'LEGENDARY',
-];
-
-/*
- * Token ids are spread across the supply with a coprime stride so they look
- * scattered rather than sequential, while staying identical on every render —
- * a real shuffle here would renumber the art on each paint.
- */
-const ID_STRIDE = 137;
-
-function tokenIdAt(index: number): number {
-  return ((index * ID_STRIDE) % COLLECTION_SIZE) + 1;
-}
-
 /**
- * Builds a gallery of `count` pieces by repeating the archetypes at their
- * weights, then interleaving them so the grid mixes tiers instead of running
- * commons-first. Deterministic: same input, same wall, every render.
+ * The header wall on /collection — decorative only, so these are bare paths
+ * rather than archetypes: the wall never opens a piece, names it, or reports a
+ * tier, and demanding traits for forty renders to scroll them past would be
+ * bookkeeping nobody reads.
+ *
+ * ADDING ART — drop the render in /public/assets/collection and add its path.
+ * The rows re-deal themselves, so no other edit is needed.
+ *
+ * Ordered so that near-identical builds (four ronin, three dragon skulls) are
+ * never neighbours: the list rotates through the families rather than grouping
+ * them, and the row deal below widens the gaps again.
  */
-export function buildGallery(count: number): readonly GalleryPiece[] {
-  /*
-   * Spread each archetype evenly across the whole grid rather than dealing
-   * them round-robin. A plain round-robin runs out of the rare tiers early and
-   * leaves a long tail of nothing but the common build; giving every piece a
-   * fractional slot and sorting on it keeps all five tiers mixed end to end.
-   */
-  const owedPer = ARCHETYPES.map((archetype) =>
-    Math.max(1, Math.round(archetype.weight * count)),
-  );
-
-  // Rounding each share independently lands short of (or over) the target, so
-  // settle the difference on the commonest tier — the one place a few pieces
-  // either way does not distort the curve.
-  const commonest = owedPer.indexOf(Math.max(...owedPer));
-  const shortfall = count - owedPer.reduce((sum, n) => sum + n, 0);
-  owedPer[commonest] = Math.max(1, owedPer[commonest] + shortfall);
-
-  const slotted = ARCHETYPES.flatMap((archetype, k) => {
-    const owed = owedPer[k];
-    return Array.from({ length: owed }, (_, j) => ({
-      archetype,
-      slot: (j + 0.5) / owed,
-    }));
-  });
-
-  slotted.sort((a, b) => a.slot - b.slot);
-
-  return slotted.slice(0, count).map(({ archetype }, index) => {
-    const tokenId = tokenIdAt(index);
-
-    return {
-      key: `${archetype.key}-${tokenId}`,
-      tokenId,
-      name: `Oohdie #${String(tokenId).padStart(4, '0')} — ${archetype.name}`,
-      image: archetype.image,
-      rarity: archetype.rarity,
-      description: archetype.description,
-      traits: archetype.traits,
-    };
-  });
-}
-
-/** The wall on /collection. Big enough to feel deep, small enough to stay fast. */
-export const COLLECTION_GALLERY = buildGallery(48);
+export const WALL_ART: readonly string[] = [
+  '/assets/collection/user_art_1.jpg',
+  '/assets/collection/user_art_5.jpg',
+  '/assets/collection/oohdie-visor-captain.jpg',
+  '/assets/collection/user_art_4.jpg',
+  '/assets/collection/oohdie-mohawk-scruff.jpg',
+  '/assets/collection/user_art_3.jpg',
+  '/assets/collection/oohdie-crowned-admiral.jpg',
+  '/assets/collection/oohdie-cosmic-cat-hood.jpg',
+  '/assets/collection/oohdie-steampunk-pale.jpg',
+  '/assets/collection/oohdie-third-eye-cap.jpg',
+  '/assets/collection/user_art_2.jpg',
+  '/assets/collection/oohdie-astronaut.jpg',
+  '/assets/collection/oohdie-camo-bucket.jpg',
+  '/assets/collection/oohdie-ronin-pale.jpg',
+  '/assets/collection/oohdie-tiger-captain.jpg',
+  '/assets/collection/oohdie-dragon-skull-plum.jpg',
+  '/assets/collection/oohdie-mohawk-crew-cream.jpg',
+  '/assets/collection/oohdie-brain-dome-respirator.jpg',
+  '/assets/collection/oohdie-crowned-admiral-slate.jpg',
+  '/assets/collection/oohdie-cosmic-cat-crew.jpg',
+  '/assets/collection/oohdie-steampunk-leopard.jpg',
+  '/assets/collection/oohdie-backcap-ape.jpg',
+  '/assets/collection/oohdie-cyber-cowboy-amber.jpg',
+  '/assets/collection/oohdie-star-wizard.jpg',
+  '/assets/collection/oohdie-leopard-ruff.jpg',
+  '/assets/collection/oohdie-ronin-dark.jpg',
+  '/assets/collection/oohdie-dress-captain.jpg',
+  '/assets/collection/oohdie-dragon-skull-steel.jpg',
+  '/assets/collection/oohdie-mohawk-crew-plum.jpg',
+  '/assets/collection/oohdie-brain-dome-olive.jpg',
+  '/assets/collection/oohdie-bear-hoodie.jpg',
+  '/assets/collection/oohdie-pharaoh.jpg',
+  '/assets/collection/oohdie-violet-tophat.jpg',
+  '/assets/collection/oohdie-goggle-lollipop.jpg',
+  '/assets/collection/oohdie-ronin-necktie.jpg',
+  '/assets/collection/oohdie-apple-arrow.jpg',
+  '/assets/collection/oohdie-pirate-tricorn.jpg',
+  '/assets/collection/oohdie-laurel-cyborg.jpg',
+  '/assets/collection/oohdie-pixel-visor.jpg',
+  '/assets/collection/oohdie-ronin-katana.jpg',
+];
 
 /**
  * Fisher-Yates over a copy. Used for the home-page strip, which draws a fresh

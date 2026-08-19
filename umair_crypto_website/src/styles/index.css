@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
 
@@ -103,6 +103,9 @@
 
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  /* Ballpoint. Only ever used for things a person wrote on a printed page by
+     hand — margin notes and signatures — never for interface text. */
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -728,6 +731,60 @@ h1, h2, h3, h4, h5, h6 {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   white-space: nowrap;
+}
+
+/* ── Document field row ────────────────────────────────────────────────────
+   Label, dotted leader, value — one line of a form the Firm printed. Used by
+   the personnel records and Appendix B on /collection and by the receiving-bay
+   stinger on the home page, which is why it lives here rather than in either
+   page's sheet. Consumers that need bigger rows or different separators
+   override on their own container; see .appendix__fields and .directory__fields
+   in Collection.css. */
+.field {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.field + .field {
+  border-top: 1px solid color-mix(in srgb, var(--border-primary) 55%, transparent);
+}
+
+.field__label {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* A flex spacer rather than generated dots: it can never wrap away from its
+   value, and it collapses gracefully when the row runs out of room. */
+.field__leader {
+  flex: 1 1 auto;
+  min-width: var(--space-4);
+  align-self: center;
+  border-bottom: 1px dotted var(--border-secondary);
+  transform: translateY(-1px);
+}
+
+.field__value {
+  color: var(--text-primary);
+  text-align: right;
+  font-weight: 500;
+}
+
+.field__value--numeric { color: var(--accent); font-weight: 600; }
+.field__value--good    { color: var(--spore); }
+.field__value--bad     { color: var(--danger); }
+.field__value--neutral { color: var(--text-secondary); }
+
+/* Redacted values are printed, not liftable: struck through rather than
+   blacked out, so nobody hunts for a reveal that does not exist. The blocked-
+   out bars on /the-trail are the other treatment — see .trail-redaction. */
+.field__value--struck {
+  color: var(--danger);
+  opacity: 0.7;
 }
 
 .callout {
