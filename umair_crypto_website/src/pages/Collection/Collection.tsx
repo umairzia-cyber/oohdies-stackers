@@ -74,10 +74,10 @@ export default function Collection() {
    on purpose: it is a stinger, not an offer, and putting it last means it never
    competes with the thing the page is actually asking for.
 
-   Two images stacked in the same box — a 72px copy at rest and a 160px copy
-   revealed on hover — so the picture sharpens without ever resolving. Both are
-   nearest-neighbour upscaled, which hides the detail and hints at the pixel-art
-   direction in the same move. */
+   The plate shows the render plainly. It used to be a pair of tiny upscaled
+   copies that sharpened on hover without resolving; that was removed at the
+   user's request, so the withholding now rests entirely on the redacted fields
+   beside it. */
 function AppendixB() {
   return (
     <section className="appendix" aria-labelledby="appendix-heading">
@@ -94,19 +94,11 @@ function AppendixB() {
           <div className="appendix__body">
             <figure className="appendix__plate">
               <img
-                src={APPENDIX_B.imageLocked}
+                src={APPENDIX_B.image}
                 alt={APPENDIX_B.imageAlt}
-                className="appendix__img appendix__img--locked"
-                loading="lazy"
-                decoding="async"
-              />
-              {/* Decorative: the same picture at a higher resolution, so
-                  announcing it twice would only repeat the alt above. */}
-              <img
-                src={APPENDIX_B.imagePartial}
-                alt=""
-                aria-hidden="true"
-                className="appendix__img appendix__img--partial"
+                className="appendix__img"
+                width={1024}
+                height={1024}
                 loading="lazy"
                 decoding="async"
               />

@@ -281,23 +281,21 @@ export const DIRECTORY = {
  * RTFKT's Project Animus opened on an egg nursery inside a research facility
  * without naming what hatches. The object is shown; its meaning is not.
  *
- * The artwork is served deliberately tiny (72px, upscaled with nearest-
- * neighbour) so it degrades into blocks — which both hides the detail and
- * hints at the pixel-art direction. Hovering swaps in a 160px copy: it
- * sharpens, but never resolves.
+ * The artwork used to be served deliberately tiny and upscaled with nearest-
+ * neighbour so it degraded into blocks. That was removed at the user's
+ * request: the plate now shows the render at full resolution, and the
+ * withholding is carried entirely by the copy below — every field redacted
+ * except the two that carry the actual news.
  */
 export const APPENDIX_B = {
   label: 'APPENDIX B',
   docRef: 'MB-RD-002',
   clearance: 'Clearance: Denied',
 
-  imageLocked: '/assets/rd/appendix-b-locked.jpg',
-  imagePartial: '/assets/rd/appendix-b-partial.jpg',
+  image: '/assets/rd/appendix-b.jpg',
   imageNote: 'SOURCE WITHHELD',
-  /* Says what is visible at the resting resolution and no more, so the alt
-     text gives nothing away that the picture does not. */
   imageAlt:
-    'A heavily pixelated image. A horned figure sits beside a machine, and a chain of glowing eggs runs away from it.',
+    'A horned, fur-legged figure with glowing red eyes sits in a lava-lit cavern beside a machine, watching a conveyor carry a chain of glowing pixel-art eggs past holographic readouts.',
 
   fields: [
     { label: 'Project', value: '[REDACTED]' },

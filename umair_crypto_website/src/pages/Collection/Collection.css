@@ -730,16 +730,18 @@
    ========================================================================== */
 .appendix {
   padding-bottom: var(--section-padding);
-  /* No top padding: it should feel appended to the page rather than given a
-     section of its own. */
-  padding-top: 0;
+  /* It used to run with no top padding so it read as appended rather than as a
+     section of its own. Now that the document spans the container it is a band
+     in its own right, and butting it straight against the CTA above just looks
+     cramped. */
+  padding-top: var(--space-10);
 }
 
 .appendix__doc {
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: var(--space-5);
+  /* Spans the container. The panel is the page's last word, so it is allowed
+     to take the full width rather than sitting in a 640px column. */
+  width: 100%;
+  padding: var(--space-8);
   border: 1px dashed var(--border-secondary);
   border-radius: var(--radius-md);
   background-color: color-mix(in srgb, var(--bg-sunken) 60%, transparent);
@@ -765,7 +767,7 @@
 }
 
 .appendix__label {
-  font-size: var(--text-sm);
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--text-secondary);
@@ -787,8 +789,11 @@
 
 .appendix__body {
   display: grid;
-  grid-template-columns: 210px minmax(0, 1fr);
-  gap: var(--space-5);
+  /* The plate grows with the panel — at the old 210px it would read as a
+     thumbnail stranded in a wide box. Capped rather than fluid so the fields
+     keep a workable column on a large monitor. */
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+  gap: var(--space-8);
   align-items: start;
 }
 
@@ -800,35 +805,18 @@
   background-color: var(--bg-primary);
 }
 
-/* Both copies fill the same box; the sharper one fades in over the blocky one.
-   Nearest-neighbour is the point — it withholds the detail and states the
-   pixel-art direction in the same move. */
+/* The plate shows the render plainly. This used to be two stacked copies
+   upscaled with nearest-neighbour so the picture sharpened on hover without
+   ever resolving; the pixelation was removed at the user's request, and the
+   withholding now rests on the redacted fields beside it instead. */
 .appendix__img {
   display: block;
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  image-rendering: pixelated;
-}
-
-/* The source art is a dark cave, so it gets lifted rather than dimmed —
-   everything else in this panel is already holding it back. */
-.appendix__img--locked {
+  /* The source art is a dark cave, so it gets lifted rather than dimmed —
+     everything else in this panel is already holding it back. */
   filter: brightness(1.15) contrast(1.05);
-}
-
-.appendix__img--partial {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  opacity: 0;
-  transition: opacity var(--duration-slow) var(--ease-out);
-}
-
-/* It sharpens. It never resolves. */
-.appendix__doc:hover .appendix__img--partial,
-.appendix__doc:focus-within .appendix__img--partial {
-  opacity: 0.9;
 }
 
 /* Coarse scanlines over the plate only — reads as a degraded capture rather
@@ -863,9 +851,16 @@
   text-overflow: ellipsis;
 }
 
-/* Reuses the roster's field rows wholesale — same readout, same firm. */
+/* Reuses the roster's field rows wholesale — same readout, same firm. The rows
+   set their own size, so stepping them up has to be done on .field itself
+   rather than on this container. */
 .appendix__fields {
   font-size: var(--text-sm);
+}
+
+.appendix__fields .field {
+  font-size: var(--text-base);
+  padding: var(--space-3) 0;
 }
 
 /* Redacted values here are printed, not liftable: struck through rather than
@@ -900,6 +895,15 @@
     inset: 0;
     opacity: 0.42;
   }
+
+  .appendix__body {
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .appendix__doc {
+    padding: var(--space-6);
+  }
 }
 
 @media (max-width: 768px) {
@@ -921,8 +925,16 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* Plate above the fields. 220px was sized for the old 640px panel and looks
+     stranded now that the document runs the full width. */
   .appendix__plate {
-    max-width: 220px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .appendix__fields .field {
+    font-size: var(--text-sm);
   }
 
   .firm__doc {
