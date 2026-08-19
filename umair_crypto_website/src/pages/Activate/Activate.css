@@ -394,6 +394,43 @@
   transform: none;
 }
 
+/* ── Nile plate ────────────────────────────────────────────────────────────
+   Closes the page. It carries lettering carved into the wall, so it renders at
+   its own ratio with no crop — a max-height here would cut the title off. The
+   caption sits under the plate rather than floating on top of it: the badge
+   treatment it wore on the home page read as a call to action, and there is
+   nothing here left to act on. */
+.activate-nile {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-16);
+}
+
+.activate-nile__plate {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+}
+
+.activate-nile__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.activate-nile__caption {
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--border-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 @media (max-width: 1024px) {
   .activate-header-grid {
     grid-template-columns: 1fr;

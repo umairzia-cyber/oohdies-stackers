@@ -1,6 +1,6 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
-import { CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
+import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
@@ -362,33 +362,77 @@ function ShowcaseSection() {
   );
 }
 
-/* ─── Nile Banner ──────────────────────────────────────
-   Sits directly under the showcase, whose first card claims twelve ways to
-   earn. This is that claim as a picture, so it links to where the split is
-   actually chosen rather than back to this page. */
-function NileBannerSection() {
+/* ─── Alliance Band ────────────────────────────────────
+   Sits directly under the showcase, whose last card is about how much an
+   Oohdie earns. This is the one lever on that number that is not bought with
+   $BANANA, so it belongs immediately after it rather than further down.
+
+   Held to a partnership band, not a banner card: the perks are numbers read
+   off EarningEngine, and numbers need a panel to sit in. The plate bleeds to
+   the card edge on the picture side, so the figures stand on the bottom rail
+   the way the render composed them.
+
+   Copy and every figure in it live in ALLIANCE in constants/content.ts —
+   including the note on what has to be re-checked on chain before any of it
+   is edited. */
+function AllianceSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
 
   return (
-    <section className="section section--nile-banner" ref={ref} aria-label="Tokenized Stock Market Visual Showcase">
+    <section className="section section--alliance" ref={ref} aria-labelledby="alliance-heading">
       <div className="container">
-        <Link
-          to={`${ROUTES.ACTIVATE}#mint`}
-          className={`banner-card banner-card--uncropped block ${isVisible ? 'reveal--visible' : 'reveal'}`}
-          title="Pick your stock split"
-        >
-          <img
-            src="/assets/nile-banner.jpg"
-            alt="A pixel-art Oohdie pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
-            className="banner-card__image"
-            width={1024}
-            height={571}
-            loading="lazy"
-          />
-          <div className="banner-card__badge">
-            <span className="stock-icon-symbol">📈</span> ELEVEN STOCKS &middot; ONE SPLIT
+        <article className={`alliance-card ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="alliance-card__rail">
+            <p className="alliance-card__mark">{ALLIANCE.mark}</p>
+            <p className="alliance-card__ref">{ALLIANCE.ref}</p>
+          </header>
+
+          <div className="alliance-card__body">
+            <div className="alliance-card__copy">
+              <h2 id="alliance-heading" className="alliance-card__heading">
+                <span className="alliance-card__heading-line">{ALLIANCE.headingLine1}</span>
+                <span className="alliance-card__heading-line text-accent">{ALLIANCE.headingLine2}</span>
+              </h2>
+
+              <p className="alliance-card__tagline">{ALLIANCE.tagline}</p>
+              <p className="alliance-card__desc">{ALLIANCE.body}</p>
+
+              <dl className="alliance-card__perks">
+                {ALLIANCE.perks.map((perk) => (
+                  <div key={perk.value} className="alliance-perk">
+                    <dt className="alliance-perk__value">{perk.value}</dt>
+                    <dd className="alliance-perk__label">{perk.label}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="alliance-card__note">{ALLIANCE.note}</p>
+
+              <a
+                href={ALLIANCE.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="alliance-card__cta"
+              >
+                {ALLIANCE.cta} ↗
+              </a>
+            </div>
+
+            <figure className="alliance-card__plate">
+              <img
+                src="/assets/stonkbrokers-alliance.webp"
+                alt={ALLIANCE.imageAlt}
+                className="alliance-card__img"
+                width={1200}
+                height={860}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
           </div>
-        </Link>
+
+          <p className="alliance-card__strip">{ALLIANCE.strip}</p>
+        </article>
       </div>
     </section>
   );
@@ -529,9 +573,14 @@ function FinalCTASection() {
    after the CTA on /collection: it is not an offer, and putting it last means
    it never competes with the thing the page is actually asking for.
 
-   Not a link — there is nowhere to send anyone yet. The plate only dims and
-   lifts on hover; there is no colour to restore, because the file ships as
-   single-channel greyscale rather than a colour image dimmed in CSS. */
+   Built as the same document Appendix B is — head, plate, struck-out field
+   list, stamp — because both are the Firm's own paperwork. The two are not the
+   same announcement and must not be written as if they were; see CRATE_TEASE
+   in constants/content.ts.
+
+   Not a link. There is nowhere to send anyone yet, so it is an article and the
+   plate is a figure. The whole panel sits back at rest and comes up when it is
+   leant on, which is the only interaction it has. */
 function CrateTeaseSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
 
@@ -540,26 +589,52 @@ function CrateTeaseSection() {
       <div className="container">
         <article className={`crate-tease__doc ${isVisible ? 'reveal--visible' : 'reveal'}`}>
           <header className="crate-tease__head">
-            <h2 id="crate-tease-heading" className="crate-tease__badge">
-              {CRATE_TEASE.badge}
+            <h2 id="crate-tease-heading" className="crate-tease__label">
+              {CRATE_TEASE.label}
             </h2>
-            <p className="crate-tease__ref">{CRATE_TEASE.ref}</p>
+            <p className="crate-tease__ref">{CRATE_TEASE.docRef}</p>
+            <p className="crate-tease__clearance">{CRATE_TEASE.clearance}</p>
           </header>
 
-          <figure className="crate-tease__plate">
-            <img
-              src="/assets/rd/crate-sealed.jpg"
-              alt={CRATE_TEASE.imageAlt}
-              className="crate-tease__img"
-              width={800}
-              height={800}
-              loading="lazy"
-              decoding="async"
-            />
-            <span className="crate-tease__scan" aria-hidden="true" />
-          </figure>
+          <div className="crate-tease__body">
+            <figure className="crate-tease__plate">
+              <img
+                src={CRATE_TEASE.image}
+                alt={CRATE_TEASE.imageAlt}
+                className="crate-tease__img"
+                width={800}
+                height={800}
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="crate-tease__scan" aria-hidden="true" />
+              <figcaption className="crate-tease__plate-note">
+                {CRATE_TEASE.imageNote}
+              </figcaption>
+            </figure>
 
-          <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+            <div className="crate-tease__record">
+              <dl className="crate-tease__fields">
+                {CRATE_TEASE.fields.map((entry) => (
+                  <div className="field" key={entry.label}>
+                    <dt className="field__label">{entry.label}</dt>
+                    <span className="field__leader" aria-hidden="true" />
+                    <dd
+                      className={`field__value ${
+                        entry.value === '[REDACTED]' ? 'field__value--struck' : ''
+                      }`}
+                    >
+                      {entry.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+            </div>
+          </div>
+
+          <p className="crate-tease__footer">{CRATE_TEASE.footer}</p>
         </article>
       </div>
     </section>
@@ -577,7 +652,7 @@ export default function Home() {
       <StatsSection />
       <ExtractionBandSection />
       <ShowcaseSection />
-      <NileBannerSection />
+      <AllianceSection />
       <CollectionSection />
       <CaveTradingBannerSection />
       <HowItWorksSection />

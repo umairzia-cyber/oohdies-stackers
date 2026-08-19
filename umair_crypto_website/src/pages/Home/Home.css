@@ -101,10 +101,10 @@
 }
 
 /* ── Banner cards ──────────────────────────────────────────────────────────
-   One wide image in a card, used by the space, Nile and cave bands. The three
-   were byte-identical copies of each other; they share this block now so a
-   fourth banner costs a class name rather than another fifty lines. Section
-   padding still differs per band, so that stays on the section modifiers. */
+   One wide image in a card, used by the space and cave bands. The two were
+   byte-identical copies of each other; they share this block now so a third
+   banner costs a class name rather than another fifty lines. Section padding
+   still differs per band, so that stays on the section modifiers. */
 .banner-card {
   display: block;
   position: relative;
@@ -134,15 +134,6 @@
   max-height: 520px;
   object-fit: cover;
   display: block;
-}
-
-/* The shared max-height crops top and bottom, which the space and cave art
-   absorb fine. The Nile wall has readable text carved into it — the title and
-   the ticker rows — so it opts out and renders at its natural ratio instead.
-   Specificity is deliberately raised above .banner-card__image so the
-   responsive caps further down cannot crop it back. */
-.banner-card.banner-card--uncropped .banner-card__image {
-  max-height: none;
 }
 
 .banner-card__badge {
@@ -675,9 +666,182 @@
   text-shadow: 0 0 10px var(--lime-glow-strong);
 }
 
-.section--nile-banner {
+/* ── Alliance band ─────────────────────────────────────────────────────────
+   The StonkBrokers partnership. Deliberately not another .banner-card: the
+   point of this block is four numbers taken off EarningEngine, and a picture
+   with a badge on it cannot carry numbers. It gets an instrument panel
+   instead — hairline rails top and bottom, copy and plate side by side.
+
+   Palette rule holds throughout: every figure is amber because a multiplier is
+   a value, and the only lime here is the link out, because it is the only
+   thing on the card you can click. The bottom rail is the loudest line in the
+   reference design we were shown; here it stays a quiet mono strip, since
+   making it a lime bar would promise a click it does not have. */
+.section--alliance {
   padding-top: var(--space-12);
   padding-bottom: var(--space-8);
+}
+
+.alliance-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+  box-shadow: 0 0 35px var(--accent-a12);
+}
+
+.alliance-card__rail,
+.alliance-card__strip {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.alliance-card__rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  border-bottom: 1px dashed var(--border-primary);
+}
+
+.alliance-card__mark {
+  color: var(--text-secondary);
+}
+
+.alliance-card__ref {
+  margin-left: auto;
+}
+
+.alliance-card__body {
+  display: grid;
+  /* The copy column carries four perk rows and a paragraph; the plate is happy
+     at any width, so the split favours the words. */
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: stretch;
+}
+
+.alliance-card__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-6);
+}
+
+.alliance-card__heading {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-3xl);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.alliance-card__heading-line {
+  display: block;
+}
+
+.alliance-card__tagline {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.alliance-card__desc {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 52ch;
+}
+
+.alliance-card__perks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3) var(--space-5);
+  width: 100%;
+  margin: 0;
+}
+
+.alliance-perk {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-primary);
+}
+
+.alliance-perk__value {
+  flex-shrink: 0;
+  min-width: 3.5ch;
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.alliance-perk__label {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.alliance-card__note {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 56ch;
+}
+
+.alliance-card__cta {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--lime);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--lime-a20);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.alliance-card__cta:hover {
+  border-color: var(--lime);
+  box-shadow: 0 0 18px var(--lime-glow);
+}
+
+/* The plate bleeds to the card's own edge. The render is cropped at its
+   bottom, so the figures have to stand on the rail rather than float above a
+   strip of invented floor — hence the bottom-right anchor on the crop. */
+.alliance-card__plate {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-left: 1px solid var(--border-primary);
+}
+
+.alliance-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right bottom;
+}
+
+.alliance-card__strip {
+  padding: var(--space-3) var(--space-6);
+  border-top: 1px dashed var(--border-primary);
+  text-align: center;
 }
 
 .section--cave-banner {
@@ -745,10 +909,16 @@
   background-color: var(--bg-primary);
 }
 
+/* Same document as Appendix B on /collection — dashed edge, sunken ground,
+   ruled head, struck-out field list, stamp along the bottom. They are two
+   different unannounced things filed by the same firm, so they share the
+   stationery and nothing else. The field rows themselves are the shared
+   .field primitive in index.css. */
 .crate-tease__doc {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-5);
+  /* Spans the container, as the appendix does. It was a 640px column when the
+     plate was all there was to show; the record beside it needs the room. */
+  width: 100%;
+  padding: var(--space-8);
   border: 1px dashed var(--border-secondary);
   border-radius: var(--radius-md);
   background-color: color-mix(in srgb, var(--bg-sunken) 60%, transparent);
@@ -758,7 +928,9 @@
    shared .reveal / .reveal--visible classes, which animate opacity on entry at
    the same specificity — and Home.css loads after index.css, so a resting
    opacity here silently wins and pins the section, killing its scroll reveal.
-   The held-back look comes from the plate's brightness instead, below. */
+   This is the one place the appendix cannot be copied: it sits back at 0.82 and
+   comes up on hover, and doing that here would cost the reveal. The held-back
+   look comes from the plate's brightness instead, below. */
 
 .crate-tease__head {
   display: flex;
@@ -766,23 +938,50 @@
   align-items: baseline;
   gap: var(--space-3);
   padding-bottom: var(--space-3);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   border-bottom: 1px dashed var(--border-primary);
   font-family: var(--font-mono);
 }
 
-.crate-tease__badge {
-  font-size: var(--text-sm);
+.crate-tease__label {
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--text-secondary);
 }
 
 .crate-tease__ref {
-  margin-left: auto;
   font-size: var(--text-xs);
   letter-spacing: 0.12em;
   color: var(--text-muted);
+}
+
+.crate-tease__clearance {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--danger);
+  opacity: 0.85;
+}
+
+/* The plate column is pinned to the width the plate already had as a 640px
+   panel, so widening the document did not quietly resize the picture. */
+.crate-tease__body {
+  display: grid;
+  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+  gap: var(--space-8);
+  /* Stretched rather than start-aligned: the form is a good bit shorter than
+     the plate beside it, and letting the record run the plate's full height
+     puts the closing line on the foot of the sheet instead of leaving a third
+     of the panel empty under it. */
+  align-items: stretch;
+}
+
+.crate-tease__record {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
 }
 
 .crate-tease__plate {
@@ -805,7 +1004,14 @@
      This carried a blur as well, to keep the lettering on the cartons from
      naming an unannounced product. The user asked for grey only, so the blur
      is gone and the render is legible — that is the intended state now, not an
-     oversight. */
+     oversight.
+
+     The appendix lifts its plate instead of holding it back, because its art
+     is a dark cave and the fields beside it do all the withholding. Here the
+     picture would say the quiet part out loud at full exposure, so the fields
+     and the brightness both hold the line. CRATE_TEASE.imageAlt is written to
+     match this exposure — brighten the plate and the alt text has to change
+     with it. */
   filter: brightness(0.7) contrast(0.95);
   transition: filter var(--duration-slow) var(--ease-out);
 }
@@ -831,12 +1037,52 @@
   );
 }
 
+.crate-tease__plate-note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-1) var(--space-2);
+  background-color: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Rows step up from the .field default the same way the appendix steps them,
+   and for the same reason: at --text-sm a six-row form reads as fine print
+   rather than as the thing you are meant to be reading. */
+.crate-tease__fields .field {
+  font-size: var(--text-base);
+  padding: var(--space-3) 0;
+}
+
+/* The one line that is not a form field — what the form is actually about,
+   left under it like something written on the bottom of the sheet. */
 .crate-tease__manifest {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--border-primary);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--text-muted);
+}
+
+.crate-tease__footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -891,6 +1137,25 @@
     grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
     gap: var(--space-6);
   }
+
+  .alliance-card__heading {
+    font-size: var(--text-2xl);
+  }
+
+  .alliance-card__perks {
+    grid-template-columns: 1fr;
+  }
+
+  /* The plate gives up its pinned width before the record column does — a
+     600px picture beside a squeezed form is the wrong thing to protect. */
+  .crate-tease__body {
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .crate-tease__doc {
+    padding: var(--space-6);
+  }
 }
 
 @media (max-width: 768px) {
@@ -934,11 +1199,59 @@
   .collection-strip__row {
     --strip-columns: 4;
   }
+
+  /* Plate first: the render is what makes this read as a partnership before a
+     word of it is read. Its height is released to the file's own ratio here,
+     so nothing is cropped once it has the full width to itself. */
+  .alliance-card__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .alliance-card__plate {
+    order: -1;
+    border-left: none;
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .alliance-card__img {
+    height: auto;
+  }
+
+  .alliance-card__copy {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .alliance-card__rail,
+  .alliance-card__strip {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+
+  /* Plate over record. Below this a two-column split leaves the field rows too
+     narrow for a label, a leader and a value to share a line. */
+  .crate-tease__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .crate-tease__plate {
+    max-width: 420px;
+  }
 }
 
 @media (max-width: 480px) {
   .collection-strip__row {
     --strip-columns: 3;
+  }
+
+  .alliance-card__strip {
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+  }
+
+  /* Once the rail wraps, pinning the reference right leaves it stranded on a
+     line of its own. Let it fall in under the mark instead. */
+  .alliance-card__ref {
+    margin-left: 0;
   }
 
   .hero__actions {

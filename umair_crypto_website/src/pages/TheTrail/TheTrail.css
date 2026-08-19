@@ -232,6 +232,57 @@
   max-width: 60ch;
 }
 
+/* Sits under the list, in the list's own column. -2/-1 resolves to the last
+   column either way, so it follows the list down when the layout collapses to
+   one column at 900px rather than needing a second rule there. */
+.trail-expeditions__note {
+  grid-column: -2 / -1;
+  margin-top: var(--space-6);
+  padding-left: calc(36px + var(--space-5));
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ---- Withheld phrases -------------------------------------------------------
+
+   A marker-pen blackout is the obvious way to draw this and the wrong one here:
+   the page sits on #070e0b, so black ink on black ground is a hole you cannot
+   see, and the sentence just looks broken. The bar has to be *lighter* than the
+   page to register as something deliberately taken out.
+
+   So it reads as excised rather than inked — a hatched block the width of the
+   missing phrase, ruled like the unsurveyed ground it stands for, on a raised
+   grey-green surface with a hairline edge. Neutral on purpose: the palette
+   reserves lime for things you can click and amber for values, and this is
+   neither.
+
+   Width comes from --redaction-length, set per instance in TheTrail.tsx and
+   measured in ch, so a longer phrase leaves a longer gap. max-width keeps a
+   long bar from pushing the column sideways on a narrow screen; the bar cannot
+   break across lines, so bodies are written as several short redactions rather
+   than one long one.
+*/
+.trail-redaction {
+  display: inline-block;
+  vertical-align: baseline;
+  width: calc(var(--redaction-length, 8) * 1ch);
+  max-width: 100%;
+  height: 0.95em;
+  margin: 0 0.12em;
+  transform: translateY(0.1em);
+  border: 1px solid color-mix(in srgb, var(--text-muted) 45%, transparent);
+  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--text-muted) 16%, transparent);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--text-muted) 38%, transparent) 0 1px,
+    transparent 1px 5px
+  );
+}
+
 /* Uncharted expeditions recede: unlit marker, dashed edge, muted type. They are
    deliberately still legible — the point is to show there IS more trail. */
 .trail-expedition--uncharted .trail-expedition__marker {
@@ -337,6 +388,11 @@
 
   .trail-expeditions__list::before {
     left: 13px;
+  }
+
+  /* Keeps step with the narrower marker column above. */
+  .trail-expeditions__note {
+    padding-left: calc(28px + var(--space-4));
   }
 }
 
