@@ -35,7 +35,7 @@ export const ARCHETYPES: readonly Archetype[] = [
     name: 'Camo Tiger',
     image: '/assets/collection/user_art_1.jpg',
     rarity: 'COMMON',
-    description: 'Tiger-striped Oohdie in a leopard camo bucket hat. Keeps a low profile while stacking.',
+    description: 'Tiger-striped Associate in a leopard camo bucket hat. Keeps a low profile while stacking.',
     traits: [
       { label: 'Background', value: 'Dusk Mauve' },
       { label: 'Hide', value: 'Tiger Stripe' },

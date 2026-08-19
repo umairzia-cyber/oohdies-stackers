@@ -161,7 +161,7 @@
 
 /* ── Extraction band ───────────────────────────────────────────────────────
    The airlift render is square, and its composition runs top to bottom —
-   rotor, Oohdie, coin-stamped crate. Cropping it into a wide banner would cut
+   rotor, Associate, coin-stamped crate. Cropping it into a wide banner would cut
    the helicopter off the top and the crate off the bottom, so it gets a split
    band instead: art at its native ratio beside the copy. That also breaks up
    the run of wide banner cards this page would otherwise become. */
@@ -270,7 +270,7 @@
 }
 
 
-.stats-grid-stackers {
+.stats-grid-associates {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);

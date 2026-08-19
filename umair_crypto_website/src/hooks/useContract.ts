@@ -242,7 +242,7 @@ export function useContract() {
             let usdgClaimableStr = '0.00';
             let aaplClaimableStr = '0.0000';
 
-            // Read even when deactivated — an Oohdie can still hold rewards claimed earlier.
+            // Read even when deactivated — an Associate can still hold rewards claimed earlier.
             await Promise.all(
               chosenAssets.map(async (asset: RewardAssetConfig) => {
                 const key = asset.address.toLowerCase();
@@ -318,7 +318,7 @@ export function useContract() {
 
             return {
               tokenId,
-              name: `Oohdie #${String(tokenId).padStart(3, '0')}`,
+              name: `Associate #${String(tokenId).padStart(3, '0')}`,
               image: `/assets/collection/user_art_${artIndex}.jpg`,
               walletAddress,
               isActivated: Boolean(isAct),
@@ -355,7 +355,7 @@ export function useContract() {
     try {
       const vaultContract = new ethers.Contract(CONTRACT_ADDRESSES.REWARD_VAULT, REWARD_VAULT_ABI, publicProvider);
 
-      // Gathered per wallet, not per connected address. Counts everything the user's Oohdies have
+      // Gathered per wallet, not per connected address. Counts everything the user's Associates have
       // claimed, whether or not it was since withdrawn.
       const walletAddresses = tokenIds.map((id) => predictAccountAddress(id));
       if (walletAddresses.length === 0) {
@@ -460,7 +460,7 @@ export function useContract() {
             id: `claim-${ev.transactionHash}-${tokenId}-${assetAddr}`,
             type: 'claim',
             typeLabel: 'CLAIM',
-            title: `Oohdie #${String(tokenId).padStart(3, '0')}`,
+            title: `Associate #${String(tokenId).padStart(3, '0')}`,
             description: `${symbol} rewards claimed from vault`,
             amount: `+${formattedAmount}`,
             txHash: ev.transactionHash,
@@ -480,9 +480,9 @@ export function useContract() {
             id: `act-${ev.transactionHash}-${tokenId}`,
             type: 'activation',
             typeLabel: 'ACTIVATION',
-            title: `Oohdie #${String(tokenId).padStart(3, '0')}`,
-            description: `Activated on-chain (${burnedAmount} BANANA eaten)`,
-            amount: `-${burnedAmount} BANANA`,
+            title: `Associate #${String(tokenId).padStart(3, '0')}`,
+            description: `Activated on-chain (${burnedAmount} $SPECIE burned)`,
+            amount: `-${burnedAmount} $SPECIE`,
             txHash: ev.transactionHash,
             timestamp,
             timeFormatted: formatTime(timestamp),
@@ -501,7 +501,7 @@ export function useContract() {
             id: `transfer-${ev.transactionHash}-${tokenId}`,
             type: isMint ? 'mint' : 'transfer',
             typeLabel: isMint ? 'MINT' : 'TRANSFER',
-            title: `Oohdie #${String(tokenId).padStart(3, '0')}`,
+            title: `Associate #${String(tokenId).padStart(3, '0')}`,
             description: isMint ? 'Minted from primary collection' : `Received from ${from.substring(0, 6)}...${from.substring(from.length - 4)}`,
             txHash: ev.transactionHash,
             timestamp,
@@ -628,7 +628,7 @@ export function useContract() {
   }, [signer, isConnected]);
 
   /**
-   * Moves tokens from an Oohdie's wallet to the connected owner. Deploys the wallet on first use —
+   * Moves tokens from an Associate's wallet to the connected owner. Deploys the wallet on first use —
    * rewards accumulate at the address before the contract exists, which is expected.
    */
   const withdrawFromWallet = useCallback(async (
@@ -726,7 +726,7 @@ export function useContract() {
   }, []);
 
   /**
-   * Transfers an Oohdie NFT with Self-Transfer Protection (blocks sending to its own TBA).
+   * Transfers an Associate NFT with Self-Transfer Protection (blocks sending to its own TBA).
    */
   const transferNFT = useCallback(async (tokenId: number, toAddress: string) => {
     if (!signer || !isConnected) throw new Error('Wallet not connected');
@@ -734,7 +734,7 @@ export function useContract() {
 
     const walletAddress = predictAccountAddress(tokenId);
     if (toAddress.toLowerCase() === walletAddress.toLowerCase()) {
-      throw new Error('Self-Transfer Protection: Cannot transfer an Oohdie NFT into its own Token-Bound Account (TBA).');
+      throw new Error('Self-Transfer Protection: Cannot transfer an Associate NFT into its own Token-Bound Account (TBA).');
     }
 
     setLoading(true);
@@ -765,7 +765,7 @@ export function useContract() {
   }, [signer, isConnected]);
 
   /**
-   * Synchronizes an Oohdie's Collection Q multiplier weight on-chain if Q ownership changed.
+   * Synchronizes an Associate's Collection Q multiplier weight on-chain if Q ownership changed.
    */
   const syncCollectionQMultiplier = useCallback(async (tokenId: number) => {
     if (!signer || !isConnected) throw new Error('Wallet not connected');

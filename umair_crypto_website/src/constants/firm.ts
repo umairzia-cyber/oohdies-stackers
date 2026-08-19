@@ -2,7 +2,7 @@
  * The Firm — lore and personnel records for /collection.
  *
  * The collection's story is that Monkey Business is a company and every piece
- * is an employee. This file holds that fiction as data: the lore beats, the
+ * is an Associate. This file holds that fiction as data: the lore beats, the
  * five staff on the roster, and the directory summary.
  *
  * Art paths point straight at /public/assets/collection. These five are picked
@@ -44,7 +44,7 @@ export interface Clause {
 
 export const FIRM_LORE = {
   title: 'THE FIRM',
-  subtitle: 'Onboarding brief — issued to all new Employees',
+  subtitle: 'Onboarding brief — issued to all new Associates',
   stamp: 'CLASSIFIED',
 
   /* The header form. `[REDACTED]` is written out rather than flagged: these are
@@ -55,7 +55,7 @@ export const FIRM_LORE = {
     { label: 'Issued', value: '[REDACTED]' },
     { label: 'Revision', value: '11 — supersedes all prior' },
     { label: 'Author', value: '[REDACTED]' },
-    { label: 'Distribution', value: 'All Employees' },
+    { label: 'Distribution', value: 'All Associates' },
   ],
 
   clauses: [
@@ -76,7 +76,7 @@ export const FIRM_LORE = {
         { kind: 'redaction', text: 'who founded it' },
         { kind: 'text', text: ', ' },
         { kind: 'redaction', text: 'what it trades' },
-        { kind: 'text', text: ', or how any of its employees passed the interview.' },
+        { kind: 'text', text: ', or how any of its Associates passed the interview.' },
         { kind: 'footnote', marker: '1' },
         { kind: 'text', text: ' What is known is that business is booming.' },
         { kind: 'footnote', marker: '2' },
@@ -89,7 +89,7 @@ export const FIRM_LORE = {
       segments: [
         {
           kind: 'text',
-          text: 'The Firm is staffed by an eclectic workforce of ambitious primates, each with their own style, status and questionable approach to business. From fresh-faced interns to self-appointed executives, no two Employees are quite alike.',
+          text: 'The Firm is staffed by an eclectic workforce of ambitious primates, each with their own style, status and questionable approach to business. From fresh-faced interns to self-appointed executives, no two Associates are quite alike.',
         },
       ],
     },
@@ -159,9 +159,9 @@ export const FIRM_LORE = {
 export type ReviewTone = 'good' | 'bad' | 'neutral';
 
 /** Employment state. Drives the LED and the colour of the Status row. */
-export type EmploymentStatus = 'EMPLOYED' | 'UNPAID' | 'EMPLOYEE_OF_THE_MONTH';
+export type EmploymentStatus = 'EMPLOYED' | 'UNPAID' | 'ASSOCIATE_OF_THE_MONTH';
 
-export interface Employee {
+export interface Associate {
   readonly id: string;
   readonly image: string;
   /** Alt text — the art is the portrait on a personnel file, not decoration. */
@@ -176,7 +176,7 @@ export interface Employee {
   readonly statusLabel: string;
 }
 
-export const EMPLOYEES: readonly Employee[] = [
+export const ASSOCIATES: readonly Associate[] = [
   {
     id: '0001',
     image: '/assets/collection/oohdie-crowned-admiral.jpg',
@@ -188,8 +188,8 @@ export const EMPLOYEES: readonly Employee[] = [
     performance: 'Unimpeachable (self-assessed)',
     performanceTone: 'neutral',
     specieEarned: 412900,
-    status: 'EMPLOYEE_OF_THE_MONTH',
-    statusLabel: 'Employee of the Month',
+    status: 'ASSOCIATE_OF_THE_MONTH',
+    statusLabel: 'Associate of the Month',
   },
   {
     id: '0447',
@@ -211,7 +211,7 @@ export const EMPLOYEES: readonly Employee[] = [
     portraitAlt:
       'A primate in a skull-badged pirate tricorn and domino mask, eating a banana.',
     department: 'Trading',
-    position: 'Associate',
+    position: 'Trader',
     tenureDays: 427,
     performance: 'Questionable',
     performanceTone: 'bad',
@@ -250,13 +250,13 @@ export const EMPLOYEES: readonly Employee[] = [
 ];
 
 /**
- * The directory summary. `Total Employees` is deliberately absent — the page
+ * The directory summary. `Total Associates` is deliberately absent — the page
  * renders it from COLLECTION_SIZE so the headcount tracks the mint size rather
  * than drifting from it here.
  */
 export const DIRECTORY = {
-  heading: 'EMPLOYEE DIRECTORY',
-  totalLabel: 'Total Employees',
+  heading: 'ASSOCIATE DIRECTORY',
+  totalLabel: 'Total Associates',
   fields: [
     { label: 'Employer', value: 'Monkey Business' },
     { label: 'Industry', value: 'Classified' },

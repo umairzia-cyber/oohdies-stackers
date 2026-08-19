@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="footer__marquee-track">
             {Array.from({ length: 12 }).map((_, i) => (
               <span key={i} className="footer__marquee-item">
-                EAT · STACK · ACTIVATE · UPGRADE · OOHDIE ·{' '}
+                EARN · STACK · ACTIVATE · UPGRADE · MONKEY BUSINESS ·{' '}
               </span>
             ))}
           </div>
@@ -40,12 +40,12 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__disclaimer">
-            <strong>Disclaimer.</strong> Oohdie is an experimental digital collectible project.
+            <strong>Disclaimer.</strong> Monkey Business is an experimental digital collectible project.
             Nothing on this site is financial, investment, or legal advice. Digital assets are volatile
             and can lose value. Never share your seed phrase. Participate only with funds you can afford to lose.
           </p>
           <p className="footer__copyright">
-            © {BRAND.year} Oohdie. All rights reserved.
+            © {BRAND.year} Monkey Business. All rights reserved.
           </p>
         </div>
       </div>

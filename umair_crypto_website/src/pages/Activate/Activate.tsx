@@ -150,10 +150,10 @@ export default function Activate() {
 
           <div className={`activate-header-grid ${isVisible ? 'animate-fade-in' : ''}`}>
             <div className="activate-header-left">
-              <p className="subtitle mb-2">WAKE YOUR OOHDIE</p>
+              <p className="subtitle mb-2">WAKE YOUR ASSOCIATE</p>
               <h1 className="heading-xl mb-4">ACTIVATE</h1>
               <p className="body-lg mb-8">
-                Burn 100 $BANANA to activate your Oohdie NFT and start earning real tokenized rewards on Robinhood Chain Testnet.
+                Burn 100 $SPECIE to activate your Associate NFT and start earning real tokenized rewards on Robinhood Chain Testnet.
               </p>
             </div>
 
@@ -161,7 +161,7 @@ export default function Activate() {
               <Link to="/" className="activate-art-banner block" title="Back to Home">
                 <img
                   src="/assets/activate-pixel-ape.jpg"
-                  alt="Pixel Oohdie Running Over Candlesticks"
+                  alt="Pixel Primate Running Over Candlesticks"
                   className="activate-art-banner__img"
                   width={400}
                   height={225}
@@ -176,7 +176,7 @@ export default function Activate() {
 
           <div className={`activate-pills ${isVisible ? 'animate-fade-in animate-delay-1' : ''}`}>
             <div className="pill">
-              <span>BANANA Balance</span>
+              <span>$SPECIE Balance</span>
               <span className="pill__value">{formatNumber(parseFloat(bananaBalance))}</span>
             </div>
             <div className="pill">
@@ -207,17 +207,17 @@ export default function Activate() {
           )}
 
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-2' : ''}`}>
-            <h2 className="heading-md mb-2">STEP 1. SELECT YOUR OOHDIE NFT</h2>
+            <h2 className="heading-md mb-2">STEP 1. SELECT YOUR ASSOCIATE NFT</h2>
             <p className="text-secondary mb-6 max-w-700">
-              Select an NFT from your connected wallet to activate. If you do not own an Oohdie yet, mint one directly below.
+              Select an NFT from your connected wallet to activate. If you do not own an Associate yet, mint one directly below.
             </p>
 
             {fetchingUserState && userNFTs.length === 0 ? (
-              <p className="text-secondary">Loading your Oohdies from Robinhood Testnet...</p>
+              <p className="text-secondary">Loading your Associates from Robinhood Testnet...</p>
             ) : userNFTs.length === 0 ? (
               <div className="empty-state p-6 bordered-box mb-6 text-center">
-                <h3 className="heading-sm mb-2">No Oohdies found in this wallet</h3>
-                <p className="text-secondary mb-4">Mint an official Oohdie NFT on Robinhood Chain Testnet to start earning.</p>
+                <h3 className="heading-sm mb-2">No Associates found in this wallet</h3>
+                <p className="text-secondary mb-4">Mint an official Associate NFT on Robinhood Chain Testnet to start earning.</p>
               </div>
             ) : (
               <div className="nft-select-grid mb-6">
@@ -253,9 +253,9 @@ export default function Activate() {
             <div id="mint" ref={mintSectionRef} className="mint-dedicated-container mb-8">
               <div className="mint-dedicated-box">
                 <div className="mint-dedicated-info">
-                  <h3 className="heading-sm mb-1">MINT A NEW OOHDIE</h3>
+                  <h3 className="heading-sm mb-1">MINT A NEW ASSOCIATE</h3>
                   <p className="text-secondary text-xs">
-                    Directly on Robinhood Chain Testnet. Mint your next Oohdie to expand your stack.
+                    Directly on Robinhood Chain Testnet. Mint your next Associate to expand your stack.
                   </p>
                 </div>
                 <button
@@ -264,7 +264,7 @@ export default function Activate() {
                   onClick={handleMintNewNFT}
                   disabled={loading || !wallet.isCorrectNetwork}
                 >
-                  {txStatus === 'awaiting' ? 'Confirm in Wallet...' : txStatus === 'pending' ? 'Minting NFT...' : '+ Mint New Oohdie'}
+                  {txStatus === 'awaiting' ? 'Confirm in Wallet...' : txStatus === 'pending' ? 'Minting NFT...' : '+ Mint New Associate'}
                 </button>
               </div>
             </div>
@@ -273,7 +273,7 @@ export default function Activate() {
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-3' : ''}`}>
             <h2 className="heading-md mb-2">STEP 2. PICK YOUR TIER (STRATEGY & MULTIPLIER PREVIEW)</h2>
             <p className="text-secondary mb-6 max-w-700">
-              Note: Current on-chain testnet activation burns a fixed 100 $BANANA for standard earning across all active Oohdies. Multipliers below display visual strategy previews.
+              Note: Current on-chain testnet activation burns a fixed 100 $SPECIE for standard earning across all active Associates. Multipliers below display visual strategy previews.
             </p>
 
             <div className="grid-bordered grid-5 activate-tiers">
@@ -286,7 +286,7 @@ export default function Activate() {
                 >
                   <span className="tier-card__multiplier">{tier.multiplier}</span>
                   <span className="tier-card__name">{tier.name}</span>
-                  <span className="tier-card__cost">100 BANANA</span>
+                  <span className="tier-card__cost">100 $SPECIE</span>
                 </button>
               ))}
             </div>
@@ -300,7 +300,7 @@ export default function Activate() {
               </span>
             </div>
             <p className="text-secondary mb-6 max-w-800">
-              Select the 3 synthetic stock assets for this Oohdie. Upon burning 100 $BANANA, this Oohdie will exclusively accrue and let you claim those 3 chosen stocks on Robinhood Chain Testnet.
+              Select the 3 synthetic stock assets for this Associate. Upon burning 100 $SPECIE, this Associate will exclusively accrue and let you claim those 3 chosen stocks on Robinhood Chain Testnet.
             </p>
 
             <div className="stock-picker-grid">
@@ -327,23 +327,23 @@ export default function Activate() {
 
             {!isConnected ? (
               <div className="activate-connect">
-                <p className="text-secondary mb-4">Connect your wallet to activate your Oohdie on Robinhood Testnet.</p>
+                <p className="text-secondary mb-4">Connect your wallet to activate your Associate on Robinhood Testnet.</p>
                 <button className="btn btn--primary btn--lg" onClick={connect} disabled={isConnecting}>
                   {isConnecting ? WALLET.connecting : WALLET.connectButton}
                 </button>
               </div>
             ) : selectedNFT?.isActivated ? (
               <div className="activate-success">
-                <p className="heading-sm text-accent mb-4">OOHDIE #{selectedTokenId} IS ALREADY ACTIVE</p>
+                <p className="heading-sm text-accent mb-4">ASSOCIATE #{selectedTokenId} IS ALREADY ACTIVE</p>
                 <p className="text-secondary mb-6">
-                  This Oohdie is currently earning rewards on-chain. View its live balance on the My Stack page!
+                  This Associate is currently earning rewards on-chain. View its live balance on the My Stack page!
                 </p>
               </div>
             ) : txStatus === 'confirmed' ? (
               <div className="activate-success">
                 <p className="heading-sm text-accent mb-4">ACTIVATION CONFIRMED!</p>
                 <p className="text-secondary mb-4">
-                  Oohdie #{selectedTokenId} has been successfully activated on Robinhood Chain Testnet.
+                  Associate #{selectedTokenId} has been successfully activated on Robinhood Chain Testnet.
                 </p>
                 {txHash && (
                   <p className="mb-6 text-sm">
@@ -368,12 +368,12 @@ export default function Activate() {
                   <div>
                     <span className="text-muted block text-xs">SELECTED NFT</span>
                     <span className="font-bold text-accent">
-                      {selectedTokenId !== null ? `Oohdie #${selectedTokenId}` : 'None Selected'}
+                      {selectedTokenId !== null ? `Associate #${selectedTokenId}` : 'None Selected'}
                     </span>
                   </div>
                   <div>
                     <span className="text-muted block text-xs">ON-CHAIN BURN COST</span>
-                    <span className="font-bold">100 $BANANA (Permanently Burned)</span>
+                    <span className="font-bold">100 $SPECIE (Permanently Burned)</span>
                   </div>
                   <div>
                     <span className="text-muted block text-xs">SELECTED REWARD STOCKS</span>
@@ -414,7 +414,7 @@ export default function Activate() {
                     ? 'AWAITING WALLET SIGNATURE...'
                     : txStatus === 'pending'
                     ? 'WAITING FOR CONFIRMATION...'
-                    : 'BURN 100 $BANANA & ACTIVATE ON-CHAIN'}
+                    : 'BURN 100 $SPECIE & ACTIVATE ON-CHAIN'}
                 </button>
               </div>
             )}
@@ -468,7 +468,7 @@ export default function Activate() {
           <figure className="activate-nile__plate">
             <img
               src="/assets/nile-banner.jpg"
-              alt="A pixel-art Oohdie pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
+              alt="A pixel-art primate pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
               className="activate-nile__img"
               width={1024}
               height={571}
