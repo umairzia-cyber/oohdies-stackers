@@ -61,13 +61,10 @@ export const COLLECTION_PAGE = {
   heading: 'MEET THE OOHDIES',
   description:
     'Hand-drawn, none repeated. Every Oohdie carries its own traits into the stack — and the rarer the build, the harder it works.',
-  wallLabel: 'LIVE FROM THE VAULT',
-  ladderHeading: 'RARITY LADDER',
-  vaultHeading: 'THE VAULT',
-  filterAllLabel: 'ALL',
-  emptyLabel: 'Nothing at this tier yet.',
-  viewerHint: 'Use ← → to move through the vault, Esc to close.',
-  traitsHeading: 'TRAITS',
+  wallLabel: 'STAFF ON PREMISES',
+  rosterHeading: 'MEET THE TEAM',
+  rosterNote: 'Five of the workforce, on the record.',
+  recordLabel: 'RECORD',
   cta: 'START STACKING',
 } as const;
 
@@ -143,6 +140,30 @@ export const DOCS_TEASE = {
   timerNote: 'No release date has been announced — the counter is decorative.',
 } as const;
 
+/*
+ * The homepage stinger, teasing the phygitals release — physical Oohdie
+ * collectibles alongside the digital ones. Unannounced, so nothing below names
+ * it: no "physical", no product, no date. The picture is shown; its meaning is
+ * not.
+ *
+ * This is a *separate* unannounced thing from Appendix B on /collection, which
+ * teases the second collection. Keep the two stories apart — merging them would
+ * imply a link between releases that has not been decided.
+ *
+ * The artwork ships as a single-channel greyscale JPEG rather than a colour
+ * file dimmed with `filter: grayscale()`. A CSS filter is reversible by anyone
+ * with devtools; a file with no colour channel is not.
+ */
+export const CRATE_TEASE = {
+  badge: 'RECEIVING BAY',
+  ref: 'MB-LOG-014 · CONTENTS UNDECLARED',
+  manifest: 'A crate left the workshop. It is not going to a wallet.',
+  /* Describes only what the dimmed plate actually shows, so the alt text gives
+     away nothing the picture does not. */
+  imageAlt:
+    'A dim greyscale photograph of a cluttered workshop. A figure sits on the floor between shelves of small models, an open carton beside them.',
+} as const;
+
 export const WALLET = {
   connectButton: 'Connect Wallet',
   disconnectButton: 'Disconnect',
@@ -157,7 +178,7 @@ export const SEO = {
   },
   collection: {
     title: 'The Collection — Oohdie',
-    description: 'All 1,111 Oohdies. Browse the vault, study the traits, and find the build you want in your stack.',
+    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Employees on the record.',
   },
   activate: {
     title: 'Activate — Oohdie',

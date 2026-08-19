@@ -1,6 +1,6 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
-import { HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
+import { CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
@@ -110,19 +110,65 @@ function SpaceTradingBannerSection() {
   return (
     <section className="section section--space-banner" ref={ref} aria-label="Space Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`space-banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Space Station">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Space Station">
           <img
             src="/assets/space-hero-bg.jpg"
             alt="Oohdie Space Trading Monkey Floating in Galaxy with Charts"
-            className="space-banner-card__image"
+            className="banner-card__image"
             width={1200}
             height={675}
             loading="lazy"
           />
-          <div className="space-banner-card__badge">
+          <div className="banner-card__badge">
             <span className="stock-icon-symbol">🌌</span> GALAXY ACCUMULATION STATION
           </div>
         </Link>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Extraction Band ──────────────────────────────────
+   A split band rather than another wide banner card. The render is square and
+   reads top-to-bottom — rotor, Oohdie, coin-stamped crate — so cropping it to
+   16:9 would throw away both ends of the composition. Running it beside the
+   copy at its native ratio keeps the picture intact and breaks up what would
+   otherwise be three identical banner cards in a row. */
+function ExtractionBandSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section section--extraction" ref={ref} aria-labelledby="extraction-heading">
+      <div className="container">
+        <div className={`extraction-band ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <figure className="extraction-band__art">
+            <img
+              src="/assets/extraction-airlift.jpg"
+              alt="An Oohdie in field gear riding the lift lines of a helicopter, standing on a crate stamped with a gold Oohdie coin as it is airlifted out of the jungle at sunset."
+              className="extraction-band__img"
+              width={1024}
+              height={1024}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="extraction-band__glow" aria-hidden="true" />
+          </figure>
+
+          <div className="extraction-band__copy">
+            <p className="extraction-band__tag">THE STACK TRAVELS WITH IT</p>
+            <h2 id="extraction-heading" className="heading-md">
+              EVERYTHING IT EARNS STAYS IN THE CRATE
+            </h2>
+            <p className="body-lg extraction-band__desc">
+              Rewards accrue into the NFT&rsquo;s own on-chain account, not yours. Sell the
+              Oohdie and the whole stack goes with it &mdash; tier, split and balance
+              intact. Nothing has to be swept out first.
+            </p>
+            <Link to={ROUTES.THE_TRAIL} className="extraction-band__link">
+              See where the troop is headed &rarr;
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -175,7 +221,21 @@ function StatsSection() {
 
           <div className="stat-card-main">
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
-              <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
+              <div className="flex items-center gap-2">
+                {/* The same medallion stamped on the airlifted crate below. A
+                    repeat of a mark already introduced, so it is decorative. */}
+                <img
+                  src="/assets/oohdie-coin.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="coin-mark coin-mark--stat"
+                  width={28}
+                  height={28}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
+              </div>
               <span className="text-xs text-accent font-mono">12 Supported Stocks & USDG</span>
             </div>
 
@@ -302,6 +362,38 @@ function ShowcaseSection() {
   );
 }
 
+/* ─── Nile Banner ──────────────────────────────────────
+   Sits directly under the showcase, whose first card claims twelve ways to
+   earn. This is that claim as a picture, so it links to where the split is
+   actually chosen rather than back to this page. */
+function NileBannerSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section section--nile-banner" ref={ref} aria-label="Tokenized Stock Market Visual Showcase">
+      <div className="container">
+        <Link
+          to={`${ROUTES.ACTIVATE}#mint`}
+          className={`banner-card banner-card--uncropped block ${isVisible ? 'reveal--visible' : 'reveal'}`}
+          title="Pick your stock split"
+        >
+          <img
+            src="/assets/nile-banner.jpg"
+            alt="A pixel-art Oohdie pharaoh standing before a carved stone wall reading STOCKS OF THE NILE, surrounded by hieroglyphs of bulls, bears, candlestick charts and currency symbols."
+            className="banner-card__image"
+            width={1024}
+            height={571}
+            loading="lazy"
+          />
+          <div className="banner-card__badge">
+            <span className="stock-icon-symbol">📈</span> ELEVEN STOCKS &middot; ONE SPLIT
+          </div>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Collection Strip ─────────────────────────────────
    Was a featured hero plus a full six-card grid, which cost most of a screen
    to say something the collection's own page now says properly. Compressed to
@@ -363,16 +455,16 @@ function CaveTradingBannerSection() {
   return (
     <section className="section section--cave-banner" ref={ref} aria-label="Cave Trading Station Visual Showcase">
       <div className="container">
-        <Link to="/" className={`cave-banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Trading Desk">
+        <Link to="/" className={`banner-card block ${isVisible ? 'reveal--visible' : 'reveal'}`} title="Oohdies Trading Desk">
           <img
             src="/assets/cave-cta-bg.jpg"
             alt="Oohdie Cave Trading Desk Station"
-            className="cave-banner-card__image"
+            className="banner-card__image"
             width={1200}
             height={675}
             loading="lazy"
           />
-          <div className="cave-banner-card__badge">
+          <div className="banner-card__badge">
             <span className="stock-icon-symbol">🖥️</span> LIVE 24/7 MARKET ENGINE
           </div>
         </Link>
@@ -414,10 +506,61 @@ function FinalCTASection() {
   return (
     <section className="section cta-final cta-final--clean" ref={ref} aria-labelledby="cta-heading">
       <div className={`container text-center cta-final__content ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+        <img
+          src="/assets/oohdie-coin.png"
+          alt="The Oohdie coin — a gold medallion stamped with an Oohdie in profile."
+          className="coin-mark coin-mark--cta"
+          width={96}
+          height={96}
+          loading="lazy"
+          decoding="async"
+        />
         <h2 id="cta-heading" className="heading-xl mb-8">READY TO EAT?</h2>
         <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg animate-pulse-glow">
           MINT OOHDIE
         </Link>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Crate Tease ──────────────────────────────────────
+   The stinger. Placed after the CTA on purpose, the same way Appendix B sits
+   after the CTA on /collection: it is not an offer, and putting it last means
+   it never competes with the thing the page is actually asking for.
+
+   Not a link — there is nowhere to send anyone yet. The plate only dims and
+   lifts on hover; there is no colour to restore, because the file ships as
+   single-channel greyscale rather than a colour image dimmed in CSS. */
+function CrateTeaseSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section crate-tease" ref={ref} aria-labelledby="crate-tease-heading">
+      <div className="container">
+        <article className={`crate-tease__doc ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="crate-tease__head">
+            <h2 id="crate-tease-heading" className="crate-tease__badge">
+              {CRATE_TEASE.badge}
+            </h2>
+            <p className="crate-tease__ref">{CRATE_TEASE.ref}</p>
+          </header>
+
+          <figure className="crate-tease__plate">
+            <img
+              src="/assets/rd/crate-sealed.jpg"
+              alt={CRATE_TEASE.imageAlt}
+              className="crate-tease__img"
+              width={800}
+              height={800}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="crate-tease__scan" aria-hidden="true" />
+          </figure>
+
+          <p className="crate-tease__manifest">{CRATE_TEASE.manifest}</p>
+        </article>
       </div>
     </section>
   );
@@ -432,11 +575,14 @@ export default function Home() {
       <HeroSection />
       <SpaceTradingBannerSection />
       <StatsSection />
+      <ExtractionBandSection />
       <ShowcaseSection />
+      <NileBannerSection />
       <CollectionSection />
       <CaveTradingBannerSection />
       <HowItWorksSection />
       <FinalCTASection />
+      <CrateTeaseSection />
     </main>
   );
 }
