@@ -100,7 +100,12 @@
   padding-bottom: var(--space-8);
 }
 
-.space-banner-card {
+/* ── Banner cards ──────────────────────────────────────────────────────────
+   One wide image in a card, used by the space, Nile and cave bands. The three
+   were byte-identical copies of each other; they share this block now so a
+   fourth banner costs a class name rather than another fifty lines. Section
+   padding still differs per band, so that stays on the section modifiers. */
+.banner-card {
   display: block;
   position: relative;
   width: 100%;
@@ -116,13 +121,13 @@
   transition: transform var(--duration-normal) var(--ease-out);
 }
 
-.space-banner-card:hover {
+.banner-card:hover {
   transform: translateY(-4px);
   border-color: var(--accent);
   box-shadow: 0 0 45px var(--accent-a20);
 }
 
-.space-banner-card__image {
+.banner-card__image {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -131,7 +136,16 @@
   display: block;
 }
 
-.space-banner-card__badge {
+/* The shared max-height crops top and bottom, which the space and cave art
+   absorb fine. The Nile wall has readable text carved into it — the title and
+   the ticker rows — so it opts out and renders at its natural ratio instead.
+   Specificity is deliberately raised above .banner-card__image so the
+   responsive caps further down cannot crop it back. */
+.banner-card.banner-card--uncropped .banner-card__image {
+  max-height: none;
+}
+
+.banner-card__badge {
   position: absolute;
   bottom: var(--space-4);
   right: var(--space-4);
@@ -153,6 +167,117 @@
 .stats-section--pushed {
   padding-top: var(--space-16);
 }
+
+/* ── Extraction band ───────────────────────────────────────────────────────
+   The airlift render is square, and its composition runs top to bottom —
+   rotor, Oohdie, coin-stamped crate. Cropping it into a wide banner would cut
+   the helicopter off the top and the crate off the bottom, so it gets a split
+   band instead: art at its native ratio beside the copy. That also breaks up
+   the run of wide banner cards this page would otherwise become. */
+.section--extraction {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-8);
+}
+
+.extraction-band {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+}
+
+.extraction-band__art {
+  position: relative;
+  margin: 0;
+}
+
+.extraction-band__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* No object-fit crop: the whole composition has to survive. */
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-secondary);
+  position: relative;
+  z-index: 1;
+}
+
+.extraction-band__glow {
+  position: absolute;
+  inset: -12px;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(40px);
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+}
+
+.extraction-band__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.extraction-band__tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.extraction-band__desc {
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 46ch;
+}
+
+.extraction-band__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--lime);
+  text-decoration: none;
+  transition: text-shadow var(--duration-fast) var(--ease-out);
+}
+
+.extraction-band__link:hover {
+  text-shadow: 0 0 10px var(--lime-glow-strong);
+}
+
+/* ── Coin mark ─────────────────────────────────────────────────────────────
+   The medallion stamped on the airlifted crate, reused as a standalone mark.
+   The source art has no alpha — it is an opaque square with the coin inscribed
+   in it — so the circular clip is load-bearing, not decoration: without it the
+   mark renders as an orange rectangle. Only the background corners are lost. */
+.coin-mark {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.coin-mark--stat {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--accent-a35);
+}
+
+.coin-mark--cta {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto var(--space-6);
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--accent-a35);
+  box-shadow: 0 0 45px var(--accent-glow-strong);
+}
+
 
 .stats-grid-stackers {
   display: flex;
@@ -550,59 +675,14 @@
   text-shadow: 0 0 10px var(--lime-glow-strong);
 }
 
-.section--cave-banner {
-  padding-top: var(--space-16);
+.section--nile-banner {
+  padding-top: var(--space-12);
   padding-bottom: var(--space-8);
 }
 
-.cave-banner-card {
-  display: block;
-  position: relative;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--border-secondary);
-  box-shadow: 0 0 35px var(--accent-a12);
-  background-color: var(--bg-card);
-  box-sizing: border-box;
-  text-decoration: none;
-  transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.cave-banner-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 0 45px var(--accent-a20);
-}
-
-.cave-banner-card__image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  max-height: 520px;
-  object-fit: cover;
-  display: block;
-}
-
-.cave-banner-card__badge {
-  position: absolute;
-  bottom: var(--space-4);
-  right: var(--space-4);
-  padding: var(--space-2) var(--space-4);
-  background: var(--bg-sunken);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-md);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  letter-spacing: 0.08em;
+.section--cave-banner {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-8);
 }
 
 .how-it-works--pushed {
@@ -646,6 +726,125 @@
   z-index: 1;
 }
 
+/* ── Crate tease ───────────────────────────────────────────────────────────
+   The homepage stinger. Everything here is tuned to stay quiet, following how
+   Appendix B behaves on /collection: it sits below the CTA so it never competes
+   with the mint, it is narrower than the banners above it so it reads as
+   appended rather than promoted, and its badge is muted rather than gold —
+   every other badge on this page is accent-coloured and asks for a click. This
+   one must not.
+
+   It is not a link. There is nowhere to send anyone yet, so it is a figure.
+
+   The plate only dims and lifts; it never de-saturates, because there is no
+   colour in the file to restore — the JPEG ships single-channel grey. See
+   CRATE_TEASE in constants/content.ts. */
+.crate-tease {
+  padding-top: 0;
+  padding-bottom: var(--space-20);
+  background-color: var(--bg-primary);
+}
+
+.crate-tease__doc {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  border: 1px dashed var(--border-secondary);
+  border-radius: var(--radius-md);
+  background-color: color-mix(in srgb, var(--bg-sunken) 60%, transparent);
+}
+
+/* NB: nothing here may set `opacity` on this element. It also carries the
+   shared .reveal / .reveal--visible classes, which animate opacity on entry at
+   the same specificity — and Home.css loads after index.css, so a resting
+   opacity here silently wins and pins the section, killing its scroll reveal.
+   The held-back look comes from the plate's brightness instead, below. */
+
+.crate-tease__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+}
+
+.crate-tease__badge {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.crate-tease__ref {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.crate-tease__plate {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+}
+
+.crate-tease__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Greyed and held back, nothing more. The file itself is single-channel
+     grey, so the colour is gone at the source rather than filtered here; the
+     brightness only sets how far back it sits.
+
+     This carried a blur as well, to keep the lettering on the cartons from
+     naming an unannounced product. The user asked for grey only, so the blur
+     is gone and the render is legible — that is the intended state now, not an
+     oversight. */
+  filter: brightness(0.7) contrast(0.95);
+  transition: filter var(--duration-slow) var(--ease-out);
+}
+
+/* Leaning in lifts the exposure. */
+.crate-tease__doc:hover .crate-tease__img,
+.crate-tease__doc:focus-within .crate-tease__img {
+  filter: brightness(0.88) contrast(1);
+}
+
+/* Coarse scanlines over the plate only — reads as a degraded capture rather
+   than as the page's own texture. */
+.crate-tease__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, #000 38%, transparent) 0px,
+    color-mix(in srgb, #000 38%, transparent) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+.crate-tease__manifest {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crate-tease__img {
+    transition: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero__content {
     grid-template-columns: 1fr;
@@ -684,9 +883,13 @@
     grid-template-columns: 1fr;
   }
 
-  .space-banner-card__image,
-  .cave-banner-card__image {
+  .banner-card__image {
     max-height: 380px;
+  }
+
+  .extraction-band {
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: var(--space-6);
   }
 }
 
@@ -705,9 +908,25 @@
     justify-content: space-between;
   }
 
-  .space-banner-card__image,
-  .cave-banner-card__image {
+  .banner-card__image {
     max-height: 300px;
+  }
+
+  /* Art first, then the copy — the render is the reason this band exists. */
+  .extraction-band {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding: var(--space-5);
+  }
+
+  .extraction-band__art {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .coin-mark--cta {
+    width: 76px;
+    height: 76px;
   }
 
   /* Hold the single row as long as the tiles stay legible; below this they
