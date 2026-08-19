@@ -5,6 +5,7 @@ import { COLLECTION_PAGE, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { COLLECTION_SIZE, WALL_ART } from '../../constants/collection';
 import {
+  APPENDIX_B,
   DIRECTORY,
   EMPLOYEES,
   FIRM_LORE,
@@ -63,7 +64,79 @@ export default function Collection() {
         </div>
       </section>
 
+      <AppendixB />
     </main>
+  );
+}
+
+/* ─── Appendix B ───────────────────────────────────────
+   The second collection, teased by refusing to describe it. Sits after the CTA
+   on purpose: it is a stinger, not an offer, and putting it last means it never
+   competes with the thing the page is actually asking for.
+
+   Two images stacked in the same box — a 72px copy at rest and a 160px copy
+   revealed on hover — so the picture sharpens without ever resolving. Both are
+   nearest-neighbour upscaled, which hides the detail and hints at the pixel-art
+   direction in the same move. */
+function AppendixB() {
+  return (
+    <section className="appendix" aria-labelledby="appendix-heading">
+      <div className="container">
+        <article className="appendix__doc">
+          <header className="appendix__head">
+            <h2 id="appendix-heading" className="appendix__label">
+              {APPENDIX_B.label}
+            </h2>
+            <p className="appendix__ref">{APPENDIX_B.docRef}</p>
+            <p className="appendix__clearance">{APPENDIX_B.clearance}</p>
+          </header>
+
+          <div className="appendix__body">
+            <figure className="appendix__plate">
+              <img
+                src={APPENDIX_B.imageLocked}
+                alt={APPENDIX_B.imageAlt}
+                className="appendix__img appendix__img--locked"
+                loading="lazy"
+                decoding="async"
+              />
+              {/* Decorative: the same picture at a higher resolution, so
+                  announcing it twice would only repeat the alt above. */}
+              <img
+                src={APPENDIX_B.imagePartial}
+                alt=""
+                aria-hidden="true"
+                className="appendix__img appendix__img--partial"
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="appendix__scan" aria-hidden="true" />
+              <figcaption className="appendix__plate-note">
+                {APPENDIX_B.imageNote}
+              </figcaption>
+            </figure>
+
+            <dl className="appendix__fields">
+              {APPENDIX_B.fields.map((entry) => (
+                <div className="field" key={entry.label}>
+                  <dt className="field__label">{entry.label}</dt>
+                  <span className="field__leader" aria-hidden="true" />
+                  <dd
+                    className={`field__value ${
+                      entry.value === '[REDACTED]' ? 'field__value--struck' : ''
+                    }`}
+                  >
+                    {entry.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <p className="appendix__footer">{APPENDIX_B.footer}</p>
+        </article>
+      </div>
+    </section>
   );
 }
 

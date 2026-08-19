@@ -722,6 +722,170 @@
   padding-top: 0;
 }
 
+/* ── 4. Appendix B ─────────────────────────────────────────────────────────
+   The second-collection tease. Everything here is tuned to be quiet: it sits
+   below the CTA, it is dimmer than the sections above it, and it withholds the
+   picture rather than presenting it. The reader has to lean in — which is the
+   whole point of a tease.
+   ========================================================================== */
+.appendix {
+  padding-bottom: var(--section-padding);
+  /* No top padding: it should feel appended to the page rather than given a
+     section of its own. */
+  padding-top: 0;
+}
+
+.appendix__doc {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-5);
+  border: 1px dashed var(--border-secondary);
+  border-radius: var(--radius-md);
+  background-color: color-mix(in srgb, var(--bg-sunken) 60%, transparent);
+  /* Sits back until noticed. */
+  opacity: 0.82;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.appendix__doc:hover,
+.appendix__doc:focus-within {
+  opacity: 1;
+}
+
+.appendix__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+}
+
+.appendix__label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.appendix__ref {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.appendix__clearance {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--danger);
+  opacity: 0.85;
+}
+
+.appendix__body {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.appendix__plate {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+}
+
+/* Both copies fill the same box; the sharper one fades in over the blocky one.
+   Nearest-neighbour is the point — it withholds the detail and states the
+   pixel-art direction in the same move. */
+.appendix__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+/* The source art is a dark cave, so it gets lifted rather than dimmed —
+   everything else in this panel is already holding it back. */
+.appendix__img--locked {
+  filter: brightness(1.15) contrast(1.05);
+}
+
+.appendix__img--partial {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+/* It sharpens. It never resolves. */
+.appendix__doc:hover .appendix__img--partial,
+.appendix__doc:focus-within .appendix__img--partial {
+  opacity: 0.9;
+}
+
+/* Coarse scanlines over the plate only — reads as a degraded capture rather
+   than as the page's own CRT texture. */
+.appendix__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, #000 38%, transparent) 0px,
+    color-mix(in srgb, #000 38%, transparent) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+.appendix__plate-note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-1) var(--space-2);
+  background-color: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Reuses the roster's field rows wholesale — same readout, same firm. */
+.appendix__fields {
+  font-size: var(--text-sm);
+}
+
+/* Redacted values here are printed, not liftable: struck through rather than
+   blacked out, so nobody hunts for a reveal that does not exist. */
+.field__value--struck {
+  color: var(--danger);
+  opacity: 0.7;
+}
+
+.appendix__footer {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .collection-wall {
@@ -753,6 +917,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .appendix__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .appendix__plate {
+    max-width: 220px;
+  }
 
   .firm__doc {
     --doc-margin: 0px;

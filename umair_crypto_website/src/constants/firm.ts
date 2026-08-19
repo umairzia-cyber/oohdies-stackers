@@ -268,3 +268,45 @@ export const DIRECTORY = {
   ],
 } as const;
 
+/**
+ * Appendix B — the tease for the second collection.
+ *
+ * Deliberately withholds almost everything. The page above it is an internal
+ * document, so the most natural way to hint at unannounced work is a file the
+ * reader has no clearance for: every field redacted except the two that carry
+ * the actual news — that it is not monkeys, and that it is incubating.
+ *
+ * This follows how the tease has been done before. Doodles shipped the
+ * Dooplicator with no explanation and let it sit unexplained for months, and
+ * RTFKT's Project Animus opened on an egg nursery inside a research facility
+ * without naming what hatches. The object is shown; its meaning is not.
+ *
+ * The artwork is served deliberately tiny (72px, upscaled with nearest-
+ * neighbour) so it degrades into blocks — which both hides the detail and
+ * hints at the pixel-art direction. Hovering swaps in a 160px copy: it
+ * sharpens, but never resolves.
+ */
+export const APPENDIX_B = {
+  label: 'APPENDIX B',
+  docRef: 'MB-RD-002',
+  clearance: 'Clearance: Denied',
+
+  imageLocked: '/assets/rd/appendix-b-locked.jpg',
+  imagePartial: '/assets/rd/appendix-b-partial.jpg',
+  imageNote: 'SOURCE WITHHELD',
+  /* Says what is visible at the resting resolution and no more, so the alt
+     text gives nothing away that the picture does not. */
+  imageAlt:
+    'A heavily pixelated image. A horned figure sits beside a machine, and a chain of glowing eggs runs away from it.',
+
+  fields: [
+    { label: 'Project', value: '[REDACTED]' },
+    { label: 'Department', value: 'Research & Development' },
+    { label: 'Species', value: 'Not monkeys' },
+    { label: 'Status', value: 'Incubating' },
+    { label: 'Supply', value: '[REDACTED]' },
+    { label: 'Reveal', value: '[REDACTED]' },
+  ],
+
+  footer: 'NOT APPROVED FOR DISTRIBUTION · YOU HAVE NOT SEEN THIS',
+} as const;
