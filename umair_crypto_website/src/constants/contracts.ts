@@ -34,6 +34,12 @@ export interface RewardAssetConfig {
   address: string;
   decimals: number;
   icon?: string;
+  /**
+   * True for assets that are shown in the UI but have no contract behind them
+   * yet. Never present on anything in SUPPORTED_REWARD_ASSETS — see the note on
+   * TEASER_REWARD_ASSETS below for why the two lists stay separate.
+   */
+  comingSoon?: boolean;
 }
 
 export const SUPPORTED_REWARD_ASSETS: readonly RewardAssetConfig[] = [
@@ -134,3 +140,89 @@ export const SUPPORTED_REWARD_ASSETS: readonly RewardAssetConfig[] = [
     icon: '🚀',
   },
 ] as const;
+
+/**
+ * Crypto tokens teased in the UI ahead of the contracts that will back them.
+ *
+ * These are deliberately a SEPARATE list from SUPPORTED_REWARD_ASSETS rather
+ * than entries with a placeholder address, because SUPPORTED_REWARD_ASSETS is
+ * the on-chain list: every entry in it is fed to balanceOf, claimable and
+ * activation calls in hooks/useContract.ts. A fake address in there would send
+ * real RPC calls to a contract that does not exist. Keeping them apart means
+ * the working testnet flow cannot see them at all.
+ *
+ * WIRING ONE UP — give it its deployed address and decimals, then move the
+ * entry into SUPPORTED_REWARD_ASSETS and drop `comingSoon`. Nothing else needs
+ * to change: the display surfaces all read ALL_REWARD_ASSETS.
+ */
+export const TEASER_REWARD_ASSETS: readonly RewardAssetConfig[] = [
+  {
+    id: 'stonk',
+    symbol: 'STONK',
+    name: 'StonkBrokers',
+    address: '',
+    decimals: 18,
+    icon: '📈',
+    comingSoon: true,
+  },
+  {
+    id: 'specie',
+    symbol: 'SPECIE',
+    name: 'Monkey Business',
+    address: '',
+    decimals: 18,
+    icon: '🪙',
+    comingSoon: true,
+  },
+  {
+    id: 'doge',
+    symbol: 'DOGE',
+    name: 'Dogecoin',
+    address: '',
+    decimals: 18,
+    icon: '🐕',
+    comingSoon: true,
+  },
+  {
+    id: 'pepe',
+    symbol: 'PEPE',
+    name: 'Pepe',
+    address: '',
+    decimals: 18,
+    icon: '🐸',
+    comingSoon: true,
+  },
+  {
+    id: 'wif',
+    symbol: 'WIF',
+    name: 'dogwifhat',
+    address: '',
+    decimals: 18,
+    icon: '🧢',
+    comingSoon: true,
+  },
+  {
+    id: 'sui',
+    symbol: 'SUI',
+    name: 'Sui',
+    address: '',
+    decimals: 18,
+    icon: '💧',
+    comingSoon: true,
+  },
+] as const;
+
+/**
+ * What the UI shows. Display surfaces (the home earn grid, the global rewards
+ * strip, the activate picker) read this; anything that touches the chain must
+ * keep reading SUPPORTED_REWARD_ASSETS instead.
+ */
+export const ALL_REWARD_ASSETS: readonly RewardAssetConfig[] = [
+  ...SUPPORTED_REWARD_ASSETS,
+  ...TEASER_REWARD_ASSETS,
+];
+
+/** True for ids with no contract behind them yet. */
+export function isTeaserAssetId(id: string): boolean {
+  return TEASER_REWARD_ASSETS.some((a) => a.id === id);
+}

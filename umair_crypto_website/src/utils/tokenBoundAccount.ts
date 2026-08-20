@@ -5,7 +5,7 @@ import {
   ROBINHOOD_TESTNET_CONFIG,
 } from '../constants/contracts';
 
-// Derives an Associate's ERC-6551 wallet address locally, so MyStack's 10-second poll costs no RPC
+// Derives an Executive's ERC-6551 wallet address locally, so MyStack's 10-second poll costs no RPC
 // calls. Mirrors backend/lib/erc6551.js; ERC6551Registry.test.js asserts the two agree.
 
 const ERC1167_HEADER = '0x3d60ad80600a3d3981f3363d3d373d3d3d363d73';

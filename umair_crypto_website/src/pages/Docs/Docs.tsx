@@ -13,7 +13,7 @@ const DOC_SECTIONS: readonly DocSectionData[] = [
   { id: 'overview', title: 'Overview' },
   { id: 'how-it-works', title: 'How Monkey Business Works' },
   { id: 'activation', title: 'Activation' },
-  { id: 'my-stack', title: 'My Stack' },
+  { id: 'my-holdings', title: 'My Holdings' },
   { id: 'collection', title: 'Collection' },
   { id: 'wallet-safety', title: 'Wallet Safety' },
   { id: 'security', title: 'Security' },
@@ -98,16 +98,16 @@ export default function Docs() {
             <p className="docs-text">
               Monkey Business is an experimental digital collectible project built on Web3 technology.
               It combines NFT collectibles with an automated accumulation system — your activated
-              Associate accumulates value every cycle without any manual intervention.
+              Executive accumulates value every cycle without any manual intervention.
             </p>
             <p className="docs-text">
-              The collection consists of 1,111 unique Associates, each with distinct traits and visual attributes.
-              Activated Associates earn automatically, and the accumulated value lives inside the NFT itself.
+              The collection consists of 1,111 unique Executives, each with distinct traits and visual attributes.
+              Activated Executives earn automatically, and the accumulated value lives inside the NFT itself.
             </p>
             <div className="docs-image-block">
               <img
-                src="/assets/collection/user_art_2.jpg"
-                alt="Example Associate — Cyber Cowboy variant"
+                src="/assets/collection/mb-samurai-ronin.jpg"
+                alt="Example Executive — Samurai Ronin variant"
                 className="docs-image"
                 width={300}
                 height={300}
@@ -120,12 +120,12 @@ export default function Docs() {
             <h2 className="heading-md mb-4">How Monkey Business Works</h2>
             <p className="docs-text">
               The system operates on a cycle-based accumulation model. Each cycle, all activated
-              Associates receive their allocation based on their tier multiplier.
+              Executives receive their allocation based on their tier multiplier.
             </p>
             <h3 className="heading-sm mb-2 mt-6">The Cycle</h3>
             <p className="docs-text">
-              Cycles run continuously. Once your Associate is activated, it begins accumulating
-              from the next cycle onwards. Higher tier Associates receive proportionally more per cycle.
+              Cycles run continuously. Once your Executive is activated, it begins accumulating
+              from the next cycle onwards. Higher tier Executives receive proportionally more per cycle.
             </p>
             <h3 className="heading-sm mb-2 mt-6">Multipliers</h3>
             <div className="code-block">
@@ -147,36 +147,36 @@ export default function Docs() {
           <section id="activation" className="docs-section">
             <h2 className="heading-md mb-4">Activation</h2>
             <p className="docs-text">
-              Activation is a one-time process that transforms a dormant Associate into
+              Activation is a one-time process that transforms a dormant Executive into
               an active accumulator. The process involves burning tokens to select your tier.
             </p>
             <h3 className="heading-sm mb-2 mt-6">Steps to Activate</h3>
             <ol className="docs-list">
               <li>Connect your wallet on the Activate page</li>
-              <li>Select an Associate from your collection</li>
+              <li>Select an Executive from your collection</li>
               <li>Choose your desired tier and stock split</li>
               <li>Confirm the token burn transaction</li>
-              <li>Your Associate begins accumulating from the next cycle</li>
+              <li>Your Executive begins accumulating from the next cycle</li>
             </ol>
           </section>
 
-          <section id="my-stack" className="docs-section">
-            <h2 className="heading-md mb-4">My Stack</h2>
+          <section id="my-holdings" className="docs-section">
+            <h2 className="heading-md mb-4">My Holdings</h2>
             <p className="docs-text">
-              The My Stack page is your personal dashboard. It displays everything you own,
-              your accumulation history, and your current stack level.
+              The My Holdings page is your personal dashboard. It displays everything you own,
+              your accumulation history, and your current tier.
             </p>
             <h3 className="heading-sm mb-2 mt-6">Dashboard Features</h3>
             <ul className="docs-list">
-              <li><strong>Portfolio Overview</strong> — total owned, active stacks, stack level</li>
-              <li><strong>Collection Grid</strong> — visual display of your Associates</li>
+              <li><strong>Portfolio Overview</strong> — total owned, active holdings, tier</li>
+              <li><strong>Collection Grid</strong> — visual display of your Executives</li>
               <li><strong>Accumulated Balance</strong> — balance from accumulation cycles</li>
               <li><strong>Activity History</strong> — recent activations, upgrades, and cycles</li>
             </ul>
             <div className="docs-image-block">
               <img
-                src="/assets/collection/user_art_4.jpg"
-                alt="Associate Dragon Skull — portfolio display example"
+                src="/assets/collection/mb-dragon-skull-officer.jpg"
+                alt="Executive Dragon Skull — portfolio display example"
                 className="docs-image"
                 width={300}
                 height={300}
@@ -189,7 +189,7 @@ export default function Docs() {
             <h2 className="heading-md mb-4">Collection</h2>
             <p className="docs-text">
               The Monkey Business collection comprises 1,111 unique digital collectibles.
-              Each Associate has a unique combination of traits including headgear, eyewear,
+              Each Executive has a unique combination of traits including headgear, eyewear,
               clothing, accessories, and backgrounds.
             </p>
           </section>
@@ -234,9 +234,9 @@ export default function Docs() {
             </div>
 
             <div className="docs-faq">
-              <h3 className="heading-sm mb-2">How do I get an Associate?</h3>
+              <h3 className="heading-sm mb-2">How do I get an Executive?</h3>
               <p className="docs-text">
-                Associates can be acquired through the collection. Connect your wallet
+                Executives can be acquired through the collection. Connect your wallet
                 and visit the Activate page to begin.
               </p>
             </div>

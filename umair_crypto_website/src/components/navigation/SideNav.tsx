@@ -25,7 +25,7 @@ const NAV_ICONS: Record<string, ReactNode> = {
   [ROUTES.ACTIVATE]: (
     <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" />
   ),
-  [ROUTES.MY_STACK]: (
+  [ROUTES.MY_HOLDINGS]: (
     <path d="M12 2 2 7l10 5 10-5-10-5Zm0 9L2 16l10 5 10-5-10-5Z" />
   ),
   /* A winding trail with a marker pin at its head. */

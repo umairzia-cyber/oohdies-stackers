@@ -489,3 +489,23 @@
     justify-content: space-between;
   }
 }
+
+/* Shown when the picked assets include a token that has no contract behind it
+   yet. Advisory rather than an error — nothing has gone wrong, the pick just
+   cannot be sent on-chain today. */
+.activate-notice {
+  border: 1px solid var(--accent-a25);
+  border-left: 3px solid var(--accent);
+  background-color: var(--accent-a08);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.activate-notice strong {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}

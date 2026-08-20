@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="footer__marquee-track">
             {Array.from({ length: 12 }).map((_, i) => (
               <span key={i} className="footer__marquee-item">
-                EARN · STACK · ACTIVATE · UPGRADE · MONKEY BUSINESS ·{' '}
+                EARN · HOLD · ACTIVATE · UPGRADE · MONKEY BUSINESS ·{' '}
               </span>
             ))}
           </div>

@@ -5,7 +5,12 @@ import { useScrollReveal, useDocumentTitle, useContract, type UserNFTItem, type 
 import { SEO, WALLET } from '../../constants/content';
 import { MOCK_TIERS, MOCK_STOCKS } from '../../services/mock/mockData';
 import { formatNumber, formatWalletAddress } from '../../utils';
-import { ROBINHOOD_TESTNET_CONFIG, SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
+import {
+  ROBINHOOD_TESTNET_CONFIG,
+  SUPPORTED_REWARD_ASSETS,
+  ALL_REWARD_ASSETS,
+  isTeaserAssetId,
+} from '../../constants/contracts';
 import { getNFTChosenStockIds, setNFTChosenStockIds } from '../../utils/stockSelection';
 import type { TierInfo, StockItem } from '../../types';
 import './Activate.css';
@@ -143,6 +148,13 @@ export default function Activate() {
 
   const selectedNFT = userNFTs.find((n) => n.tokenId === selectedTokenId);
 
+  /* Picks that have no contract behind them yet. Drives the notice above the
+     activate button — see constants/contracts.ts TEASER_REWARD_ASSETS. */
+  const teasersSelected = selectedStockIds
+    .filter(isTeaserAssetId)
+    .map((id) => ALL_REWARD_ASSETS.find((a) => a.id === id))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
+
   return (
     <main className="activate-page">
       <section className="section" ref={ref}>
@@ -150,10 +162,10 @@ export default function Activate() {
 
           <div className={`activate-header-grid ${isVisible ? 'animate-fade-in' : ''}`}>
             <div className="activate-header-left">
-              <p className="subtitle mb-2">WAKE YOUR ASSOCIATE</p>
+              <p className="subtitle mb-2">WAKE YOUR EXECUTIVE</p>
               <h1 className="heading-xl mb-4">ACTIVATE</h1>
               <p className="body-lg mb-8">
-                Burn 100 $SPECIE to activate your Associate NFT and start earning real tokenized rewards on Robinhood Chain Testnet.
+                Burn 100 $SPECIE to activate your Executive NFT and start earning real tokenized rewards on Robinhood Chain Testnet.
               </p>
             </div>
 
@@ -207,17 +219,17 @@ export default function Activate() {
           )}
 
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-2' : ''}`}>
-            <h2 className="heading-md mb-2">STEP 1. SELECT YOUR ASSOCIATE NFT</h2>
+            <h2 className="heading-md mb-2">STEP 1. SELECT YOUR EXECUTIVE NFT</h2>
             <p className="text-secondary mb-6 max-w-700">
-              Select an NFT from your connected wallet to activate. If you do not own an Associate yet, mint one directly below.
+              Select an NFT from your connected wallet to activate. If you do not own an Executive yet, mint one directly below.
             </p>
 
             {fetchingUserState && userNFTs.length === 0 ? (
-              <p className="text-secondary">Loading your Associates from Robinhood Testnet...</p>
+              <p className="text-secondary">Loading your Executives from Robinhood Testnet...</p>
             ) : userNFTs.length === 0 ? (
               <div className="empty-state p-6 bordered-box mb-6 text-center">
-                <h3 className="heading-sm mb-2">No Associates found in this wallet</h3>
-                <p className="text-secondary mb-4">Mint an official Associate NFT on Robinhood Chain Testnet to start earning.</p>
+                <h3 className="heading-sm mb-2">No Executives found in this wallet</h3>
+                <p className="text-secondary mb-4">Mint an official Executive NFT on Robinhood Chain Testnet to start earning.</p>
               </div>
             ) : (
               <div className="nft-select-grid mb-6">
@@ -253,9 +265,9 @@ export default function Activate() {
             <div id="mint" ref={mintSectionRef} className="mint-dedicated-container mb-8">
               <div className="mint-dedicated-box">
                 <div className="mint-dedicated-info">
-                  <h3 className="heading-sm mb-1">MINT A NEW ASSOCIATE</h3>
+                  <h3 className="heading-sm mb-1">MINT A NEW EXECUTIVE</h3>
                   <p className="text-secondary text-xs">
-                    Directly on Robinhood Chain Testnet. Mint your next Associate to expand your stack.
+                    Directly on Robinhood Chain Testnet. Mint your next Executive to expand your holdings.
                   </p>
                 </div>
                 <button
@@ -264,7 +276,7 @@ export default function Activate() {
                   onClick={handleMintNewNFT}
                   disabled={loading || !wallet.isCorrectNetwork}
                 >
-                  {txStatus === 'awaiting' ? 'Confirm in Wallet...' : txStatus === 'pending' ? 'Minting NFT...' : '+ Mint New Associate'}
+                  {txStatus === 'awaiting' ? 'Confirm in Wallet...' : txStatus === 'pending' ? 'Minting NFT...' : '+ Mint New Executive'}
                 </button>
               </div>
             </div>
@@ -273,7 +285,7 @@ export default function Activate() {
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-3' : ''}`}>
             <h2 className="heading-md mb-2">STEP 2. PICK YOUR TIER (STRATEGY & MULTIPLIER PREVIEW)</h2>
             <p className="text-secondary mb-6 max-w-700">
-              Note: Current on-chain testnet activation burns a fixed 100 $SPECIE for standard earning across all active Associates. Multipliers below display visual strategy previews.
+              Note: Current on-chain testnet activation burns a fixed 100 $SPECIE for standard earning across all active Executives. Multipliers below display visual strategy previews.
             </p>
 
             <div className="grid-bordered grid-5 activate-tiers">
@@ -294,13 +306,13 @@ export default function Activate() {
 
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-4' : ''}`}>
             <div className="flex justify-between items-center mb-2 flex-wrap gap-2">
-              <h2 className="heading-md">STEP 3. PICK YOUR 3 STOCKS</h2>
+              <h2 className="heading-md">STEP 3. PICK YOUR 3 ASSETS</h2>
               <span className="text-sm font-mono text-accent font-bold">
                 {selectedStockIds.length} of 3 Selected
               </span>
             </div>
             <p className="text-secondary mb-6 max-w-800">
-              Select the 3 synthetic stock assets for this Associate. Upon burning 100 $SPECIE, this Associate will exclusively accrue and let you claim those 3 chosen stocks on Robinhood Chain Testnet.
+              Select the 3 assets for this Executive — tokenized stocks, USDG, or crypto tokens. Upon burning 100 $SPECIE, this Executive will exclusively accrue and let you claim those 3 picks on Robinhood Chain Testnet.
             </p>
 
             <div className="stock-picker-grid">
@@ -327,23 +339,23 @@ export default function Activate() {
 
             {!isConnected ? (
               <div className="activate-connect">
-                <p className="text-secondary mb-4">Connect your wallet to activate your Associate on Robinhood Testnet.</p>
+                <p className="text-secondary mb-4">Connect your wallet to activate your Executive on Robinhood Testnet.</p>
                 <button className="btn btn--primary btn--lg" onClick={connect} disabled={isConnecting}>
                   {isConnecting ? WALLET.connecting : WALLET.connectButton}
                 </button>
               </div>
             ) : selectedNFT?.isActivated ? (
               <div className="activate-success">
-                <p className="heading-sm text-accent mb-4">ASSOCIATE #{selectedTokenId} IS ALREADY ACTIVE</p>
+                <p className="heading-sm text-accent mb-4">EXECUTIVE #{selectedTokenId} IS ALREADY ACTIVE</p>
                 <p className="text-secondary mb-6">
-                  This Associate is currently earning rewards on-chain. View its live balance on the My Stack page!
+                  This Executive is currently earning rewards on-chain. View its live balance on the My Holdings page!
                 </p>
               </div>
             ) : txStatus === 'confirmed' ? (
               <div className="activate-success">
                 <p className="heading-sm text-accent mb-4">ACTIVATION CONFIRMED!</p>
                 <p className="text-secondary mb-4">
-                  Associate #{selectedTokenId} has been successfully activated on Robinhood Chain Testnet.
+                  Executive #{selectedTokenId} has been successfully activated on Robinhood Chain Testnet.
                 </p>
                 {txHash && (
                   <p className="mb-6 text-sm">
@@ -368,7 +380,7 @@ export default function Activate() {
                   <div>
                     <span className="text-muted block text-xs">SELECTED NFT</span>
                     <span className="font-bold text-accent">
-                      {selectedTokenId !== null ? `Associate #${selectedTokenId}` : 'None Selected'}
+                      {selectedTokenId !== null ? `Executive #${selectedTokenId}` : 'None Selected'}
                     </span>
                   </div>
                   <div>
@@ -376,11 +388,13 @@ export default function Activate() {
                     <span className="font-bold">100 $SPECIE (Permanently Burned)</span>
                   </div>
                   <div>
-                    <span className="text-muted block text-xs">SELECTED REWARD STOCKS</span>
+                    <span className="text-muted block text-xs">SELECTED REWARD ASSETS</span>
                     <span className="font-bold text-accent">
                       {selectedStockIds.length > 0
-                        ? selectedStockIds.map((s) => s.toUpperCase() + (s !== 'usdg' && !s.endsWith('x') ? 'x' : '')).join(', ')
-                        : 'TSLAx, NVDAx, AAPLx, USDG'}
+                        ? selectedStockIds
+                            .map((id) => ALL_REWARD_ASSETS.find((a) => a.id === id)?.symbol ?? id.toUpperCase())
+                            .join(', ')
+                        : 'TSLAx, NVDAx, AAPLx'}
                     </span>
                   </div>
                 </div>
@@ -405,10 +419,28 @@ export default function Activate() {
                   </p>
                 )}
 
+                {/* The picker shows the teased tokens as first-class options, but
+                    activation is a real transaction and there is no contract to
+                    point it at yet. Say so here rather than letting the call
+                    throw somewhere the user cannot see it. */}
+                {teasersSelected.length > 0 && (
+                  <p className="activate-notice mb-4">
+                    <strong>{teasersSelected.map((a) => a.symbol).join(', ')}</strong>{' '}
+                    {teasersSelected.length === 1 ? 'is' : 'are'} not live on testnet yet — swap{' '}
+                    {teasersSelected.length === 1 ? 'it' : 'them'} for a stock or USDG to activate
+                    on-chain today.
+                  </p>
+                )}
+
                 <button
                   className={`btn btn--primary btn--lg ${loading ? 'btn--loading' : ''}`}
                   onClick={handleRealActivate}
-                  disabled={loading || selectedTokenId === null || !wallet.isCorrectNetwork}
+                  disabled={
+                    loading ||
+                    selectedTokenId === null ||
+                    !wallet.isCorrectNetwork ||
+                    teasersSelected.length > 0
+                  }
                 >
                   {txStatus === 'awaiting'
                     ? 'AWAITING WALLET SIGNATURE...'

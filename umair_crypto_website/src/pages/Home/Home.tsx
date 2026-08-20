@@ -2,7 +2,7 @@ import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
 import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
-import { SUPPORTED_REWARD_ASSETS } from '../../constants/contracts';
+import { ALL_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
 import { MOCK_COLLECTION, MOCK_STATS, MOCK_STEPS, MOCK_STOCKS } from '../../services/mock/mockData';
 import { formatNumber } from '../../utils';
@@ -54,12 +54,12 @@ function HeroSection() {
             <span className="hero__heading-line2 text-accent">{HERO.headingLine2}</span>
           </h1>
           <p className="body-lg hero__desc">
-            Acquire an Associate, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.
+            Acquire an Executive, activate it by burning tokens, and watch your holdings grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.
           </p>
 
           <div className="hero__actions">
             <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg">
-              MINT ASSOCIATE
+              MINT EXECUTIVE
             </Link>
 
             <Link to="/" className="btn btn--secondary btn--lg">
@@ -130,7 +130,7 @@ function SpaceTradingBannerSection() {
 
 /* ─── Extraction Band ──────────────────────────────────
    A split band rather than another wide banner card. The render is square and
-   reads top-to-bottom — rotor, Associate, coin-stamped crate — so cropping it to
+   reads top-to-bottom — rotor, Executive, coin-stamped crate — so cropping it to
    16:9 would throw away both ends of the composition. Running it beside the
    copy at its native ratio keeps the picture intact and breaks up what would
    otherwise be three identical banner cards in a row. */
@@ -155,13 +155,13 @@ function ExtractionBandSection() {
           </figure>
 
           <div className="extraction-band__copy">
-            <p className="extraction-band__tag">THE STACK TRAVELS WITH IT</p>
+            <p className="extraction-band__tag">THE HOLDINGS TRAVEL WITH IT</p>
             <h2 id="extraction-heading" className="heading-md">
               EVERYTHING IT EARNS STAYS IN THE CRATE
             </h2>
             <p className="body-lg extraction-band__desc">
               Rewards accrue into the NFT&rsquo;s own on-chain account, not yours. Sell the
-              Associate and the whole stack goes with it &mdash; tier, split and balance
+              Executive and everything it holds goes with it &mdash; tier, split and balance
               intact. Nothing has to be swept out first.
             </p>
             <Link to={ROUTES.THE_TRAIL} className="extraction-band__link">
@@ -201,8 +201,10 @@ function StatsSection() {
   const mintsLeftDisplay = stats ? stats.mintsLeft : MOCK_STATS.supplyAlive;
   const burnedTokensDisplay = stats ? `${formatNumber(parseFloat(stats.burnedTokens))} $SPECIE` : MOCK_STATS.supplyBurnedTokens;
 
-  // Merge registered assets with live claimed stats
-  const allStockStripItems = SUPPORTED_REWARD_ASSETS.map((asset) => {
+  // Merge registered assets with live claimed stats. Teased tokens carry no
+  // address, so they never match a live row and simply read zero — which is what
+  // an asset nobody has claimed yet should say.
+  const allStockStripItems = ALL_REWARD_ASSETS.map((asset) => {
     const liveMatch = rewardStats.find(
       (rs) => rs.assetAddress.toLowerCase() === asset.address.toLowerCase()
     );
@@ -217,7 +219,7 @@ function StatsSection() {
   return (
     <section className="section section--bordered stats-section--pushed" ref={ref} aria-label="Platform Statistics Overview">
       <div className="container">
-        <div className={`stats-grid-associates ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+        <div className={`stats-grid-executives ${isVisible ? 'reveal--visible' : 'reveal'}`}>
 
           <div className="stat-card-main">
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
@@ -236,7 +238,7 @@ function StatsSection() {
                 />
                 <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
               </div>
-              <span className="text-xs text-accent font-mono">12 Supported Stocks & USDG</span>
+              <span className="text-xs text-accent font-mono">12 Stocks &amp; USDG · 6 Tokens</span>
             </div>
 
             <div className="global-stock-strip">
@@ -271,7 +273,7 @@ function StatsSection() {
                 <span className="stat-card__badge">OF 1,111</span>
               </div>
               <p className="stat-card__desc">
-                Associates available to mint in real-time. Total collection is capped at 1,111.
+                Executives available to mint in real-time. Total collection is capped at 1,111.
               </p>
             </div>
 
@@ -290,10 +292,10 @@ function StatsSection() {
               <p className="stat-card__tag">GET IN</p>
               <h3 className="stat-card__val text-accent">MINT LIVE</h3>
               <p className="stat-card__desc">
-                1,111 total supply. Activate by burning 100 $SPECIE tokens to start stacking hourly earnings.
+                1,111 total supply. Activate by burning 100 $SPECIE tokens to start earning hourly.
               </p>
               <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--sm mt-4">
-                Mint Associate
+                Mint Executive
               </Link>
             </div>
           </div>
@@ -315,9 +317,9 @@ function ShowcaseSection() {
         <div className={`showcase-grid-3col ${isVisible ? 'reveal--visible' : 'reveal'}`}>
 
           <div className="showcase-card showcase-card--stocks">
-            <p className="showcase-card__tag">TWELVE WAYS TO EARN</p>
+            <p className="showcase-card__tag">EIGHTEEN WAYS TO EARN</p>
             <p className="showcase-card__desc">
-              Eleven tokenized stocks plus USDG. Pick up to three, split your hourly earnings between them. Your split decides what you collect, not how much.
+              Eleven tokenized stocks, USDG, and six crypto tokens. Pick up to three, split your hourly earnings between them. Your split decides what you collect, not how much.
             </p>
             <div className="stocks-icon-row stocks-icon-row--large">
               {MOCK_STOCKS.map((stock) => (
@@ -364,7 +366,7 @@ function ShowcaseSection() {
 
 /* ─── Alliance Band ────────────────────────────────────
    Sits directly under the showcase, whose last card is about how much an
-   Associate earns. This is the one lever on that number that is not bought with
+   Executive earns. This is the one lever on that number that is not bought with
    $SPECIE, so it belongs immediately after it rather than further down.
 
    Held to a partnership band, not a banner card: the perks are numbers read
@@ -396,6 +398,22 @@ function AllianceSection() {
 
               <p className="alliance-card__tagline">{ALLIANCE.tagline}</p>
               <p className="alliance-card__desc">{ALLIANCE.body}</p>
+
+              {/* The recognised collections. Same chip language as the perks
+                  below so the band reads as one panel rather than two. */}
+              <ul className="alliance-partners">
+                {ALLIANCE.partners.map((partner) => (
+                  <li key={partner.key} className="alliance-partner">
+                    <span className="alliance-partner__glyph" aria-hidden="true">
+                      {partner.glyph}
+                    </span>
+                    <span className="alliance-partner__text">
+                      <span className="alliance-partner__name">{partner.name}</span>
+                      <span className="alliance-partner__supply">{partner.supply}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
               <dl className="alliance-card__perks">
                 {ALLIANCE.perks.map((perk) => (
@@ -526,7 +544,7 @@ function HowItWorksSection() {
       <div className="container">
         <div className={`${isVisible ? 'reveal--visible' : 'reveal'}`}>
           <h2 id="how-heading" className="heading-lg mb-2">{HOW_IT_WORKS.heading}</h2>
-          <p className="body-lg mb-8">Set it up once. Your Associate works while you sleep.</p>
+          <p className="body-lg mb-8">Set it up once. Your Executive works while you sleep.</p>
         </div>
 
         <div className={`grid-bordered grid-4 ${isVisible ? 'reveal--visible reveal--delay-2' : 'reveal'}`}>
@@ -561,7 +579,7 @@ function FinalCTASection() {
         />
         <h2 id="cta-heading" className="heading-xl mb-8">READY TO EARN?</h2>
         <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg animate-pulse-glow">
-          MINT ASSOCIATE
+          MINT EXECUTIVE
         </Link>
       </div>
     </section>

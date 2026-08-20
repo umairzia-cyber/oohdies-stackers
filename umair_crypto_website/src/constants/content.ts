@@ -2,51 +2,51 @@ export const BRAND = {
   name: 'MONKEY BUSINESS',
   nameFirst: 'MONKEY',
   nameSecond: 'BUSINESS',
-  tagline: 'Earn Specie. Build Your Stack.',
-  description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire, activate, and stack Associates in an experimental Web3 experience.',
+  tagline: 'Earn Specie. Build Your Holdings.',
+  description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire Executives, activate them, and build your holdings in an experimental Web3 experience.',
   year: new Date().getFullYear(),
 } as const;
 
 export const HERO = {
   subtitle: '1111 DIGITAL COLLECTIBLES · READY TO EARN',
   headingLine1: 'EARN SPECIE.',
-  headingLine2: 'BUILD YOUR STACK.',
-  description: 'Acquire an Associate, activate it by burning tokens, and watch your stack grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.',
-  primaryCta: 'Get an Associate',
+  headingLine2: 'BUILD YOUR HOLDINGS.',
+  description: 'Acquire an Executive, activate it by burning tokens, and watch your holdings grow automatically. The asset lives inside the NFT — it travels with it if you sell. The cycle never stops.',
+  primaryCta: 'Get an Executive',
   secondaryCta: 'Learn More',
 } as const;
 
 export const STATS_LABELS = {
   totalBananas: 'TOTAL SUPPLY',
   destroyed: '$SPECIE BURNED',
-  activeStacks: 'ACTIVE STACKS',
+  activeStacks: 'ACTIVE HOLDINGS',
   collectionSize: 'COLLECTION SIZE',
 } as const;
 
 export const HOW_IT_WORKS = {
   heading: 'FOUR STEPS. THEN ACCUMULATION.',
-  subheading: 'Set it up once. Your Associate works while you sleep.',
+  subheading: 'Set it up once. Your Executive works while you sleep.',
 } as const;
 
 export const FINAL_CTA = {
   heading: 'READY TO EARN?',
-  buttonText: 'ACTIVATE ASSOCIATE',
+  buttonText: 'ACTIVATE EXECUTIVE',
 } as const;
 
 export const ACTIVATE_PAGE = {
-  subtitle: 'WAKE YOUR ASSOCIATE',
+  subtitle: 'WAKE YOUR EXECUTIVE',
   heading: 'ACTIVATE',
   description: 'Choose your tier, pick your stocks, split your earnings.',
 } as const;
 
-export const MY_STACK_PAGE = {
-  subtitle: 'YOUR ASSOCIATES · YOUR STACK',
-  heading: 'MY STACK',
+export const MY_HOLDINGS_PAGE = {
+  subtitle: 'YOUR EXECUTIVES · YOUR HOLDINGS',
+  heading: 'MY HOLDINGS',
   description: 'Everything you own and everything it makes you, on one page.',
-  disconnectedMessage: 'Connect your wallet to view your Associate stack.',
-  emptyTitle: 'No Associates Yet',
-  emptyMessage: 'Your stack is empty. Activate your first Associate to start building.',
-  emptyCta: 'ACTIVATE YOUR FIRST ASSOCIATE',
+  disconnectedMessage: 'Connect your wallet to view your Executive holdings.',
+  emptyTitle: 'No Executives Yet',
+  emptyMessage: 'Your holdings are empty. Activate your first Executive to start building.',
+  emptyCta: 'ACTIVATE YOUR FIRST EXECUTIVE',
 } as const;
 
 export const DOCS_PAGE = {
@@ -58,14 +58,14 @@ export const DOCS_PAGE = {
 // every string below is a label rather than a paragraph.
 export const COLLECTION_PAGE = {
   subtitle: 'THE COLLECTION',
-  heading: 'MEET THE ASSOCIATES',
+  heading: 'MEET THE EXECUTIVES',
   description:
-    'Hand-drawn, none repeated. Every Associate carries its own traits into the stack — and the rarer the build, the harder it works.',
+    'Hand-drawn, none repeated. Every Executive carries its own traits into your holdings — and the rarer the build, the harder it works.',
   wallLabel: 'STAFF ON PREMISES',
   rosterHeading: 'MEET THE TEAM',
   rosterNote: 'Five of the workforce, on the record.',
   recordLabel: 'RECORD',
-  cta: 'START STACKING',
+  cta: 'START BUILDING',
 } as const;
 
 // Roadmap tease. Deliberately says nothing about the individual stops — the map
@@ -77,7 +77,7 @@ export const TRAIL_PAGE = {
     'Join us on the uncharted trail. Every clearing on this map is somewhere the troop is headed — the signposts stay blank until we get there.',
   mapCaption: 'No dates. No promises. Just the trail.',
   marker: 'YOU ARE HERE',
-  cta: 'START STACKING',
+  cta: 'START BUILDING',
   mapAlt:
     'An illustrated map of the Monkey Business trail: a jungle clearing where troops of primates gather at scattered landmarks — a stone council table, a glowing wishing well, a rising chart on a plinth, a swirling portal, an armoured primate with a lit sword, crates of gear, and a market stall — all linked by winding dotted paths meeting at a blank wooden signpost.',
   expeditionsHeading: 'THE EXPEDITIONS',
@@ -197,7 +197,7 @@ export const DOCS_TEASE = {
 } as const;
 
 /*
- * The homepage stinger, teasing the phygitals release — physical Associate
+ * The homepage stinger, teasing the phygitals release — physical Executive
  * collectibles alongside the digital ones. Unannounced, so nothing below names
  * it: no "physical", no product, no date. The picture is shown; its meaning is
  * not.
@@ -248,41 +248,62 @@ export const CRATE_TEASE = {
 } as const;
 
 /*
- * The StonkBrokers alliance band on the home page.
+ * The partner-collection alliance band on the home page.
  *
  * Every number here is read off the contracts rather than agreed in a call, so
  * check them against the chain before editing:
  *   - EarningEngine.getWeight() returns collectionQMultiplierBps for any
- *     Associate whose *current owner* holds a balance of the partner
+ *     Executive whose *current owner* holds a balance of the partner
  *     collection, and BASE_WEIGHT otherwise. Deployed at 20,000 vs 10,000 bps
  *     — hence 2.0x.
  *   - The weight is added to activeWeightForAsset once per chosen asset, so it
  *     applies to all of ActivationController.requiredPicks (3), not one.
- *   - getWeight() only checks balanceOf > 0, so a second broker does nothing.
+ *   - getWeight() only checks balanceOf > 0, so a second NFT does nothing.
  *
- * The claim is a *share* claim, not an absolute one: a boosted Associate takes
+ * ONE COLLECTION IS LIVE, FOUR ARE LISTED. getWeight() reads a single address —
+ * CONTRACT_ADDRESSES.COLLECTION_Q, which is StonkBrokers. The other three in
+ * `partners` below are shown ahead of the contract work that would recognise
+ * them, the same way TEASER_REWARD_ASSETS front-runs its tokens.
+ *
+ * The band presents all four as equals on purpose, so `onChain` is bookkeeping
+ * for us and is deliberately NOT rendered: no badge, no ordering, no wording
+ * singles one out. Order below is by collection size. Flip the flag when the
+ * engine actually checks that address.
+ *
+ * The claim is a *share* claim, not an absolute one: a boosted Executive takes
  * twice the slice of a stream that an unboosted one takes. Do not restate it as
  * "double your rewards" — that is a different and untrue statement.
  */
 export const ALLIANCE = {
-  mark: 'STONKBROKERS × MONKEY BUSINESS',
-  ref: '4,444 BROKERS · ROBINHOOD CHAIN',
-  headingLine1: 'HOLD ONE BROKER.',
-  headingLine2: 'EVERY ASSOCIATE COUNTS TWICE.',
+  mark: 'PARTNER COLLECTIONS × MONKEY BUSINESS',
+  ref: 'FOUR COLLECTIONS · ROBINHOOD CHAIN',
+  headingLine1: 'HOLD ONE OF THESE.',
+  headingLine2: 'EVERY EXECUTIVE COUNTS TWICE.',
   tagline: 'THE ALLIANCE · READ STRAIGHT OFF YOUR WALLET',
   body:
-    'Every StonkBroker is a wallet with tokenized stock sealed inside it. So is every Associate. Before the engine settles a stream it looks at the holder’s wallet — find a broker there, and that Associate is counted at 2.0x weight against every stream it picked: twice the slice of an Associate without one.',
+    'Every partner NFT is a wallet with something sealed inside it. So is every Executive. Before the engine settles a stream it looks at the holder’s wallet — find one of these there, and that Executive is counted at 2.0x weight against every stream it picked: twice the slice of an Executive without one.',
+  /*
+   * The recognised collections. `supply` is each collection's own mint size, not
+   * anything of ours. `onChain` is the honest bit: only the entry with it set is
+   * actually read by EarningEngine.getWeight() today — see the note above.
+   */
+  partners: [
+    { key: 'bayc', glyph: '🐵', name: 'Bored Ape YC', supply: '10,000', onChain: false },
+    { key: 'punks', glyph: '👾', name: 'CryptoPunks', supply: '10,000', onChain: false },
+    { key: 'pudgy', glyph: '🐧', name: 'Pudgy Penguins', supply: '8,888', onChain: false },
+    { key: 'stonkbrokers', glyph: '📈', name: 'StonkBrokers', supply: '4,444', onChain: true },
+  ],
   perks: [
-    { value: '2.0x', label: 'weight on every activated Associate in that wallet' },
-    { value: '1', label: 'broker is enough — a tenth one changes nothing' },
+    { value: '2.0x', label: 'weight on every activated Executive in that wallet' },
+    { value: '1', label: 'partner NFT is enough — a tenth one changes nothing' },
     { value: '3 / 3', label: 'picks carry it, not just the first' },
     { value: '0', label: 'to stake, lock, or sign up for' },
   ],
   note:
-    'Nothing is retroactive. The boost starts the moment the broker lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Associate’s own wallet either way.',
-  cta: 'GET A STONKBROKER',
-  href: 'https://www.stonkbrokers.cash/home',
-  strip: 'HOLD ONE BROKER · EVERY ACTIVATED ASSOCIATE EARNS AT 2.0x · STONKBROKERS.CASH',
+    'Nothing is retroactive. The boost starts the moment the NFT lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Executive’s own wallet either way.',
+  cta: 'GET A PARTNER NFT',
+  href: 'https://opensea.io',
+  strip: 'HOLD ONE PARTNER NFT · EVERY ACTIVATED EXECUTIVE EARNS AT 2.0x',
   imageAlt:
     'A pixel-art ape in a pinstriped suit working a laptop beside a blocky suited broker wearing a headset, standing in front of a rising green and gold candlestick chart with Bitcoin and Ethereum coins tumbling around them.',
 } as const;
@@ -296,20 +317,20 @@ export const WALLET = {
 
 export const SEO = {
   home: {
-    title: 'Monkey Business — Earn Specie. Build Your Stack.',
-    description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire, activate, and stack Associates.',
+    title: 'Monkey Business — Earn Specie. Build Your Holdings.',
+    description: 'A digital collectible ecosystem where burning $SPECIE creates value. Acquire and activate Executives, and build your holdings.',
   },
   collection: {
     title: 'The Collection — Monkey Business',
-    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Associates on the record.',
+    description: 'Meet The Firm. The lore behind Monkey Business, and five of the 1,111 Executives on the record.',
   },
   activate: {
     title: 'Activate — Monkey Business',
-    description: 'Activate your Associate by choosing a tier and burning tokens. Start accumulating today.',
+    description: 'Activate your Executive by choosing a tier and burning tokens. Start accumulating today.',
   },
-  myStack: {
-    title: 'My Stack — Monkey Business',
-    description: 'View your Associate collection, stack level, and accumulated balance.',
+  myHoldings: {
+    title: 'My Holdings — Monkey Business',
+    description: 'View your Executive collection, tier, and accumulated balance.',
   },
   theTrail: {
     title: 'The Trail — Monkey Business',
@@ -317,6 +338,6 @@ export const SEO = {
   },
   docs: {
     title: 'Docs — Monkey Business',
-    description: 'Complete documentation for Monkey Business — how it works, activation, stacking, wallet safety, and FAQ.',
+    description: 'Complete documentation for Monkey Business — how it works, activation, holdings, wallet safety, and FAQ.',
   },
 } as const;

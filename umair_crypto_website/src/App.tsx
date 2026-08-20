@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { WalletProvider } from './context/WalletContext';
-import { ROUTES } from './constants/routes';
+import { ROUTES, LEGACY_MY_STACK_PATH } from './constants/routes';
 import SideNav from './components/navigation/SideNav';
 import Navbar from './components/navigation/Navbar';
 import Footer from './components/common/Footer';
@@ -14,7 +14,7 @@ import './styles/index.css';
 const Home = lazy(() => import('./pages/Home/Home'));
 const Collection = lazy(() => import('./pages/Collection/Collection'));
 const Activate = lazy(() => import('./pages/Activate/Activate'));
-const MyStack = lazy(() => import('./pages/MyStack/MyStack'));
+const MyHoldings = lazy(() => import('./pages/MyStack/MyStack'));
 const TheTrail = lazy(() => import('./pages/TheTrail/TheTrail'));
 const Docs = lazy(() => import('./pages/Docs/Docs'));
 
@@ -55,7 +55,11 @@ export default function App() {
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.COLLECTION} element={<Collection />} />
             <Route path={ROUTES.ACTIVATE} element={<Activate />} />
-            <Route path={ROUTES.MY_STACK} element={<MyStack />} />
+            <Route path={ROUTES.MY_HOLDINGS} element={<MyHoldings />} />
+            <Route
+              path={LEGACY_MY_STACK_PATH}
+              element={<Navigate to={ROUTES.MY_HOLDINGS} replace />}
+            />
             <Route path={ROUTES.THE_TRAIL} element={<TheTrail />} />
             <Route path={ROUTES.DOCS} element={<Docs />} />
 
