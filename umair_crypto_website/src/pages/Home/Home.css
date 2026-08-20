@@ -161,7 +161,7 @@
 
 /* ── Extraction band ───────────────────────────────────────────────────────
    The airlift render is square, and its composition runs top to bottom —
-   rotor, Associate, coin-stamped crate. Cropping it into a wide banner would cut
+   rotor, Executive, coin-stamped crate. Cropping it into a wide banner would cut
    the helicopter off the top and the crate off the bottom, so it gets a split
    band instead: art at its native ratio beside the copy. That also breaks up
    the run of wide banner cards this page would otherwise become. */
@@ -270,7 +270,7 @@
 }
 
 
-.stats-grid-associates {
+.stats-grid-executives {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
@@ -760,6 +760,57 @@
   color: var(--text-secondary);
   line-height: 1.65;
   max-width: 52ch;
+}
+
+/* The recognised collections, sat between the paragraph and the perk grid.
+   Chips rather than a list: four short names need to scan in one pass, and the
+   perks below already own the bordered-row treatment. */
+.alliance-partners {
+  /* Two up, matching the perk grid directly below — four across does not fit
+     the copy column, and letting them wrap leaves a ragged 3 + 1. */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alliance-partner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-a04);
+}
+
+.alliance-partner__glyph {
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+
+.alliance-partner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.alliance-partner__name {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.alliance-partner__supply {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
 .alliance-card__perks {

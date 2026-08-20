@@ -3,13 +3,19 @@ import type { Rarity } from '../types';
 /**
  * Collection data for the home-page strip and the /collection header wall.
  *
- * ADDING ART — the home-page strip is driven by ARCHETYPES below. Drop the
- * render into /public/assets/collection and add one entry here. The header wall
- * on /collection runs off WALL_ART instead — see the note there for why it is a
- * separate, plainer list.
+ * ADDING ART — drop the render into /public/assets/collection as `mb-*.jpg`,
+ * add its path to COLLECTION_ART, and that is enough for the wall and for
+ * on-chain Executives. Promoting a render to a named archetype (traits, tier)
+ * is a second, deliberate step: add it to ARCHETYPES below.
  *
  * Traits and rarity live on the archetype rather than on individual pieces,
  * which keeps it honest: the same render always reports the same traits.
+ *
+ * Renders are exported at 640px. The largest any of them is ever drawn is the
+ * 260px roster portrait on /collection, so that covers every use at 2x with
+ * room to spare — and the wall loads all thirty-four eagerly, so the ceiling
+ * is deliberate. Re-export from the 1200px originals if a bigger treatment
+ * ever lands.
  */
 
 /** Final mint size. The gallery only ever shows a sample of it. */
@@ -31,137 +37,145 @@ export interface Archetype {
 
 export const ARCHETYPES: readonly Archetype[] = [
   {
-    key: 'camo-tiger',
-    name: 'Camo Tiger',
-    image: '/assets/collection/user_art_1.jpg',
+    key: 'street-cap',
+    name: 'Street Cap',
+    image: '/assets/collection/mb-street-cap.jpg',
     rarity: 'COMMON',
-    description: 'Tiger-striped Associate in a leopard camo bucket hat. Keeps a low profile while stacking.',
+    description: 'Ash-grey Executive in a backwards snapback and cat-eye shades. Says nothing, signs everything.',
     traits: [
-      { label: 'Background', value: 'Dusk Mauve' },
-      { label: 'Hide', value: 'Tiger Stripe' },
-      { label: 'Headwear', value: 'Leopard Bucket Hat' },
-      { label: 'Mouth', value: 'Lit Cigarette' },
-      { label: 'Attire', value: 'Field Shirt' },
+      { label: 'Background', value: 'Crimson' },
+      { label: 'Hide', value: 'Ash Grey' },
+      { label: 'Headwear', value: 'Red Snapback — Reversed' },
+      { label: 'Eyes', value: 'Cat-Eye Shades' },
+      { label: 'Mouth', value: 'Stitched Shut' },
+      { label: 'Attire', value: 'Leopard Vest' },
     ],
   },
   {
-    key: 'cyber-cowboy',
-    name: 'Cyber Cowboy',
-    image: '/assets/collection/user_art_2.jpg',
+    key: 'steel-jaw',
+    name: 'Steel Jaw',
+    image: '/assets/collection/mb-steel-jaw-captain.jpg',
     rarity: 'UNCOMMON',
-    description: 'Bionic red-eye sight under a classic leather cowboy hat. Never misses a target.',
+    description: 'Leopard-hide Executive running a hydraulic jaw brace under a captain’s cap. Bites down and does not let go.',
     traits: [
-      { label: 'Background', value: 'Sunset Orange' },
-      { label: 'Hide', value: 'Tiger Stripe' },
-      { label: 'Headwear', value: 'Leather Stetson' },
-      { label: 'Eyes', value: 'Chrome Optic — Red' },
-      { label: 'Attire', value: 'Spiked Fur Coat' },
+      { label: 'Background', value: 'Slate Teal' },
+      { label: 'Hide', value: 'Leopard Spot' },
+      { label: 'Headwear', value: 'Naval Captain’s Cap' },
+      { label: 'Jaw', value: 'Hydraulic Brace' },
+      { label: 'Attire', value: 'Waistcoat & Bow Tie' },
     ],
   },
   {
     key: 'brain-dome',
     name: 'Brain Dome',
-    image: '/assets/collection/user_art_3.jpg',
+    image: '/assets/collection/mb-brain-dome.jpg',
     rarity: 'RARE',
-    description: 'Exposed hyper-brain preserved in a glass dome. Pure tactical calculation.',
+    description: 'Exposed hyper-brain sealed under glass. Half-lidded, and entirely unimpressed.',
     traits: [
-      { label: 'Background', value: 'Swamp Olive' },
+      { label: 'Background', value: 'Dusk Mauve' },
+      { label: 'Hide', value: 'Ash Grey' },
       { label: 'Headwear', value: 'Glass Cortex Dome' },
-      { label: 'Eyes', value: 'Seared Socket' },
-      { label: 'Face', value: 'Black Respirator' },
-      { label: 'Attire', value: 'Trench Coat & Tie' },
+      { label: 'Eyes', value: 'Half-Lidded' },
+      { label: 'Attire', value: 'Python-Print Waistcoat' },
     ],
   },
   {
     key: 'samurai-ronin',
     name: 'Samurai Ronin',
-    image: '/assets/collection/user_art_5.jpg',
+    image: '/assets/collection/mb-samurai-ronin.jpg',
     rarity: 'EPIC',
-    description: 'Honor-bound armored warrior equipped with a targeted scouter eyepiece.',
+    description: 'Gold-crested kabuto, red domino mask, and a plaster on one cheek. Still standing.',
     traits: [
-      { label: 'Background', value: 'Steel Blue' },
+      { label: 'Background', value: 'Amber Orange' },
       { label: 'Headwear', value: 'Gold-Crested Kabuto' },
-      { label: 'Eyes', value: 'Scouter — Jade' },
-      { label: 'Attire', value: 'Lacquered Ō-Yoroi' },
-      { label: 'Aura', value: 'Honour-Bound' },
+      { label: 'Face', value: 'Red Domino Mask' },
+      { label: 'Mouth', value: 'Bandaged Cheek' },
+      { label: 'Attire', value: 'Spiked Check Waistcoat' },
     ],
   },
   {
     key: 'dragon-skull',
     name: 'Dragon Skull',
-    image: '/assets/collection/user_art_4.jpg',
+    image: '/assets/collection/mb-dragon-skull-officer.jpg',
     rarity: 'LEGENDARY',
-    description: 'Crowned with an ancient dragon skull helmet over cracked stone skin.',
+    description: 'A wyrm skull helm over a red dress coat, with the rubble still hanging in the air.',
     traits: [
-      { label: 'Background', value: 'Steel Blue' },
-      { label: 'Hide', value: 'Cracked Magma Stone' },
-      { label: 'Headwear', value: 'Wyrm Skull Crown' },
-      { label: 'Eyes', value: 'Wide Fury' },
-      { label: 'Aura', value: 'Ancient' },
+      { label: 'Background', value: 'Acid Green' },
+      { label: 'Hide', value: 'Chestnut' },
+      { label: 'Headwear', value: 'Wyrm Skull Helm' },
+      { label: 'Eyes', value: 'Jade Optic' },
+      { label: 'Attire', value: 'Dress Coat & Epaulettes' },
+      { label: 'Aura', value: 'Levitating Rubble' },
     ],
   },
 ];
 
 /**
- * The header wall on /collection — decorative only, so these are bare paths
- * rather than archetypes: the wall never opens a piece, names it, or reports a
- * tier, and demanding traits for forty renders to scroll them past would be
- * bookkeeping nobody reads.
+ * Every render on disk, in one pool. Two things read it and neither wants
+ * metadata: the header wall on /collection, which only ever scrolls the art
+ * past, and artForToken below, which hands a real on-chain Executive its
+ * picture. Demanding traits for thirty-four renders so they can slide by would
+ * be bookkeeping nobody reads.
  *
- * ADDING ART — drop the render in /public/assets/collection and add its path.
- * The rows re-deal themselves, so no other edit is needed.
- *
- * Ordered so that near-identical builds (four ronin, three dragon skulls) are
- * never neighbours: the list rotates through the families rather than grouping
- * them, and the row deal below widens the gaps again.
+ * Ordered so that near-identical builds (three dragon skulls, three horned
+ * helms, two of most other families) are never neighbours. On the wall the
+ * rows are dealt round-robin, so pieces three apart in this list land side by
+ * side on screen: the order below leaves no family pair at that distance, and
+ * the row deal widens the remaining gaps again.
  */
-export const WALL_ART: readonly string[] = [
-  '/assets/collection/user_art_1.jpg',
-  '/assets/collection/user_art_5.jpg',
-  '/assets/collection/oohdie-visor-captain.jpg',
-  '/assets/collection/user_art_4.jpg',
-  '/assets/collection/oohdie-mohawk-scruff.jpg',
-  '/assets/collection/user_art_3.jpg',
-  '/assets/collection/oohdie-crowned-admiral.jpg',
-  '/assets/collection/oohdie-cosmic-cat-hood.jpg',
-  '/assets/collection/oohdie-steampunk-pale.jpg',
-  '/assets/collection/oohdie-third-eye-cap.jpg',
-  '/assets/collection/user_art_2.jpg',
-  '/assets/collection/oohdie-astronaut.jpg',
-  '/assets/collection/oohdie-camo-bucket.jpg',
-  '/assets/collection/oohdie-ronin-pale.jpg',
-  '/assets/collection/oohdie-tiger-captain.jpg',
-  '/assets/collection/oohdie-dragon-skull-plum.jpg',
-  '/assets/collection/oohdie-mohawk-crew-cream.jpg',
-  '/assets/collection/oohdie-brain-dome-respirator.jpg',
-  '/assets/collection/oohdie-crowned-admiral-slate.jpg',
-  '/assets/collection/oohdie-cosmic-cat-crew.jpg',
-  '/assets/collection/oohdie-steampunk-leopard.jpg',
-  '/assets/collection/oohdie-backcap-ape.jpg',
-  '/assets/collection/oohdie-cyber-cowboy-amber.jpg',
-  '/assets/collection/oohdie-star-wizard.jpg',
-  '/assets/collection/oohdie-leopard-ruff.jpg',
-  '/assets/collection/oohdie-ronin-dark.jpg',
-  '/assets/collection/oohdie-dress-captain.jpg',
-  '/assets/collection/oohdie-dragon-skull-steel.jpg',
-  '/assets/collection/oohdie-mohawk-crew-plum.jpg',
-  '/assets/collection/oohdie-brain-dome-olive.jpg',
-  '/assets/collection/oohdie-bear-hoodie.jpg',
-  '/assets/collection/oohdie-pharaoh.jpg',
-  '/assets/collection/oohdie-violet-tophat.jpg',
-  '/assets/collection/oohdie-goggle-lollipop.jpg',
-  '/assets/collection/oohdie-ronin-necktie.jpg',
-  '/assets/collection/oohdie-apple-arrow.jpg',
-  '/assets/collection/oohdie-pirate-tricorn.jpg',
-  '/assets/collection/oohdie-laurel-cyborg.jpg',
-  '/assets/collection/oohdie-pixel-visor.jpg',
-  '/assets/collection/oohdie-ronin-katana.jpg',
+export const COLLECTION_ART: readonly string[] = [
+  '/assets/collection/mb-pirate-tricorn.jpg',
+  '/assets/collection/mb-gasmask-shades.jpg',
+  '/assets/collection/mb-halo-flame.jpg',
+  '/assets/collection/mb-jester-optic.jpg',
+  '/assets/collection/mb-straw-goggles.jpg',
+  '/assets/collection/mb-antler-eyepatch.jpg',
+  '/assets/collection/mb-samurai-ronin.jpg',
+  '/assets/collection/mb-dragon-skull-officer.jpg',
+  '/assets/collection/mb-moto-masked.jpg',
+  '/assets/collection/mb-brain-dome.jpg',
+  '/assets/collection/mb-viking-laser-stripes.jpg',
+  '/assets/collection/mb-lab-coat-banana.jpg',
+  '/assets/collection/mb-street-cap.jpg',
+  '/assets/collection/mb-miner-cucumber.jpg',
+  '/assets/collection/mb-steampunk-ruff.jpg',
+  '/assets/collection/mb-jester-respirator.jpg',
+  '/assets/collection/mb-dragon-skull-static.jpg',
+  '/assets/collection/mb-moto-pipe.jpg',
+  '/assets/collection/mb-stars-cyborg.jpg',
+  '/assets/collection/mb-camo-crystals.jpg',
+  '/assets/collection/mb-steel-jaw-captain.jpg',
+  '/assets/collection/mb-smiley-bucket.jpg',
+  '/assets/collection/mb-turban-cyborg.jpg',
+  '/assets/collection/mb-ushanka-cucumber.jpg',
+  '/assets/collection/mb-antler-laser.jpg',
+  '/assets/collection/mb-viking-scaled.jpg',
+  '/assets/collection/mb-chef-respirator.jpg',
+  '/assets/collection/mb-steampunk-static.jpg',
+  '/assets/collection/mb-pharaoh-suit.jpg',
+  '/assets/collection/mb-dragon-skull-leopard.jpg',
+  '/assets/collection/mb-straw-beard.jpg',
+  '/assets/collection/mb-captain-flame.jpg',
+  '/assets/collection/mb-viking-laser-fur.jpg',
+  '/assets/collection/mb-apple-arrow.jpg',
 ];
+
+/** What the header wall on /collection scrolls: the whole pool, in pool order. */
+export const WALL_ART: readonly string[] = COLLECTION_ART;
+
+/**
+ * The picture for a real, minted Executive. Deterministic, so a token keeps the
+ * same face across reloads and devices — the chain is the source of truth for
+ * everything about an Executive except which render it wears.
+ */
+export function artForToken(tokenId: number): string {
+  const n = COLLECTION_ART.length;
+  return COLLECTION_ART[(((tokenId - 1) % n) + n) % n];
+}
 
 /**
  * Fisher-Yates over a copy. Used for the home-page strip, which draws a fresh
- * handful per visit — with five renders on disk that only varies the order,
- * but it becomes a genuine sample the moment more art lands.
+ * handful of archetypes per visit.
  */
 export function drawRandom<T>(pool: readonly T[], count: number): readonly T[] {
   const copy = [...pool];

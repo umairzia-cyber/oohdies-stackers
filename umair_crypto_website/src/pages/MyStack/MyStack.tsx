@@ -21,7 +21,7 @@ import { ROUTES } from '../../constants/routes';
 import './MyStack.css';
 
 export default function MyStack() {
-  useDocumentTitle(SEO.myStack.title);
+  useDocumentTitle(SEO.myHoldings.title);
   const { wallet, isConnected, isConnecting, connect, switchNetwork } = useWallet();
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
 
@@ -109,7 +109,7 @@ export default function MyStack() {
       await claimRewardAsset(tokenId, assetAddress);
       await loadBlockchainData(true);
     } catch (err) {
-      console.error(`Claim ${assetSymbol} failed for Associate #${tokenId}:`, err);
+      console.error(`Claim ${assetSymbol} failed for Executive #${tokenId}:`, err);
     } finally {
       if (isMountedRef.current) {
         setActiveClaimingKey(null);
@@ -130,7 +130,7 @@ export default function MyStack() {
       await withdrawFromWallet(tokenId, assetAddress, amountRaw);
       await loadBlockchainData(true);
     } catch (err) {
-      console.error(`Withdraw ${assetSymbol} failed for Associate #${tokenId}:`, err);
+      console.error(`Withdraw ${assetSymbol} failed for Executive #${tokenId}:`, err);
     } finally {
       if (isMountedRef.current) {
         setActiveWithdrawKey(null);
@@ -181,9 +181,9 @@ export default function MyStack() {
         <div className="container">
 
           <div className={`${isVisible ? 'animate-fade-in' : ''}`}>
-            <h1 className="heading-xl mb-4">MY STACK</h1>
+            <h1 className="heading-xl mb-4">MY HOLDINGS</h1>
             <p className="body-lg mb-8">
-              Everything you own and everything it earns you on Robinhood Chain Testnet. Real tokenized rewards live inside your Associates.
+              Everything you own and everything it earns you on Robinhood Chain Testnet. Real tokenized rewards live inside your Executives.
             </p>
           </div>
 
@@ -201,7 +201,7 @@ export default function MyStack() {
               </span>
             </div>
             <div className="pill">
-              <span>owned Associates</span>
+              <span>owned Executives</span>
               <span className="pill__value">{userNFTs.length} ({activeNFTs.length} Active)</span>
             </div>
             {claimableStats.slice(0, 2).map((stat) => (
@@ -229,7 +229,7 @@ export default function MyStack() {
 
           <div className={`mystack-accrual-section mb-8 ${isVisible ? 'animate-fade-in animate-delay-2' : ''}`}>
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
-              <h2 className="heading-sm mb-0">YOUR ACCUMULATION STACK</h2>
+              <h2 className="heading-sm mb-0">YOUR ACCUMULATION</h2>
               <span className="text-xs text-accent font-mono">
                 {claimableStats.length} Active {claimableStats.length === 1 ? 'Asset' : 'Assets'} · Live On-Chain
               </span>
@@ -238,8 +238,8 @@ export default function MyStack() {
             {activeNFTs.length === 0 ? (
               <div className="stat-cell text-center p-6">
                 <p className="stat-cell__label">ACCRUAL STATUS</p>
-                <p className="stat-cell__value text-muted" style={{ fontSize: '1.1rem' }}>No Active Associates Stacking</p>
-                <p className="mystack-stat-note">Activate an Associate NFT from your collection to start earning real tokenized stock rewards.</p>
+                <p className="stat-cell__value text-muted" style={{ fontSize: '1.1rem' }}>No Active Executives Earning</p>
+                <p className="mystack-stat-note">Activate an Executive NFT from your collection to start earning real tokenized stock rewards.</p>
                 <Link to={ROUTES.ACTIVATE} className="btn btn--primary btn--sm mt-3 inline-block">
                   Activate Now →
                 </Link>
@@ -310,14 +310,14 @@ export default function MyStack() {
             <div className={`mystack-disconnected mb-12 ${isVisible ? 'animate-fade-in animate-delay-4' : ''}`}>
               <div className="empty-state">
                 <img
-                  src="/assets/collection/user_art_1.jpg"
+                  src="/assets/collection/mb-street-cap.jpg"
                   alt="Primate"
                   className="mystack-disconnected__image"
                   width={120}
                   height={120}
                   loading="lazy"
                 />
-                <h2 className="empty-state__title">Connect your wallet to view your Associate stack.</h2>
+                <h2 className="empty-state__title">Connect your wallet to view your Executive holdings.</h2>
                 <button className="btn btn--primary btn--lg" onClick={connect} disabled={isConnecting}>
                   {isConnecting ? WALLET.connecting : WALLET.connectButton}
                 </button>
@@ -354,11 +354,11 @@ export default function MyStack() {
 
               <div className={`mystack-section ${isVisible ? 'animate-fade-in animate-delay-4' : ''}`}>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="heading-md">YOUR ASSOCIATES ON ROBINHOOD TESTNET</h2>
+                  <h2 className="heading-md">YOUR EXECUTIVES ON ROBINHOOD TESTNET</h2>
                 </div>
 
                 {fetchingNFTs && userNFTs.length === 0 ? (
-                  <p className="text-secondary">Scanning Robinhood Chain Testnet for owned Associates...</p>
+                  <p className="text-secondary">Scanning Robinhood Chain Testnet for owned Executives...</p>
                 ) : userNFTs.length > 0 ? (
                   <div className="mystack-grid">
                     {userNFTs.map((item) => (
@@ -437,7 +437,7 @@ export default function MyStack() {
                                       className={`btn ${asset.symbol === 'USDG' ? 'btn--primary' : 'btn--secondary'} btn--xs w-full mb-1`}
                                       onClick={() => handleClaim(item.tokenId, asset.address, asset.symbol)}
                                       disabled={loading || claimableNum <= 0 || !wallet.isCorrectNetwork}
-                                      title={`Move accrued ${asset.symbol} from the vault into Associate #${item.tokenId}'s wallet`}
+                                      title={`Move accrued ${asset.symbol} from the vault into Executive #${item.tokenId}'s wallet`}
                                     >
                                       {isThisClaiming
                                         ? `Claiming ${asset.symbol} from #${item.tokenId}...`
@@ -449,7 +449,7 @@ export default function MyStack() {
                                         handleWithdraw(item.tokenId, asset.address, asset.symbol, inWalletRaw)
                                       }
                                       disabled={loading || inWalletRaw <= 0n || !wallet.isCorrectNetwork}
-                                      title={`Move ${asset.symbol} out of Associate #${item.tokenId}'s wallet into your own`}
+                                      title={`Move ${asset.symbol} out of Executive #${item.tokenId}'s wallet into your own`}
                                     >
                                       {isThisWithdrawing
                                         ? `Withdrawing ${asset.symbol}...`
@@ -460,7 +460,7 @@ export default function MyStack() {
                               })}
                             </div>
                           ) : (
-                            /* A freshly bought Associate arrives deactivated but may still be loaded. */
+                            /* A freshly bought Executive arrives deactivated but may still be loaded. */
                             <div className="nft-card__rewards pt-3 border-t border-color text-center">
                               {(() => {
                                 const held = SUPPORTED_REWARD_ASSETS
@@ -472,7 +472,7 @@ export default function MyStack() {
                                 return (
                                   <div className="mb-3 text-left">
                                     <p className="text-xs text-muted mb-2">
-                                      This Associate's wallet is holding tokens from before it was transferred or deactivated.
+                                      This Executive's wallet is holding tokens from before it was transferred or deactivated.
                                     </p>
                                     {held.map(({ asset, info }) => {
                                       const key = `${item.tokenId}:${asset.address.toLowerCase()}`;
@@ -504,13 +504,13 @@ export default function MyStack() {
                                 );
                               })()}
                               <p className="text-xs text-muted mb-3">
-                                This Associate is not activated. Burn 100 $SPECIE and choose your 3 stocks to begin stacking hourly earnings.
+                                This Executive is not activated. Burn 100 $SPECIE and choose your 3 stocks to begin earning hourly.
                               </p>
                               <Link
                                 to={`${ROUTES.ACTIVATE}?tokenId=${item.tokenId}`}
                                 className="btn btn--primary btn--sm w-full block text-center"
                               >
-                                Activate Associate →
+                                Activate Executive →
                               </Link>
                             </div>
                           )}
@@ -520,10 +520,10 @@ export default function MyStack() {
                   </div>
                 ) : (
                   <div className="empty-state">
-                    <h3 className="empty-state__title">No Associates found in this wallet.</h3>
-                    <p className="empty-state__message">Mint an Associate NFT on Robinhood Chain Testnet to start earning rewards.</p>
+                    <h3 className="empty-state__title">No Executives found in this wallet.</h3>
+                    <p className="empty-state__message">Mint an Executive NFT on Robinhood Chain Testnet to start earning rewards.</p>
                     <Link to={ROUTES.ACTIVATE} className="btn btn--secondary btn--lg">
-                      Mint an Associate →
+                      Mint an Executive →
                     </Link>
                   </div>
                 )}

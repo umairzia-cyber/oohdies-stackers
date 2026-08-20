@@ -2,7 +2,7 @@
  * The Firm — lore and personnel records for /collection.
  *
  * The collection's story is that Monkey Business is a company and every piece
- * is an Associate. This file holds that fiction as data: the lore beats, the
+ * is an Executive. This file holds that fiction as data: the lore beats, the
  * five staff on the roster, and the directory summary.
  *
  * Art paths point straight at /public/assets/collection. These five are picked
@@ -44,7 +44,7 @@ export interface Clause {
 
 export const FIRM_LORE = {
   title: 'THE FIRM',
-  subtitle: 'Onboarding brief — issued to all new Associates',
+  subtitle: 'Onboarding brief — issued to all new Executives',
   stamp: 'CLASSIFIED',
 
   /* The header form. `[REDACTED]` is written out rather than flagged: these are
@@ -55,7 +55,7 @@ export const FIRM_LORE = {
     { label: 'Issued', value: '[REDACTED]' },
     { label: 'Revision', value: '11 — supersedes all prior' },
     { label: 'Author', value: '[REDACTED]' },
-    { label: 'Distribution', value: 'All Associates' },
+    { label: 'Distribution', value: 'All Executives' },
   ],
 
   clauses: [
@@ -76,7 +76,7 @@ export const FIRM_LORE = {
         { kind: 'redaction', text: 'who founded it' },
         { kind: 'text', text: ', ' },
         { kind: 'redaction', text: 'what it trades' },
-        { kind: 'text', text: ', or how any of its Associates passed the interview.' },
+        { kind: 'text', text: ', or how any of its Executives passed the interview.' },
         { kind: 'footnote', marker: '1' },
         { kind: 'text', text: ' What is known is that business is booming.' },
         { kind: 'footnote', marker: '2' },
@@ -89,7 +89,7 @@ export const FIRM_LORE = {
       segments: [
         {
           kind: 'text',
-          text: 'The Firm is staffed by an eclectic workforce of ambitious primates, each with their own style, status and questionable approach to business. From fresh-faced interns to self-appointed executives, no two Associates are quite alike.',
+          text: 'The Firm is staffed by an eclectic workforce of ambitious primates, each with their own style, status and questionable approach to business. From fresh-faced interns to self-appointed chief officers, no two Executives are quite alike.',
         },
       ],
     },
@@ -159,9 +159,9 @@ export const FIRM_LORE = {
 export type ReviewTone = 'good' | 'bad' | 'neutral';
 
 /** Employment state. Drives the LED and the colour of the Status row. */
-export type EmploymentStatus = 'EMPLOYED' | 'UNPAID' | 'ASSOCIATE_OF_THE_MONTH';
+export type EmploymentStatus = 'EMPLOYED' | 'UNPAID' | 'EXECUTIVE_OF_THE_MONTH';
 
-export interface Associate {
+export interface Executive {
   readonly id: string;
   readonly image: string;
   /** Alt text — the art is the portrait on a personnel file, not decoration. */
@@ -176,26 +176,29 @@ export interface Associate {
   readonly statusLabel: string;
 }
 
-export const ASSOCIATES: readonly Associate[] = [
+export const EXECUTIVES: readonly Executive[] = [
   {
     id: '0001',
-    image: '/assets/collection/oohdie-crowned-admiral.jpg',
+    image: '/assets/collection/mb-pharaoh-suit.jpg',
     portraitAlt:
-      'A crowned primate in black-and-gold admiral regalia, smoking a pipe.',
-    department: 'Executive',
+      'A fanged primate in a blue-and-gold pharaoh headdress, worn over a suit and tie.',
+    /* Was 'Executive' — with the item noun now Executive, the record read
+       "EXECUTIVE #0001 · Department: Executive". Same fix the Trading entry
+       below got when it read "Associate · Associate". */
+    department: 'Corner Office',
     position: 'Self-Appointed CEO',
     tenureDays: 1111,
     performance: 'Unimpeachable (self-assessed)',
     performanceTone: 'neutral',
     specieEarned: 412900,
-    status: 'ASSOCIATE_OF_THE_MONTH',
-    statusLabel: 'Associate of the Month',
+    status: 'EXECUTIVE_OF_THE_MONTH',
+    statusLabel: 'Executive of the Month',
   },
   {
     id: '0447',
-    image: '/assets/collection/oohdie-brain-dome-respirator.jpg',
+    image: '/assets/collection/mb-brain-dome.jpg',
     portraitAlt:
-      'A primate with an exposed brain under a glass dome, wearing a black respirator and a tie.',
+      'A primate with an exposed brain sealed under a glass dome, in a python-print waistcoat and a striped tie.',
     department: 'Quantitative Research',
     position: 'Senior Analyst',
     tenureDays: 892,
@@ -207,9 +210,9 @@ export const ASSOCIATES: readonly Associate[] = [
   },
   {
     id: '2841',
-    image: '/assets/collection/oohdie-pirate-tricorn.jpg',
+    image: '/assets/collection/mb-pirate-tricorn.jpg',
     portraitAlt:
-      'A primate in a skull-badged pirate tricorn and domino mask, eating a banana.',
+      'A primate in a skull-badged pirate tricorn and blue hood, with a green optic over one eye.',
     department: 'Trading',
     position: 'Trader',
     tenureDays: 427,
@@ -221,9 +224,9 @@ export const ASSOCIATES: readonly Associate[] = [
   },
   {
     id: '0912',
-    image: '/assets/collection/oohdie-tiger-captain.jpg',
+    image: '/assets/collection/mb-steel-jaw-captain.jpg',
     portraitAlt:
-      'A tiger-striped primate in a naval captain’s cap and a leather flight jacket.',
+      'A leopard-hide primate in a naval captain’s cap, wearing a hydraulic jaw brace and a bow tie.',
     department: 'Compliance',
     position: 'Head of Compliance',
     tenureDays: 1004,
@@ -235,9 +238,9 @@ export const ASSOCIATES: readonly Associate[] = [
   },
   {
     id: '5309',
-    image: '/assets/collection/oohdie-goggle-lollipop.jpg',
+    image: '/assets/collection/mb-miner-cucumber.jpg',
     portraitAlt:
-      'A young primate in a leopard bucket hat and brass goggles, sucking a lollipop.',
+      'A pixel-skinned primate in a lamped miner’s hardhat, with cucumber slices over both eyes.',
     department: 'Mailroom',
     position: 'Unpaid Intern',
     tenureDays: 12,
@@ -250,13 +253,13 @@ export const ASSOCIATES: readonly Associate[] = [
 ];
 
 /**
- * The directory summary. `Total Associates` is deliberately absent — the page
+ * The directory summary. `Total Executives` is deliberately absent — the page
  * renders it from COLLECTION_SIZE so the headcount tracks the mint size rather
  * than drifting from it here.
  */
 export const DIRECTORY = {
-  heading: 'ASSOCIATE DIRECTORY',
-  totalLabel: 'Total Associates',
+  heading: 'EXECUTIVE DIRECTORY',
+  totalLabel: 'Total Executives',
   fields: [
     { label: 'Employer', value: 'Monkey Business' },
     { label: 'Industry', value: 'Classified' },

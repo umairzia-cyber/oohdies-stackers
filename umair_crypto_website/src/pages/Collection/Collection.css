@@ -71,9 +71,9 @@
   }
 }
 
-.collection-wall:hover .collection-wall__track {
-  animation-play-state: paused;
-}
+/* The wall does not pause on hover. It used to, and the stop read as the page
+   hanging rather than as an invitation to look — the drift is ambience, so it
+   runs continuously. */
 
 .collection-wall__tile {
   flex: 0 0 auto;
