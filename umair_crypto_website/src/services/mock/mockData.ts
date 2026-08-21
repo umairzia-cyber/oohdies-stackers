@@ -120,8 +120,11 @@ export const MOCK_STACK: StackInfo = {
 export const MOCK_ACTIVITY: readonly ActivityRecord[] = [];
 
 export const MOCK_TIERS: readonly TierInfo[] = [
-  { id: 'tier-1', name: 'ACTIVE', multiplier: '1.0x', burnCost: 100 },
-  { id: 'tier-2', name: 'PARTNER BOOST', multiplier: '1.2x', burnCost: 100 },
+  { id: 'tier-1', name: 'ACTIVE', multiplier: '1x', burnCost: 25000 },
+  { id: 'tier-2', name: 'TIER TWO', multiplier: '1.4x', burnCost: 75000 },
+  { id: 'tier-3', name: 'TIER THREE', multiplier: '1.9x', burnCost: 150000 },
+  { id: 'tier-4', name: 'TIER FOUR', multiplier: '2.5x', burnCost: 300000 },
+  { id: 'tier-5', name: 'TOP TIER', multiplier: '3.5x', burnCost: 850000 },
 ];
 
 export const MOCK_STEPS: readonly StepInfo[] = [

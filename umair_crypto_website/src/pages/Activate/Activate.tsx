@@ -44,7 +44,7 @@ export default function Activate() {
   const [searchParams] = useSearchParams();
   const paramTokenId = searchParams.get('tokenId');
 
-  const [selectedTier, setSelectedTier] = useState<string>(MOCK_TIERS[4].id);
+  const [selectedTier, setSelectedTier] = useState<string>(MOCK_TIERS[4]?.id ?? MOCK_TIERS[0]?.id ?? 'tier-1');
   const [selectedStockIds, setSelectedStockIds] = useState<string[]>(['tsla', 'nvda', 'aapl']);
 
   const handleSelectTokenId = useCallback((tokenId: number) => {
