@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ROBINHOOD_TESTNET_CONFIG } from '../../constants/contracts';
+import { ROBINHOOD_CHAIN_CONFIG } from '../../constants/contracts';
 import type { WalletState } from '../../types';
 
 declare global {
@@ -40,32 +40,16 @@ export async function connectWeb3Wallet(): Promise<{
 }> {
   const ethereumProvider = getMetaMaskProvider();
   if (!ethereumProvider) {
-    throw new Error('MetaMask or EIP-1193 compatible wallet not detected.');
+    throw new Error('MetaMask or Web3 wallet not detected. Please install MetaMask to connect.');
   }
 
   const provider = new ethers.BrowserProvider(ethereumProvider);
-
-  const timeoutPromise = new Promise<never>((_, reject) => {
-    setTimeout(() => {
-      reject(
-        new Error('Wallet connection request timed out (15s limit). Please check your MetaMask extension popup.')
-      );
-    }, 15000);
-  });
-
-  const requestAccountsPromise = provider.send('eth_requestAccounts', []) as Promise<string[]>;
-
-  const accounts = await Promise.race([requestAccountsPromise, timeoutPromise]);
-
-  if (!accounts || accounts.length === 0) {
-    throw new Error('No accounts found. Please unlock your wallet.');
-  }
-
+  await provider.send('eth_requestAccounts', []);
   const signer = await provider.getSigner();
   const address = await signer.getAddress();
   const network = await provider.getNetwork();
   const chainId = Number(network.chainId);
-  const isCorrectNetwork = chainId === ROBINHOOD_TESTNET_CONFIG.chainId;
+  const isCorrectNetwork = chainId === ROBINHOOD_CHAIN_CONFIG.chainId;
 
   const displayName = `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
 
@@ -81,14 +65,16 @@ export async function connectWeb3Wallet(): Promise<{
   return { walletState, provider, signer };
 }
 
-export async function switchToRobinhoodTestnet(): Promise<boolean> {
+export const connectWalletDirect = connectWeb3Wallet;
+
+export async function switchToRobinhoodMainnet(): Promise<boolean> {
   const ethereumProvider = getMetaMaskProvider();
   if (!ethereumProvider) return false;
 
   try {
     await ethereumProvider.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: ROBINHOOD_TESTNET_CONFIG.chainIdHex }],
+      params: [{ chainId: ROBINHOOD_CHAIN_CONFIG.chainIdHex }],
     });
     return true;
   } catch (switchError: any) {
@@ -98,22 +84,24 @@ export async function switchToRobinhoodTestnet(): Promise<boolean> {
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: ROBINHOOD_TESTNET_CONFIG.chainIdHex,
-              chainName: ROBINHOOD_TESTNET_CONFIG.chainName,
-              rpcUrls: [ROBINHOOD_TESTNET_CONFIG.rpcUrl],
-              blockExplorerUrls: [ROBINHOOD_TESTNET_CONFIG.blockExplorerUrl],
-              nativeCurrency: ROBINHOOD_TESTNET_CONFIG.nativeCurrency,
+              chainId: ROBINHOOD_CHAIN_CONFIG.chainIdHex,
+              chainName: ROBINHOOD_CHAIN_CONFIG.chainName,
+              rpcUrls: [ROBINHOOD_CHAIN_CONFIG.rpcUrl],
+              blockExplorerUrls: [ROBINHOOD_CHAIN_CONFIG.blockExplorerUrl],
+              nativeCurrency: ROBINHOOD_CHAIN_CONFIG.nativeCurrency,
             },
           ],
         });
         return true;
       } catch (addError) {
-        console.error('Failed to add Robinhood Chain Testnet to wallet:', addError);
+        console.error('Failed to add Robinhood Chain Mainnet to wallet:', addError);
         return false;
       }
     }
-    console.error('Failed to switch to Robinhood Chain Testnet:', switchError);
+    console.error('Failed to switch to Robinhood Chain Mainnet:', switchError);
     return false;
   }
 }
 
+/** Backward-compatible alias */
+export const switchToRobinhoodTestnet = switchToRobinhoodMainnet;

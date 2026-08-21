@@ -260,7 +260,7 @@ function StatsSection() {
             </div>
 
             <p className="stat-card__subtext mt-4">
-              Cumulative rewards claimed by all NFT holders across the entire protocol on Robinhood Chain Testnet.
+              Cumulative rewards claimed by all NFT holders across the entire protocol on Robinhood Chain Mainnet.
             </p>
           </div>
 

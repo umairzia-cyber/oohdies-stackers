@@ -183,7 +183,7 @@ export default function MyStack() {
           <div className={`${isVisible ? 'animate-fade-in' : ''}`}>
             <h1 className="heading-xl mb-4">MY HOLDINGS</h1>
             <p className="body-lg mb-8">
-              Everything you own and everything it earns you on Robinhood Chain Testnet. Real tokenized rewards live inside your Executives.
+              Everything you own and everything it earns you on Robinhood Chain Mainnet. Real tokenized rewards live inside your Executives.
             </p>
           </div>
 
@@ -197,7 +197,7 @@ export default function MyStack() {
             <div className="pill">
               <span>network</span>
               <span className={`pill__value ${wallet.isCorrectNetwork ? 'text-accent' : 'text-muted'}`}>
-                {wallet.isCorrectNetwork ? 'Robinhood Testnet' : isConnected ? 'Wrong Network' : 'Disconnected'}
+                {wallet.isCorrectNetwork ? 'Robinhood Mainnet' : isConnected ? 'Wrong Network' : 'Disconnected'}
               </span>
             </div>
             <div className="pill">
@@ -218,7 +218,7 @@ export default function MyStack() {
             <div className="mystack-alert-banner mb-8">
               <div className="mystack-alert-banner__content">
                 <p className="mystack-alert-banner__text">
-                  <strong>Wrong Network:</strong> Connect to Robinhood Chain Testnet (Chain ID 46630) to view and claim rewards.
+                  <strong>Wrong Network:</strong> Connect to Robinhood Chain Mainnet (Chain ID 4663) to view and claim rewards.
                 </p>
                 <button className="btn btn--primary btn--sm flex-shrink-0" onClick={switchNetwork}>
                   Switch Network
@@ -354,11 +354,11 @@ export default function MyStack() {
 
               <div className={`mystack-section ${isVisible ? 'animate-fade-in animate-delay-4' : ''}`}>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="heading-md">YOUR EXECUTIVES ON ROBINHOOD TESTNET</h2>
+                  <h2 className="heading-md">YOUR EXECUTIVES ON ROBINHOOD MAINNET</h2>
                 </div>
 
                 {fetchingNFTs && userNFTs.length === 0 ? (
-                  <p className="text-secondary">Scanning Robinhood Chain Testnet for owned Executives...</p>
+                  <p className="text-secondary">Scanning Robinhood Chain Mainnet for owned Executives...</p>
                 ) : userNFTs.length > 0 ? (
                   <div className="mystack-grid">
                     {userNFTs.map((item) => (
@@ -521,7 +521,7 @@ export default function MyStack() {
                 ) : (
                   <div className="empty-state">
                     <h3 className="empty-state__title">No Executives found in this wallet.</h3>
-                    <p className="empty-state__message">Mint an Executive NFT on Robinhood Chain Testnet to start earning rewards.</p>
+                    <p className="empty-state__message">Mint an Executive NFT on Robinhood Chain Mainnet to start earning rewards.</p>
                     <Link to={ROUTES.ACTIVATE} className="btn btn--secondary btn--lg">
                       Mint an Executive →
                     </Link>
@@ -532,7 +532,7 @@ export default function MyStack() {
               <div className={`mystack-section ${isVisible ? 'animate-fade-in animate-delay-5' : ''}`}>
                 <h2 className="heading-md mb-6">RECENT ON-CHAIN ACTIVITY</h2>
                 {fetchingActivity && userActivity.length === 0 ? (
-                  <p className="text-secondary">Loading your live blockchain activity from Robinhood Testnet...</p>
+                  <p className="text-secondary">Loading your live blockchain activity from Robinhood Mainnet...</p>
                 ) : userActivity.length > 0 ? (
                   <div className="mystack-activity">
                     {userActivity.map((record) => (

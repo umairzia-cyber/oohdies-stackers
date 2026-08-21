@@ -1,15 +1,21 @@
-export const ROBINHOOD_TESTNET_CONFIG = {
-  chainId: 46630,
-  chainIdHex: '0xb646',
-  chainName: 'Robinhood Chain Testnet',
-  rpcUrl: 'https://rpc.testnet.chain.robinhood.com',
-  blockExplorerUrl: 'https://explorer.testnet.chain.robinhood.com',
+export const ROBINHOOD_MAINNET_CONFIG = {
+  chainId: 4663,
+  chainIdHex: '0x1237',
+  chainName: 'Robinhood Chain Mainnet',
+  rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
+  blockExplorerUrl: 'https://robinhoodchain.blockscout.com',
   nativeCurrency: {
     name: 'Ether',
     symbol: 'ETH',
     decimals: 18,
   },
 };
+
+/** Active Network Configuration for Monkey Business */
+export const ROBINHOOD_CHAIN_CONFIG = ROBINHOOD_MAINNET_CONFIG;
+
+/** Backward-compatible alias */
+export const ROBINHOOD_TESTNET_CONFIG = ROBINHOOD_MAINNET_CONFIG;
 
 export const CONTRACT_ADDRESSES = {
   BANANA_TOKEN: '0x749A38Db8EC1eB88c39d159595805d3BeE4E0AA1',

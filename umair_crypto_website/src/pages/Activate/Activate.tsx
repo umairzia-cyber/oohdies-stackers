@@ -165,7 +165,7 @@ export default function Activate() {
               <p className="subtitle mb-2">WAKE YOUR EXECUTIVE</p>
               <h1 className="heading-xl mb-4">ACTIVATE</h1>
               <p className="body-lg mb-8">
-                Burn 100 $SPECIE to activate your Executive NFT and start earning real tokenized rewards on Robinhood Chain Testnet.
+                Burn 100 $SPECIE to activate your Executive NFT and start earning real tokenized rewards on Robinhood Chain Mainnet.
               </p>
             </div>
 
@@ -200,7 +200,7 @@ export default function Activate() {
             <div className="pill">
               <span>network</span>
               <span className={`pill__value ${wallet.isCorrectNetwork ? 'text-accent' : 'text-muted'}`}>
-                {wallet.isCorrectNetwork ? 'Robinhood Testnet' : isConnected ? 'Wrong Network' : 'Not Connected'}
+                {wallet.isCorrectNetwork ? 'Robinhood Mainnet' : isConnected ? 'Wrong Network' : 'Not Connected'}
               </span>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function Activate() {
             <div className="mystack-alert-banner mb-8">
               <div className="mystack-alert-banner__content">
                 <p className="mystack-alert-banner__text">
-                  <strong>Wrong Network:</strong> Please switch your wallet to Robinhood Chain Testnet (Chain ID 46630).
+                  <strong>Wrong Network:</strong> Please switch your wallet to Robinhood Chain Mainnet (Chain ID 4663).
                 </p>
                 <button className="btn btn--primary btn--sm flex-shrink-0" onClick={switchNetwork}>
                   Switch Network
@@ -225,11 +225,11 @@ export default function Activate() {
             </p>
 
             {fetchingUserState && userNFTs.length === 0 ? (
-              <p className="text-secondary">Loading your Executives from Robinhood Testnet...</p>
+              <p className="text-secondary">Loading your Executives from Robinhood Mainnet...</p>
             ) : userNFTs.length === 0 ? (
               <div className="empty-state p-6 bordered-box mb-6 text-center">
                 <h3 className="heading-sm mb-2">No Executives found in this wallet</h3>
-                <p className="text-secondary mb-4">Mint an official Executive NFT on Robinhood Chain Testnet to start earning.</p>
+                <p className="text-secondary mb-4">Mint an official Executive NFT on Robinhood Chain Mainnet to start earning.</p>
               </div>
             ) : (
               <div className="nft-select-grid mb-6">
@@ -267,7 +267,7 @@ export default function Activate() {
                 <div className="mint-dedicated-info">
                   <h3 className="heading-sm mb-1">MINT A NEW EXECUTIVE</h3>
                   <p className="text-secondary text-xs">
-                    Directly on Robinhood Chain Testnet. Mint your next Executive to expand your holdings.
+                    Directly on Robinhood Chain Mainnet. Mint your next Executive to expand your holdings.
                   </p>
                 </div>
                 <button
@@ -312,7 +312,7 @@ export default function Activate() {
               </span>
             </div>
             <p className="text-secondary mb-6 max-w-800">
-              Select the 3 assets for this Executive — tokenized stocks, USDG, or crypto tokens. Upon burning 100 $SPECIE, this Executive will exclusively accrue and let you claim those 3 picks on Robinhood Chain Testnet.
+              Select the 3 assets for this Executive — tokenized stocks, USDG, or crypto tokens. Upon burning 100 $SPECIE, this Executive will exclusively accrue and let you claim those 3 picks on Robinhood Chain Mainnet.
             </p>
 
             <div className="stock-picker-grid">
@@ -339,7 +339,7 @@ export default function Activate() {
 
             {!isConnected ? (
               <div className="activate-connect">
-                <p className="text-secondary mb-4">Connect your wallet to activate your Executive on Robinhood Testnet.</p>
+                <p className="text-secondary mb-4">Connect your wallet to activate your Executive on Robinhood Mainnet.</p>
                 <button className="btn btn--primary btn--lg" onClick={connect} disabled={isConnecting}>
                   {isConnecting ? WALLET.connecting : WALLET.connectButton}
                 </button>
@@ -355,7 +355,7 @@ export default function Activate() {
               <div className="activate-success">
                 <p className="heading-sm text-accent mb-4">ACTIVATION CONFIRMED!</p>
                 <p className="text-secondary mb-4">
-                  Executive #{selectedTokenId} has been successfully activated on Robinhood Chain Testnet.
+                  Executive #{selectedTokenId} has been successfully activated on Robinhood Chain Mainnet.
                 </p>
                 {txHash && (
                   <p className="mb-6 text-sm">
@@ -426,8 +426,7 @@ export default function Activate() {
                 {teasersSelected.length > 0 && (
                   <p className="activate-notice mb-4">
                     <strong>{teasersSelected.map((a) => a.symbol).join(', ')}</strong>{' '}
-                    {teasersSelected.length === 1 ? 'is' : 'are'} not live on testnet yet — swap{' '}
-                    {teasersSelected.length === 1 ? 'it' : 'them'} for a stock or USDG to activate
+                    {teasersSelected.length === 1 ? 'is' : 'are'} coming soon — select an active stock or USDG to activate
                     on-chain today.
                   </p>
                 )}
@@ -456,7 +455,7 @@ export default function Activate() {
             <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-5' : ''}`}>
               <h2 className="heading-md mb-6">RECENT ON-CHAIN ACTIVITY</h2>
               {fetchingUserState ? (
-                <p className="text-secondary">Loading live activity from Robinhood Testnet...</p>
+                <p className="text-secondary">Loading live activity from Robinhood Mainnet...</p>
               ) : userActivity.length > 0 ? (
                 <div className="mystack-activity">
                   {userActivity.map((record) => (

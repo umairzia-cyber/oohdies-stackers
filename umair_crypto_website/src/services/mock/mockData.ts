@@ -97,90 +97,31 @@ export const MOCK_COLLECTION: readonly CollectionItem[] = [
 ];
 
 export const MOCK_STATS: PlatformStats = {
-  totalBananas: 1000000,
-  destroyed: 432850,
-  activeStacks: 683,
+  totalBananas: 100000000,
+  destroyed: 0,
+  activeStacks: 0,
   collectionSize: 1111,
-  paidToHolders: '$32,818',
-  supplyAlive: 428,
+  paidToHolders: '$0.00',
+  supplyAlive: 1111,
   nftsBurnedCount: 0,
   nftsBurnedPercent: '0%',
-  supplyBurnedPercent: '14.08%',
-  supplyBurnedTokens: '140,800,000 $SPECIE',
+  supplyBurnedPercent: '0%',
+  supplyBurnedTokens: '0 $SPECIE',
 };
 
 export const MOCK_STACK: StackInfo = {
-  totalOwned: 3,
-  activeStacks: 2,
-  accumulatedBalance: '12,450.00',
-  stackLevel: 4,
-  items: [
-    {
-      id: 'executive-004',
-      name: 'Executive #004 — Dragon Skull',
-      description: 'A wyrm skull helm over a red dress coat, rubble still hanging in the air.',
-      rarity: 'LEGENDARY',
-      image: '/assets/collection/mb-dragon-skull-officer.jpg',
-      tier: 5,
-      isActivated: true,
-    },
-    {
-      id: 'executive-002',
-      name: 'Executive #002 — Steel Jaw',
-      description: 'A hydraulic jaw brace under a naval captain’s cap.',
-      rarity: 'RARE',
-      image: '/assets/collection/mb-steel-jaw-captain.jpg',
-      tier: 3,
-      isActivated: true,
-    },
-    {
-      id: 'executive-001',
-      name: 'Executive #001 — Street Cap',
-      description: 'A backwards snapback, cat-eye shades, and a stitched-shut mouth.',
-      rarity: 'UNCOMMON',
-      image: '/assets/collection/mb-street-cap.jpg',
-      tier: 1,
-      isActivated: false,
-    },
-  ],
+  totalOwned: 0,
+  activeStacks: 0,
+  accumulatedBalance: '0.00',
+  stackLevel: 0,
+  items: [],
 };
 
-export const MOCK_ACTIVITY: readonly ActivityRecord[] = [
-  {
-    id: 'act-001',
-    type: 'upgrade',
-    description: 'Executive #004 upgraded to Tier 5 (3.5x)',
-    timestamp: '12 minutes ago',
-    amount: '850,000 $SPECIE burned',
-  },
-  {
-    id: 'act-002',
-    type: 'accumulation',
-    description: 'Cycle #1,428 accumulation distributed',
-    timestamp: '1 hour ago',
-    amount: '+$420.50 accumulated',
-  },
-  {
-    id: 'act-003',
-    type: 'activation',
-    description: 'Executive #002 activated at Tier 3 (1.9x)',
-    timestamp: '3 hours ago',
-    amount: '150,000 $SPECIE burned',
-  },
-  {
-    id: 'act-004',
-    type: 'transfer',
-    description: 'Acquired Executive #001 from primary mint',
-    timestamp: '1 day ago',
-  },
-];
+export const MOCK_ACTIVITY: readonly ActivityRecord[] = [];
 
 export const MOCK_TIERS: readonly TierInfo[] = [
-  { id: 'tier-1', name: 'ACTIVE', multiplier: '1x', burnCost: 25000 },
-  { id: 'tier-2', name: 'TIER TWO', multiplier: '1.4x', burnCost: 75000 },
-  { id: 'tier-3', name: 'TIER THREE', multiplier: '1.9x', burnCost: 150000 },
-  { id: 'tier-4', name: 'TIER FOUR', multiplier: '2.5x', burnCost: 300000 },
-  { id: 'tier-5', name: 'TOP TIER', multiplier: '3.5x', burnCost: 850000 },
+  { id: 'tier-1', name: 'ACTIVE', multiplier: '1.0x', burnCost: 100 },
+  { id: 'tier-2', name: 'PARTNER BOOST', multiplier: '1.2x', burnCost: 100 },
 ];
 
 export const MOCK_STEPS: readonly StepInfo[] = [
@@ -192,17 +133,17 @@ export const MOCK_STEPS: readonly StepInfo[] = [
   {
     number: '02',
     title: 'ACTIVATE',
-    description: 'Burn $SPECIE tokens to activate your Executive. Select your tier to set your multiplier.',
+    description: 'Burn 100 $SPECIE tokens to activate your Executive and pick 3 reward assets.',
   },
   {
     number: '03',
-    title: 'HOLD',
-    description: 'Your Executive accumulates automatically every cycle. The asset lives inside the NFT.',
+    title: 'EARN',
+    description: 'Your Executive earns streaming rewards automatically. The assets live inside the NFT Token-Bound Account.',
   },
   {
     number: '04',
-    title: 'UPGRADE',
-    description: 'Burn more tokens to increase your tier and boost your cycle multiplier up to 3.5x.',
+    title: 'TRADE / CLAIM',
+    description: 'Claim your rewards to your wallet at any time or trade the loaded NFT on secondary markets.',
   },
 ];
 
@@ -210,25 +151,25 @@ export const MOCK_FEATURES: readonly FeatureInfo[] = [
   {
     title: 'BURNING CREATES VALUE',
     description:
-      'Every activation burns $SPECIE tokens permanently, reducing total supply while increasing your Executive’s accumulation rate. Burning and accumulation in perfect harmony.',
-    stat: '43%',
-    statLabel: 'OF TOTAL SUPPLY BURNED',
+      'Every activation burns 100 $SPECIE tokens permanently, reducing circulating supply while unlocking streaming rewards for your Executive.',
+    stat: '0%',
+    statLabel: 'INITIAL SUPPLY BURNED',
     image: '/assets/collection/mb-steel-jaw-captain.jpg',
   },
   {
-    title: 'ON-CHAIN ACCUMULATION',
+    title: 'TOKEN BOUND ACCOUNT (TBA)',
     description:
-      'The accumulated value is bound directly to your Executive NFT. If you trade or transfer the NFT, the accumulated balance moves with it.',
-    stat: '683',
-    statLabel: 'ACTIVE EXECUTIVES',
+      'The accumulated value is bound directly to your Executive NFT via ERC-6551. If you trade or transfer the NFT, the accumulated balance moves with it.',
+    stat: '1,111',
+    statLabel: 'TOTAL EXECUTIVES',
     image: '/assets/collection/mb-brain-dome.jpg',
   },
   {
-    title: 'TIERED MULTIPLIERS',
+    title: 'PARTNER MULTIPLIER',
     description:
-      'Choose from 5 activation tiers. Upgrade at any time by burning additional tokens. Top-tier Executives enjoy a massive 3.5x cycle multiplier.',
-    stat: '3.5x',
-    statLabel: 'MAXIMUM MULTIPLIER',
+      'Hold any verified partner NFT collection to automatically unlock a 1.2x boost on your reward streaming rate.',
+    stat: '1.2x',
+    statLabel: 'PARTNER BOOST',
     image: '/assets/collection/mb-dragon-skull-officer.jpg',
   },
 ];
