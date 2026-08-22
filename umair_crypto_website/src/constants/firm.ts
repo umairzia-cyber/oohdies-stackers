@@ -209,7 +209,7 @@ export const EXECUTIVES: readonly Executive[] = [
     statusLabel: 'Employed',
   },
   {
-    id: '2841',
+    id: '0729',
     image: '/assets/collection/mb-pirate-tricorn.jpg',
     portraitAlt:
       'A primate in a skull-badged pirate tricorn and blue hood, with a green optic over one eye.',
@@ -237,7 +237,7 @@ export const EXECUTIVES: readonly Executive[] = [
     statusLabel: 'Employed',
   },
   {
-    id: '5309',
+    id: '1088',
     image: '/assets/collection/mb-miner-cucumber.jpg',
     portraitAlt:
       'A pixel-skinned primate in a lamped miner’s hardhat, with cucumber slices over both eyes.',

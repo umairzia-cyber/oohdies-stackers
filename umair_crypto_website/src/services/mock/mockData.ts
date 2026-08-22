@@ -120,7 +120,7 @@ export const MOCK_STACK: StackInfo = {
 export const MOCK_ACTIVITY: readonly ActivityRecord[] = [];
 
 export const MOCK_TIERS: readonly TierInfo[] = [
-  { id: 'tier-1', name: 'ACTIVE', multiplier: '1x', burnCost: 25000 },
+  { id: 'tier-1', name: 'TIER 1', multiplier: '1x', burnCost: 25000 },
   { id: 'tier-2', name: 'TIER TWO', multiplier: '1.4x', burnCost: 75000 },
   { id: 'tier-3', name: 'TIER THREE', multiplier: '1.9x', burnCost: 150000 },
   { id: 'tier-4', name: 'TIER FOUR', multiplier: '2.5x', burnCost: 300000 },
@@ -136,7 +136,7 @@ export const MOCK_STEPS: readonly StepInfo[] = [
   {
     number: '02',
     title: 'ACTIVATE',
-    description: 'Burn 100 $SPECIE tokens to activate your Executive and pick 3 reward assets.',
+    description: 'Burn ??? $SPECIE tokens to activate your Executive and pick 3 reward assets.',
   },
   {
     number: '03',
@@ -154,7 +154,7 @@ export const MOCK_FEATURES: readonly FeatureInfo[] = [
   {
     title: 'BURNING CREATES VALUE',
     description:
-      'Every activation burns 100 $SPECIE tokens permanently, reducing circulating supply while unlocking streaming rewards for your Executive.',
+      'Every activation burns ??? $SPECIE tokens permanently, reducing circulating supply while unlocking streaming rewards for your Executive.',
     stat: '0%',
     statLabel: 'INITIAL SUPPLY BURNED',
     image: '/assets/collection/mb-steel-jaw-captain.jpg',

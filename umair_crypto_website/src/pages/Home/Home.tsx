@@ -1,5 +1,5 @@
 import { useState, useEffect, type CSSProperties } from 'react';
-import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
+import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal } from '../../hooks';
 import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, PROFIT_LOOP, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
 import { ALL_REWARD_ASSETS, SUPPORTED_REWARD_ASSETS, TEASER_REWARD_ASSETS } from '../../constants/contracts';
@@ -9,11 +9,156 @@ import { formatNumber } from '../../utils';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
+function JungleCageOverlay() {
+  return (
+    <span className="jungle-cage" aria-hidden="true">
+      <svg
+        className="jungle-cage__svg"
+        viewBox="0 0 240 56"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="woodPostGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#152412" />
+            <stop offset="50%" stopColor="#2c4420" />
+            <stop offset="100%" stopColor="#192a14" />
+          </linearGradient>
+          <linearGradient id="vineRootGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#4c9241" />
+            <stop offset="100%" stopColor="#173b15" />
+          </linearGradient>
+          <filter id="jungleShadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="1" stdDeviation="1.2" floodColor="#040c04" floodOpacity="0.85" />
+          </filter>
+        </defs>
+
+        {/* ── Weathered Bamboo / Wooden Vertical Posts (Asymmetrical & Organic) ── */}
+        <g opacity="0.68">
+          <path d="M 28,0 Q 26,28 29,56" stroke="url(#woodPostGrad)" strokeWidth="4.5" strokeLinecap="round" />
+          <line x1="25" y1="18" x2="31" y2="19" stroke="#3d5e2c" strokeWidth="1" />
+          <line x1="26" y1="38" x2="32" y2="39" stroke="#3d5e2c" strokeWidth="1" />
+
+          <path d="M 78,0 Q 81,26 77,56" stroke="url(#woodPostGrad)" strokeWidth="4" strokeLinecap="round" />
+          <line x1="75" y1="24" x2="81" y2="25" stroke="#3d5e2c" strokeWidth="1" />
+
+          <path d="M 162,0 Q 159,30 163,56" stroke="url(#woodPostGrad)" strokeWidth="4.2" strokeLinecap="round" />
+          <line x1="159" y1="32" x2="165" y2="33" stroke="#3d5e2c" strokeWidth="1" />
+
+          <path d="M 212,0 Q 215,24 211,56" stroke="url(#woodPostGrad)" strokeWidth="4.5" strokeLinecap="round" />
+          <line x1="209" y1="16" x2="215" y2="17" stroke="#3d5e2c" strokeWidth="1" />
+        </g>
+
+        {/* ── Entwined Climbing Thick Vines & Tendrils ── */}
+        <g filter="url(#jungleShadow)">
+          {/* Top border creeping vine */}
+          <path
+            d="M -2,4 Q 30,-2 60,6 T 120,3 T 180,7 Q 210,1 242,5"
+            fill="none"
+            stroke="#163814"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 0,3 Q 32,-1 62,5 T 122,2 T 182,6 Q 212,0 240,4"
+            fill="none"
+            stroke="url(#vineRootGrad)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+
+          {/* Bottom border heavy root vine */}
+          <path
+            d="M -2,52 Q 40,48 85,54 T 155,50 Q 200,56 242,51"
+            fill="none"
+            stroke="#122d10"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 0,51 Q 42,47 87,53 T 157,49 Q 202,55 240,50"
+            fill="none"
+            stroke="url(#vineRootGrad)"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+
+          {/* S-curving winding vine wrapping left post */}
+          <path
+            d="M 22,2 Q 35,14 25,28 T 32,54"
+            fill="none"
+            stroke="#214d1e"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 27,18 Q 37,16 34,10 Q 31,6 35,8"
+            fill="none"
+            stroke="#4d9b41"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+
+          {/* S-curving vine wrapping right post */}
+          <path
+            d="M 216,4 Q 205,20 215,36 T 208,54"
+            fill="none"
+            stroke="#214d1e"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 212,32 Q 199,34 203,42 Q 207,46 201,44"
+            fill="none"
+            stroke="#4d9b41"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+        </g>
+
+        {/* ── Tropical Leaves & Foliage Clusters ── */}
+        <g filter="url(#jungleShadow)">
+          {/* Top-Left Leaf Cluster */}
+          <path d="M 2,0 C 8,6 18,12 24,10 C 26,6 20,2 14,0 Z" fill="#184216" stroke="#0e260c" strokeWidth="0.8" />
+          <path d="M 4,2 C 10,7 18,10 22,9" fill="none" stroke="#63b557" strokeWidth="0.8" />
+          
+          <path d="M 0,6 C 6,14 16,18 20,15 C 22,11 14,8 8,4 Z" fill="#296826" stroke="#103310" strokeWidth="0.8" />
+          <path d="M 2,7 C 7,13 14,16 18,14" fill="none" stroke="#84d676" strokeWidth="0.8" />
+
+          <path d="M 12,0 C 20,4 28,6 34,2 C 32,-1 24,-1 16,-1 Z" fill="#367d31" stroke="#143c13" strokeWidth="0.8" />
+
+          {/* Bottom-Right Leaf Cluster */}
+          <path d="M 238,56 C 230,48 220,44 214,46 C 212,50 218,54 226,56 Z" fill="#184216" stroke="#0e260c" strokeWidth="0.8" />
+          <path d="M 236,54 C 228,47 220,45 216,47" fill="none" stroke="#63b557" strokeWidth="0.8" />
+
+          <path d="M 240,48 C 232,40 222,36 218,39 C 216,43 224,47 230,51 Z" fill="#296826" stroke="#103310" strokeWidth="0.8" />
+          <path d="M 238,47 C 231,41 224,38 220,40" fill="none" stroke="#84d676" strokeWidth="0.8" />
+
+          <path d="M 226,56 C 218,52 210,50 204,54 C 206,57 214,57 222,57 Z" fill="#367d31" stroke="#143c13" strokeWidth="0.8" />
+
+          {/* Top leaves along the vine */}
+          <path d="M 64,4 C 70,8 76,8 80,5 C 78,2 72,2 66,3 Z" fill="#296826" stroke="#103310" strokeWidth="0.6" />
+          <path d="M 118,2 C 124,7 132,6 135,2 C 132,-1 126,0 120,1 Z" fill="#367d31" stroke="#143c13" strokeWidth="0.6" />
+          <path d="M 176,6 C 182,10 188,9 192,6 C 190,3 184,3 178,4 Z" fill="#296826" stroke="#103310" strokeWidth="0.6" />
+
+          {/* Bottom leaves along the vine */}
+          <path d="M 44,52 C 50,47 58,48 62,52 C 59,55 52,54 46,53 Z" fill="#296826" stroke="#103310" strokeWidth="0.6" />
+          <path d="M 98,53 C 104,49 112,49 116,53 C 113,56 106,56 100,54 Z" fill="#367d31" stroke="#143c13" strokeWidth="0.6" />
+          <path d="M 152,51 C 158,46 166,47 170,51 C 167,54 160,54 154,52 Z" fill="#296826" stroke="#103310" strokeWidth="0.6" />
+
+          {/* Hanging ivy leaves */}
+          <path d="M 28,26 C 34,28 36,34 32,38 C 29,35 28,30 27,27 Z" fill="#388434" stroke="#133c12" strokeWidth="0.7" />
+          <path d="M 212,24 C 206,26 204,32 208,36 C 211,33 212,28 213,25 Z" fill="#388434" stroke="#133c12" strokeWidth="0.7" />
+        </g>
+      </svg>
+    </span>
+  );
+}
+
 function HeroSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
-  const { fetchPlatformStats, fetchRewardPeriodInfo } = useContract();
+  const { fetchPlatformStats } = useContract();
   const [stats, setStats] = useState<{ mintsLeft: number; burnedTokens: string; totalMinted: number } | null>(null);
-  const [rewardPeriods, setRewardPeriods] = useState<RewardPeriodInfo[]>([]);
 
   useEffect(() => {
     fetchPlatformStats().then((res) => {
@@ -25,24 +170,10 @@ function HeroSection() {
         });
       }
     });
-    fetchRewardPeriodInfo().then((periods) => {
-      setRewardPeriods(periods);
-    });
-  }, [fetchPlatformStats, fetchRewardPeriodInfo]);
+  }, [fetchPlatformStats]);
 
   const mintsLeftDisplay = stats ? stats.mintsLeft : MOCK_STATS.supplyAlive;
   const burnedDisplay = stats ? formatNumber(parseFloat(stats.burnedTokens)) : formatNumber(MOCK_STATS.destroyed);
-
-  const accrualStatus = (() => {
-    if (rewardPeriods.length === 0) return 'Loading…';
-    const activePeriod = rewardPeriods.find((rp) => rp.isActive);
-    if (activePeriod) {
-      const hrs = Math.floor(activePeriod.secondsRemaining / 3600);
-      const mins = Math.floor((activePeriod.secondsRemaining % 3600) / 60);
-      return `${hrs}h ${mins}m left`;
-    }
-    return 'Period Ended';
-  })();
 
   return (
     <section className="hero hero--clean" ref={ref} aria-labelledby="hero-heading">
@@ -58,20 +189,22 @@ function HeroSection() {
           </p>
 
           <div className="hero__actions">
-            <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg">
-              MINT EXECUTIVE
-            </Link>
+            <button type="button" className="btn btn--primary btn--lg btn--locked" disabled aria-disabled="true" title="Mint date to be announced">
+              <span className="btn__text">MINT EXECUTIVE (SOON)</span>
+              <JungleCageOverlay />
+            </button>
 
-            <Link to="/" className="btn btn--secondary btn--lg">
-              VIEW ON OPENSEA
-            </Link>
+            <button type="button" className="btn btn--secondary btn--lg btn--locked" disabled aria-disabled="true" title="Marketplace listing to be announced">
+              <span className="btn__text">VIEW ON OPENSEA (SOON)</span>
+              <JungleCageOverlay />
+            </button>
           </div>
 
           <div className="hero__pills">
             <div className="pill">
               <span>accrual status</span>
-              <span className={`pill__value ${rewardPeriods.some((rp) => rp.isActive) ? 'text-accent' : 'text-muted'}`}>
-                {accrualStatus}
+              <span className="pill__value text-accent">
+                TO BE ANNOUNCED
               </span>
             </div>
             <div className="pill">
@@ -302,14 +435,13 @@ function StatsSection() {
               </div>
               <span className="text-xs text-accent font-mono">
                 {SUPPORTED_REWARD_ASSETS.length} Stocks &amp; USDG · {TEASER_REWARD_ASSETS.length} Tokens
-                {/* Muted, so the promise reads as an aside rather than a third count. */}
                 <span className="text-muted"> · Many more to come</span>
               </span>
             </div>
 
             <div className="global-stock-strip">
               {allStockStripItems.map((stock) => (
-                <div key={stock.address} className="global-stock-card">
+                <div key={stock.id || stock.symbol || stock.address} className="global-stock-card">
                   <span className="global-stock-card__icon">{stock.icon}</span>
                   <div className="global-stock-card__info">
                     <span className="global-stock-card__symbol">{stock.symbol}</span>
@@ -326,7 +458,7 @@ function StatsSection() {
             </div>
 
             <p className="stat-card__subtext mt-4">
-              Cumulative rewards claimed by all NFT holders across the entire protocol on Robinhood Chain Mainnet.
+              Cumulative rewards claimed by all NFT holders across the entire protocol on Robinhood.
             </p>
           </div>
 
@@ -356,13 +488,14 @@ function StatsSection() {
 
             <div className="stat-card-item stat-card-item--cta">
               <p className="stat-card__tag">GET IN</p>
-              <h3 className="stat-card__val text-accent">MINT LIVE</h3>
+              <h3 className="stat-card__val text-accent">MINT SOON</h3>
               <p className="stat-card__desc">
-                1,111 total supply. Activate by burning 100 $SPECIE tokens to start earning hourly.
+                1,111 total supply. Mint and activation date to be announced on Twitter/X.
               </p>
-              <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--sm mt-4">
-                Mint Executive
-              </Link>
+              <button type="button" className="btn btn--primary btn--sm mt-4 btn--locked" disabled aria-disabled="true">
+                <span className="btn__text">Mint Executive (Soon)</span>
+                <JungleCageOverlay />
+              </button>
             </div>
           </div>
         </div>
@@ -644,9 +777,10 @@ function FinalCTASection() {
           decoding="async"
         />
         <h2 id="cta-heading" className="heading-xl mb-8">READY TO EARN?</h2>
-        <Link to={`${ROUTES.ACTIVATE}#mint`} className="btn btn--primary btn--lg animate-pulse-glow">
-          MINT EXECUTIVE
-        </Link>
+        <button type="button" className="btn btn--primary btn--lg btn--locked" disabled aria-disabled="true">
+          <span className="btn__text">MINT EXECUTIVE (SOON)</span>
+          <JungleCageOverlay />
+        </button>
       </div>
     </section>
   );

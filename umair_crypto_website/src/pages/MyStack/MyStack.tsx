@@ -158,7 +158,7 @@ export default function MyStack() {
 
   const relevantAssets = activeChosenStockIds.length > 0
     ? SUPPORTED_REWARD_ASSETS.filter((a) => activeChosenStockIds.includes(a.id))
-    : (activeNFTs.length > 0 ? SUPPORTED_REWARD_ASSETS.slice(0, 3) : SUPPORTED_REWARD_ASSETS.slice(0, 3));
+    : [];
 
   const claimableStats = relevantAssets.map((asset) => {
     const total = userNFTs.reduce((acc, item) => {
@@ -204,14 +204,6 @@ export default function MyStack() {
               <span>owned Executives</span>
               <span className="pill__value">{userNFTs.length} ({activeNFTs.length} Active)</span>
             </div>
-            {claimableStats.slice(0, 2).map((stat) => (
-              <div key={stat.address} className="pill">
-                <span>{stat.symbol} Claimable</span>
-                <span className="pill__value text-accent">
-                  {stat.decimals === 6 ? `$${stat.totalClaimable}` : stat.totalClaimable}
-                </span>
-              </div>
-            ))}
           </div>
 
           {isConnected && !wallet.isCorrectNetwork && (
@@ -230,8 +222,8 @@ export default function MyStack() {
           <div className={`mystack-accrual-section mb-8 ${isVisible ? 'animate-fade-in animate-delay-2' : ''}`}>
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
               <h2 className="heading-sm mb-0">YOUR ACCUMULATION</h2>
-              <span className="text-xs text-accent font-mono">
-                {claimableStats.length} Active {claimableStats.length === 1 ? 'Asset' : 'Assets'} · Live On-Chain
+              <span className={`text-xs font-mono ${activeNFTs.length > 0 ? 'text-accent' : 'text-muted'}`}>
+                {activeNFTs.length > 0 ? `${claimableStats.length} Active ${claimableStats.length === 1 ? 'Asset' : 'Assets'} · Live On-Chain` : '0 Active Streams'}
               </span>
             </div>
 

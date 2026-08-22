@@ -17,7 +17,7 @@ export const HERO = {
 } as const;
 
 export const STATS_LABELS = {
-  totalBananas: 'TOTAL SUPPLY',
+  totalBananas: 'REMAINING SUPPLY',
   destroyed: '$SPECIE BURNED',
   activeStacks: 'ACTIVE HOLDINGS',
   collectionSize: 'COLLECTION SIZE',
@@ -278,10 +278,10 @@ export const ALLIANCE = {
   mark: 'PARTNER COLLECTIONS × MONKEY BUSINESS',
   ref: 'FOUR COLLECTIONS · ROBINHOOD CHAIN',
   headingLine1: 'HOLD ONE OF THESE.',
-  headingLine2: 'EVERY EXECUTIVE COUNTS TWICE.',
+  headingLine2: 'EVERY EXECUTIVE GETS A 1.2X BOOST.',
   tagline: 'THE ALLIANCE · READ STRAIGHT OFF YOUR WALLET',
   body:
-    'Every partner NFT is a wallet with something sealed inside it. So is every Executive. Before the engine settles a stream it looks at the holder’s wallet — find one of these there, and that Executive is counted at 2.0x weight against every stream it picked: twice the slice of an Executive without one.',
+    'Every partner NFT is a wallet with something sealed inside it. So is every Executive. Before the engine settles a stream it looks at the holder’s wallet — find one of these there, and that Executive is counted at 1.2x weight against every stream it picked: a +20% boost over an Executive without one.',
   /*
    * The recognised collections. `supply` is each collection's own mint size, not
    * anything of ours. `onChain` is the honest bit: only the entry with it set is
@@ -294,16 +294,16 @@ export const ALLIANCE = {
     { key: 'stonkbrokers', glyph: '📈', name: 'StonkBrokers', supply: '4,444', onChain: true },
   ],
   perks: [
-    { value: '2.0x', label: 'weight on every activated Executive in that wallet' },
+    { value: '1.2x', label: 'weight on every activated Executive in that wallet' },
     { value: '1', label: 'partner NFT is enough — a tenth one changes nothing' },
     { value: '3 / 3', label: 'picks carry it, not just the first' },
     { value: '0', label: 'to stake, lock, or sign up for' },
   ],
   note:
-    'Nothing is retroactive. The boost starts the moment the NFT lands and stops when it leaves — and whatever was earned at 2.0x before that stays banked in the Executive’s own wallet either way.',
+    'Nothing is retroactive. The boost starts the moment the NFT lands and stops when it leaves — and whatever was earned at 1.2x before that stays banked in the Executive’s own wallet either way.',
   cta: 'GET A PARTNER NFT',
   href: 'https://opensea.io',
-  strip: 'HOLD ONE PARTNER NFT · EVERY ACTIVATED EXECUTIVE EARNS AT 2.0x',
+  strip: 'HOLD ONE PARTNER NFT · EVERY ACTIVATED EXECUTIVE EARNS AT 1.2x',
   imageAlt:
     'A pixel-art ape in a pinstriped suit working a laptop beside a blocky suited broker wearing a headset, standing in front of a rising green and gold candlestick chart with Bitcoin and Ethereum coins tumbling around them.',
 } as const;

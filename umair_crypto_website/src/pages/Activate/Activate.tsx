@@ -165,7 +165,7 @@ export default function Activate() {
               <p className="subtitle mb-2">WAKE YOUR EXECUTIVE</p>
               <h1 className="heading-xl mb-4">ACTIVATE</h1>
               <p className="body-lg mb-8">
-                Burn 100 $SPECIE to activate your Executive NFT and start earning real tokenized rewards on Robinhood Chain Mainnet.
+                Burn ??? $SPECIE to activate your Executive NFT and start earning real tokenized rewards on Robinhood.
               </p>
             </div>
 
@@ -225,11 +225,11 @@ export default function Activate() {
             </p>
 
             {fetchingUserState && userNFTs.length === 0 ? (
-              <p className="text-secondary">Loading your Executives from Robinhood Mainnet...</p>
+              <p className="text-secondary">Loading your Executives...</p>
             ) : userNFTs.length === 0 ? (
               <div className="empty-state p-6 bordered-box mb-6 text-center">
                 <h3 className="heading-sm mb-2">No Executives found in this wallet</h3>
-                <p className="text-secondary mb-4">Mint an official Executive NFT on Robinhood Chain Mainnet to start earning.</p>
+                <p className="text-secondary mb-4">Mint an executive NFT to start earning.</p>
               </div>
             ) : (
               <div className="nft-select-grid mb-6">
@@ -267,7 +267,7 @@ export default function Activate() {
                 <div className="mint-dedicated-info">
                   <h3 className="heading-sm mb-1">MINT A NEW EXECUTIVE</h3>
                   <p className="text-secondary text-xs">
-                    Directly on Robinhood Chain Mainnet. Mint your next Executive to expand your holdings.
+                    Mint your next Executive to expand your holdings.
                   </p>
                 </div>
                 <button
@@ -283,10 +283,7 @@ export default function Activate() {
           </div>
 
           <div className={`activate-section ${isVisible ? 'animate-fade-in animate-delay-3' : ''}`}>
-            <h2 className="heading-md mb-2">STEP 2. PICK YOUR TIER (STRATEGY & MULTIPLIER PREVIEW)</h2>
-            <p className="text-secondary mb-6 max-w-700">
-              Note: Current on-chain testnet activation burns a fixed 100 $SPECIE for standard earning across all active Executives. Multipliers below display visual strategy previews.
-            </p>
+            <h2 className="heading-md mb-6">STEP 2. PICK YOUR TIER</h2>
 
             <div className="grid-bordered grid-5 activate-tiers">
               {MOCK_TIERS.map((tier: TierInfo) => (
@@ -298,7 +295,7 @@ export default function Activate() {
                 >
                   <span className="tier-card__multiplier">{tier.multiplier}</span>
                   <span className="tier-card__name">{tier.name}</span>
-                  <span className="tier-card__cost">100 $SPECIE</span>
+                  <span className="tier-card__cost">??? $SPECIE</span>
                 </button>
               ))}
             </div>
@@ -312,7 +309,7 @@ export default function Activate() {
               </span>
             </div>
             <p className="text-secondary mb-6 max-w-800">
-              Select the 3 assets for this Executive — tokenized stocks, USDG, or crypto tokens. Upon burning 100 $SPECIE, this Executive will exclusively accrue and let you claim those 3 picks on Robinhood Chain Mainnet.
+              Select the 3 assets for this Executive — tokenized stocks, USDG, or crypto tokens. Upon burning ??? $SPECIE, this Executive will exclusively accrue and let you claim those 3 picks on Robinhood.
             </p>
 
             <div className="stock-picker-grid">
@@ -339,7 +336,7 @@ export default function Activate() {
 
             {!isConnected ? (
               <div className="activate-connect">
-                <p className="text-secondary mb-4">Connect your wallet to activate your Executive on Robinhood Mainnet.</p>
+                <p className="text-secondary mb-4">Connect your wallet to activate your Executive on Robinhood.</p>
                 <button className="btn btn--primary btn--lg" onClick={connect} disabled={isConnecting}>
                   {isConnecting ? WALLET.connecting : WALLET.connectButton}
                 </button>
@@ -355,7 +352,7 @@ export default function Activate() {
               <div className="activate-success">
                 <p className="heading-sm text-accent mb-4">ACTIVATION CONFIRMED!</p>
                 <p className="text-secondary mb-4">
-                  Executive #{selectedTokenId} has been successfully activated on Robinhood Chain Mainnet.
+                  Executive #{selectedTokenId} has been successfully activated on Robinhood.
                 </p>
                 {txHash && (
                   <p className="mb-6 text-sm">
@@ -385,7 +382,7 @@ export default function Activate() {
                   </div>
                   <div>
                     <span className="text-muted block text-xs">ON-CHAIN BURN COST</span>
-                    <span className="font-bold">100 $SPECIE (Permanently Burned)</span>
+                    <span className="font-bold">??? $SPECIE (Permanently Burned)</span>
                   </div>
                   <div>
                     <span className="text-muted block text-xs">SELECTED REWARD ASSETS</span>
@@ -445,7 +442,7 @@ export default function Activate() {
                     ? 'AWAITING WALLET SIGNATURE...'
                     : txStatus === 'pending'
                     ? 'WAITING FOR CONFIRMATION...'
-                    : 'BURN 100 $SPECIE & ACTIVATE ON-CHAIN'}
+                    : 'BURN ??? $SPECIE & ACTIVATE ON-CHAIN'}
                 </button>
               </div>
             )}
