@@ -328,19 +328,19 @@ export const ALLIANCE = {
 export const PROFIT_LOOP = {
   mark: 'CLAUSE 7.0 · DISTRIBUTION',
   ref: 'MB-FIN-007',
-  heading: 'EVERY DOLLAR THE FIRM MAKES COMES BACK TO THE FLOOR',
   value: '100%',
-  valueLabel: 'OF PROFITS',
+  valueLabel: 'OF ALL FIRM\nPROFITS',
+  heading: 'EVERY DOLLAR MONKEY BUSINESS MAKES COMES BACK TO HOLDERS',
+  subheading: "Your earnings aren't just tied to volume.",
   body:
-    'Monkey Business doesn’t keep its profits. Every fee the Firm collects is routed to the treasury, spent buying the assets that back rewards, and paid into the Executive’s own on-chain vault — where nobody at the Firm can reach it.',
+    'Most projects pay holders a cut of trading volume and stop there. Monkey Business goes further: profit from every venture the Firm launches — not just this collection or token — is routed to the treasury and paid out to holders. Your earnings scale with the whole business, not just the chart.',
   steps: [
-    { ordinal: '01', label: 'FEES', caption: 'Protocol fees on platform activity' },
+    { ordinal: '01', label: 'ALL REVENUE', caption: 'Every Firm venture, pooled' },
     { ordinal: '02', label: 'TREASURY', caption: 'Multisig custody, timelocked' },
-    { ordinal: '03', label: 'ASSETS BOUGHT', caption: 'Revenue converted to reward assets' },
-    { ordinal: '04', label: 'YOUR EXECUTIVE', caption: 'Paid into its own on-chain vault' },
+    { ordinal: '03', label: 'ASSETS BOUGHT', caption: 'Converted into reward assets' },
+    { ordinal: '04', label: 'HOLDER EARNINGS', caption: 'Distributed pro-rata, on-chain' },
   ],
-  strip: 'NON-WITHDRAWABLE · NEVER EXPIRES · PAID ON-CHAIN',
-  fine: 'Fee model and distribution routes are governed on-chain and finalised at mainnet launch.',
+  strip: 'NON-WITHDRAWABLE BY FIRM   ·   NEVER EXPIRES   ·   PAID ON-CHAIN',
 } as const;
 
 export const WALLET = {

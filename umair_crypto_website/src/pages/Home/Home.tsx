@@ -327,24 +327,33 @@ function ProfitLoopSection() {
           </header>
 
           <div className="profit-loop__body">
-            <div className="profit-loop__copy">
-              <h2 id="profit-heading" className="heading-md">
-                {PROFIT_LOOP.heading}
-              </h2>
-              <p className="body-lg profit-loop__desc">{PROFIT_LOOP.body}</p>
+            <div className="profit-loop__figure-row">
+              <span className="profit-loop__value">{PROFIT_LOOP.value}</span>
+              <span className="profit-loop__value-label">
+                OF ALL FIRM<br />PROFITS
+              </span>
             </div>
 
-            <p className="profit-loop__figure">
-              <span className="profit-loop__value">{PROFIT_LOOP.value}</span>
-              <span className="profit-loop__value-label">{PROFIT_LOOP.valueLabel}</span>
-            </p>
+            <div className="profit-loop__copy">
+              <h2 id="profit-heading" className="heading-md profit-loop__heading">
+                {PROFIT_LOOP.heading}
+              </h2>
+              <div className="profit-loop__bar" aria-hidden="true" />
+              <h3 className="profit-loop__subheading">
+                {PROFIT_LOOP.subheading}
+              </h3>
+              <p className="body-md profit-loop__desc">{PROFIT_LOOP.body}</p>
+            </div>
           </div>
 
           {/* The connector and the light that travels it are both drawn as
               pseudo-elements on this list — an <ol> may only parent <li>. */}
           <ol className="profit-loop__flow">
             {PROFIT_LOOP.steps.map((step) => (
-              <li key={step.ordinal} className="profit-loop__node">
+              <li
+                key={step.ordinal}
+                className={`profit-loop__node ${step.ordinal === '04' ? 'profit-loop__node--active' : ''} ${step.ordinal === '01' || step.ordinal === '02' ? 'profit-loop__node--green' : ''}`}
+              >
                 <span className="profit-loop__ordinal">{step.ordinal}</span>
                 <span className="profit-loop__dot" aria-hidden="true" />
                 <span className="profit-loop__label">{step.label}</span>
@@ -355,7 +364,6 @@ function ProfitLoopSection() {
 
           <footer className="profit-loop__strip">
             <p className="profit-loop__claims">{PROFIT_LOOP.strip}</p>
-            <p className="profit-loop__fine">{PROFIT_LOOP.fine}</p>
           </footer>
         </article>
       </div>
