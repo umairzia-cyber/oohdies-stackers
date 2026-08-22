@@ -1,8 +1,8 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useScrollReveal, useDocumentTitle, useContract, type AssetClaimTotal, type RewardPeriodInfo } from '../../hooks';
-import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, SEO } from '../../constants/content';
+import { ALLIANCE, CRATE_TEASE, HERO, HOW_IT_WORKS, PROFIT_LOOP, SEO } from '../../constants/content';
 import { ROUTES } from '../../constants/routes';
-import { ALL_REWARD_ASSETS } from '../../constants/contracts';
+import { ALL_REWARD_ASSETS, SUPPORTED_REWARD_ASSETS, TEASER_REWARD_ASSETS } from '../../constants/contracts';
 import { ARCHETYPES, COLLECTION_SIZE, drawRandom } from '../../constants/collection';
 import { MOCK_COLLECTION, MOCK_STATS, MOCK_STEPS, MOCK_STOCKS } from '../../services/mock/mockData';
 import { formatNumber } from '../../utils';
@@ -174,11 +174,67 @@ function ExtractionBandSection() {
   );
 }
 
+/* ─── Profit Loop ────────────────────────────
+   The second half of the extraction band's argument. That one says where the
+   money lands; this says where it comes from, so it runs directly after it.
+
+   The pipeline is an <ol> because the order is the point — at 768px the nodes
+   wrap to two rows and the connector line is dropped, and the 01–04 ordinals
+   are what carries the sequence once the line is gone. */
+function ProfitLoopSection() {
+  const [ref, isVisible] = useScrollReveal<HTMLElement>();
+
+  return (
+    <section className="section section--profit-loop" ref={ref} aria-labelledby="profit-heading">
+      <div className="container">
+        <article className={`profit-loop ${isVisible ? 'reveal--visible' : 'reveal'}`}>
+          <header className="profit-loop__rail">
+            <span className="profit-loop__mark">{PROFIT_LOOP.mark}</span>
+            <span className="profit-loop__ref">{PROFIT_LOOP.ref}</span>
+          </header>
+
+          <div className="profit-loop__body">
+            <div className="profit-loop__copy">
+              <h2 id="profit-heading" className="heading-md">
+                {PROFIT_LOOP.heading}
+              </h2>
+              <p className="body-lg profit-loop__desc">{PROFIT_LOOP.body}</p>
+            </div>
+
+            <p className="profit-loop__figure">
+              <span className="profit-loop__value">{PROFIT_LOOP.value}</span>
+              <span className="profit-loop__value-label">{PROFIT_LOOP.valueLabel}</span>
+            </p>
+          </div>
+
+          {/* The connector and the light that travels it are both drawn as
+              pseudo-elements on this list — an <ol> may only parent <li>. */}
+          <ol className="profit-loop__flow">
+            {PROFIT_LOOP.steps.map((step) => (
+              <li key={step.ordinal} className="profit-loop__node">
+                <span className="profit-loop__ordinal">{step.ordinal}</span>
+                <span className="profit-loop__dot" aria-hidden="true" />
+                <span className="profit-loop__label">{step.label}</span>
+                <span className="profit-loop__caption">{step.caption}</span>
+              </li>
+            ))}
+          </ol>
+
+          <footer className="profit-loop__strip">
+            <p className="profit-loop__claims">{PROFIT_LOOP.strip}</p>
+            <p className="profit-loop__fine">{PROFIT_LOOP.fine}</p>
+          </footer>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Stats & Compact Stock Section ───────────────────── */
 function StatsSection() {
   const [ref, isVisible] = useScrollReveal<HTMLElement>();
   const { fetchPlatformStats, fetchGlobalRewardStats } = useContract();
-  const [stats, setStats] = useState<{ mintsLeft: number; burnedTokens: string; totalMinted: number } | null>(null);
+  const [stats, setStats] = useState<{ mintsLeft: number; burnedTokens: string; burnedPercent: number; totalMinted: number } | null>(null);
   const [rewardStats, setRewardStats] = useState<AssetClaimTotal[]>([]);
 
   useEffect(() => {
@@ -187,6 +243,7 @@ function StatsSection() {
         setStats({
           mintsLeft: res.mintsLeft,
           burnedTokens: res.burnedTokens,
+          burnedPercent: res.burnedPercent,
           totalMinted: res.totalMinted,
         });
       }
@@ -200,6 +257,11 @@ function StatsSection() {
 
   const mintsLeftDisplay = stats ? stats.mintsLeft : MOCK_STATS.supplyAlive;
   const burnedTokensDisplay = stats ? `${formatNumber(parseFloat(stats.burnedTokens))} $SPECIE` : MOCK_STATS.supplyBurnedTokens;
+  /* Was a hardcoded 14.08%, so the bar sat filled while the figure above it read
+     zero. It tracks the burn now: live percentage when the chain answers, and
+     the mock's own supplyBurnedPercent — which existed but was never read — when
+     it does not. */
+  const burnedPercentDisplay = stats ? stats.burnedPercent : parseFloat(MOCK_STATS.supplyBurnedPercent);
 
   // Merge registered assets with live claimed stats. Teased tokens carry no
   // address, so they never match a live row and simply read zero — which is what
@@ -238,7 +300,11 @@ function StatsSection() {
                 />
                 <p className="stat-card__tag mb-0">TOTAL REWARDS CLAIMED (GLOBAL ON-CHAIN)</p>
               </div>
-              <span className="text-xs text-accent font-mono">12 Stocks &amp; USDG · 6 Tokens</span>
+              <span className="text-xs text-accent font-mono">
+                {SUPPORTED_REWARD_ASSETS.length} Stocks &amp; USDG · {TEASER_REWARD_ASSETS.length} Tokens
+                {/* Muted, so the promise reads as an aside rather than a third count. */}
+                <span className="text-muted"> · Many more to come</span>
+              </span>
             </div>
 
             <div className="global-stock-strip">
@@ -284,7 +350,7 @@ function StatsSection() {
                 Gone forever, out of a billion. Burned by every activation and tier climb.
               </p>
               <div className="stat-card__progress-track">
-                <div className="stat-card__progress-bar" style={{ width: '14.08%' }} />
+                <div className="stat-card__progress-bar" style={{ width: `${burnedPercentDisplay}%` }} />
               </div>
             </div>
 
@@ -317,9 +383,9 @@ function ShowcaseSection() {
         <div className={`showcase-grid-3col ${isVisible ? 'reveal--visible' : 'reveal'}`}>
 
           <div className="showcase-card showcase-card--stocks">
-            <p className="showcase-card__tag">EIGHTEEN WAYS TO EARN</p>
+            <p className="showcase-card__tag">NINETEEN WAYS TO EARN</p>
             <p className="showcase-card__desc">
-              Eleven tokenized stocks, USDG, and six crypto tokens. Pick up to three, split your hourly earnings between them. Your split decides what you collect, not how much.
+              Eleven tokenized stocks, USDG, and seven crypto tokens. Pick up to three, split your hourly earnings between them. Your split decides what you collect, not how much.
             </p>
             <div className="stocks-icon-row stocks-icon-row--large">
               {MOCK_STOCKS.map((stock) => (
@@ -669,6 +735,7 @@ export default function Home() {
       <SpaceTradingBannerSection />
       <StatsSection />
       <ExtractionBandSection />
+      <ProfitLoopSection />
       <ShowcaseSection />
       <AllianceSection />
       <CollectionSection />
