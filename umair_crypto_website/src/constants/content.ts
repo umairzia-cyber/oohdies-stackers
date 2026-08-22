@@ -308,6 +308,41 @@ export const ALLIANCE = {
     'A pixel-art ape in a pinstriped suit working a laptop beside a blocky suited broker wearing a headset, standing in front of a rising green and gold candlestick chart with Bitcoin and Ethereum coins tumbling around them.',
 } as const;
 
+/*
+ * The distribution band on the homepage. The Firm's joke is that it is a
+ * company, so the one place the site makes a financial promise is filed as a
+ * numbered clause rather than a marketing banner.
+ *
+ * `fine` is not decoration. The Stage 7 package still lists the fee model and
+ * the acquisition route as open decisions (D-04, D-05), so the heading states
+ * the intent and the fine print says plainly that the parameters are not
+ * settled. `strip` is the opposite — every clause in it is something the
+ * contracts enforce today: RewardVault has no admin withdrawal path, accrued
+ * rewards never expire, and a claim is paid straight into the Executive's own
+ * token-bound account.
+ *
+ * `steps` is the real pipeline out of the Stage 7 specs, cut to four nodes.
+ * Adding a fifth means retuning the connector inset in Home.css — it is a
+ * percentage sized for four columns.
+ */
+export const PROFIT_LOOP = {
+  mark: 'CLAUSE 7.0 · DISTRIBUTION',
+  ref: 'MB-FIN-007',
+  heading: 'EVERY DOLLAR THE FIRM MAKES COMES BACK TO THE FLOOR',
+  value: '100%',
+  valueLabel: 'OF PROFITS',
+  body:
+    'Monkey Business doesn’t keep its profits. Every fee the Firm collects is routed to the treasury, spent buying the assets that back rewards, and paid into the Executive’s own on-chain vault — where nobody at the Firm can reach it.',
+  steps: [
+    { ordinal: '01', label: 'FEES', caption: 'Protocol fees on platform activity' },
+    { ordinal: '02', label: 'TREASURY', caption: 'Multisig custody, timelocked' },
+    { ordinal: '03', label: 'ASSETS BOUGHT', caption: 'Revenue converted to reward assets' },
+    { ordinal: '04', label: 'YOUR EXECUTIVE', caption: 'Paid into its own on-chain vault' },
+  ],
+  strip: 'NON-WITHDRAWABLE · NEVER EXPIRES · PAID ON-CHAIN',
+  fine: 'Fee model and distribution routes are governed on-chain and finalised at mainnet launch.',
+} as const;
+
 export const WALLET = {
   connectButton: 'Connect Wallet',
   disconnectButton: 'Disconnect',

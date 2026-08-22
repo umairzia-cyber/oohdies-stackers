@@ -22,6 +22,13 @@ import { predictAccountAddress } from '../utils/tokenBoundAccount';
 
 const publicProvider = new ethers.JsonRpcProvider(ROBINHOOD_TESTNET_CONFIG.rpcUrl);
 
+/**
+ * $SPECIE minted at genesis, in wei. Burning is one-way and nothing re-mints,
+ * so this is a fixed denominator: everything missing from totalSupply() has
+ * been burned. Both the burned figure and the burned percentage derive from it.
+ */
+const SPECIE_INITIAL_SUPPLY = 1_000_000_000n * 10n ** 18n;
+
 export interface NFTRewardClaimable {
   assetId: string;
   assetAddress: string;
@@ -102,12 +109,19 @@ export function useContract() {
         nftContract.MAX_SUPPLY(),
       ]);
 
-      const initialSupply = 1_000_000_000n * 10n ** 18n;
-      const burnedWei = initialSupply - BigInt(totalSupply);
+      // Clamped at zero: a totalSupply above genesis would mean something
+      // re-minted, and a negative burn is not a thing we want to render.
+      const burnedWei = SPECIE_INITIAL_SUPPLY - BigInt(totalSupply);
+      const burnedWeiClamped = burnedWei > 0n ? burnedWei : 0n;
+
+      // Two decimal places, kept in BigInt until the last step so a billion-token
+      // supply does not lose precision through a float divide.
+      const burnedPercent = Number((burnedWeiClamped * 10_000n) / SPECIE_INITIAL_SUPPLY) / 100;
 
       return {
         totalSupply: ethers.formatEther(totalSupply),
-        burnedTokens: ethers.formatEther(burnedWei),
+        burnedTokens: ethers.formatEther(burnedWeiClamped),
+        burnedPercent,
         totalMinted: Number(totalMinted),
         maxSupply: Number(maxSupply),
         mintsLeft: Number(maxSupply) - Number(totalMinted),

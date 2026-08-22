@@ -241,6 +241,216 @@
   text-shadow: 0 0 10px var(--lime-glow-strong);
 }
 
+/* ── Profit loop ───────────────────────────────────────────────────
+   The distribution band. Built on the same stationery as .alliance-card further
+   down — same 1100px cap, same dashed rail and closing strip — because those two
+   are the page's only cards pretending to be filed documents.
+
+   NB: nothing here may set `opacity` on .profit-loop. It also carries the shared
+   .reveal / .reveal--visible pair, which animates opacity on entry at the same
+   specificity, and Home.css loads after index.css — so a resting opacity would
+   win and pin the card, killing its scroll reveal. Same trap as the crate tease
+   at the bottom of this file. */
+
+.section--profit-loop {
+  padding-top: var(--space-8);
+}
+
+.profit-loop {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+  box-shadow: 0 0 35px var(--accent-a12);
+}
+
+.profit-loop__rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  border-bottom: 1px dashed var(--border-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+}
+
+.profit-loop__mark {
+  color: var(--text-secondary);
+}
+
+.profit-loop__ref {
+  margin-left: auto;
+  color: var(--text-muted);
+}
+
+.profit-loop__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
+  gap: var(--space-8);
+  align-items: center;
+  padding: var(--space-6);
+}
+
+.profit-loop__desc {
+  margin-top: var(--space-3);
+  color: var(--text-secondary);
+}
+
+/* Amber, not lime. House rule: amber carries value, lime carries affordances —
+   this is a number, not something to click. */
+.profit-loop__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--accent-a20);
+  border-radius: var(--radius-md);
+  background-color: var(--accent-a04);
+}
+
+.profit-loop__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-6xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  text-shadow: 0 0 30px var(--accent-glow-strong);
+}
+
+.profit-loop__value-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* The pipeline.
+   `gap: 0` is load-bearing, not laziness: with four equal columns and no gap
+   the outer dot centres land exactly on 12.5% and 87.5%, which is what the
+   connector is inset to below. Breathing room moves to each node's own padding,
+   and the horizontal inset moves to this list's margin — a percentage resolves
+   against the padding box, so the box must carry no horizontal padding itself.
+   Four columns is baked into that 12.5%; a fifth node means retuning it. */
+.profit-loop__flow {
+  --node-ordinal-h: 0.75rem;
+  --node-dot: 14px;
+  --node-gap: var(--space-2);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0 var(--space-6);
+  padding: 0 0 var(--space-6);
+  list-style: none;
+}
+
+/* ::before is the track, ::after the light that runs along it. Both sit on the
+   dot centre line, derived rather than hardcoded so retuning --node-dot does not
+   leave the connector floating above or below the dots. */
+.profit-loop__flow::before,
+.profit-loop__flow::after {
+  content: '';
+  position: absolute;
+  left: 12.5%;
+  right: 12.5%;
+  top: calc(var(--node-ordinal-h) + var(--node-gap) + var(--node-dot) / 2 - 1px);
+  height: 2px;
+}
+
+.profit-loop__flow::before {
+  background: linear-gradient(90deg, var(--accent-a20), var(--accent-a35), var(--accent-a20));
+}
+
+/* Same idiom as TheTrail's scan band: animate background-position across an
+   oversized gradient rather than moving a box. The global reduced-motion clamp
+   in index.css stops it without needing a guard here. */
+.profit-loop__flow::after {
+  background-image: linear-gradient(90deg, transparent, var(--accent-bright), transparent);
+  background-size: 28% 100%;
+  background-repeat: no-repeat;
+  animation: profit-pulse 3.2s linear infinite;
+}
+
+@keyframes profit-pulse {
+  from {
+    background-position: -30% 0;
+  }
+  to {
+    background-position: 130% 0;
+  }
+}
+
+.profit-loop__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--node-gap);
+  padding: 0 var(--space-2);
+  text-align: center;
+}
+
+.profit-loop__ordinal {
+  height: var(--node-ordinal-h);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.profit-loop__dot {
+  width: var(--node-dot);
+  height: var(--node-dot);
+  border: 2px solid var(--accent-a50);
+  border-radius: var(--radius-full);
+  background-color: var(--bg-primary);
+}
+
+/* The last node is where the money stops, so it is the only filled one. */
+.profit-loop__node:last-child .profit-loop__dot {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow-strong);
+}
+
+.profit-loop__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
+.profit-loop__caption {
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.profit-loop__strip {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px dashed var(--border-primary);
+  text-align: center;
+}
+
+.profit-loop__claims {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.profit-loop__fine {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
 /* ── Coin mark ─────────────────────────────────────────────────────────────
    The medallion stamped on the airlifted crate, reused as a standalone mark.
    The source art has no alpha — it is an opaque square with the coin inscribed
@@ -1189,6 +1399,15 @@
     gap: var(--space-6);
   }
 
+  .profit-loop__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 200px);
+    gap: var(--space-6);
+  }
+
+  .profit-loop__value {
+    font-size: var(--text-5xl);
+  }
+
   .alliance-card__heading {
     font-size: var(--text-2xl);
   }
@@ -1238,6 +1457,36 @@
   .extraction-band__art {
     max-width: 420px;
     margin: 0 auto;
+  }
+
+  /* Figure first: the number is the reason this band exists, and stacked under
+     the paragraph it lands below the fold of the card. */
+  .profit-loop__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .profit-loop__figure {
+    order: -1;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  /* Two rows now, so the horizontal connector is meaningless — the 01–04
+     ordinals carry the order instead. Restoring the column gap is safe here
+     because nothing is measuring against it any more. */
+  .profit-loop__flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-4);
+    row-gap: var(--space-6);
+    margin: 0 var(--space-5);
+    padding-bottom: var(--space-6);
+  }
+
+  .profit-loop__flow::before,
+  .profit-loop__flow::after {
+    display: none;
   }
 
   .coin-mark--cta {
@@ -1292,6 +1541,17 @@
 @media (max-width: 480px) {
   .collection-strip__row {
     --strip-columns: 3;
+  }
+
+  .profit-loop__flow {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-5);
+  }
+
+  /* Same fix as the alliance rail below — once the rail wraps, a right-pinned
+     reference is stranded on a line of its own. */
+  .profit-loop__ref {
+    margin-left: 0;
   }
 
   .alliance-card__strip {

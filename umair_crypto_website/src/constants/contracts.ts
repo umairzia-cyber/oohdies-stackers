@@ -181,6 +181,15 @@ export const TEASER_REWARD_ASSETS: readonly RewardAssetConfig[] = [
     comingSoon: true,
   },
   {
+    id: 'eth',
+    symbol: 'ETH',
+    name: 'Ethereum',
+    address: '',
+    decimals: 18,
+    icon: '🔷',
+    comingSoon: true,
+  },
+  {
     id: 'doge',
     symbol: 'DOGE',
     name: 'Dogecoin',
